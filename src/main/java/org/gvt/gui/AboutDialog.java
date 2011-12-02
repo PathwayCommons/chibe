@@ -106,7 +106,7 @@ public class AboutDialog extends Dialog
 			"Paxtools, version 1.0, and\n" +
 			"PATIKAmad, version 2.1\n" +
 			"\n" +
-			"� Bilkent Center for Bioinformatics, 2007 - present\n" +
+			" Bilkent Center for Bioinformatics, 2007 - present\n" +
 			"\n" +
 			"Bilkent University,\n" +
 			"Ankara 06800, TURKEY\n" +

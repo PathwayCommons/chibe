@@ -23,7 +23,7 @@ public class ChsDirectEditManager extends DirectEditManager
 		model = (GraphObject) source.getModel();
 	}
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	* @see org.eclipse.gef.tools.DirectEditManager#initCellEditor()
 	*/
 	protected void initCellEditor()

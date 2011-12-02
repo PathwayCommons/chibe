@@ -23,7 +23,7 @@ public class ReconnectConnectionCommand extends Command
 	private NodeModel oldTarget = null;
 
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute()
@@ -70,7 +70,7 @@ public class ReconnectConnectionCommand extends Command
 		newTarget = (NodeModel) model;
 	}
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo()

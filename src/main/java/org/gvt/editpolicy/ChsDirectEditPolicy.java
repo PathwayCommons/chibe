@@ -20,7 +20,7 @@ public class ChsDirectEditPolicy extends DirectEditPolicy
 		return command;
 	}
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.editpolicies.DirectEditPolicy#showCurrentEditValue(org.eclipse.gef.requests.DirectEditRequest)
 	 */
 	protected void showCurrentEditValue(DirectEditRequest request)

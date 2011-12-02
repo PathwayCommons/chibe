@@ -14,7 +14,7 @@ public class DirectEditCommand extends Command
 
 	private GraphObject model;
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute()
@@ -33,7 +33,7 @@ public class DirectEditCommand extends Command
 		newText = text;
 	}
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo()

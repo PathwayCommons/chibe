@@ -18,6 +18,11 @@
 			<enabled>true</enabled>
 		  </snapshots>
 		</repository>
+        <repository>
+            <id>eclipse</id>
+            <name>eclipse</name>
+            <url>http://maven.eclipse.org/nexus/content/repositories/testing</url>
+        </repository>
 		<repository>
 			<id>biopax.snapshots</id>
 			<name>BioPAX Snapshots Repository at Sourceforge</name>
@@ -26,6 +31,11 @@
 				<enabled>false</enabled>
 			</releases>
 		</repository>
+        <repository>
+            <id>chibe</id>
+            <name>ChiBE Specific</name>
+            <url>http://cbio.mskcc.org/~ozgun/m2repo/</url>
+        </repository>
 	</repositories>
 
 	<build>
@@ -42,32 +52,96 @@
 		</pluginManagement>
 	</build>
 
+    <profiles>
+      <profile>
+        <id>mac</id>
+        <activation>
+          <os>
+            <name>mac os x</name>
+          </os>
+        </activation>
+        <properties>
+          <swt.groupId>org.eclipse.swt.carbon</swt.groupId>
+          <swt.artifactId>macosx</swt.artifactId>
+        </properties>
+      </profile>
+      <profile>
+        <id>windows</id>
+        <activation>
+          <os>
+            <family>windows</family>
+          </os>
+        </activation>
+        <properties>
+          <swt.groupId>org.eclipse.swt.win32.win32</swt.groupId>
+          <swt.artifactId>x86</swt.artifactId>
+        </properties>
+      </profile>
+    </profiles>
+
 	<dependencies>
+        <dependency>
+            <groupId>org.eclipse.swt</groupId>
+            <artifactId>org.eclipse.swt.gtk.linux.x86</artifactId>
+            <version>3.6.2</version>
+        </dependency>
 		<dependency>
-			<groupId>swt</groupId>
-			<artifactId>jface</artifactId>
-			<version>3.0.1</version>
+			<groupId>org.eclipse.jface</groupId>
+			<artifactId>org.eclipse.jface</artifactId>
+			<version>3.6.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>draw2d</artifactId>
-			<version>3.2.100-v20070529</version>
+			<groupId>org.eclipse.draw2d</groupId>
+			<artifactId>org.eclipse.draw2d</artifactId>
+			<version>3.6.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>swt</artifactId>
-			<version>3.3.0-v3346</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>gef</artifactId>
-			<version>3.2.100-v20070620</version>
+			<groupId>org.eclipse.gef</groupId>
+			<artifactId>org.eclipse.gef</artifactId>
+			<version>3.6.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>paxtools-core</artifactId>
-			<version>4.1.0-SNAPSHOT</version>
+			<version>4.0.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.biopax.paxtools</groupId>
+			<artifactId>pathwaycommons-client</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.biopax.paxtools</groupId>
+			<artifactId>sif-converter</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
+		</dependency>
+        <!--<dependency>-->
+          <!--<groupId>${swt.groupId}</groupId>-->
+          <!--<artifactId>${swt.artifactId}</artifactId>-->
+          <!--<version>3.4.2</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.patika.mada</groupId>
+            <artifactId>dataXML</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.patika.mada</groupId>
+            <artifactId>dataXML</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graphdrawing.graphml</groupId>
+            <artifactId>xmlns</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.5.0</version>
+        </dependency>
 	</dependencies>
+
 
 </project>

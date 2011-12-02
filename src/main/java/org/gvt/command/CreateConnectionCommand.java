@@ -43,7 +43,7 @@ public class CreateConnectionCommand extends Command
 	public NodeModel getTarget()
 	{
 		return target;
-	}/* (”ñ Javadoc)
+	}/* ( Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute()

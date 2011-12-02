@@ -12,7 +12,7 @@ import org.gvt.command.DeleteConnectionCommand;
  */
 public class ChsConnectionEditPolicy extends ConnectionEditPolicy
 {
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.editpolicies.ConnectionEditPolicy#getDeleteCommand(org.eclipse.gef.requests.GroupRequest)
 	 */
 	protected Command getDeleteCommand(GroupRequest request)

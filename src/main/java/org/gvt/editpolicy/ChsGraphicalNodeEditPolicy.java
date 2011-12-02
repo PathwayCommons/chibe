@@ -14,7 +14,7 @@ import org.gvt.command.ReconnectConnectionCommand;
  */
 public class ChsGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
 {
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy#getConnectionCompleteCommand(org.eclipse.gef.requests.CreateConnectionRequest)
 	 */
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request)
@@ -26,7 +26,7 @@ public class ChsGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
 		return command;
 	}
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy#getConnectionCreateCommand(org.eclipse.gef.requests.CreateConnectionRequest)
 	 */
 	protected Command getConnectionCreateCommand(CreateConnectionRequest request)
@@ -38,7 +38,7 @@ public class ChsGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
 		return command;
 	}
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy#getReconnectTargetCommand(org.eclipse.gef.requests.ReconnectRequest)
 	 */
 	protected Command getReconnectTargetCommand(ReconnectRequest request)
@@ -50,7 +50,7 @@ public class ChsGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy
 
 	}
 
-	/* (”ñ Javadoc)
+	/* ( Javadoc)
 	 * @see org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy#getReconnectSourceCommand(org.eclipse.gef.requests.ReconnectRequest)
 	 */
 	protected Command getReconnectSourceCommand(ReconnectRequest request)

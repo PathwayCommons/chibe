@@ -1,6 +1,7 @@
 package org.gvt.layout;
 
 import java.util.*;
+import java.util.Vector;
 
 import org.eclipse.draw2d.geometry.*;
 import org.eclipse.jface.util.Assert;
