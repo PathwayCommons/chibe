@@ -89,7 +89,7 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
 			NeighborhoodQueryParamWithEntitiesDialog.class,
-			"/org/gvt/icon/cbe-icon.png");
+			"/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		//layout of shell contains 6 columns

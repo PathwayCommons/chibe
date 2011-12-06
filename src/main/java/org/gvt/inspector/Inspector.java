@@ -3,9 +3,7 @@ package org.gvt.inspector;
 import java.util.*;
 import java.util.List;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CCombo;
@@ -81,7 +79,7 @@ public abstract class Inspector extends Dialog
 		this.shell.setText(title + " Properties");
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			Inspector.class, "/org/gvt/icon/cbe-icon.png");
+			Inspector.class, "/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		GridLayout layout = new GridLayout();

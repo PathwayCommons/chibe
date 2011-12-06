@@ -1,6 +1,5 @@
 package org.gvt;
 
-import org.apache.commons.lang.SystemUtils;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.io.pathwayCommons.PathwayCommonsIOHandler;
@@ -60,12 +59,9 @@ import org.patika.mada.dataXML.ChisioExperimentData;
 import org.patika.mada.util.ExperimentDataManager;
 
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.*;
 import java.util.List;
 
@@ -327,7 +323,7 @@ public class ChisioMain extends ApplicationWindow
 		if (root instanceof SIFGraph)
 		{
 			ImageDescriptor id = ImageDescriptor.createFromFile(
-				ChisioMain.class, "/org/gvt/icon/sif.png");
+				ChisioMain.class, "/src/main/resources/org/gvt/icon/sif.png");
 
 			tab.setImage(id.createImage());
 		}

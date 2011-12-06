@@ -87,7 +87,7 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
 			CommonStreamQueryParamWithEntitiesDialog.class,
-			"/org/gvt/icon/cbe-icon.png");
+			"/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		//layout of shell contains 6 columns

@@ -173,7 +173,7 @@ public class ExperimentDataVisualizationDialog extends Dialog implements Selecti
 		shell.setText("Values");
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			ExperimentDataVisualizationDialog.class, "/org/gvt/icon/cbe-icon.png");
+			ExperimentDataVisualizationDialog.class, "/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		int width = Math.max(620, 100 + (man.getExperimentSize() * 60));

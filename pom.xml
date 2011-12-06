@@ -8,6 +8,16 @@
 	<artifactId>chibe</artifactId>
 	<version>2.0</version>
 
+	<properties>
+		<biopax.version>4.0.0-SNAPSHOT</biopax.version>
+
+		<!--Below code is used for creating platform dependent builds. If you are creating a build
+			for a different platform, comment out the "profiles" section and comment in the below
+			line, and update to the correct swt type.-->
+
+		<!--<swt.artifactId>swt-win32-win32-x86</swt.artifactId>-->
+	</properties>
+
 	<repositories>
 		<repository>
 			<id>central</id>
@@ -19,9 +29,9 @@
 			</snapshots>
 		</repository>
 		<!--<repository>-->
-			<!--<id>eclipse</id>-->
-			<!--<name>eclipse</name>-->
-			<!--<url>http://maven.eclipse.org/nexus/content/repositories/testing</url>-->
+		<!--<id>eclipse</id>-->
+		<!--<name>eclipse</name>-->
+		<!--<url>http://maven.eclipse.org/nexus/content/repositories/testing</url>-->
 		<!--</repository>-->
 		<repository>
 			<id>biopax.snapshots</id>
@@ -74,7 +84,7 @@
 			<id>macosx</id>
 			<activation>
 				<os>
-					<name>mac os x</name>
+					<family>mac</family>
 				</os>
 			</activation>
 			<properties>
@@ -85,7 +95,7 @@
 			<id>windows</id>
 			<activation>
 				<os>
-					<family>Windows</family>
+					<family>windows</family>
 					<arch>x86</arch>
 				</os>
 			</activation>
@@ -97,8 +107,8 @@
 			<id>win64</id>
 			<activation>
 				<os>
-					<family>Windows</family>
-					<arch>x86-64</arch>
+					<family>windows</family>
+					<arch>x86_64</arch>
 				</os>
 			</activation>
 			<properties>
@@ -142,17 +152,17 @@
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>paxtools-core</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>${biopax.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>pathwaycommons-client</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>${biopax.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>sif-converter</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>${biopax.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.patika.mada</groupId>

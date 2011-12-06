@@ -127,7 +127,7 @@ public class LayoutInspector extends Dialog
 		shell.setText("Layout Properties");
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			LayoutInspector.class, "/org/gvt/icon/cbe-icon.png");
+			LayoutInspector.class, "/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		GridLayout gridLy = new GridLayout();

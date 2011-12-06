@@ -135,7 +135,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
 			CompartmentQueryParamWithEntitiesDialog.class,
-			"/org/gvt/icon/cbe-icon.png");
+			"/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		//layout of shell will contain 8 columns.

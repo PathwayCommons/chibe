@@ -122,7 +122,7 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
 			PoIQueryParamWithEntitiesDialog.class,
-			"/org/gvt/icon/cbe-icon.png");
+			"/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
         //layout of shell will contain 8 columns.

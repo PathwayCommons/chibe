@@ -60,7 +60,7 @@ public class AboutDialog extends Dialog
 		shell.setLayout(new GridLayout());
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			AboutDialog.class, "/org/gvt/icon/cbe-icon.png");
+			AboutDialog.class, "/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		shell.setBackground(ColorConstants.white);
@@ -74,7 +74,7 @@ public class AboutDialog extends Dialog
 
 		ImageDescriptor labelImage =
 			ImageDescriptor.createFromFile(AboutDialog.class,
-				"/org/gvt/icon/BCBI-logo-medium.gif");
+				"/src/main/resources/org/gvt/icon/BCBI-logo-medium.gif");
 
 		Label label = new Label(shell, SWT.CENTER);
 		final GridData gridData =

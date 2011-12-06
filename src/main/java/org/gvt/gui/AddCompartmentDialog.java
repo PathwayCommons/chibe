@@ -116,7 +116,7 @@ public class AddCompartmentDialog extends Dialog
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
 			NeighborhoodQueryParamWithEntitiesDialog.class,
-			"/org/gvt/icon/cbe-icon.png");
+			"/src/main/resources/org/gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		//layout of shell contains 2 columns
