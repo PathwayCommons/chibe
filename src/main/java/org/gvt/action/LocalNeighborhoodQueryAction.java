@@ -2,6 +2,7 @@ package org.gvt.action;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.biopax.paxtools.model.Model;
@@ -94,7 +95,9 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 		else
 		{
 			//open dialog
-			NeighborhoodQueryParamWithEntitiesDialog dialog = new NeighborhoodQueryParamWithEntitiesDialog(main);
+			NeighborhoodQueryParamWithEntitiesDialog dialog =
+				new NeighborhoodQueryParamWithEntitiesDialog(main, main.getAllEntities());
+
 			options = dialog.open(options);
 
 			if ( !options.isCancel() )
@@ -105,10 +108,10 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 			{
 				return;
 			}
-
+ 
 			//if cancel is not pressed, begin running algorithm
 			
-			ArrayList<EntityHolder> addedEntities = dialog.getAddedEntities();
+			List<EntityHolder> addedEntities = dialog.getAddedEntities();
 
 			Set<Node> sourceSet = main.getRootGraph().getRelatedStates(addedEntities);
 

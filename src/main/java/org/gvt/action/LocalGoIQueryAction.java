@@ -11,6 +11,7 @@ import org.patika.mada.graph.Node;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.algorithm.LocalPoIQuery;
 
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
             }
 
             //Get added entities to the list
-            ArrayList<EntityHolder> addedEntities = dialog.getAddedEntities();
+            List<EntityHolder> addedEntities = dialog.getAddedEntities();
 
             //Get the states of added entities.
             Set<Node> sourceSet =

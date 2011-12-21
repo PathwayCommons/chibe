@@ -54,24 +54,21 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 	 */
 	ArrayList<EntityHolder> allEntities;
 
-	/**
-	 * Entities which are added to source list and to target list.
-	 */
-	ArrayList<EntityHolder> sourceAddedEntities;
-    ArrayList<EntityHolder> targetAddedEntities;
-
+	EntityListGroup sourceElg;
+	EntityListGroup targetElg;
+	
     /**
 	 * Getters
 	 */
 
-    public ArrayList<EntityHolder> getSourceAddedEntities()
+    public java.util.List<EntityHolder> getSourceAddedEntities()
 	{
-		return this.sourceAddedEntities;
+		return this.sourceElg.addedEntities;
 	}
 
-    public ArrayList<EntityHolder> getTargetAddedEntities()
+    public java.util.List<EntityHolder> getTargetAddedEntities()
 	{
-		return this.targetAddedEntities;
+		return this.targetElg.addedEntities;
 	}
 
     /**
@@ -81,8 +78,6 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 	{
 		super(main);
 		this.allEntities = main.getAllEntities();
-        this.sourceAddedEntities = new ArrayList<EntityHolder>();
-        this.targetAddedEntities = new ArrayList<EntityHolder>();
 	}
 
     /**
@@ -128,7 +123,7 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         //layout of shell will contain 8 columns.
 
         GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 8;
+		gridLayout.numColumns = 6;
 		shell.setLayout(gridLayout);
 
         //source entity list's label
@@ -137,7 +132,7 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         sourceLabel.setText("Source");
         GridData gridData = new GridData(GridData.CENTER, GridData.END,
             false, false);
-        gridData.horizontalSpan = 2;
+        gridData.horizontalSpan = 1;
         sourceLabel.setLayoutData(gridData);
 
         //target entity list's label
@@ -145,7 +140,7 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         targetLabel = new Label(shell, SWT.NONE);
         targetLabel.setText("Target");
         gridData = new GridData(GridData.CENTER, GridData.END, false, false);
-        gridData.horizontalSpan = 2;
+        gridData.horizontalSpan = 1;
         targetLabel.setLayoutData(gridData);
 
         //Group for currentViewButton and newViewButton
@@ -192,18 +187,25 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         shortestPlusK.setLayoutData(gridData);
 
         //Source enity list
-        createList(2, 2, 150, 5);
+		sourceElg = new EntityListGroup(shell, SWT.NONE, allEntities);
+		sourceElg.init();
+		gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
+		gridData.verticalSpan = 5;
+		gridData.horizontalSpan = 1;
+		gridData.heightHint = sourceElg.entityList.getItemHeight() * 5;
+		gridData.widthHint = 150;
+		sourceElg.setLayoutData(gridData);
 
         //Target entity list
 
-        targetEntityList = new List(shell,
-			SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.HORIZONTAL);
-        gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
-        gridData.verticalSpan = 2;
-		gridData.horizontalSpan = 2;
-        gridData.heightHint = entityList.getItemHeight() * 5;
-        gridData.widthHint = 150;
-        targetEntityList.setLayoutData(gridData);
+		targetElg = new EntityListGroup(shell, SWT.NONE, allEntities);
+		targetElg.init();
+		gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
+		gridData.verticalSpan = 5;
+		gridData.horizontalSpan = 1;
+		gridData.heightHint = targetElg.entityList.getItemHeight() * 5;
+		gridData.widthHint = 150;
+		targetElg.setLayoutData(gridData);
 
         //Strict check box
 
@@ -213,159 +215,6 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         gridData.verticalSpan = 2;
         gridData.horizontalSpan = 4;
         strictButton.setLayoutData(gridData);
-
-        //Source add button
-
-        addButton = new Button(shell, SWT.NONE);
-        addButton.setText("Add...");
-        gridData = new GridData(GridData.END, GridData.BEGINNING, true, false);
-        gridData.minimumWidth = 100;
-        gridData.horizontalIndent = 5;
-        addButton.setLayoutData(gridData);
-        addButton.addSelectionListener(new SelectionAdapter()
-        {
-            public void widgetSelected(SelectionEvent arg0)
-            {
-                //new addEntityDialog
-                AddEntityDialog addEntity =
-                    new AddEntityDialog(new Shell(), allEntities);
-
-                //open dialog
-                boolean addPressed = addEntity.open();
-
-                //if add button is pressed
-                if (addPressed)
-                {
-                    //for each selected entity
-                    for (EntityHolder entity : addEntity.getSelectedEntities())
-                    {
-                        //check if entity has been added before
-                        if (!previouslyAdded(entity, sourceAddedEntities))
-                        {
-                            //add entity keyName to source entity list
-                            entityList.add(entity.getName());
-
-                            //add entity to sourceAddedEntities ArrayList
-                            sourceAddedEntities.add(entity);
-                        }
-                    }
-                }
-            }
-        });
-
-        //Source remove button
-
-        removeButton = new Button(shell, SWT.NONE);
-        removeButton.setText("Remove");
-        gridData = new GridData(GridData.BEGINNING, GridData.BEGINNING,
-            true, false);
-        gridData.horizontalIndent = 5;
-        gridData.minimumWidth = 100;
-        removeButton.setLayoutData(gridData);
-        removeButton.addSelectionListener(new SelectionAdapter()
-        {
-            public void widgetSelected(SelectionEvent arg0)
-            {
-                String[] selectionResult = entityList.getSelection();
-
-                //for each selected string
-                for (String selected : selectionResult)
-                {
-                    //search among all sourceAddedEntities
-                    for (int j = 0 ; j < sourceAddedEntities.size() ; j++)
-                    {
-                        EntityHolder entity = sourceAddedEntities.get(j);
-
-                        //if corresponding entity is found
-                        if (selected != null && selected.equals(entity.getName()))
-                        {
-                            //remove entity from sourceAddedEntities ArrayList
-                            sourceAddedEntities.remove(j);
-
-                            //remove entity keyName from source entity list
-                            entityList.remove(selected);
-                        }
-                    }
-               }
-            }
-        });
-
-        //Target add button
-
-        targetAddButton = new Button(shell, SWT.NONE);
-        targetAddButton.setText("Add...");
-        gridData = new GridData(GridData.END, GridData.BEGINNING, true, false);
-        gridData.minimumWidth = 100;
-        gridData.horizontalIndent = 5;
-        targetAddButton.setLayoutData(gridData);
-        targetAddButton.addSelectionListener(new SelectionAdapter()
-        {
-            public void widgetSelected(SelectionEvent arg0)
-            {
-                //new addEntityDialog
-                AddEntityDialog addEntity =
-                    new AddEntityDialog(new Shell(), allEntities);
-
-                //open dialog
-                boolean addPressed = addEntity.open();
-
-                //if add button is pressed
-                if (addPressed)
-                {
-                    //for each selected entity
-                    for (EntityHolder entity : addEntity.getSelectedEntities())
-                    {
-                        //check if entity has been added before
-                        if (!previouslyAdded(entity, targetAddedEntities))
-                        {
-                            //add entity keyName to target entity list
-                            targetEntityList.add(entity.getName());
-
-                            //add entity to targetAddedEntities ArrayList
-                            targetAddedEntities.add(entity);
-                        }
-                    }
-                }
-            }
-        });
-
-        //Target remove button
-
-        targetRemoveButton = new Button(shell, SWT.NONE);
-        targetRemoveButton.setText("Remove");
-        gridData = new GridData(GridData.BEGINNING, GridData.BEGINNING,
-            true, false);
-        gridData.horizontalIndent = 5;
-        gridData.minimumWidth = 100;
-        targetRemoveButton.setLayoutData(gridData);
-        targetRemoveButton.addSelectionListener(new SelectionAdapter()
-        {
-            public void widgetSelected(SelectionEvent arg0)
-            {
-                String[] selectionResult = targetEntityList.getSelection();
-
-                //for each selected string
-                for (String selected : selectionResult)
-                {
-                    //search among all targetAddedEntities
-                    for (int j = 0 ; j < targetAddedEntities.size() ; j++)
-                    {
-                        EntityHolder entity = targetAddedEntities.get(j);
-
-                        //if corresponding entity is found
-                        if (selected != null &&
-                            selected.equals(entity.getName()))
-                        {
-                            //remove entity from targetAddedEntities ArrayList
-                            targetAddedEntities.remove(j);
-
-                            //remove entity keyName from target entity list
-                            targetEntityList.remove(selected);
-                        }
-                    }
-               }
-            }
-        });
 
 		// Group for execute, cancel and default buttons
 

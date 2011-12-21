@@ -39,12 +39,12 @@ public class AddEntityDialog extends Dialog
 	/**
 	 * Selected physical Entities
 	 */
-	private ArrayList<EntityHolder> selectedEntities;
+	private java.util.List<EntityHolder> selectedEntities;
 	
 	/**
 	 * All physical Entites
 	 */
-	private ArrayList<EntityHolder> allEntities;
+	private java.util.List<EntityHolder> allEntities;
 	
 	/**
 	 * Provides a mapping from KeyName of the entity to the entity type.
@@ -84,7 +84,7 @@ public class AddEntityDialog extends Dialog
 	/**
 	 * Create the dialog
 	 */
-	public AddEntityDialog(Shell shell,	final ArrayList<EntityHolder> allEntities)
+	public AddEntityDialog(Shell shell,	final java.util.List<EntityHolder> allEntities)
 	{
 		super(shell);
 		
@@ -287,7 +287,7 @@ public class AddEntityDialog extends Dialog
 	/**
 	 * Getter
 	 */
-	public ArrayList<EntityHolder> getSelectedEntities()
+	public java.util.List<EntityHolder> getSelectedEntities()
 	{
 		return selectedEntities;
 	}

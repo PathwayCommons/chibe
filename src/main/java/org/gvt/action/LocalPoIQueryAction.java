@@ -9,6 +9,8 @@ import org.patika.mada.graph.Node;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.algorithm.LocalPoIQuery;
 import org.biopax.paxtools.model.Model;
+
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.ArrayList;
@@ -74,7 +76,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
 		}
 
         //Get added source entities.
-        ArrayList<EntityHolder> sourceAddedEntities = dialog.getSourceAddedEntities();
+        List<EntityHolder> sourceAddedEntities = dialog.getSourceAddedEntities();
 
         //Get the states of added entities.
         Set<Node> sourceSet = main.getRootGraph().getRelatedStates(sourceAddedEntities);
@@ -91,7 +93,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
         }
 
         //Get added target entities.
-        ArrayList<EntityHolder> targetAddedEntities = dialog.getTargetAddedEntities();
+        List<EntityHolder> targetAddedEntities = dialog.getTargetAddedEntities();
 
         //Get the states of added entities.
         Set<Node> targetSet =

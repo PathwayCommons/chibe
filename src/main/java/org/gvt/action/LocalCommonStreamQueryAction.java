@@ -1,9 +1,6 @@
 package org.gvt.action;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -122,7 +119,7 @@ public class LocalCommonStreamQueryAction extends AbstractLocalQueryAction
 			}
 
 			//Get added entities from dialog
-			ArrayList<EntityHolder> addedEntities = dialog.getAddedEntities();
+			List<EntityHolder> addedEntities = dialog.getAddedEntities();
 			
 			//States of each entity
 			Set<Set<Node>> sourceStatesSet = new LinkedHashSet<Set<Node>>();

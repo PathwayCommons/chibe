@@ -27,17 +27,14 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 	 */
 	ArrayList<EntityHolder> allEntities;
 
-	/**
-	 * Entities which are added
-	 */
-	ArrayList<EntityHolder> addedEntities;
+	EntityListGroup elg;
 
 	/**
 	 * Getter
 	 */
-	public ArrayList<EntityHolder> getAddedEntities()
+	public java.util.List<EntityHolder> getAddedEntities()
 	{
-		return this.addedEntities;
+		return this.elg.addedEntities;
 	}
 
 	/**
@@ -47,7 +44,6 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 	{
 		super(main);
 		this.allEntities = main.getAllEntities();
-		this.addedEntities = new ArrayList<EntityHolder>();
 	}
 
 	/**
@@ -93,97 +89,26 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 		//layout of shell contains 6 columns
 
 		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 6;
+		gridLayout.numColumns = 5;
 		shell.setLayout(gridLayout);
 
 		GridData gridData;
 
 		//Entity list
-		createList(2, 2, 300, 5);
+		elg = new EntityListGroup(shell, SWT.NONE, allEntities);
+		elg.init();
+		gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
+		gridData.verticalSpan = 5;
+		gridData.horizontalSpan = 1;
+		gridData.heightHint = elg.entityList.getItemHeight() * 5;
+		gridData.widthHint = 150;
+		elg.setLayoutData(gridData);
 
 		//Group for currentViewButton and newViewButton
 		createResultViewGroup(2, 2);
 
 		//Group for downstreamButton, upstreamButton and bothBotton
 		createStreamDirectionGroup(2, 2, false);
-
-		//Add Entity Button
-		
-		addButton = new Button(shell, SWT.NONE);
-		addButton.setText("Add...");
-		gridData =
-			new GridData(GridData.END, GridData.BEGINNING, true, false);
-		gridData.minimumWidth = 100;
-		gridData.horizontalIndent = 5;
-		addButton.setLayoutData(gridData);
-		addButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
-			{
-				//new addEntityDialog
-				AddEntityDialog addEntityDialog = 
-					new AddEntityDialog(new Shell(), allEntities);
-
-				//open dialog
-				boolean addPressed = addEntityDialog.open();
-
-				//if add button is pressed
-				if (addPressed)
-				{
-					//for each selected entity
-					for (EntityHolder entity : addEntityDialog.getSelectedEntities())
-					{
-						//check if entity has been added before
-						if (!previouslyAdded(entity))
-						{
-							//add entity keyName to List
-							entityList.add(entity.getName());
-							
-							//add entity to addedEntities ArrayList
-							addedEntities.add(entity);
-						}
-					}
-				}
-			}
-		});
-
-		//Remove Entity Button
-
-		removeButton = new Button(shell, SWT.NONE);
-		removeButton.setText("Remove");
-		gridData = 
-			new GridData(GridData.BEGINNING, GridData.BEGINNING, true, false);
-		gridData.horizontalIndent = 5;
-		gridData.minimumWidth = 100;
-		removeButton.setLayoutData(gridData);
-		removeButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
-			{
-				String[] selectionResult = entityList.getSelection();
-				
-				//for each selected string
-				for (String selected : selectionResult)
-				{
-					//search among all addedEntities
-					for (int j = 0 ; j < addedEntities.size() ; j++)
-					{
-						EntityHolder entity = addedEntities.get(j);
-						
-						//if corresponding entity is found
-						if (selected != null &&
-							selected.equals(entity.getName()))
-						{
-							//remove entity from addedEntities ArrayList
-							addedEntities.remove(j);
-							
-							//remove entity keyName from from List
-							entityList.remove(selected);
-						}
-					}
-				}
-			}
-		});
 
 		//Length Limit Label and Text
 		createLengthLimit(1, 1, 1, 1, 50);
@@ -255,23 +180,6 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 		setInitialValues(opt);
 	}
 
-	/**
-	 * This method checks whether physicalEntity is added before.
-	 */
-	private boolean previouslyAdded(EntityHolder pe)
-	{
-		for (EntityHolder addedBefore : this.addedEntities)
-		{
-			//if entity has been added before, return true
-			if (pe == addedBefore)
-			{
-				return true;
-			}
-		}
-		//if entity is not found in added List, then return false
-		return false;
-	}
-	
 	/**
 	 * After clicking OK button,
 	 * all data in dialog is saved to CommonStreamOptionsPack

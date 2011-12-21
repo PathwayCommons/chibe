@@ -1,6 +1,7 @@
 package org.gvt.gui;
 
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.util.*;
 
 import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level2.xref;
@@ -11,15 +12,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Dialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.gvt.ChisioMain;
 import org.gvt.util.AbstractOptionsPack;
+import org.gvt.util.EntityHolder;
 
 /**
  * This class is abstract class for Local Query Dialogs
@@ -259,6 +256,163 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		}
 
 		lengthLimit.setText(String.valueOf(opt.getLengthLimit()));
+	}
+
+	class EntityListGroup extends Composite
+	{
+		protected List entityList;
+		protected Button addButton;
+		protected Button removeButton;
+
+		/**
+		  * All entities of graph
+		  */
+		java.util.List<EntityHolder> allEntities;
+
+		java.util.List<EntityHolder> addedEntities;
+
+		public EntityListGroup(Composite composite, int i, java.util.List<EntityHolder> allEntities)
+		{
+			super(composite, i);
+			this.allEntities = allEntities;
+		}
+
+		public void init()
+		{
+			GridLayout lay = new GridLayout();
+			lay.numColumns = 2;
+			lay.makeColumnsEqualWidth = true;
+
+			this.setLayout(lay);
+
+			addedEntities = new ArrayList<EntityHolder>();
+
+			entityList = new List(this,
+				SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.HORIZONTAL);
+			GridData gridData =
+				new GridData(GridData.FILL, GridData.FILL, true, true);
+			gridData.verticalSpan = 1;
+			gridData.horizontalSpan = 2;
+			entityList.setLayoutData(gridData);
+
+		//Add Entity Button
+
+		addButton = new Button(this, SWT.NONE);
+		addButton.setText("Add...");
+		gridData = new GridData(GridData.END, GridData.BEGINNING, true, false);
+		gridData.minimumWidth = 50;
+		gridData.horizontalIndent = 5;
+		addButton.setLayoutData(gridData);
+		addButton.addSelectionListener(new SelectionAdapter()
+		{
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				//new addEntityDialog
+				AddEntityDialog addEntityDialog = new AddEntityDialog(new Shell(), allEntities);
+
+				//open dialog
+				boolean addPressed = addEntityDialog.open();
+
+				//if add button is pressed
+				if (addPressed)
+				{
+					//for each selected entity
+					for (EntityHolder entity : addEntityDialog.getSelectedEntities())
+					{
+						//check if entity has been added before
+						if (!addedEntities.contains(entity))
+						{
+							//add entity keyName to List
+							entityList.add(entity.getName());
+
+							//add entity to addedEntities ArrayList
+							addedEntities.add(entity);
+						}
+					}
+				}
+			}
+		});
+
+		//Remove Entity Button
+
+		removeButton = new Button(this, SWT.NONE);
+		removeButton.setText("Remove");
+		gridData = new GridData(GridData.BEGINNING, GridData.BEGINNING, true, false);
+		gridData.horizontalIndent = 5;
+		gridData.minimumWidth = 50;
+		removeButton.setLayoutData(gridData);
+		removeButton.addSelectionListener(new SelectionAdapter()
+		{
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				String[] selectionResult = entityList.getSelection();
+
+				//for each selected string
+				for (String selected : selectionResult)
+				{
+					//search among all addedEntities
+					for (int j = 0 ; j < addedEntities.size() ; j++)
+					{
+						EntityHolder entity = addedEntities.get(j);
+
+						//if corresponding entity is found
+						if (selected != null && selected.equals(entity.getName()))
+						{
+							//remove entity from addedEntities ArrayList
+							addedEntities.remove(j);
+
+							//remove entity keyName from from List
+							entityList.remove(selected);
+						}
+					}
+				}
+			}
+		});
+
+		}
+	}
+
+	class SymbolText extends Composite
+	{
+		protected Label label;
+		protected Text symbolText;
+
+		SymbolText(Composite composite, int i)
+		{
+			super(composite, i);
+		}
+
+		public void init(String labelText)
+		{
+			GridLayout lay = new GridLayout();
+			lay.numColumns = 1;
+
+			this.setLayout(lay);
+
+			label = new Label(this, SWT.NONE);
+			label.setText(labelText == null ? "Gene symbols:" : labelText);
+			GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+			gridData.verticalSpan = 1;
+			gridData.horizontalSpan = 1;
+			label.setLayoutData(gridData);
+
+			symbolText = new Text(this, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+			gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
+			gridData.verticalSpan = 1;
+			gridData.horizontalSpan = 1;
+			symbolText.setLayoutData(gridData);
+		}
+
+		public java.util.List<String> getSymbols()
+		{
+			java.util.List<String> list = new ArrayList<String>();
+			String text = symbolText.getText();
+			for (String s : text.split("\n ,\t\"'|"))
+			{
+				if (s != null && s.length() > 1) list.add(s);
+			}
+			return list;
+		}
 	}
 
 	/**
