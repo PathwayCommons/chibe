@@ -407,7 +407,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			java.util.List<String> list = new ArrayList<String>();
 			String text = symbolText.getText();
-			for (String s : text.split("\n ,\t\"'|"))
+			for (String s : text.split("\n ,\t\"'\\|"))
 			{
 				if (s != null && s.length() > 1) list.add(s);
 			}

@@ -46,11 +46,6 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 		return this.elg.addedEntities;
 	}
 
-	public java.util.List<String> getSymbols()
-	{
-		return st.getSymbols();
-	}
-
 	/**
 	 * Create the dialog
 	 */
@@ -154,15 +149,6 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 		{
 			public void widgetSelected(SelectionEvent arg0)
 			{
-				//if no entity is added, show error
-				if (getAddedEntities().isEmpty())
-				{
-					MessageDialog.openError(main.getShell(), "Error!",
-					"Add Entity!");
-					
-					return;
-				}
-				
 				//store values in dialog to optionsPack
 				storeValuesToOptionsPack(opt);
 
@@ -240,6 +226,11 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 		else
 		{
 			opt.setCurrentView(false);
+		}
+
+		if (st != null)
+		{
+			opt.setSourceList(st.getSymbols());
 		}
 	}
 

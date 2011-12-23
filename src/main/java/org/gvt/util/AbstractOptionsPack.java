@@ -1,6 +1,8 @@
 package org.gvt.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.gvt.gui.AbstractQueryParamDialog;
 
@@ -29,8 +31,23 @@ public abstract class AbstractOptionsPack  implements Serializable
 	/**
 	 * Boolean to check whether dialog is closed by cancel
 	 */
-	private boolean cancel = true; 
-	
+	private boolean cancel = true;
+
+	/**
+	 * Source symbols
+	 */
+	private List<String> sourceList;
+
+	/**
+	 * Target symbols
+	 */
+	private List<String> targetList;
+
+	/**
+	 * A prefix for querying PC with gene symbols
+	 */
+	final String SYMBOL_PREFIX = "urn:biopax:RelationshipXref:HGNC_";
+
 	/**
 	 * Getters and Setters
 	 */
@@ -63,6 +80,66 @@ public abstract class AbstractOptionsPack  implements Serializable
 	{
 		this.currentView = currentView;
 	}
+
+	public void addSource(String s)
+	{
+		if (sourceList == null) sourceList = new ArrayList<String>();
+		sourceList.add(s);
+	}
+
+	public void addTarget(String s)
+	{
+		if (targetList == null) targetList = new ArrayList<String>();
+		targetList.add(s);
+	}
+
+	public List<String> getSourceList()
+	{
+		return sourceList;
+	}
+
+	public List<String> getTargetList()
+	{
+		return targetList;
+	}
+
+	public void setSourceList(List<String> sourceList)
+	{
+		this.sourceList = sourceList;
+	}
+
+	public void setTargetList(List<String> targetList)
+	{
+		this.targetList = targetList;
+	}
+
+	public void clearLists()
+	{
+		if (sourceList != null) sourceList.clear();
+		if (targetList != null) targetList.clear();
+	}
+
+	protected List<String> getFormattedSymbols(List<String> symbols)
+	{
+		List<String> list = new ArrayList<String>();
+
+		for (String s : symbols)
+		{
+			list.add(SYMBOL_PREFIX + s);
+		}
+		return list;
+	}
+
+	public List<String> getFormattedSourceList()
+	{
+		return getFormattedSymbols(sourceList);
+	}
+
+	public List<String> getFormattedTargetList()
+	{
+		return getFormattedSymbols(targetList);
+	}
+
 
 	/**
 	 * This method sets default values of length limit and current view fields

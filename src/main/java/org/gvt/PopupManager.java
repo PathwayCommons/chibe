@@ -61,7 +61,7 @@ public class PopupManager extends MenuManager
 		else if (ep instanceof NodeEditPart)
 		{
 			// NODE-COMPOUND POPUP
-			manager.add(new QueryPCInternalNeighborsAction(main));
+			manager.add(new QueryPCNeighborsAction(main));
 			manager.add(new Separator());
 			manager.add(new HighlightSelectedAction(main));
 			manager.add(new RemoveHighlightFromSelectedAction(main));

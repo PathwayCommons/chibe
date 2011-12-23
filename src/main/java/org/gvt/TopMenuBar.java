@@ -168,7 +168,7 @@ public class TopMenuBar
 		helpMenu.add(new AboutAction(chisio));
 
 		menuBar.add(pcMenu);
-		pcMenu.add(new QueryPCInternalNeighborsAction(chisio));
+		pcMenu.add(new QueryPCNeighborsAction(chisio));
 
 		return menuBar;
 	}

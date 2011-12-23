@@ -9,7 +9,7 @@
 	<version>2.0</version>
 
 	<properties>
-		<biopax.version>4.0.0-SNAPSHOT</biopax.version>
+		<biopax.version>4.0.1-SNAPSHOT</biopax.version>
 
 		<!--Below code is used for creating platform dependent builds. If you are creating a build
 			for a different platform, comment out the "profiles" section and comment in the below

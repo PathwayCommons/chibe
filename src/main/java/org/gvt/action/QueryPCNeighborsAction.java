@@ -1,0 +1,101 @@
+package org.gvt.action;
+
+import org.biopax.paxtools.io.SimpleIOHandler;
+import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
+import org.biopax.paxtools.io.pathwayCommons.PathwayCommonsIOHandler;
+import org.biopax.paxtools.model.Model;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.gvt.ChisioMain;
+import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
+import org.gvt.gui.StringInputDialog;
+import org.gvt.model.biopaxl2.Actor;
+import org.gvt.model.biopaxl2.Complex;
+import org.gvt.util.NeighborhoodOptionsPack;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * @author Ozgun Babur
+ *
+ */
+public class QueryPCNeighborsAction extends Action
+{
+	private ChisioMain main;
+
+	/**
+	 * Dialog options are stored, in order to use next time dialog is opened.
+	 */
+	NeighborhoodOptionsPack options;
+
+	public QueryPCNeighborsAction(ChisioMain main)
+	{
+		super("Query Neighbors");
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
+		setToolTipText(getText());
+		this.main = main;
+	}
+
+	public void run()
+	{
+		//open dialog
+		NeighborhoodQueryParamWithEntitiesDialog dialog =
+			new NeighborhoodQueryParamWithEntitiesDialog(main, null);
+
+		options = new NeighborhoodOptionsPack();
+		options = dialog.open(options);
+
+		if (!options.isCancel())
+		{
+			options.setCancel(true);
+		}
+		else
+		{
+			return;
+		}
+
+		List<String> symbols = options.getFormattedSourceList();
+
+		if (symbols.isEmpty()) return;
+
+		main.lockWithMessage("Querying Internal PC Database ...");
+		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		Model model = pc2.getNeighborhood(symbols);
+		main.unlock();
+
+		if (model != null && !model.getObjects().isEmpty())
+		{
+			if (main.getOwlModel() != null)
+			{
+				MergeAction merge = new MergeAction(main, model);
+				merge.setOpenPathways(true);
+				merge.setCreateNewPathway(true);
+				merge.setNewPathwayName("Neighborhood");
+				merge.run();
+			}
+			else
+			{
+				LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
+				load.setOpenPathways(true);
+
+				load.setPathwayName("Neighborhood");
+				load.run();
+			}
+		}
+		else
+		{
+			MessageDialog.openInformation(main.getShell(), "Not found!",
+				"Nothing found!");
+		}
+
+//			assert main.getAllPathwayNames().contains(id) :
+//				"New pathway name is not in allPathwayNames";
+
+		main.unlock();
+
+	}
+}
