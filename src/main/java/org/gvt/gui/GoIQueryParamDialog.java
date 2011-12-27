@@ -1,14 +1,10 @@
 package org.gvt.gui;
 
-import org.gvt.ChisioMain;
-import org.gvt.util.GoIOptionsPack;
-import org.eclipse.swt.widgets.*;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
+import org.gvt.ChisioMain;
+import org.gvt.util.QueryOptionsPack;
 
 /**
  * This class maintains GoI Query Dialog for PopupMenu.
@@ -28,7 +24,7 @@ public class GoIQueryParamDialog extends AbstractQueryParamDialog
     /**
      * Open the dialog
      */
-    public GoIOptionsPack open(GoIOptionsPack opt)
+    public QueryOptionsPack open(QueryOptionsPack opt)
     {
         createContents(opt);
 
@@ -54,7 +50,7 @@ public class GoIQueryParamDialog extends AbstractQueryParamDialog
      * Create contents of the dialog
      * Buttons, Text Field, Radio Buttons, etc
      */
-    protected void createContents(final GoIOptionsPack opt)
+    protected void createContents(final QueryOptionsPack opt)
     {
         super.createContents(opt);
         shell.setText("GoI Query Properties");
@@ -78,82 +74,12 @@ public class GoIQueryParamDialog extends AbstractQueryParamDialog
         createLengthLimit(1, 2, 1, 2, 50);
 
 		// Group for execute, cancel and default buttons
-
-		exeCancelDefaultGroup = new Group(shell, SWT.NONE);
-		GridData gridData =
-			new GridData(GridData.FILL, GridData.CENTER, false, false);
-		gridData.horizontalSpan = 4;
-		exeCancelDefaultGroup.setLayoutData(gridData);
-		exeCancelDefaultGroup.setLayout(new GridLayout(3, true));
-
-		//Execute Button
-
-		executeButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-		executeButton.setText("Execute");
-		gridData =
-        	new GridData(GridData.END, GridData.CENTER, true, false);
-        executeButton.setLayoutData(gridData);
-		executeButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
-			{
-				//store values in dialog to optionsPack
-				storeValuesToOptionsPack(opt);
-
-				//execute is selected
-				opt.setCancel(false);
-
-				shell.close();
-			}
-		});
-
-		//Cancel Button
-
-		cancelButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-		gridData = new GridData(GridData.CENTER, GridData.CENTER, true, false);
-        createCancelButton(gridData);
-
-		//Default Button
-
-		defaultButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-		defaultButton.setText("Default");
-		gridData =
-			new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
-		defaultButton.setLayoutData(gridData);
-		defaultButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
-			{
-				//set default values of dialog
-				setDefaultQueryDialogOptions();
-			}
-		});
+		createExeCancDefGroup(opt, 4);
 
 		//pack dialog
 		shell.pack();
 
 		//set initial values from opt OptionsPack
 		setInitialValues(opt);
-    }
-
-    /**
-     * After clicking execute button, all data in dialog is saved to
-     * GoIOptionsPack
-     */
-    public void storeValuesToOptionsPack(GoIOptionsPack opt)
-    {
-        //store Length Limit
-        opt.setLengthLimit(Integer.parseInt(lengthLimit.getText()));
-
-        //if currentView is selected
-        if (currentViewButton.getSelection())
-        {
-            opt.setCurrentView(true);
-        }
-        //if newView is selected
-        else
-        {
-            opt.setCurrentView(false);
-        }
     }
 }

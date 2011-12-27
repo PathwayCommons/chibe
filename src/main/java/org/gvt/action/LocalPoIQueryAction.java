@@ -1,10 +1,10 @@
 package org.gvt.action;
 
 import org.gvt.gui.PoIQueryParamWithEntitiesDialog;
-import org.gvt.util.PoIOptionsPack;
 import org.gvt.util.EntityHolder;
 import org.gvt.ChisioMain;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.graph.Node;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.algorithm.LocalPoIQuery;
@@ -27,7 +27,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
   	/**
 	 * Dialog options are stored, in order to use next time dialog is opened.
 	 */
-	PoIOptionsPack options;
+	QueryOptionsPack options;
 
 	/**
 	 * Constructor
@@ -36,7 +36,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
 	{
 		super(main, "PoI Query");
 		setToolTipText(getText());
-		options = new PoIOptionsPack();
+		options = new QueryOptionsPack();
 		this.main = main;
     }
 
@@ -63,7 +63,9 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
         Set<Node> targetNodes = new HashSet<Node>();
 
         //open dialog
-        PoIQueryParamWithEntitiesDialog dialog = new PoIQueryParamWithEntitiesDialog(main);
+        PoIQueryParamWithEntitiesDialog dialog = new PoIQueryParamWithEntitiesDialog(
+			main, main.getAllEntities());
+
         options = dialog.open(options);
 
         if ( !options.isCancel() )
@@ -76,7 +78,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
 		}
 
         //Get added source entities.
-        List<EntityHolder> sourceAddedEntities = dialog.getSourceAddedEntities();
+        List<EntityHolder> sourceAddedEntities = dialog.getAddedSourceEntities();
 
         //Get the states of added entities.
         Set<Node> sourceSet = main.getRootGraph().getRelatedStates(sourceAddedEntities);
@@ -93,7 +95,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
         }
 
         //Get added target entities.
-        List<EntityHolder> targetAddedEntities = dialog.getTargetAddedEntities();
+        List<EntityHolder> targetAddedEntities = dialog.getAddedTargetEntities();
 
         //Get the states of added entities.
         Set<Node> targetSet =

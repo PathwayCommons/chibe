@@ -6,6 +6,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
+import org.gvt.gui.GoIQueryParamWithEntitiesDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
 import org.gvt.util.QueryOptionsPack;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Ozgun Babur
  *
  */
-public class QueryPCNeighborsAction extends Action
+public class QueryPCPathsBetweenAction extends Action
 {
 	private ChisioMain main;
 
@@ -24,7 +25,7 @@ public class QueryPCNeighborsAction extends Action
 	 */
 	QueryOptionsPack options;
 
-	public QueryPCNeighborsAction(ChisioMain main)
+	public QueryPCPathsBetweenAction(ChisioMain main)
 	{
 		super("Query Neighbors");
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
@@ -36,8 +37,7 @@ public class QueryPCNeighborsAction extends Action
 	public void run()
 	{
 		//open dialog
-		NeighborhoodQueryParamWithEntitiesDialog dialog =
-			new NeighborhoodQueryParamWithEntitiesDialog(main, null);
+		GoIQueryParamWithEntitiesDialog dialog = new GoIQueryParamWithEntitiesDialog(main, null);
 
 		options = dialog.open(options);
 
@@ -50,13 +50,14 @@ public class QueryPCNeighborsAction extends Action
 			return;
 		}
 
-		List<String> symbols = options.getFormattedSourceList();
+		List<String> sourceSymbols = options.getFormattedSourceList();
+		List<String> targetSymbols = options.getFormattedTargetList();
 
-		if (symbols.isEmpty()) return;
+		if (sourceSymbols.isEmpty() || targetSymbols.isEmpty()) return;
 
 		main.lockWithMessage("Querying Pathway Commons ...");
 		PathwayCommons2Client pc2 = new PathwayCommons2Client();
-		Model model = pc2.get(symbols);
+		Model model = pc2.getNeighborhood(sourceSymbols);
 		main.unlock();
 
 		if (model != null && !model.getObjects().isEmpty())

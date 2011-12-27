@@ -1,16 +1,15 @@
 package org.gvt.gui;
 
-import org.gvt.ChisioMain;
-import org.gvt.util.GoIOptionsPack;
-import org.gvt.util.EntityHolder;
-import org.eclipse.swt.widgets.*;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.gvt.ChisioMain;
+import org.gvt.util.EntityHolder;
+import org.gvt.util.QueryOptionsPack;
+
 import java.util.ArrayList;
 
 /**
@@ -25,29 +24,19 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
      */
     ArrayList<EntityHolder> allEntities;
 
-	EntityListGroup elg;
-
-    /**
-     * Getter
-     */
-    public java.util.List<EntityHolder> getAddedEntities()
-    {
-        return this.elg.addedEntities;
-    }
-
     /**
      * Create the dialog
      */
-    public GoIQueryParamWithEntitiesDialog(ChisioMain main)
+    public GoIQueryParamWithEntitiesDialog(ChisioMain main, ArrayList<EntityHolder> allEntities)
     {
         super(main);
-        this.allEntities = main.getAllEntities();
+        this.allEntities = allEntities;
     }
 
     /**
      * Open the dialog
      */
-    public GoIOptionsPack open(GoIOptionsPack opt)
+    public QueryOptionsPack open(QueryOptionsPack opt)
     {
         createContents(opt);
 
@@ -73,7 +62,7 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
      * Create contents of the dialog.
      * Buttons, List, Text Field, Radio Buttons, etc
      */
-    protected void createContents(final GoIOptionsPack opt)
+    protected void createContents(final QueryOptionsPack opt)
     {
         super.createContents(opt);
         shell.setText("GoI Query Properties");
@@ -92,14 +81,25 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         shell.setLayout(gridLayout);
 
         //Entity list
-		elg = new EntityListGroup(shell, SWT.NONE, allEntities);
-		elg.init();
+
+		Composite cmp;
+		if (allEntities != null)
+		{
+			sourceElg = new EntityListGroup(shell, SWT.NONE, allEntities);
+			sourceElg.init();
+			cmp = sourceElg;
+		}
+		else
+		{
+			sourceST = new SymbolText(shell, SWT.NONE);
+			sourceST.init(null);
+			cmp = sourceST;
+		}
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
 		gridData.verticalSpan = 5;
 		gridData.horizontalSpan = 1;
-		gridData.heightHint = elg.entityList.getItemHeight() * 5;
 		gridData.widthHint = 150;
-		elg.setLayoutData(gridData);
+		cmp.setLayoutData(gridData);
 
         //Group for currentViewButton and newViewButton
         createResultViewGroup(2, 2);
@@ -107,65 +107,7 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         //Length Limit Label and Text
         createLengthLimit(1, 1, 1, 1, 50);
 
-		// Group for execute, cancel and default buttons
-
-		exeCancelDefaultGroup = new Group(shell, SWT.NONE);
-		gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
-		gridData.horizontalSpan = 4;
-		exeCancelDefaultGroup.setLayoutData(gridData);
-		exeCancelDefaultGroup.setLayout(new GridLayout(3, true));
-
-        //Execute Button
-
-        executeButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-        executeButton.setText("Execute");
-        gridData = new GridData(GridData.END, GridData.CENTER, true, false);
-        executeButton.setLayoutData(gridData);
-        executeButton.addSelectionListener(new SelectionAdapter()
-        {
-            public void widgetSelected(SelectionEvent arg0)
-            {
-				//if no entity is added, show error
-				if (getAddedEntities().isEmpty())
-				{
-					MessageDialog.openError(main.getShell(), "Error!",
-					"Add Entity!");
-					
-					return;
-				}
-				
-                //store values in dialog to optionsPack
-                storeValuesToOptionsPack(opt);
-
-                //execute is selected
-                opt.setCancel(false);
-
-                shell.close();
-            }
-        });
-
-
-        //Cancel Button
-
-        cancelButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-		gridData = new GridData(GridData.CENTER, GridData.CENTER, true, false);
-        createCancelButton(gridData);
-        
-        //Default Button
-
-        defaultButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-        defaultButton.setText("Default");
-        gridData =
-            new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
-        defaultButton.setLayoutData(gridData);
-        defaultButton.addSelectionListener(new SelectionAdapter()
-        {
-            public void widgetSelected(SelectionEvent arg0)
-            {
-                //set default values of dialog
-                setDefaultQueryDialogOptions();
-            }
-        });
+		createExeCancDefGroup(opt, 4);
 
         //pack dialog
         shell.pack();
@@ -174,24 +116,4 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         setInitialValues(opt);
     }
 
-    /**
-     * After clicking execute button, all data in dialog is saved to
-     * GoIOptionsPack
-     */
-    public void storeValuesToOptionsPack(GoIOptionsPack opt)
-    {
-        //store Length Limit
-        opt.setLengthLimit(Integer.parseInt(lengthLimit.getText()));
-
-        //if currentView is selected
-        if (currentViewButton.getSelection())
-        {
-            opt.setCurrentView(true);
-        }
-        //if newView is selected
-        else
-        {
-            opt.setCurrentView(false);
-        }
-    }
 }

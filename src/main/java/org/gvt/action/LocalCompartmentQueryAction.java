@@ -4,9 +4,9 @@ import org.gvt.ChisioMain;
 import org.gvt.gui.CompartmentQueryParamWithEntitiesDialog;
 import org.gvt.model.biopaxl2.Compartment;
 import org.gvt.model.EntityAssociated;
-import org.gvt.util.PoIOptionsPack;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.biopax.paxtools.model.Model;
+import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.graph.Node;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.algorithm.LocalPoIQuery;
@@ -28,7 +28,7 @@ public class LocalCompartmentQueryAction extends AbstractLocalQueryAction
   	/**
 	 * Dialog options are stored, in order to use next time dialog is opened.
 	 */
-	PoIOptionsPack options;
+	QueryOptionsPack options;
 
 	/**
 	 * Constructor
@@ -37,16 +37,11 @@ public class LocalCompartmentQueryAction extends AbstractLocalQueryAction
 	{
 		super(main, "Compartment Query");
 		setToolTipText(getText());
-		options = new PoIOptionsPack();
+		options = new QueryOptionsPack();
 		this.main = main;
     }
 
     public void run()
-    {
-        LocalCompartment();
-    }
-
-    public void LocalCompartment()
     {
         Model owlModel = this.main.getOwlModel();
 

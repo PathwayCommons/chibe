@@ -3,10 +3,10 @@ package org.gvt.action;
 import org.gvt.ChisioMain;
 import org.gvt.gui.GoIQueryParamDialog;
 import org.gvt.gui.GoIQueryParamWithEntitiesDialog;
-import org.gvt.util.GoIOptionsPack;
 import org.gvt.util.EntityHolder;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.biopax.paxtools.model.Model;
+import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.graph.Node;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.algorithm.LocalPoIQuery;
@@ -14,7 +14,6 @@ import org.patika.mada.algorithm.LocalPoIQuery;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.ArrayList;
 
 /**
  * This class creates the action for opening query properties window.
@@ -26,7 +25,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
     /**
      * Dialog options are stored, in order to use next time dialog is opened.
      */
-    GoIOptionsPack options;
+    QueryOptionsPack options;
 
     /**
      * To determine whether action is called from
@@ -41,7 +40,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
     {
         super(main, "GoI Query");
         setToolTipText(getText());
-        options = new GoIOptionsPack();
+        options = new QueryOptionsPack();
         this.main = main;
         this.useSelection = useSelection;
     }
@@ -90,7 +89,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
         {
             //open dialog
             GoIQueryParamWithEntitiesDialog dialog =
-                new GoIQueryParamWithEntitiesDialog(main);
+                new GoIQueryParamWithEntitiesDialog(main, main.getAllEntities());
             options = dialog.open(options);
 
             if ( !options.isCancel() )
@@ -103,7 +102,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
             }
 
             //Get added entities to the list
-            List<EntityHolder> addedEntities = dialog.getAddedEntities();
+            List<EntityHolder> addedEntities = dialog.getAddedSourceEntities();
 
             //Get the states of added entities.
             Set<Node> sourceSet =

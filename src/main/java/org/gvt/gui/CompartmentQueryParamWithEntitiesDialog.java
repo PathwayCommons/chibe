@@ -1,17 +1,17 @@
 package org.gvt.gui;
 
-import org.eclipse.swt.widgets.*;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.gvt.model.biopaxl2.Compartment;
-import org.gvt.model.GraphObject;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.*;
 import org.gvt.ChisioMain;
-import org.gvt.util.PoIOptionsPack;
+import org.gvt.model.GraphObject;
+import org.gvt.model.biopaxl2.Compartment;
+import org.gvt.util.QueryOptionsPack;
+
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -23,24 +23,9 @@ import java.util.Set;
  */
 public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 {
-	/**
-	* To handle addition and removal of source compartments. Buttons and list
-	* from the super class is used for source list.
-	*/
-	private Label sourceLabel;
 
-	/**
-	* To handle addition and removal of target compartments.
-	*/
-	private Label targetLabel;
 	private List targetCompartmentList;
-	private Button targetAddButton;
-	private Button targetRemoveButton;
 
-	/**
-	* Type and value of stop distance.
-	*/
-	private Group limitTypeGroup;
 	private Button lengthLimitButton;
 	private Button shortestPlusKButton;
 	private Text shortestPlusK;
@@ -101,7 +86,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 	/**
 	 * Open the dialog
 	 */
-	public PoIOptionsPack open(PoIOptionsPack opt)
+	public QueryOptionsPack open(QueryOptionsPack opt)
 	{
 		createContents(opt);
 
@@ -127,7 +112,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 	 * Create contents of the dialog.
 	 * Buttons, List, Text Field, Radio Buttons, etc.
 	 */
-	protected void createContents(final PoIOptionsPack opt)
+	protected void createContents(final QueryOptionsPack opt)
 	{
 		super.createContents(opt);
 		shell.setText("Compartment Query Properties");
@@ -146,7 +131,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 		//source compartment list's label
 
-		sourceLabel = new Label(shell, SWT.NONE);
+		Label sourceLabel = new Label(shell, SWT.NONE);
 		sourceLabel.setText("Source");
 		GridData gridData = new GridData(GridData.CENTER, GridData.END,
 			false, false);
@@ -155,7 +140,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 		//target compartment list's label
 
-		targetLabel = new Label(shell, SWT.NONE);
+		Label targetLabel = new Label(shell, SWT.NONE);
 		targetLabel.setText("Target");
 		gridData = new GridData(GridData.CENTER, GridData.END, false, false);
 		gridData.horizontalSpan = 2;
@@ -166,7 +151,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 		//Group for lengthLimitButton and shortestPlusKButton
 
-		limitTypeGroup = new Group(shell, SWT.NONE);
+		Group limitTypeGroup = new Group(shell, SWT.NONE);
 		limitTypeGroup.setText("Stop distance");
 		gridData = new GridData(GridData.FILL, GridData.BEGINNING, false, false);
 		gridData.horizontalSpan = 2;
@@ -254,7 +239,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 						addCompartment.getSelectedCompartments())
 					{
 						//check if compartment has been added before
-						if (!previouslyAdded(compartment, sourceAddedCompartments))
+						if (!sourceAddedCompartments.contains(compartment))
 						{
 							//add compartment name to source compartment list
 							entityList.add(compartment.getName());
@@ -307,7 +292,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 		//Target add button
 
-		targetAddButton = new Button(shell, SWT.NONE);
+		Button targetAddButton = new Button(shell, SWT.NONE);
 		targetAddButton.setText("Add...");
 		gridData = new GridData(GridData.END, GridData.BEGINNING, true, false);
 		gridData.minimumWidth = 100;
@@ -332,7 +317,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 						addCompartment.getSelectedCompartments())
 					{
 						//check if compartment has been added before
-						if (!previouslyAdded(compartment, targetAddedCompartments))
+						if (!targetAddedCompartments.contains(compartment))
 						{
 							//add compartment name to target compartment list
 							targetCompartmentList.add(compartment.getName());
@@ -347,7 +332,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 		//Target remove button
 
-		targetRemoveButton = new Button(shell, SWT.NONE);
+		Button targetRemoveButton = new Button(shell, SWT.NONE);
 		targetRemoveButton.setText("Remove");
 		gridData = new GridData(GridData.BEGINNING, GridData.BEGINNING,
 			true, false);
@@ -364,7 +349,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 				for (String selected : selectionResult)
 				{
 					//search among all targetAddedCompartments
-					for (int j = 0 ; j < targetAddedCompartments.size() ; j++)
+					for (int j = 0; j < targetAddedCompartments.size(); j++)
 					{
 						Compartment compartment = targetAddedCompartments.get(j);
 
@@ -379,183 +364,17 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 							targetCompartmentList.remove(selected);
 						}
 					}
-			   }
+				}
 			}
 		});
 
 		// Group for execute, cancel and default buttons
-
-		exeCancelDefaultGroup = new Group(shell, SWT.NONE);
-		gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
-		gridData.horizontalSpan = 8;
-		exeCancelDefaultGroup.setLayoutData(gridData);
-		exeCancelDefaultGroup.setLayout(new GridLayout(3, true));
-
-		//Execute button
-
-		executeButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-		executeButton.setText("Execute");
-		gridData = new GridData(GridData.END, GridData.CENTER, true, false);
-		executeButton.setLayoutData(gridData);
-		executeButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
-			{
-				//if no source compartment is added, show error
-				if (getSourceAddedCompartments().isEmpty())
-				{
-					MessageDialog.openError(main.getShell(), "Error!",
-					"Add Source Compartment!");
-
-					return;
-				}
-
-				//if no target compartment is added, show error
-				if (getTargetAddedCompartments().isEmpty())
-				{
-					MessageDialog.openError(main.getShell(), "Error!",
-					"Add Target Compartment!");
-
-					return;
-				}
-
-				//store values in dialog to PoIOptionsPack
-				storeValuesToOptionsPack(opt);
-
-				//execute is selected
-				opt.setCancel(false);
-
-				shell.close();
-			}
-		});
-
-		//Cancel button
-
-		cancelButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-		gridData = new GridData(GridData.CENTER, GridData.CENTER, true, false);
-		createCancelButton(gridData);
-
-		//Default Button
-
-		defaultButton = new Button(exeCancelDefaultGroup, SWT.NONE);
-		defaultButton.setText("Default");
-		gridData =
-			new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
-		defaultButton.setLayoutData(gridData);
-		defaultButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
-			{
-				//set default values of dialog
-				setDefaultQueryDialogOptions();
-			}
-		});
+		createExeCancDefGroup(opt, 8);
 
 		//pack dialog
 		shell.pack();
 
 		//set initial values from opt OptionsPack
 		setInitialValues(opt);
-	}
-
-	/**
-	 * Saves all data in dialog to PoIOptionsPack
-	 */
-	public void storeValuesToOptionsPack(PoIOptionsPack opt)
-	{
-		//store stop distance according to user's selection
-        if (lengthLimitButton.getSelection())
-        {
-            opt.setLengthLimit(Integer.parseInt(lengthLimit.getText()));
-            opt.setLimitType(true);
-        }
-        else if (shortestPlusKButton.getSelection())
-        {
-            opt.setShortestPlusKLimit(Integer.parseInt(shortestPlusK.getText()));
-            opt.setLimitType(false);
-        }
-
-		//if currentView is selected
-		if (currentViewButton.getSelection())
-		{
-			opt.setCurrentView(true);
-		}
-		//if newView is selected
-		else
-		{
-			opt.setCurrentView(false);
-		}
-
-        //if strict is selected.
-        if (strictButton.getSelection())
-        {
-            opt.setStrict(true);
-        }
-        else
-        {
-            opt.setStrict(false);
-        }
-    }
-
-	/**
-	 * After creating the dialog box, fields are completed with data in
-     * opt OptionsPack.
-	 */
-	public void setInitialValues(PoIOptionsPack opt)
-	{
-		super.setInitialValues(opt);
-
-		// Strict
-        if (opt.isStrict())
-        {
-            strictButton.setSelection(true);
-        }
-
-        // Set shortestPlusKText's value
-        shortestPlusK.setText(String.valueOf(opt.getShortestPlusKLimit()));
-
-        //Length limit or shortest+k
-
-        if (opt.getLimitType())
-        {
-            lengthLimitButton.setSelection(true);
-        }
-        else
-        {
-            shortestPlusKButton.setSelection(true);
-        }
-	}
-
-	/**
-	 * Set default values into dialog
-	 */
-	public void setDefaultQueryDialogOptions()
-	{
-		super.setDefaultQueryDialogOptions();
-
-        shortestPlusK.setText(String.valueOf(DEFAULT_SHORTEST_PLUS_K));
-        lengthLimitButton.setSelection(LIMIT_TYPE);
-        shortestPlusKButton.setSelection(!LIMIT_TYPE);
-
-        strictButton.setSelection(STRICT);
-	}
-
-	/**
-	 * This method checks whether compartment is added before to the compartment
-	 * array list.
-	 */
-	private boolean previouslyAdded(Compartment co,
-        ArrayList<Compartment> addedCompartments)
-	{
-		for (Compartment addedBefore : addedCompartments)
-		{
-			//if compartment has been added before, return true
-			if (co == addedBefore)
-			{
-				return true;
-			}
-		}
-		//if compartment is not found in added List, then return false
-		return false;
 	}
 }

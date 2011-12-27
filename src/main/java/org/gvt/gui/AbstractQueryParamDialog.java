@@ -1,10 +1,8 @@
 package org.gvt.gui;
 
-import java.lang.reflect.Field;
 import java.util.*;
 
-import org.biopax.paxtools.model.level2.physicalEntity;
-import org.biopax.paxtools.model.level2.xref;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -15,7 +13,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.List;
 import org.gvt.ChisioMain;
-import org.gvt.util.AbstractOptionsPack;
+import org.gvt.util.QueryOptionsPack;
 import org.gvt.util.EntityHolder;
 
 /**
@@ -60,6 +58,29 @@ public abstract class AbstractQueryParamDialog extends Dialog
 	 */
 	protected Label lengthLimitLabel;
 	protected Text lengthLimit;
+
+	protected Button lengthLimitButton;
+    protected Button shortestPlusKButton;
+    protected Text shortestPlusK;
+
+    /**
+     * Type of PoI; strict or not.
+     */
+    protected Button strictButton;
+
+	/**
+	 * Direction of stream
+	 */
+	protected Group streamDirectionGroup;
+	protected Button downstreamButton;
+	protected Button upstreamButton;
+	protected Button bothButton;
+
+	protected EntityListGroup sourceElg;
+	protected EntityListGroup targetElg;
+
+	protected SymbolText sourceST;
+	protected SymbolText targetST;
 	
 	/**
 	 * Shell used for query dialogs
@@ -109,7 +130,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 	 * Create shell for query dialogs
 	 * @param opt
 	 */
-	protected void createContents(AbstractOptionsPack opt)
+	protected void createContents(QueryOptionsPack opt)
 	{
 		shell = new Shell(getParent(), 
 			SWT.RESIZE | SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -212,6 +233,121 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		});
 	}
 
+	protected void createExeCancDefGroup(final QueryOptionsPack opt, int horizontalSpan)
+	{
+		// Group for execute, cancel and default buttons
+
+		exeCancelDefaultGroup = new Group(shell, SWT.NONE);
+		GridData gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
+		gridData.horizontalSpan = horizontalSpan;
+		exeCancelDefaultGroup.setLayoutData(gridData);
+		exeCancelDefaultGroup.setLayout(new GridLayout(3, true));
+
+        //Execute Button
+
+        executeButton = new Button(exeCancelDefaultGroup, SWT.NONE);
+        executeButton.setText("Execute");
+        gridData = new GridData(GridData.END, GridData.CENTER, true, false);
+        executeButton.setLayoutData(gridData);
+        executeButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent arg0)
+            {
+				//if no entity is added, show error
+				if ((sourceElg != null && getAddedSourceEntities().isEmpty()) ||
+					(sourceST != null && sourceST.getSymbols().isEmpty()))
+				{
+					MessageDialog.openError(main.getShell(), "Error!",
+						"Add Source Molecule!");
+
+					return;
+				}
+				if ((targetElg != null && getAddedTargetEntities().isEmpty()) ||
+					(targetST != null && targetST.getSymbols().isEmpty()))
+				{
+					MessageDialog.openError(main.getShell(), "Error!",
+						"Add Target Molecule!");
+
+					return;
+				}
+
+                //store values in dialog to optionsPack
+                storeValuesToOptionsPack(opt);
+
+                //execute is selected
+                opt.setCancel(false);
+
+                shell.close();
+            }
+        });
+
+
+        //Cancel Button
+
+        cancelButton = new Button(exeCancelDefaultGroup, SWT.NONE);
+		gridData = new GridData(GridData.CENTER, GridData.CENTER, true, false);
+        createCancelButton(gridData);
+
+        //Default Button
+
+        defaultButton = new Button(exeCancelDefaultGroup, SWT.NONE);
+        defaultButton.setText("Default");
+        gridData =
+            new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
+        defaultButton.setLayoutData(gridData);
+        defaultButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent arg0)
+            {
+                //set default values of dialog
+                setDefaultQueryDialogOptions();
+            }
+        });
+	}
+
+	/**
+	 * Method for creating Stream Direction Group
+	 */
+	protected void createStreamDirectionGroup(int horizontalSpan,
+		int verticalSpan,
+		boolean isBothButton)
+	{
+		streamDirectionGroup = new Group(shell, SWT.NONE);
+		streamDirectionGroup.setText("Stream direction");
+		GridData gridData =
+			new GridData(GridData.FILL, GridData.BEGINNING, false, false);
+		gridData.horizontalSpan = horizontalSpan;
+		gridData.verticalSpan = verticalSpan;
+		streamDirectionGroup.setLayoutData(gridData);
+		streamDirectionGroup.setLayout(new GridLayout());
+
+		// Downstream Radio Button
+
+		downstreamButton = new Button(streamDirectionGroup, SWT.RADIO);
+		downstreamButton.setText("Downstream");
+		gridData =
+			new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		downstreamButton.setLayoutData(gridData);
+
+		// Upstream Radio Button
+
+		upstreamButton = new Button(streamDirectionGroup, SWT.RADIO);
+		upstreamButton.setText("Upstream");
+		gridData =
+			new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		upstreamButton.setLayoutData(gridData);
+
+		// Downstream & Upstream Radio Button
+		if(isBothButton)
+		{
+			bothButton = new Button(streamDirectionGroup, SWT.RADIO);
+			bothButton.setText("Both");
+			gridData =
+				new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+			bothButton.setLayoutData(gridData);
+		}
+	}
+
 	/**
 	 * Method to set default values of abstract dialog
 	 */
@@ -220,23 +356,43 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		// To prevent selecting current view as it is the default value
 		if(!currentViewButton.isEnabled())
 		{
-			currentViewButton.setSelection(!CURRENT_VIEW);
-			newViewButton.setSelection(CURRENT_VIEW);
+			currentViewButton.setSelection(false);
+			newViewButton.setSelection(true);
 		}
 		else
 		{
-			currentViewButton.setSelection( CURRENT_VIEW );
-			newViewButton.setSelection( !CURRENT_VIEW );
+			currentViewButton.setSelection(true);
+			newViewButton.setSelection(false);
 		}
 
 		lengthLimit.setText(String.valueOf(DEFAULT_LENGTH_LIMIT));
+
+		if (bothButton != null)
+		{
+			bothButton.setSelection(true);
+			downstreamButton.setSelection(false);
+			upstreamButton.setSelection(false);
+		}
+		else if (downstreamButton != null)
+		{
+			downstreamButton.setSelection(true);
+			upstreamButton.setSelection(false);
+		}
+
+		if (shortestPlusK != null)
+		{
+			shortestPlusK.setText(String.valueOf(DEFAULT_SHORTEST_PLUS_K));
+			lengthLimitButton.setSelection(true);
+			shortestPlusKButton.setSelection(false);
+			strictButton.setSelection(false);
+		}
 	}
 
 	/**
 	 * After creating the dialog box, initial values are assigned to the  
 	 * fields with data in opt OptionsPack
 	 */
-	public void setInitialValues(AbstractOptionsPack opt)
+	public void setInitialValues(QueryOptionsPack opt)
 	{
 		if (main.getPathwayGraph() == null)
 		{
@@ -256,6 +412,152 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		}
 
 		lengthLimit.setText(String.valueOf(opt.getLengthLimit()));
+
+		if (sourceST != null && opt.getSourceList() != null)
+		{
+			sourceST.symbolText.setText(opt.getOneStringSources());
+		}
+		if (targetST != null && opt.getTargetList() != null)
+		{
+			targetST.symbolText.setText(opt.getOneStringTargets());
+		}
+
+		if (downstreamButton != null)
+		{
+			// Downstream, Upstream or Both
+
+			if (opt.isDownstream() && opt.isUpstream())
+			{
+				bothButton.setSelection(true);
+			}
+			else if (opt.isDownstream())
+			{
+				downstreamButton.setSelection(true);
+			}
+			else if (opt.isUpstream())
+			{
+				upstreamButton.setSelection(true);
+			}
+		}
+
+		if (strictButton != null)
+		{
+			//Strict
+			if (opt.isStrict())
+			{
+				strictButton.setSelection(true);
+			}
+		}
+
+        //Set both texts' values
+
+		if (shortestPlusK != null)
+		{
+			shortestPlusK.setText(String.valueOf(opt.getShortestPlusKLimit()));
+		}
+
+        //Length limit or shortest+k
+
+		if (lengthLimitButton != null)
+		{
+			if (opt.getLimitType())
+			{
+				lengthLimitButton.setSelection(true);
+			}
+			else
+			{
+				shortestPlusKButton.setSelection(true);
+			}
+		}
+	}
+
+	/**
+	 * After clicking execute button, all data in dialog is saved to
+	 * GoIOptionsPack
+	 */
+	public void storeValuesToOptionsPack(QueryOptionsPack opt)
+	{
+		//store Length Limit
+		opt.setLengthLimit(Integer.parseInt(lengthLimit.getText()));
+
+		//if currentView is selected
+		if (currentViewButton.getSelection())
+		{
+			opt.setCurrentView(true);
+		}
+		//if newView is selected
+		else
+		{
+			opt.setCurrentView(false);
+		}
+
+		if (downstreamButton != null)
+		{
+			//if downstream is selected
+			if (downstreamButton.getSelection())
+			{
+				opt.setDownstream(true);
+				opt.setUpstream(false);
+			}
+			//if upstream is selected
+			else if (upstreamButton.getSelection())
+			{
+				opt.setDownstream(false);
+				opt.setUpstream(true);
+			}
+			//if both is selected
+			else
+			{
+				opt.setDownstream(true);
+				opt.setUpstream(true);
+			}
+		}
+
+		if (lengthLimitButton != null)
+		{
+			//store stop distance according to user's selection
+			if (lengthLimitButton.getSelection())
+			{
+				opt.setLengthLimit(Integer.parseInt(lengthLimit.getText()));
+				opt.setLimitType(true);
+			}
+			else if (shortestPlusKButton.getSelection())
+			{
+				opt.setShortestPlusKLimit(Integer.parseInt(shortestPlusK.getText()));
+				opt.setLimitType(false);
+			}
+
+			//if strict is selected.
+			if (strictButton.getSelection())
+			{
+				opt.setStrict(true);
+			}
+			else
+			{
+				opt.setStrict(false);
+			}
+		}
+
+		if (sourceST != null) opt.setSourceList(sourceST.getSymbols());
+		if (targetST != null) opt.setSourceList(targetST.getSymbols());
+	}
+
+	/**
+	 * Getter for selected source entities
+	 */
+	public java.util.List<EntityHolder> getAddedSourceEntities()
+	{
+		if (sourceElg != null) return sourceElg.addedEntities;
+		else return Collections.emptyList();
+	}
+	
+	/**
+	 * Getter for selected target entities
+	 */
+	public java.util.List<EntityHolder> getAddedTargetEntities()
+	{
+		if (targetElg != null) return targetElg.addedEntities;
+		else return Collections.emptyList();
 	}
 
 	class EntityListGroup extends Composite
@@ -295,79 +597,79 @@ public abstract class AbstractQueryParamDialog extends Dialog
 			gridData.horizontalSpan = 2;
 			entityList.setLayoutData(gridData);
 
-		//Add Entity Button
+			//Add Entity Button
 
-		addButton = new Button(this, SWT.NONE);
-		addButton.setText("Add...");
-		gridData = new GridData(GridData.END, GridData.BEGINNING, true, false);
-		gridData.minimumWidth = 50;
-		gridData.horizontalIndent = 5;
-		addButton.setLayoutData(gridData);
-		addButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
+			addButton = new Button(this, SWT.NONE);
+			addButton.setText("Add...");
+			gridData = new GridData(GridData.END, GridData.BEGINNING, true, false);
+			gridData.minimumWidth = 50;
+			gridData.horizontalIndent = 5;
+			addButton.setLayoutData(gridData);
+			addButton.addSelectionListener(new SelectionAdapter()
 			{
-				//new addEntityDialog
-				AddEntityDialog addEntityDialog = new AddEntityDialog(new Shell(), allEntities);
-
-				//open dialog
-				boolean addPressed = addEntityDialog.open();
-
-				//if add button is pressed
-				if (addPressed)
+				public void widgetSelected(SelectionEvent arg0)
 				{
-					//for each selected entity
-					for (EntityHolder entity : addEntityDialog.getSelectedEntities())
-					{
-						//check if entity has been added before
-						if (!addedEntities.contains(entity))
-						{
-							//add entity keyName to List
-							entityList.add(entity.getName());
+					//new addEntityDialog
+					AddEntityDialog addEntityDialog = new AddEntityDialog(new Shell(), allEntities);
 
-							//add entity to addedEntities ArrayList
-							addedEntities.add(entity);
+					//open dialog
+					boolean addPressed = addEntityDialog.open();
+
+					//if add button is pressed
+					if (addPressed)
+					{
+						//for each selected entity
+						for (EntityHolder entity : addEntityDialog.getSelectedEntities())
+						{
+							//check if entity has been added before
+							if (!addedEntities.contains(entity))
+							{
+								//add entity keyName to List
+								entityList.add(entity.getName());
+
+								//add entity to addedEntities ArrayList
+								addedEntities.add(entity);
+							}
 						}
 					}
 				}
-			}
-		});
+			});
 
-		//Remove Entity Button
+			//Remove Entity Button
 
-		removeButton = new Button(this, SWT.NONE);
-		removeButton.setText("Remove");
-		gridData = new GridData(GridData.BEGINNING, GridData.BEGINNING, true, false);
-		gridData.horizontalIndent = 5;
-		gridData.minimumWidth = 50;
-		removeButton.setLayoutData(gridData);
-		removeButton.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent arg0)
+			removeButton = new Button(this, SWT.NONE);
+			removeButton.setText("Remove");
+			gridData = new GridData(GridData.BEGINNING, GridData.BEGINNING, true, false);
+			gridData.horizontalIndent = 5;
+			gridData.minimumWidth = 50;
+			removeButton.setLayoutData(gridData);
+			removeButton.addSelectionListener(new SelectionAdapter()
 			{
-				String[] selectionResult = entityList.getSelection();
-
-				//for each selected string
-				for (String selected : selectionResult)
+				public void widgetSelected(SelectionEvent arg0)
 				{
-					//search among all addedEntities
-					for (int j = 0 ; j < addedEntities.size() ; j++)
+					String[] selectionResult = entityList.getSelection();
+
+					//for each selected string
+					for (String selected : selectionResult)
 					{
-						EntityHolder entity = addedEntities.get(j);
-
-						//if corresponding entity is found
-						if (selected != null && selected.equals(entity.getName()))
+						//search among all addedEntities
+						for (int j = 0 ; j < addedEntities.size() ; j++)
 						{
-							//remove entity from addedEntities ArrayList
-							addedEntities.remove(j);
+							EntityHolder entity = addedEntities.get(j);
 
-							//remove entity keyName from from List
-							entityList.remove(selected);
+							//if corresponding entity is found
+							if (selected != null && selected.equals(entity.getName()))
+							{
+								//remove entity from addedEntities ArrayList
+								addedEntities.remove(j);
+
+								//remove entity keyName from from List
+								entityList.remove(selected);
+							}
 						}
 					}
 				}
-			}
-		});
+			});
 
 		}
 	}
@@ -407,8 +709,9 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			java.util.List<String> list = new ArrayList<String>();
 			String text = symbolText.getText();
-			for (String s : text.split("\n ,\t\"'\\|"))
+			for (String s : text.split("\n"))
 			{
+				s = s.trim();
 				if (s != null && s.length() > 1) list.add(s);
 			}
 			return list;
@@ -419,7 +722,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 	 * Values for default options
 	 */
 	public static final boolean DOWNSTREAM = true;
-	public static final boolean UPSTREAM = true;
+	public static final boolean UPSTREAM = false;
 	
 	public static final boolean CURRENT_VIEW = true;
 

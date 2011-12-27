@@ -1,6 +1,5 @@
 package org.gvt.action;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +9,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.NeighborhoodQueryParamDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
-import org.gvt.util.NeighborhoodOptionsPack;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.algorithm.LocalNeighborhoodQuery;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -30,7 +29,7 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 	/**
 	 * Dialog options are stored, in order to use next time dialog is opened.
 	 */
-	NeighborhoodOptionsPack options;
+	QueryOptionsPack options;
 
 	/**
 	 * To determine whether action is called from
@@ -45,7 +44,7 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 	{
 		super(main, "Neighborhood Query");
 		setToolTipText(getText());
-		options = new NeighborhoodOptionsPack();
+		options = new QueryOptionsPack();
 		this.main = main;
 		this.useSelection = useSelection;	
 	}
@@ -111,7 +110,7 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
  
 			//if cancel is not pressed, begin running algorithm
 			
-			List<EntityHolder> addedEntities = dialog.getAddedEntities();
+			List<EntityHolder> addedEntities = dialog.getAddedSourceEntities();
 
 			Set<Node> sourceSet = main.getRootGraph().getRelatedStates(addedEntities);
 

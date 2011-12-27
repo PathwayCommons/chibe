@@ -7,8 +7,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.CommonStreamQueryParamDialog;
 import org.gvt.gui.CommonStreamQueryParamWithEntitiesDialog;
-import org.gvt.util.CommonStreamOptionsPack;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.algorithm.LocalCommonStreamQuery;
 import org.patika.mada.algorithm.LocalPoIQuery;
 import org.patika.mada.graph.GraphObject;
@@ -26,7 +26,7 @@ public class LocalCommonStreamQueryAction extends AbstractLocalQueryAction
 	/**
 	 * Dialog options are stored, in order to use next time dialog is opened.
 	 */
-	CommonStreamOptionsPack options;
+	QueryOptionsPack options;
 
 	/**
 	 * To determine whether action is called from
@@ -41,18 +41,13 @@ public class LocalCommonStreamQueryAction extends AbstractLocalQueryAction
 	{
 		super(main, "Common Stream Query");
 		setToolTipText(getText());
-		options = new CommonStreamOptionsPack();
+		options = new QueryOptionsPack();
 		this.main = main;
 		this.useSelection = useSelection;	
 	}
 
 	public void run()
 	{	
-		CommonStreamQuery();
-	}
-
-	public void CommonStreamQuery()
-	{
 		Model owlModel = this.main.getOwlModel();
 
 		if (owlModel == null)
@@ -106,7 +101,7 @@ public class LocalCommonStreamQueryAction extends AbstractLocalQueryAction
 		{
 			//open dialog
 			CommonStreamQueryParamWithEntitiesDialog dialog =
-				new CommonStreamQueryParamWithEntitiesDialog(main);
+				new CommonStreamQueryParamWithEntitiesDialog(main, main.getAllEntities());
 			options = dialog.open(options);
 
 			if ( !options.isCancel() )
@@ -119,7 +114,7 @@ public class LocalCommonStreamQueryAction extends AbstractLocalQueryAction
 			}
 
 			//Get added entities from dialog
-			List<EntityHolder> addedEntities = dialog.getAddedEntities();
+			List<EntityHolder> addedEntities = dialog.getAddedSourceEntities();
 			
 			//States of each entity
 			Set<Set<Node>> sourceStatesSet = new LinkedHashSet<Set<Node>>();
