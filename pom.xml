@@ -120,10 +120,23 @@
 			<activation>
 				<os>
 					<family>linux</family>
+                    <arch>x86</arch>
 				</os>
 			</activation>
 			<properties>
 				<swt.artifactId>swt-gtk-linux-x86</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux64</id>
+			<activation>
+				<os>
+					<family>Linux</family>
+                    <arch>x86_64</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-gtk-linux-x86-64</swt.artifactId>
 			</properties>
 		</profile>
 	</profiles>

@@ -471,6 +471,11 @@ public class BioPAXL3Graph extends BioPAXGraph
 						Hub orig = (Hub) node;
 						map.put(orig, new Hub(orig, newRoot));
 					}
+					else if (node instanceof ChbPathway)
+					{
+						ChbPathway orig = (ChbPathway) node;
+						map.put(orig, new ChbPathway(orig, newRoot));
+					}
 					else
 					{
 						System.err.println("Missing: " + node);

@@ -1,6 +1,7 @@
 package org.gvt.gui;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
@@ -183,6 +184,7 @@ public class ItemSelectionDialog extends Dialog
 
 		shell.setText(title);
 		shell.pack();
+		if (shell.getSize().y > 500) shell.setSize(new Point(shell.getSize().x, 500));
 
 		shell.setLocation(
 			getParent().getLocation().x + (getParent().getSize().x / 2) -

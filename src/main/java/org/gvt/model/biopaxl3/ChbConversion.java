@@ -138,7 +138,15 @@ public class ChbConversion extends BioPAXNode
 			}
 			else if (con.getControlledOf().isEmpty() && con.getController().size() == 1)
 			{
-				NodeModel source = map.get(con.getController().iterator().next().getRDFId());
+				Controller ctrlr = con.getController().iterator().next();
+
+				NodeModel source = map.get(ctrlr.getRDFId());
+
+				if (source == null && ctrlr instanceof Pathway)
+				{
+					source = new ChbPathway(root, (Pathway) ctrlr, map);
+				}
+
 				new NonModulatedEffector(source, this, con, conv);
 			}
 			else
