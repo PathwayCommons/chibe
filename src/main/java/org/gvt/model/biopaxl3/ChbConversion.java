@@ -60,7 +60,7 @@ public class ChbConversion extends BioPAXNode
 	public void configFromModel()
 	{
 		extractReferences(conv);
-		setTooltipText(conv.getStandardName());
+		setTooltipText(conv.getDisplayName());
 
 		if (util.hasModelTag(BioPAXL3Graph.DEPLETING_REACTION_TAG))
 		{

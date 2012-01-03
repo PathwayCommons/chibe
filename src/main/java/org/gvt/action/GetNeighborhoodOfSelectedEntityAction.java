@@ -138,10 +138,14 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 
 			String name = "Neighborhood of";
 
+			int i = 0;
 			for (EntityHolder entity : entities)
 			{
-				name += " " + entity.getName();
+				name += (i == 0 ? " " : ", ") + entity.getName();
+				i++;
+				if (i == 3) break;
 			}
+			if (entities.size() > i) name += ", et al.";
 
 			graph.setName(name);
 

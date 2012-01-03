@@ -131,18 +131,18 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	 */
 	protected String extractReferences(Entity ent)
 	{
-		String names = "";
+		List<String> list = new ArrayList<String>();
 
 		if (ent.getStandardName() != null && ent.getStandardName().length() > 0)
 		{
 			this.addReference(new XRef(NAME_REF, ent.getStandardName()));
-			names = ent.getStandardName();
+			if (!list.contains(ent.getStandardName())) list.add(ent.getStandardName());
 		}
 
 		for (String nm : ent.getName())
 		{
 			this.addReference(new XRef(NAME_REF, nm));
-			names += (names.length() == 0 ? "" : "\n") + nm;
+			if (!list.contains(nm)) list.add(nm);
 		}
 
 //		for (xref xr : new ClassFilterSet<unificationXref>(ent.getXREF(), unificationXref.class))
@@ -151,6 +151,18 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 			if (xr != null)
 			{
 				this.addReference(new XRef(xr));
+			}
+		}
+
+		String names = "";
+
+		if (!list.isEmpty())
+		{
+			names = list.get(0);
+
+			for (int i = 1; i < list.size(); i++)
+			{
+				names += "\n" + list.get(i);
 			}
 		}
 
@@ -489,6 +501,8 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	 */
 	public static void addNamesAndTypeAndID(List<String[]> list, Entity ent)
 	{
+		assert ent != null;
+
 		String type = BioPAXNode.classNameToString(ent.getClass().getName());
 		list.add(new String[]{"Type", type});
 

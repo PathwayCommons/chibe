@@ -29,7 +29,7 @@ public class ChbPathway extends BioPAXNode
 
 		setColor(COLOR);
 		setText("P");
-		setSize(new Dimension(15, 15));
+		setSize(new Dimension(20, 20));
 		setShape("Diamond");
 	}
 
@@ -39,6 +39,9 @@ public class ChbPathway extends BioPAXNode
 
 		// Remember this control to prevent duplication.
 		map.put(pathway.getRDFId(), this);
+
+		this.pathway = pathway;
+		configFromModel();
 	}
 
 	public void configFromModel()
@@ -95,5 +98,5 @@ public class ChbPathway extends BioPAXNode
 		return pathway.getRDFId();
 	}
 
-	private static final Color COLOR = new Color(null, 200, 200, 200);
+	private static final Color COLOR = new Color(null, 220, 210, 200);
 }
