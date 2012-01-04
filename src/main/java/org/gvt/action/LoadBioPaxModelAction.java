@@ -12,9 +12,7 @@ import org.gvt.model.BioPAXGraph;
 import org.gvt.util.BioPAXReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -205,7 +203,7 @@ public class LoadBioPaxModelAction extends Action
 
 				if (root != null)
 				{
-					if (!root.modelConstainsPathway() || pathwayName != null)
+					if (!root.modelConstainsUnemptyPathway() || pathwayName != null)
 					{
 						String name = pathwayName == null ? filename : pathwayName;
 

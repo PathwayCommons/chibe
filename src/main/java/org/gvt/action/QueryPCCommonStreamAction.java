@@ -7,16 +7,16 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
 import org.gvt.gui.GoIQueryParamWithEntitiesDialog;
-import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
 import org.gvt.util.QueryOptionsPack;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * @author Ozgun Babur
  *
  */
-public class QueryPCPathsBetweenAction extends Action
+public class QueryPCCommonStreamAction extends Action
 {
 	private ChisioMain main;
 
@@ -25,9 +25,9 @@ public class QueryPCPathsBetweenAction extends Action
 	 */
 	QueryOptionsPack options;
 
-	public QueryPCPathsBetweenAction(ChisioMain main)
+	public QueryPCCommonStreamAction(ChisioMain main)
 	{
-		super("Query Paths Between");
+		super("Query Common Stream");
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
 		setToolTipText(getText());
 		this.main = main;
@@ -53,8 +53,9 @@ public class QueryPCPathsBetweenAction extends Action
 			}
 
 			List<String> sourceSymbols = options.getFormattedSourceList();
+			List<String> targetSymbols = options.getFormattedTargetList();
 
-			if (sourceSymbols.isEmpty()) return;
+			if (sourceSymbols.isEmpty() || targetSymbols.isEmpty()) return;
 
 			main.lockWithMessage("Querying Pathway Commons ...");
 			PathwayCommons2Client pc2 = new PathwayCommons2Client();
@@ -68,7 +69,7 @@ public class QueryPCPathsBetweenAction extends Action
 					MergeAction merge = new MergeAction(main, model);
 					merge.setOpenPathways(true);
 					merge.setCreateNewPathway(true);
-					merge.setNewPathwayName("Neighborhood");
+					merge.setNewPathwayName("Common stream");
 					merge.run();
 				}
 				else
@@ -76,14 +77,13 @@ public class QueryPCPathsBetweenAction extends Action
 					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
 					load.setOpenPathways(true);
 
-					load.setPathwayName("Neighborhood");
+					load.setPathwayName("Common stream");
 					load.run();
 				}
 			}
 			else
 			{
-				MessageDialog.openInformation(main.getShell(), "Not found!",
-					"Nothing found!");
+				MessageDialog.openInformation(main.getShell(), "Not found!", "Nothing found!");
 			}
 		}
 		catch (Exception e)
@@ -96,5 +96,6 @@ public class QueryPCPathsBetweenAction extends Action
 		{
 			main.unlock();
 		}
+
 	}
 }

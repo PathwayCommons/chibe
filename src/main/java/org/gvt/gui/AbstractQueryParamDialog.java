@@ -539,7 +539,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		}
 
 		if (sourceST != null) opt.setSourceList(sourceST.getSymbols());
-		if (targetST != null) opt.setSourceList(targetST.getSymbols());
+		if (targetST != null) opt.setTargetList(targetST.getSymbols());
 	}
 
 	/**

@@ -180,7 +180,7 @@ public class SIFGraph extends BioPAXGraph
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
-	public boolean modelConstainsPathway()
+	public boolean modelConstainsUnemptyPathway()
 	{
 		return false;  //To change body of implemented methods use File | Settings | File Templates.
 	}

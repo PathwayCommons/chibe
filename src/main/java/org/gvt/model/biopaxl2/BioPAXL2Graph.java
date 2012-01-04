@@ -306,9 +306,13 @@ public class BioPAXL2Graph extends BioPAXGraph
 		}	
 	}
 
-	public boolean modelConstainsPathway()
+	public boolean modelConstainsUnemptyPathway()
 	{
-		return !biopaxModel.getObjects(org.biopax.paxtools.model.level2.pathway.class).isEmpty();
+		for (pathway p : biopaxModel.getObjects(pathway.class))
+		{
+			if (!pathway.getPATHWAY_COMPONENTS().isEmpty()) return true;
+		}
+		return false;
 	}
 
 	public String createGlobalPathway(String name)

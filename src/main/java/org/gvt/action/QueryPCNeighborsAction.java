@@ -35,59 +35,68 @@ public class QueryPCNeighborsAction extends Action
 
 	public void run()
 	{
-		//open dialog
-		NeighborhoodQueryParamWithEntitiesDialog dialog =
-			new NeighborhoodQueryParamWithEntitiesDialog(main, null);
-
-		options = dialog.open(options);
-
-		if (!options.isCancel())
+		try
 		{
-			options.setCancel(true);
-		}
-		else
-		{
-			return;
-		}
+			//open dialog
+			NeighborhoodQueryParamWithEntitiesDialog dialog =
+				new NeighborhoodQueryParamWithEntitiesDialog(main, null);
 
-		List<String> symbols = options.getFormattedSourceList();
+			options = dialog.open(options);
 
-		if (symbols.isEmpty()) return;
-
-		main.lockWithMessage("Querying Pathway Commons ...");
-		PathwayCommons2Client pc2 = new PathwayCommons2Client();
-		Model model = pc2.get(symbols);
-		main.unlock();
-
-		if (model != null && !model.getObjects().isEmpty())
-		{
-			if (main.getOwlModel() != null)
+			if (!options.isCancel())
 			{
-				MergeAction merge = new MergeAction(main, model);
-				merge.setOpenPathways(true);
-				merge.setCreateNewPathway(true);
-				merge.setNewPathwayName("Neighborhood");
-				merge.run();
+				options.setCancel(true);
 			}
 			else
 			{
-				LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
-				load.setOpenPathways(true);
+				return;
+			}
 
-				load.setPathwayName("Neighborhood");
-				load.run();
+			List<String> symbols = options.getFormattedSourceList();
+
+			if (symbols.isEmpty()) return;
+
+			main.lockWithMessage("Querying Pathway Commons ...");
+			PathwayCommons2Client pc2 = new PathwayCommons2Client();
+			pc2.setGraphQueryLimit(options.getLengthLimit());
+			Model model = pc2.getNeighborhood(symbols,
+				PathwayCommons2Client.STREAM_DIRECTION.BOTHSTREAM);
+			main.unlock();
+
+			if (model != null && !model.getObjects().isEmpty())
+			{
+				if (main.getOwlModel() != null)
+				{
+					MergeAction merge = new MergeAction(main, model);
+					merge.setOpenPathways(true);
+					merge.setCreateNewPathway(true);
+					merge.setNewPathwayName("Neighborhood");
+					merge.run();
+				}
+				else
+				{
+					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
+					load.setOpenPathways(true);
+
+					load.setPathwayName("Neighborhood");
+					load.run();
+				}
+			}
+			else
+			{
+				MessageDialog.openInformation(main.getShell(), "Not found!",
+					"Nothing found!");
 			}
 		}
-		else
+		catch (Exception e)
 		{
-			MessageDialog.openInformation(main.getShell(), "Not found!",
-				"Nothing found!");
+			e.printStackTrace();
+			MessageDialog.openError(main.getShell(), "Error",
+				"An error occured during querying:\n" + e.getMessage());
 		}
-
-//			assert main.getAllPathwayNames().contains(id) :
-//				"New pathway name is not in allPathwayNames";
-
-		main.unlock();
-
+		finally
+		{
+			main.unlock();
+		}
 	}
 }

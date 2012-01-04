@@ -55,7 +55,13 @@ public class InfoFigure extends Figure
 
 		updateBounds(parentBounds);
 
-		Label label = new Label(getLetter(info));
+		// Get rid of position information for accurate coloring using color maps
+
+		if (info.indexOf("@") > 0) this.info = info.substring(0, info.indexOf("@")).trim();
+		else if (info.indexOf("[") > 0) this.info = info.substring(0, info.indexOf("[")).trim();
+		else this.info = info;
+
+		Label label = new Label(getLetter(this.info));
 		label.setToolTip(new Label(info));
 
 		Rectangle r = getBounds().getCopy();
@@ -64,12 +70,6 @@ public class InfoFigure extends Figure
 
 		label.setBounds(r);
 		label.setFont(FONT);
-
-		// Get rid of position information for accurate coloring using color maps
-
-		if (info.indexOf("@") > 0) this.info = info.substring(0, info.indexOf("@")).trim();
-		else if (info.indexOf("[") > 0) this.info = info.substring(0, info.indexOf("[")).trim();
-		else this.info = info;
 
 		label.setForegroundColor(getForeColor(this.info));
 		this.add(label);
@@ -96,15 +96,18 @@ public class InfoFigure extends Figure
 
 		int shp = getInfoShape(lett);
 
+		int xoff = 1;
+		int yoff = 1;
+		
 		switch(shp)
 		{
 			case OVAL:
-				g.fillOval(p.x, p.y, dim.width, dim.height);
-				g.drawOval(p.x, p.y, dim.width-1, dim.height-1);
+				g.fillOval(p.x + xoff, p.y, dim.width-xoff, dim.height-yoff);
+				g.drawOval(p.x + xoff, p.y, dim.width-1-xoff, dim.height-1-yoff);
 				break;
 			case RECT:
-				g.fillRectangle(p.x, p.y, dim.width, dim.height);
-				g.drawRectangle(p.x, p.y, dim.width-1, dim.height-1);
+				g.fillRectangle(p.x + xoff, p.y, dim.width-xoff, dim.height-yoff);
+				g.drawRectangle(p.x + xoff, p.y, dim.width-1-xoff, dim.height-1-yoff);
 				break;
 		}
 
@@ -167,15 +170,15 @@ public class InfoFigure extends Figure
 
 	protected String getLetter(String info)
 	{
-		String let = letterMap.get(info);
+		String let = letterMap.get(info.toLowerCase());
 		return let == null ? info.substring(0, 1).toLowerCase() : let;
 	}
 
 	protected static final Font FONT = new Font(null, "Segoe UI", 7, 0);
 	protected static final Color DIGIT_BACK_COLOR = new Color(null, 250, 250, 250);
 	protected static final Color DIGIT_FORE_COLOR = new Color(null, 150, 0, 0);
-	protected static final Color DEFAULT_BACK_COLOR = new Color(null, 50, 50, 50);
-	protected static final Color DEFAULT_FORE_COLOR = new Color(null, 255, 255, 255);
+	protected static final Color DEFAULT_BACK_COLOR = new Color(null, 255, 255, 255);
+	protected static final Color DEFAULT_FORE_COLOR = new Color(null, 50, 50, 50);
 	protected static final Color DEFAULT_BORD_COLOR = new Color(null, 0, 0, 0);
 	protected static final Color DEFAULT_NOT_COLOR = new Color(null, 200, 0, 0);
 
@@ -188,22 +191,45 @@ public class InfoFigure extends Figure
 	{
 		final Color PHOSPHO_BG = new Color(null, 230, 230, 100);
 		final Color PHOSPHO_FORE = new Color(null, 0, 0, 50);
+		final Color ACTIVE_BG = new Color(null, 50, 150, 50);
+		final Color ACTIVE_FORE = new Color(null, 255, 255, 255);
+		final Color INACTIVE_BG = new Color(null, 150, 50, 50);
+		final Color INACTIVE_FORE = new Color(null, 255, 255, 255);
 		backColorMap.put("phosphorylation", PHOSPHO_BG); // yellow
 		foreColorMap.put("phosphorylation", PHOSPHO_FORE); // black like blue
 		backColorMap.put("phosphorylation site", PHOSPHO_BG); // yellow
 		foreColorMap.put("phosphorylation site", PHOSPHO_FORE); // black like blue
 		backColorMap.put("phosphate group", PHOSPHO_BG); // yellow
 		foreColorMap.put("phosphate group", PHOSPHO_FORE); // black like blue
+		backColorMap.put("phosphorylated residue", PHOSPHO_BG); // yellow
+		foreColorMap.put("phosphorylated residue", PHOSPHO_FORE); // black like blue
+		backColorMap.put("o-phospho-l-serine", PHOSPHO_BG); // yellow
+		foreColorMap.put("o-phospho-l-serine", PHOSPHO_FORE); // black like blue
+		letterMap.put("o-phospho-l-serine", "p");
+		backColorMap.put("o-phospho-l-threonine", PHOSPHO_BG); // yellow
+		foreColorMap.put("o-phospho-l-threonine", PHOSPHO_FORE); // black like blue
+		letterMap.put("o-phospho-l-threonine", "p");
+		backColorMap.put("-phospho-l-tyrosine", PHOSPHO_BG); // yellow
+		foreColorMap.put("-phospho-l-tyrosine", PHOSPHO_FORE); // black like blue
+		letterMap.put("-phospho-l-tyrosine", "p");
 
-		backColorMap.put("active", new Color(null, 50, 150, 50)); // green
-		foreColorMap.put("active", new Color(null, 255, 255, 255)); // white
+		backColorMap.put("active", ACTIVE_BG); // green
+		foreColorMap.put("active", ACTIVE_FORE); // white
 
 		backColorMap.put("active tf", new Color(null, 70, 150, 70)); // green
 		foreColorMap.put("active tf", new Color(null, 255, 255, 255)); // white
 		letterMap.put("active tf", "t");
 
-		backColorMap.put("inactive", new Color(null, 150, 50, 50)); // red
-		foreColorMap.put("inactive", new Color(null, 255, 255, 255)); // white
+		backColorMap.put("inactive", INACTIVE_BG); // red
+		foreColorMap.put("inactive", INACTIVE_FORE); // white
+
+		backColorMap.put("residue modification, inactive", INACTIVE_BG); // red
+		foreColorMap.put("residue modification, inactive", INACTIVE_FORE); // white
+		letterMap.put("residue modification, inactive", "i");
+
+		backColorMap.put("residue modification, active", ACTIVE_BG); // red
+		foreColorMap.put("residue modification, active", ACTIVE_FORE); // white
+		letterMap.put("residue modification, active", "a");
 
 		backColorMap.put("native", new Color(null, 200, 200, 200)); // light gray
 		foreColorMap.put("native", new Color(null, 100, 100, 100)); // dark gray
@@ -213,6 +239,11 @@ public class InfoFigure extends Figure
 
 		backColorMap.put("chain coordinates", new Color(null, 150, 150, 150)); // light gray
 		foreColorMap.put("chain coordinates", new Color(null, 255, 255, 255)); // white
+
+		foreColorMap.put("methylated lysine", new Color(null, 20, 20, 100)); // blue
+
+		foreColorMap.put("n-acetylated l-lysine", new Color(null, 20, 80, 20)); // green
+		letterMap.put("n-acetylated l-lysine", "a");
 	}
 
 	protected static final int OVAL = 0;

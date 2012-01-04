@@ -494,7 +494,6 @@ public class ChisioMain extends ApplicationWindow
 			allPathwayNames.add(newName);
 		}
 
-
 		Object compmod = tabToViewerMap.get(tab).getContents().getModel();
 		if (compmod instanceof BioPAXGraph)
 		{

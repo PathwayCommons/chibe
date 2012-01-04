@@ -8,6 +8,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.custom.CTabItem;
 import org.gvt.ChisioMain;
 import org.gvt.gui.ItemSelectionDialog;
+import org.gvt.gui.PathwaySelectionDialog;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
 import org.gvt.util.PathwayHolder;
@@ -93,11 +94,15 @@ public class OpenPathwaysAction extends Action
 			pathways = new ArrayList<String>();
 			pathways.addAll(main.getOpenTabNames());
 
-			ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
-				500,
-				"Pathway Selection Dialog",
-				"Select pathways to view",
-				allNames, pathways, true, true, null);
+// This commented out code was displaying a list of pathways
+//			ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
+//				500,
+//				"Pathway Selection Dialog",
+//				"Select pathways to view",
+//				allNames, pathways, true, true, null);
+
+			PathwaySelectionDialog dialog = new PathwaySelectionDialog(
+				main.getShell(), model, pathways);
 
 			dialog.open();
 
