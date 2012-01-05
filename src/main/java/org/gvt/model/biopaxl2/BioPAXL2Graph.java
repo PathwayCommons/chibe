@@ -306,13 +306,24 @@ public class BioPAXL2Graph extends BioPAXGraph
 		}	
 	}
 
-	public boolean modelConstainsUnemptyPathway()
+	public int numberOfUnemptyPathways()
 	{
+		int count = 0;
 		for (pathway p : biopaxModel.getObjects(pathway.class))
 		{
-			if (!pathway.getPATHWAY_COMPONENTS().isEmpty()) return true;
+			if (!pathway.getPATHWAY_COMPONENTS().isEmpty()) count++;
 		}
-		return false;
+		return count;
+	}
+
+	public List<String> namesOfUnemptyPathways()
+	{
+		List<String> list = new ArrayList<String>();
+		for (pathway p : biopaxModel.getObjects(pathway.class))
+		{
+			if (!pathway.getPATHWAY_COMPONENTS().isEmpty()) list.add(p.getNAME());
+		}
+		return list;
 	}
 
 	public String createGlobalPathway(String name)

@@ -126,7 +126,9 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 
 	public abstract String getPathwayRDFID();
 	
-	public abstract boolean modelConstainsUnemptyPathway();
+	public abstract int numberOfUnemptyPathways();
+
+	public abstract List<String> namesOfUnemptyPathways();
 
 	public abstract String createGlobalPathway(String name);
 

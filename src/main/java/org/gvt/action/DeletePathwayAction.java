@@ -3,6 +3,7 @@ package org.gvt.action;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabItem;
@@ -58,6 +59,22 @@ public class DeletePathwayAction extends Action
 
 		if (tab != null)
 		{
+			CompoundModel root = (CompoundModel) main.getTabToViewerMap().get(tab).getContents().
+				getModel();
+
+			if (root instanceof BioPAXGraph)
+			{
+				BioPAXGraph graph = (BioPAXGraph) root;
+
+				if (graph.getPathway().hasEdge())
+				{
+					MessageDialog.openError(main.getShell(), "Cannot delete pathway",
+						"Pathway is either a participant of an interaction,\nor controller of, " +
+							"or controlled by a control.\nNot safe to delete.");
+					return;
+				}
+			}
+
 			String s = allOpenPathways ? "all open pathways" : "the pathway";
 			MessageBox box = new MessageBox(main.getShell(), SWT.YES | SWT.NO | SWT.CANCEL);
 			box.setText("Confirm");

@@ -1,6 +1,5 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.model.level3.RelationshipXref;
 import org.biopax.paxtools.model.level3.SimplePhysicalEntity;
 import org.biopax.paxtools.model.level3.UnificationXref;
 import org.biopax.paxtools.model.level3.Xref;
@@ -9,15 +8,10 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
-import org.eclipse.swt.graphics.Color;
 import org.gvt.ChisioMain;
 import org.gvt.model.NodeModel;
-import org.gvt.model.BioPAXGraph;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.ChbComplex;
-import org.patika.mada.graph.Node;
-import org.patika.mada.graph.GraphObject;
-import org.patika.mada.algorithm.BFS;
 
 import java.util.*;
 
@@ -48,10 +42,19 @@ public class DebugButtonAction extends Action
 
 	public void run()
 	{
-		debug();
+		lockMessage();
+//		workOnSelected();
 	}
 
-	public void debug()
+	private void lockMessage()
+	{
+//		main.debugLock("deneme1");
+		main.lockWithMessage("deneme2");
+		Waiter.pause(1000);
+//		main.unlock();
+	}
+
+	private void workOnSelected()
 	{
 		ScrollingGraphicalViewer viewer = main.getViewer();
 		Iterator selectedObjects = ((IStructuredSelection) viewer.getSelection()).iterator();
@@ -83,5 +86,27 @@ public class DebugButtonAction extends Action
 			}
 		}
 
+	}
+
+	static class Waiter
+	{
+		public synchronized static void pause(long time)
+		{
+			Waiter w = new Waiter();
+			w.bekle(time);
+		}
+
+		private synchronized void bekle(long time)
+		{
+			try
+			{
+				this.wait(time);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+
+		}
 	}
 }

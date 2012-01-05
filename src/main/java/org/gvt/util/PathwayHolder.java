@@ -166,4 +166,31 @@ public class PathwayHolder
 			}
 		}
 	}
+
+	public boolean isEmpty()
+	{
+		if (l2p != null)
+		{
+			return l2p.getPATHWAY_COMPONENTS().isEmpty();
+		}
+		else if (l3p != null)
+		{
+			return l3p.getPathwayComponent().isEmpty();
+		}
+		else return true;
+	}
+
+	public boolean hasEdge()
+	{
+		if (l2p != null)
+		{
+			return !l2p.isPARTICIPANTSof().isEmpty() || !l2p.isCONTROLLEDOf().isEmpty();
+		}
+		else if (l3p != null)
+		{
+			return !l3p.getParticipantOf().isEmpty() || !l3p.getControlledOf().isEmpty() ||
+				l3p.getControllerOf().isEmpty();
+		}
+		else return false;
+	}
 }

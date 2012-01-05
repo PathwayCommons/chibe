@@ -585,6 +585,7 @@ public class ChisioMain extends ApplicationWindow
 		lockShell.setBackground(prgrssBgColor);
 		txt.setBackground(prgrssBgColor);
 		txt.setForeground(fgcolor);
+		txt.setSelection(-1);
 		lockShell.pack();
 
 		// Icrease height a little bit to get rid of the scrollbar in mac
@@ -592,10 +593,18 @@ public class ChisioMain extends ApplicationWindow
 
 		lockShell.setLocation(
 			lockShell.getLocation().x +
-				(getShell().getBounds().width / 2) - 
+				(getShell().getBounds().width / 2) -
 				(msg.length() * fd.getHeight() / 2),
 			lockShell.getLocation().y + (getShell().getBounds().height / 2) - 50);
-		lockShell.setVisible(true);
+
+		lockShell.open();
+		Display display = getShell().getDisplay();
+		long time = System.currentTimeMillis();
+
+		while (System.currentTimeMillis() - time < 50)
+		{
+			if (!display.readAndDispatch()) display.sleep();
+		}
 	}
 
 	/**

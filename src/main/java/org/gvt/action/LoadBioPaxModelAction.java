@@ -107,7 +107,7 @@ public class LoadBioPaxModelAction extends Action
 	 * Hands unsaved changes before the text is discarded.
 	 *
 	 * @param main main application
-	 * @return whether furthur action should be carried on.
+	 * @return whether further action should be carried on.
 	 */
 	public static boolean saveChangesBeforeDiscard(ChisioMain main)
 	{
@@ -203,7 +203,7 @@ public class LoadBioPaxModelAction extends Action
 
 				if (root != null)
 				{
-					if (!root.modelConstainsUnemptyPathway() || pathwayName != null)
+					if (root.numberOfUnemptyPathways() == 0 || pathwayName != null)
 					{
 						String name = pathwayName == null ? filename : pathwayName;
 
@@ -242,12 +242,12 @@ public class LoadBioPaxModelAction extends Action
 
 						// If there is only one pathway, open it automatically
 
-						int pathwaySize = main.getAllPathwayNames().size();
+						List<String> names = root.namesOfUnemptyPathways();
 						List<String> autoOpen = null;
 
-						if (pathwaySize == 1)
+						if (names.size() == 1)
 						{
-							autoOpen = Arrays.asList(main.getAllPathwayNames().iterator().next());
+							autoOpen = Arrays.asList(names.get(0));
 						}
 
 						new OpenPathwaysAction(main, autoOpen).run();
@@ -260,17 +260,16 @@ public class LoadBioPaxModelAction extends Action
 
 				// reset filename for future loadings.
 				// otherwise always opens the same file
-				filename = null;
-				model = null;
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
-				filename = null;
-				model = null;
 			}
 			finally
 			{
+				filename = null;
+				model = null;
+				pathwayName = null;
 				main.unlock();
 			}
 		}

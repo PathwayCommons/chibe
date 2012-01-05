@@ -180,9 +180,14 @@ public class SIFGraph extends BioPAXGraph
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
-	public boolean modelConstainsUnemptyPathway()
+	public int numberOfUnemptyPathways()
 	{
-		return false;  //To change body of implemented methods use File | Settings | File Templates.
+		return 0;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	@Override
+	public List<String> namesOfUnemptyPathways() {
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	public String createGlobalPathway(String name)
