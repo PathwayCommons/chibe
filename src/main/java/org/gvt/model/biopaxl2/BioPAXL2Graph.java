@@ -311,7 +311,7 @@ public class BioPAXL2Graph extends BioPAXGraph
 		int count = 0;
 		for (pathway p : biopaxModel.getObjects(pathway.class))
 		{
-			if (!pathway.getPATHWAY_COMPONENTS().isEmpty()) count++;
+			if (!p.getPATHWAY_COMPONENTS().isEmpty()) count++;
 		}
 		return count;
 	}
@@ -321,7 +321,7 @@ public class BioPAXL2Graph extends BioPAXGraph
 		List<String> list = new ArrayList<String>();
 		for (pathway p : biopaxModel.getObjects(pathway.class))
 		{
-			if (!pathway.getPATHWAY_COMPONENTS().isEmpty()) list.add(p.getNAME());
+			if (!p.getPATHWAY_COMPONENTS().isEmpty()) list.add(p.getNAME());
 		}
 		return list;
 	}

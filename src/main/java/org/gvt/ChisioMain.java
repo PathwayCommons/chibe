@@ -30,6 +30,7 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.*;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -558,7 +559,7 @@ public class ChisioMain extends ApplicationWindow
 		lockShell = new Shell(this.getShell(), SWT.APPLICATION_MODAL);
 		lockShell.setLocation(getShell().getLocation());
 		lockShell.setLayout(new GridLayout());
-		Text txt = new Text(lockShell, SWT.SINGLE);
+		StyledText txt = new StyledText(lockShell, SWT.SINGLE);
 		txt.setEditable(false);
 		FontData fd = txt.getFont().getFontData()[0];
 		fd.setHeight(fd.getHeight() + 2);
@@ -585,7 +586,7 @@ public class ChisioMain extends ApplicationWindow
 		lockShell.setBackground(prgrssBgColor);
 		txt.setBackground(prgrssBgColor);
 		txt.setForeground(fgcolor);
-		txt.setSelection(-1);
+		txt.getCaret().setVisible(false);
 		lockShell.pack();
 
 		// Icrease height a little bit to get rid of the scrollbar in mac

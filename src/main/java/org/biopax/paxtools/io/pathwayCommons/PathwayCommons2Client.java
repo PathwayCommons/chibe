@@ -248,7 +248,9 @@ public class PathwayCommons2Client
                 + CmdArgs.direction + "=" + direction + "&"
                 + CmdArgs.limit + "=" + graphQueryLimit;
 
-        return restTemplate.getForObject(url, Model.class);
+        String s = restTemplate.getForObject(url, String.class);
+		System.out.println(s);
+		return null;
     }
 
     /**
