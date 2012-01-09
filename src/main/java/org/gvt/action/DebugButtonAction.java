@@ -42,23 +42,13 @@ public class DebugButtonAction extends Action
 
 	public void run()
 	{
-		lockMessage();
-//		workOnSelected();
-	}
-
-	private void lockMessage()
-	{
-//		main.debugLock("deneme1");
-		main.lockWithMessage("deneme2");
-		Waiter.pause(1000);
-//		main.unlock();
+		workOnSelected();
 	}
 
 	private void workOnSelected()
 	{
 		ScrollingGraphicalViewer viewer = main.getViewer();
 		Iterator selectedObjects = ((IStructuredSelection) viewer.getSelection()).iterator();
-		System.out.println("");
 
 		while (selectedObjects.hasNext())
 		{

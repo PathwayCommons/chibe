@@ -27,7 +27,7 @@ public class QueryPCPOIAction extends Action
 
 	public QueryPCPOIAction(ChisioMain main)
 	{
-		super("Query Paths From .. To ..");
+		super("Query Paths From--To--");
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
 		setToolTipText(getText());
 		this.main = main;

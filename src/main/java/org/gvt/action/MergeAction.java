@@ -2,6 +2,7 @@ package org.gvt.action;
 
 import org.biopax.paxtools.controller.Merger;
 import org.biopax.paxtools.controller.SimpleEditorMap;
+import org.biopax.paxtools.controller.SimpleMerger;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.BioPAXLevel;
@@ -47,9 +48,6 @@ public class MergeAction extends Action
 	boolean updatePathways;
 	boolean openPathways;
 	boolean createNewPathway;
-
-	// We are going to initilaze it in the constructor for later use
-    private Merger merger;
 
     /**
 	 * Constructor without filename. opens an FileChooser for filename
@@ -173,11 +171,7 @@ public class MergeAction extends Action
 			sources.add(model);
 			Model target = main.getOwlModel();
 
-			if (merger == null)
-			{
-				merger = new Merger(SimpleEditorMap.get(target.getLevel()));
-			}
-			
+			SimpleMerger merger = new SimpleMerger(SimpleEditorMap.get(target.getLevel()));
 			merger.merge(target, sources.toArray(new Model[sources.size()]));
 
 			BioPAXReader reader = new BioPAXReader(target);
@@ -228,18 +222,16 @@ public class MergeAction extends Action
 //			// A simple procedure can be followed by starting with
 //			// the elements in merger.getAddedElements()
 		}
-		catch (NullPointerException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		catch (IOException e)
+		finally
 		{
-			e.printStackTrace();
+			// Reset the variables for later use
+			filename = null;
+			model = null;
 		}
-
-		// Reset the variables for later use
-		filename = null;
-		model = null;
     }
 
     /**

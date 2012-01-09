@@ -324,7 +324,7 @@ public class ChisioMain extends ApplicationWindow
 		if (root instanceof SIFGraph)
 		{
 			ImageDescriptor id = ImageDescriptor.createFromFile(
-				ChisioMain.class, "/src/main/resources/org/gvt/icon/sif.png");
+				ChisioMain.class, "icon/sif.png");
 
 			tab.setImage(id.createImage());
 		}
@@ -599,6 +599,9 @@ public class ChisioMain extends ApplicationWindow
 			lockShell.getLocation().y + (getShell().getBounds().height / 2) - 50);
 
 		lockShell.open();
+
+		// Below code is needed to make the contents of the lock message visible in Linux
+
 		Display display = getShell().getDisplay();
 		long time = System.currentTimeMillis();
 

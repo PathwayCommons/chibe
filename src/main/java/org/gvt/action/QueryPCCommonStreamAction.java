@@ -6,6 +6,9 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
+import org.gvt.gui.AbstractQueryParamDialog;
+import org.gvt.gui.CommonStreamQueryParamDialog;
+import org.gvt.gui.CommonStreamQueryParamWithEntitiesDialog;
 import org.gvt.gui.GoIQueryParamWithEntitiesDialog;
 import org.gvt.util.QueryOptionsPack;
 
@@ -39,7 +42,8 @@ public class QueryPCCommonStreamAction extends Action
 		try
 		{
 			//open dialog
-			GoIQueryParamWithEntitiesDialog dialog = new GoIQueryParamWithEntitiesDialog(main, null);
+			CommonStreamQueryParamWithEntitiesDialog dialog =
+				new CommonStreamQueryParamWithEntitiesDialog(main, null);
 
 			options = dialog.open(options);
 
@@ -53,13 +57,15 @@ public class QueryPCCommonStreamAction extends Action
 			}
 
 			List<String> sourceSymbols = options.getFormattedSourceList();
-			List<String> targetSymbols = options.getFormattedTargetList();
 
-			if (sourceSymbols.isEmpty() || targetSymbols.isEmpty()) return;
+			if (sourceSymbols.isEmpty()) return;
 
 			main.lockWithMessage("Querying Pathway Commons ...");
 			PathwayCommons2Client pc2 = new PathwayCommons2Client();
-			Model model = pc2.getPathsBetween(sourceSymbols);
+			Model model = pc2.getCommonStream(sourceSymbols, (options.isDirection() ==
+				AbstractQueryParamDialog.DOWNSTREAM ?
+					PathwayCommons2Client.STREAM_DIRECTION.DOWNSTREAM :
+					PathwayCommons2Client.STREAM_DIRECTION.UPSTREAM));
 			main.unlock();
 
 			if (model != null && !model.getObjects().isEmpty())
