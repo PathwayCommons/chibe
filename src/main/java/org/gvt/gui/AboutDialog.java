@@ -72,17 +72,23 @@ public class AboutDialog extends Dialog
 		Point s = shell.getSize();
 		shell.setLocation(size.x/2 + loc.x - s.x/2, size.y/2 + loc.y -s.y/2);
 
-		ImageDescriptor labelImage =
-			ImageDescriptor.createFromFile(AboutDialog.class,
-				"/src/main/resources/org/gvt/icon/BCBI-logo-medium.gif");
+		ImageDescriptor bcbiLogo =
+			ImageDescriptor.createFromFile(ChisioMain.class, "icon/BCBI-logo-small.gif");
 
-		Label label = new Label(shell, SWT.CENTER);
-		final GridData gridData =
-			new GridData(SWT.CENTER, SWT.CENTER, false, false);
-		gridData.widthHint = 325;
-		label.setLayoutData(gridData);
-		label.setBackground(ColorConstants.white);
-		label.setImage(labelImage.createImage());
+		ImageDescriptor cbioLogo =
+			ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbio.png");
+
+		Label bcbiLabel = new Label(shell, SWT.CENTER);
+		GridData gridData = new GridData(SWT.CENTER, SWT.CENTER, false, false);
+		bcbiLabel.setLayoutData(gridData);
+		bcbiLabel.setBackground(ColorConstants.white);
+		bcbiLabel.setImage(bcbiLogo.createImage());
+
+		Label cbioLabel = new Label(shell, SWT.CENTER);
+		gridData = new GridData(SWT.CENTER, SWT.CENTER, false, false);
+		cbioLabel.setLayoutData(gridData);
+		cbioLabel.setBackground(ColorConstants.white);
+		cbioLabel.setImage(cbioLogo.createImage());
 
 		Label chisioLabel = new Label(shell, SWT.CENTER);
 		chisioLabel.setLayoutData(
@@ -91,7 +97,7 @@ public class AboutDialog extends Dialog
 		chisioLabel.setBackground(ColorConstants.white);
 		chisioLabel.setFont(
 			new Font(null, "Verdana", 16, SWT.BOLD | SWT.ITALIC));
-		chisioLabel.setText(ChisioMain.TOOL_NAME + "\nversion 1.1");
+		chisioLabel.setText(ChisioMain.TOOL_NAME + "\nversion 2.0");
 
 		Label compoundOrHierarchicalLabel = new Label(shell, SWT.NONE);
 		compoundOrHierarchicalLabel.setLayoutData(

@@ -33,7 +33,8 @@ public class TopMenuBar
 		MenuManager dataMenu = new MenuManager("&Data");
 		MenuManager queryMenu = new MenuManager("&Query");
 		MenuManager helpMenu = new MenuManager("&Help");
-		MenuManager pcMenu = new MenuManager("&PC");
+		MenuManager pcOldMenu = new MenuManager("&PC(Old)");
+		MenuManager pcNewMenu = new MenuManager("&PC(New)");
 
 		// MODEL
 		menuBar.add(modelMenu);
@@ -156,22 +157,23 @@ public class TopMenuBar
 		queryMenu.add(new LocalCommonStreamQueryAction(chisio, false));
 		queryMenu.add(new LocalCompartmentQueryAction(chisio));
 		queryMenu.add(new LocalPathIterationQueryAction(chisio));
-		queryMenu.add(new Separator());
-		MenuManager pathwayCommonsMenu = new MenuManager("&Pathway Commons");
-		pathwayCommonsMenu.add(new QueryNeighborsAction(chisio, false));
-		pathwayCommonsMenu.add(new QueryPathwaysAction(chisio, false));
-		queryMenu.add(pathwayCommonsMenu);
+
+		// Query old pathway commons
+		menuBar.add(pcOldMenu);
+		pcOldMenu.add(new QueryNeighborsAction(chisio, false));
+		pcOldMenu.add(new QueryPathwaysAction(chisio, false));
+
+		// Query new pathway commons
+		menuBar.add(pcNewMenu);
+		pcNewMenu.add(new QueryPCNeighborsAction(chisio));
+		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio));
+		pcNewMenu.add(new QueryPCPOIAction(chisio));
+		pcNewMenu.add(new QueryPCCommonStreamAction(chisio));
 
 		// HELP
 		menuBar.add(helpMenu);
 		helpMenu.add(new HowToUseAction(chisio));
 		helpMenu.add(new AboutAction(chisio));
-
-		menuBar.add(pcMenu);
-		pcMenu.add(new QueryPCNeighborsAction(chisio));
-		pcMenu.add(new QueryPCPathsBetweenAction(chisio));
-		pcMenu.add(new QueryPCPOIAction(chisio));
-		pcMenu.add(new QueryPCCommonStreamAction(chisio));
 
 		return menuBar;
 	}

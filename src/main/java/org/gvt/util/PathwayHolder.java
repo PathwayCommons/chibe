@@ -189,7 +189,7 @@ public class PathwayHolder
 		else if (l3p != null)
 		{
 			return !l3p.getParticipantOf().isEmpty() || !l3p.getControlledOf().isEmpty() ||
-				l3p.getControllerOf().isEmpty();
+				!l3p.getControllerOf().isEmpty();
 		}
 		else return false;
 	}

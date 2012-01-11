@@ -362,11 +362,12 @@ public class ChisioMain extends ApplicationWindow
 
 		// Temporary solution to a very annoying bug. We start to be able to see the graph after
 		// resizing the window. And just redrawing the contents does not solve it.
-		Rectangle bounds = getShell().getBounds();
-		bounds.width -= 1;
-		getShell().setBounds(bounds);
-		bounds.width += 1;
-		getShell().setBounds(bounds);
+		// Update: Bug looks gone! So I commented out below fix.
+//		Rectangle bounds = getShell().getBounds();
+//		bounds.width -= 1;
+//		getShell().setBounds(bounds);
+//		bounds.width += 1;
+//		getShell().setBounds(bounds);
 
 		return tab;
 	}
