@@ -2,6 +2,7 @@ package org.gvt.util;
 
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.*;
@@ -251,6 +252,18 @@ public class BioPAXL3Reader
 //			CompoundModel compart = compName == null ? root : (CompoundModel) map.get(compName);
 //
 //		}
+
+		for (PhysicalEntity pe : model.getObjects(PhysicalEntity.class))
+		{
+			if (!map.containsKey(pe.getRDFId())) continue;
+
+			for (PhysicalEntity mem : pe.getMemberPhysicalEntity())
+			{
+				if (!map.containsKey(mem.getRDFId())) continue;
+				
+				new Member(map.get(pe.getRDFId()), map.get(mem.getRDFId()));
+			}
+		}
 
 		for (Interaction inter : model.getObjects(Interaction.class))
 		{

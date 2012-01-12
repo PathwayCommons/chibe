@@ -5,6 +5,7 @@ import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level2.xref;
 import org.biopax.paxtools.model.level3.PhysicalEntity;
 import org.biopax.paxtools.model.level3.EntityReference;
+import org.biopax.paxtools.model.level3.SimplePhysicalEntity;
 import org.biopax.paxtools.model.level3.Xref;
 
 import java.util.Set;
@@ -27,6 +28,8 @@ public class EntityHolder
 		else if (element instanceof PhysicalEntity)
 		{
 			this.l3pe = (PhysicalEntity) element;
+
+			setReferenceFromPE();
 		}
 		else if (element instanceof EntityReference)
 		{
@@ -38,6 +41,14 @@ public class EntityHolder
 		}
 	}
 
+	private void setReferenceFromPE()
+	{
+		if (l3pe instanceof SimplePhysicalEntity)
+		{
+			l3er = ((SimplePhysicalEntity) l3pe).getEntityReference();
+		}
+	}
+
 	public EntityHolder(physicalEntity l2pe)
 	{
 		this.l2pe = l2pe;
@@ -46,6 +57,7 @@ public class EntityHolder
 	public EntityHolder(PhysicalEntity l3pe)
 	{
 		this.l3pe = l3pe;
+		setReferenceFromPE();
 	}
 
 	public EntityHolder(EntityReference l3er)
@@ -56,8 +68,8 @@ public class EntityHolder
 	public int hashCode()
 	{
 		if (l2pe != null) return l2pe.hashCode();
-		if (l3pe != null) return l3pe.hashCode();
 		if (l3er != null) return l3er.hashCode();
+		if (l3pe != null) return l3pe.hashCode();
 		return 0;
 	}
 
@@ -72,14 +84,14 @@ public class EntityHolder
 				return eh.l2pe != null && l2pe.equals(eh.l2pe);
 			}
 
-			if (l3pe != null)
-			{
-				return eh.l3pe != null && l3pe.equals(eh.l3pe);
-			}
-
 			if (l3er != null)
 			{
 				return eh.l3er != null && l3er.equals(eh.l3er);
+			}
+
+			if (l3pe != null)
+			{
+				return eh.l3pe != null && l3pe.equals(eh.l3pe);
 			}
 		}
 		throw new RuntimeException("comparison with: " + obj);

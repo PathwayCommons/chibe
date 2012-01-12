@@ -1,5 +1,6 @@
 package org.gvt.model.biopaxl3;
 
+import org.apache.xmlbeans.impl.jam.mutable.MMember;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Interaction;
 import org.biopax.paxtools.model.level3.Pathway;
@@ -559,6 +560,10 @@ public class BioPAXL3Graph extends BioPAXGraph
 			else if (go instanceof MultiTouch)
 			{
 				exEdge = new MultiTouch((MultiTouch) go, map);
+			}
+			else if (go instanceof Member)
+			{
+				exEdge = new Member((Member) go, map);
 			}
 
 			if (keepHighlights && exEdge != null)

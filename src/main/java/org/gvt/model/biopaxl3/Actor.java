@@ -9,6 +9,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.util.EntityHolder;
 import org.patika.mada.graph.Edge;
+import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
 import java.util.*;
@@ -372,6 +373,21 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 		return list;
 	}
+
+	public Set<GraphObject> getRequisites()
+	{
+		Set<GraphObject> reqs = super.getRequisites();
+		for (Object o : getSourceConnections())
+		{
+			if (o instanceof Member) reqs.add((Member) o);
+		}
+//		for (Object o : getTargetConnections())
+//		{
+//			if (o instanceof Member) reqs.add((Member) o);
+//		}
+		return reqs;
+	}
+
 
 	public static final int DEFAULT_HEIGHT = 20;
 	public static final int DEFAULT_UBIQUE_HEIGHT = 15;
