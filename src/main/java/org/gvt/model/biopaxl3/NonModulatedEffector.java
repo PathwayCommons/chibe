@@ -32,8 +32,10 @@ public class NonModulatedEffector extends BioPAXEdge
 	{
 		super(source, target);
 
-		assert source instanceof Actor || source instanceof ChbComplex || source instanceof ChbPathway;
-		assert target instanceof ChbConversion || target instanceof ChbControl || target instanceof Hub;
+		assert source instanceof Actor || source instanceof ChbComplex ||
+			source instanceof ChbPathway;
+		assert target instanceof ChbConversion || target instanceof ChbTempReac ||
+			target instanceof ChbControl || target instanceof Hub;
 
 		setArrow("Target");
 		this.cont = cont;

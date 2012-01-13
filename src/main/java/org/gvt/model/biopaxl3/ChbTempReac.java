@@ -5,9 +5,9 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
-import org.patika.mada.graph.Edge;
 import org.patika.mada.util.Ranker;
 
 import java.util.*;
@@ -19,133 +19,92 @@ import java.util.*;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class ChbConversion extends BioPAXNode
+public class ChbTempReac extends BioPAXNode
 {
-	private Conversion conv;
-	private boolean direction;
+	private TemplateReaction tr;
 
-	/**
-	 * Transcriptional relation.
-	 */
-	private boolean t;
-	
-	public ChbConversion(CompoundModel root)
+	public ChbTempReac(CompoundModel root)
 	{
 		super(root);
-		
+
 		setColor(COLOR);
 		setText("");
-		setSize(new Dimension(12, 12));
+		setSize(new Dimension(8, 12));
 		setShape("Rectangle");
 	}
 
-	public ChbConversion(CompoundModel root, Conversion conv, boolean direction,
-		Map<String, NodeModel> map)
+	public ChbTempReac(CompoundModel root, TemplateReaction tr, Map<String, NodeModel> map)
 	{
 		this(root);
-		this.conv = conv;
-		this.direction = direction;
+		this.tr = tr;
 		configFromModel();
-		buildConnections(root, conv, direction, map);
+		buildConnections(root, tr, map);
 	}
 
-	public ChbConversion(ChbConversion excised, CompoundModel root)
+	public ChbTempReac(ChbTempReac excised, CompoundModel root)
 	{
 		super(excised, root);
-		this.conv = excised.getConversion();
-		this.direction = excised.getDirection();
+		this.tr = excised.getTemplateReaction();
 		configFromModel();
 	}
 
 	public void configFromModel()
 	{
-		extractReferences(conv);
-		setTooltipText(conv.getDisplayName());
-
-		if (util.hasModelTag(BioPAXL3Graph.DEPLETING_REACTION_TAG))
-		{
-			setText("d");
-		}
-		if (util.hasModelTag(BioPAXL3Graph.TRANSCRIPTION_TAG))
-		{
-			t = true;
-//			setText("t");
-		}
+		extractReferences(tr);
+		setTooltipText(tr.getDisplayName());
 	}
 
 	public boolean isT()
 	{
-		return t;
+		return true;
 	}
 
-	public Conversion getConversion()
+	public TemplateReaction getTemplateReaction()
 	{
-		return conv;
-	}
-
-	public boolean getDirection()
-	{
-		return direction;
+		return tr;
 	}
 
 	public Collection<? extends Level3Element> getRelatedModelElements()
 	{
-		return Arrays.asList(conv);
+		return Arrays.asList(tr);
 	}
 
-	private void buildConnections(CompoundModel root, Conversion conv, boolean direction,
+	private void buildConnections(CompoundModel root, TemplateReaction tr,
 		Map<String, NodeModel> map)
 	{
-		// Will be used when inferring if this conversion is a transcription
-//		boolean prodIsActor = false;
+		// CreateTemplate
 
-		// Create substrate and products.
-		
-		Set<PhysicalEntity> subsSet = direction == LEFT_TO_RIGHT ?
-			conv.getLeft() : conv.getRight();
-
-		Set<PhysicalEntity> prodSet = direction == RIGHT_TO_LEFT ?
-			conv.getLeft() : conv.getRight();
-		
-		for (PhysicalEntity ent : subsSet)
+		NucleicAcid template = tr.getTemplate();
+		if (template != null)
 		{
-			NodeModel sub = mapLookup(ent, conv, map);
-			new Substrate(sub, this);
-		}
-		for (PhysicalEntity par : prodSet)
-		{
-			NodeModel prod = mapLookup(par, conv, map);
-			new Product(this, prod);
+			NodeModel tmp = map.get(template.getRDFId());
+			new Template(tmp, this);
 		}
 
-		// Infer if this conversion is a transcription
+		// Create products.
 
-		if (!t && subsSet.isEmpty() && prodSet.size() == 1)
+		for (PhysicalEntity ent : tr.getProduct())
 		{
-			t = true;
-//			this.setText("t");
-			util.recordModelTag(BioPAXL3Graph.TRANSCRIPTION_TAG, "");
+			NodeModel prd = mapLookup(ent, tr, map);
+			new Product(this, prd);
 		}
 
-		createControlOverInteraction(root, conv, map);
+		createControlOverInteraction(root, tr, map);
 	}
 
-	private NodeModel mapLookup(PhysicalEntity pe, Conversion conv, Map<String, NodeModel> map)
+	private NodeModel mapLookup(PhysicalEntity pe, TemplateReaction tr, Map<String, NodeModel> map)
 	{
 		NodeModel nm = map.get(pe.getRDFId());
-		if (nm == null) nm = map.get(pe.getRDFId() + conv.getRDFId());
+		if (nm == null) nm = map.get(pe.getRDFId() + tr.getRDFId());
 		return nm;
 	}
-
-	public static String getPossibleCompartmentName(Conversion conv)
+	public static String getPossibleCompartmentName(TemplateReaction tr)
 	{
 		Set<String> names = new HashSet<String>();
 		
-		for (PhysicalEntity ent : conv.getLeft())
-		{
-			getCompartmentName(names, ent);
-		}
-		for (PhysicalEntity ent : conv.getRight())
+		if (tr.getTemplate() != null) getCompartmentName(names, tr.getTemplate());
+
+		for (PhysicalEntity ent : tr.getProduct())
 		{
 			getCompartmentName(names, ent);
 		}
@@ -297,43 +256,28 @@ public class ChbConversion extends BioPAXNode
 	{
 		List<String[]> list = super.getInspectable();
 
-		addNamesAndTypeAndID(list, conv);
+		addNamesAndTypeAndID(list, tr);
 
-		for (Evidence ev : conv.getEvidence())
+		for (Evidence ev : tr.getEvidence())
 		{
 			list.add(new String[]{"Evidence", ev.toString()});
 		}
 
-		if (!conv.getInteractionType().isEmpty())
+		if (!tr.getInteractionType().isEmpty())
 		{
-			String s = formatInString(conv.getInteractionType());
+			String s = formatInString(tr.getInteractionType());
 			list.add(new String[]{"Interaction Type", s});
 		}
 
-		Boolean spo = conv.getSpontaneous();
-
-		if (spo != null)
-		{
-			list.add(new String[]{"Spontaneous", spo.toString()});
-		}
-
-		addDataSourceAndXrefAndComments(list, conv);
+		addDataSourceAndXrefAndComments(list, tr);
 
 		return list;
 	}
 
 	public String getIDHash()
 	{
-		return conv.getRDFId() + direction;
-	}
-
-	public boolean isDepleting()
-	{
-		return util.hasModelTag(BioPAXL3Graph.DEPLETING_REACTION_TAG);
+		return tr.getRDFId();
 	}
 
 	private static final Color COLOR = new Color(null, 170, 170, 170);
-
-	public static final boolean LEFT_TO_RIGHT = true;
-	public static final boolean RIGHT_TO_LEFT = false;
 }

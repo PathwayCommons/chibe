@@ -595,6 +595,39 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		}
 	}
 
+	protected void createControlOverInteraction(CompoundModel root, Interaction inter, Map<String,
+		NodeModel> map)
+	{
+		// Create effectors.
+
+		for (Control con : inter.getControlledOf())
+		{
+			if (map.containsKey(con.getRDFId()))
+			{
+				ChbControl cont = (ChbControl) map.get(con.getRDFId());
+				new EffectorSecondHalf(cont, this, cont.getControl());
+			}
+			else if (con.getControlledOf().isEmpty() && con.getController().size() == 1)
+			{
+				Controller ctrlr = con.getController().iterator().next();
+
+				NodeModel source = map.get(ctrlr.getRDFId());
+
+				if (source == null && ctrlr instanceof Pathway)
+				{
+					source = new ChbPathway(root, (Pathway) ctrlr, map);
+				}
+
+				new NonModulatedEffector(source, this, con, inter);
+			}
+			else
+			{
+				ChbControl ctrl = new ChbControl(root, con, this, map);
+				map.put(con.getRDFId(), ctrl);
+			}
+		}
+	}
+
 	public static final String NAME_REF = "Name";
 	public static final int PROPERTY_CHAR_LIMIT = 50;
 	public static final int MAX_INITIAL_WIDTH = 100;

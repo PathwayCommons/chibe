@@ -477,6 +477,11 @@ public class BioPAXL3Graph extends BioPAXGraph
 						ChbConversion orig = (ChbConversion) node;
 						map.put(orig, new ChbConversion(orig, newRoot));
 					}
+					else if (node instanceof ChbTempReac)
+					{
+						ChbTempReac orig = (ChbTempReac) node;
+						map.put(orig, new ChbTempReac(orig, newRoot));
+					}
 					else if (node instanceof ChbControl)
 					{
 						ChbControl orig = (ChbControl) node;
@@ -536,6 +541,10 @@ public class BioPAXL3Graph extends BioPAXGraph
 			if (go instanceof Substrate)
 			{
 				exEdge = new Substrate((Substrate) go, map);
+			}
+			else if (go instanceof Template)
+			{
+				exEdge = new Template((Template) go, map);
 			}
 			else if (go instanceof Product)
 			{

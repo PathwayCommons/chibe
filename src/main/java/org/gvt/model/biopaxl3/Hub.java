@@ -71,7 +71,12 @@ public class Hub extends BioPAXNode
 			}
 			else if (c.getControlledOf().isEmpty() && c.getController().size() == 1)
 			{
-				NodeModel source = map.get(c.getController().iterator().next().getRDFId());
+				Controller ctrlr = c.getController().iterator().next();
+				NodeModel source = map.get(ctrlr.getRDFId());
+				if (source == null && ctrlr instanceof Pathway)
+				{
+					source = new ChbPathway(root, (Pathway) ctrlr, map);
+				}
 				new NonModulatedEffector(source, this, c, inter);
 			}
 			else

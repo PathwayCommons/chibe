@@ -242,16 +242,17 @@ public class BioPAXL3Reader
 			}
 		}
 
-//		for (TemplateReaction reac : model.getObjects(TemplateReaction.class))
-//		{
-//			String compName = ChbConversion.getPossibleCompartmentName(reac);
-//
-//			if (compName != null && nestCompartments)
-//				compName = CompartmentManager.getUnifiedName(compName);
-//
-//			CompoundModel compart = compName == null ? root : (CompoundModel) map.get(compName);
-//
-//		}
+		for (TemplateReaction reac : model.getObjects(TemplateReaction.class))
+		{
+			String compName = ChbTempReac.getPossibleCompartmentName(reac);
+
+			if (compName != null && nestCompartments)
+				compName = CompartmentManager.getUnifiedName(compName);
+
+			CompoundModel compart = compName == null ? root : (CompoundModel) map.get(compName);
+			ChbTempReac tempReac = new ChbTempReac(compart, reac, map);
+			tempReac.selectBestCompartment();
+		}
 
 		for (PhysicalEntity pe : model.getObjects(PhysicalEntity.class))
 		{
@@ -270,7 +271,8 @@ public class BioPAXL3Reader
 			boolean drawPPI = true;
 			if (!drawPPI) break;
 
-			if (!(inter instanceof Conversion) && !(inter instanceof Control))
+			if (!(inter instanceof Conversion) && !(inter instanceof Control) &&
+				!(inter instanceof TemplateReaction))
 			{
 				// We constraint the participant list to Physical Entities only
 				Set<Entity> interPartic = inter.getParticipant();

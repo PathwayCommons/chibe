@@ -7,29 +7,30 @@ import org.patika.mada.graph.Edge;
 import java.util.Map;
 
 /**
+ * Left of a conversion.
+ * 
  * @author Ozgun Babur
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class Product extends BioPAXEdge
+public class Template extends BioPAXEdge
 {
-	public Product(NodeModel source, NodeModel target)
+	public Template(NodeModel source, ChbTempReac target)
 	{
 		super(source, target);
-		
-		assert target instanceof Actor || target instanceof ChbComplex;
-		assert source instanceof ChbConversion || source instanceof ChbTempReac;
-		
-		setArrow("Target");
+
+		assert source instanceof Actor;
+
+//		setArrow("Target");
 		setColor(COLOR);
 	}
-	
-	public Product(Product excised, Map<NodeModel, NodeModel> map)
+
+	public Template(Template excised, Map<NodeModel, NodeModel> map)
 	{
 		super(excised, map);
 	}
 
-	private static final Color COLOR = new Color(null, 0, 0, 0);
+	private static final Color COLOR = new Color(null, 0, 50, 50);
 
 	public int getSign()
 	{

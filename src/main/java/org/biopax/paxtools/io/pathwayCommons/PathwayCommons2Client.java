@@ -16,6 +16,8 @@ import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.*;
 
 /**
@@ -109,6 +111,7 @@ public class PathwayCommons2Client
                 + (getOrganisms().isEmpty() ? "" : "&" + join(CmdArgs.organism + "=", getOrganisms(), "&"))
                 + (getType() != null ? "&" + CmdArgs.type + "=" + getType() : "");
 
+		System.out.println("url = " + url);
         ServiceResponse resp = restTemplate.getForObject(url, ServiceResponse.class);
         if(resp instanceof ErrorResponse) {
             throw ErrorUtil.createException((ErrorResponse) resp);
@@ -522,4 +525,12 @@ public class PathwayCommons2Client
         this.path = path;
     }
 
+	public static void main(String[] args) throws PathwayCommonsException, FileNotFoundException
+	{
+		PathwayCommons2Client c = new PathwayCommons2Client();
+//		ServiceResponse resp = c.find("Androgen");
+		Model model = c.get("http://pid.nci.nih.gov/biopax/9C01D76A-8C84-11E0-B73D-CBEE6AF8070D#pid_51949");
+		SimpleIOHandler h = new SimpleIOHandler();
+		h.convertToOWL(model, new FileOutputStream("/home/ozgun/Desktop/temp.owl"));
+	}
 }
