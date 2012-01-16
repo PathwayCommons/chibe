@@ -62,6 +62,7 @@ public class QueryPCCommonStreamAction extends Action
 
 			main.lockWithMessage("Querying Pathway Commons ...");
 			PathwayCommons2Client pc2 = new PathwayCommons2Client();
+			pc2.setGraphQueryLimit(options.getLengthLimit());
 			Model model = pc2.getCommonStream(sourceSymbols, (options.isDirection() ==
 				AbstractQueryParamDialog.DOWNSTREAM ?
 					PathwayCommons2Client.STREAM_DIRECTION.DOWNSTREAM :

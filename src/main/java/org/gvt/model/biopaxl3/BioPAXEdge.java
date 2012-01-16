@@ -108,6 +108,12 @@ public abstract class BioPAXEdge extends EdgeModel implements IBioPAXEdge
 		return !isTranscription();
 	}
 
+	@Override
+	public boolean isEquivalenceEdge()
+	{
+		return false;
+	}
+
 	/**
 	 * Directed by default. Is overwritten in some undirected edges.
 	 */

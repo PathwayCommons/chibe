@@ -1,7 +1,9 @@
 package org.gvt.action;
 
 import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.model.level3.Pathway;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -55,6 +57,8 @@ public class QueryPCGetAction extends Action
 			Model model = pc2.get(id);
 			main.unlock();
 
+			BioPAXElement element = model.getByID(id);
+
 			if (model != null && !model.getObjects().isEmpty())
 			{
 				if (main.getOwlModel() != null)
@@ -62,7 +66,10 @@ public class QueryPCGetAction extends Action
 					MergeAction merge = new MergeAction(main, model);
 					merge.setOpenPathways(true);
 					merge.setCreateNewPathway(true);
-					merge.setNewPathwayName(getText());
+					if (!(element instanceof Pathway))
+					{
+						merge.setNewPathwayName(getText());
+					}
 					merge.run();
 				}
 				else
@@ -70,7 +77,10 @@ public class QueryPCGetAction extends Action
 					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
 					load.setOpenPathways(true);
 
-					load.setPathwayName(getText());
+					if (!(element instanceof Pathway))
+					{
+						load.setPathwayName(getText());
+					}
 					load.run();
 				}
 			}

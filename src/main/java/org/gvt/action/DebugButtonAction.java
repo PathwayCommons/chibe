@@ -12,6 +12,7 @@ import org.gvt.ChisioMain;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.ChbComplex;
+import org.gvt.model.biopaxl3.ChbConversion;
 
 import java.util.*;
 
@@ -72,6 +73,11 @@ public class DebugButtonAction extends Action
 				{
 					ChbComplex cmp = (ChbComplex) o;
 					System.out.println(cmp.getComplex().getRDFId());
+				}
+				else if (o instanceof ChbConversion)
+				{
+					ChbConversion cnv = (ChbConversion) o;
+					System.out.println("conversion id = " + cnv.getConversion().getRDFId());
 				}
 			}
 		}

@@ -1,6 +1,8 @@
 package org.gvt.gui;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
@@ -103,6 +105,21 @@ public class StringInputDialog extends Dialog
 		ButtonAdapter adapter = new ButtonAdapter();
 
 		text = new Text(itemsGroup, SWT.SINGLE);
+		text.addKeyListener(new KeyListener()
+		{
+			@Override
+			public void keyPressed(KeyEvent keyEvent){}
+
+			@Override
+			public void keyReleased(KeyEvent keyEvent)
+			{
+//				System.out.println(keyEvent.keyCode);
+				if (keyEvent.keyCode == 13)
+				{
+					okPressed();
+				}
+			}
+		});
 
 		if (input != null) text.setText(input);
 		if (selectText) text.selectAll();
@@ -131,14 +148,24 @@ public class StringInputDialog extends Dialog
 
 			if (button == okButton)
 			{
-				input = text.getText();
-				shell.dispose();
+				okPressed();
 			}
 			else if (button == cancelButton)
 			{
-				input = null;
-				shell.dispose();
+				cancelPressed();
 			}
 		}
+	}
+
+	private void cancelPressed()
+	{
+		input = null;
+		shell.dispose();
+	}
+
+	private void okPressed()
+	{
+		input = text.getText();
+		shell.dispose();
 	}
 }

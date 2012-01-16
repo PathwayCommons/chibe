@@ -170,6 +170,7 @@ public class TopMenuBar
 		pcNewMenu.add(new QueryPCPOIAction(chisio));
 		pcNewMenu.add(new QueryPCCommonStreamAction(chisio));
 		pcNewMenu.add(new Separator());
+		pcNewMenu.add(new QueryPCPathwaysAction(chisio));
 		pcNewMenu.add(new QueryPCGetAction(chisio));
 
 		// HELP

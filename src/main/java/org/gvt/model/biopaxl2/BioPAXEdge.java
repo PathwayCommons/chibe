@@ -103,6 +103,12 @@ public abstract class BioPAXEdge extends EdgeModel implements IBioPAXEdge
 		return this.getSign() == Edge.NEGATIVE;
 	}
 
+	@Override
+	public boolean isEquivalenceEdge()
+	{
+		return false;
+	}
+
 	public boolean isPTM()
 	{
 		return !isTranscription();

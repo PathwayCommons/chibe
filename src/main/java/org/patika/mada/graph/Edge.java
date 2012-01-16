@@ -67,7 +67,13 @@ public interface Edge extends GraphObject
 	 * distance would be progressed.
 	 */
 	public boolean isBreadthEdge();
-	
+
+	/**
+	 * Tells if the edge connects equivalent nodes. For instance generics and members are connected
+	 * with equivalence edges.
+	 */
+	public boolean isEquivalenceEdge();
+
 	/**
 	 * Possible sign.
 	 */

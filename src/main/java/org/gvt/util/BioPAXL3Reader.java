@@ -262,7 +262,7 @@ public class BioPAXL3Reader
 			{
 				if (!map.containsKey(mem.getRDFId())) continue;
 				
-				new Member(map.get(pe.getRDFId()), map.get(mem.getRDFId()));
+				new Member(map.get(mem.getRDFId()), map.get(pe.getRDFId()));
 			}
 		}
 

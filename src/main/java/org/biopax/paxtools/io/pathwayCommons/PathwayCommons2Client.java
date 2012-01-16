@@ -213,6 +213,7 @@ public class PathwayCommons2Client
                 + join(CmdArgs.source + "=", sourceSet, "&") + "&"
                 + CmdArgs.limit + "=" + graphQueryLimit;
 
+		System.out.println(url);
         return restTemplate.getForObject(url, Model.class);
     }
 
@@ -251,6 +252,7 @@ public class PathwayCommons2Client
                 + CmdArgs.direction + "=" + direction + "&"
                 + CmdArgs.limit + "=" + graphQueryLimit;
 
+		System.out.println(url);
 		return restTemplate.getForObject(url, Model.class);
     }
 
@@ -279,6 +281,7 @@ public class PathwayCommons2Client
                 + CmdArgs.direction + "=" + direction + "&"
                 + CmdArgs.limit + "=" + graphQueryLimit;
 
+		System.out.println(url);
         return restTemplate.getForObject(url, Model.class);
     }
 
@@ -528,9 +531,9 @@ public class PathwayCommons2Client
 	public static void main(String[] args) throws PathwayCommonsException, FileNotFoundException
 	{
 		PathwayCommons2Client c = new PathwayCommons2Client();
-//		ServiceResponse resp = c.find("Androgen");
-		Model model = c.get("http://pid.nci.nih.gov/biopax/9C01D76A-8C84-11E0-B73D-CBEE6AF8070D#pid_51949");
-		SimpleIOHandler h = new SimpleIOHandler();
-		h.convertToOWL(model, new FileOutputStream("/home/ozgun/Desktop/temp.owl"));
+		ServiceResponse resp = c.find("Androgen");
+//		Model model = c.get("http://pid.nci.nih.gov/biopax/9C01D76A-8C84-11E0-B73D-CBEE6AF8070D#pid_51949");
+//		SimpleIOHandler h = new SimpleIOHandler();
+//		h.convertToOWL(model, new FileOutputStream("/home/ozgun/Desktop/temp.owl"));
 	}
 }

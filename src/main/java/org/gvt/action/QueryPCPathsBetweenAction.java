@@ -58,6 +58,7 @@ public class QueryPCPathsBetweenAction extends Action
 
 			main.lockWithMessage("Querying Pathway Commons ...");
 			PathwayCommons2Client pc2 = new PathwayCommons2Client();
+			pc2.setGraphQueryLimit(options.getLengthLimit());
 			Model model = pc2.getPathsBetween(sourceSymbols);
 			main.unlock();
 

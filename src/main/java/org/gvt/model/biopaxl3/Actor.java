@@ -371,20 +371,32 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 		addDataSourceAndXrefAndComments(list, entity);
 
+		EntityHolder ent = getEntity();
+		
+		if (ent.l3er != null)
+		{
+			addNamesAndTypeAndID(list, ent.l3er);
+
+			for (Xref xr : ent.l3er.getXref())
+			{
+				list.add(new String[]{"Reference", xr.toString()});
+			}
+		}
+
 		return list;
 	}
 
 	public Set<GraphObject> getRequisites()
 	{
 		Set<GraphObject> reqs = super.getRequisites();
-		for (Object o : getSourceConnections())
-		{
-			if (o instanceof Member) reqs.add((Member) o);
-		}
-//		for (Object o : getTargetConnections())
+//		for (Object o : getSourceConnections())
 //		{
 //			if (o instanceof Member) reqs.add((Member) o);
 //		}
+		for (Object o : getTargetConnections())
+		{
+			if (o instanceof Member) reqs.add((Member) o);
+		}
 		return reqs;
 	}
 

@@ -112,6 +112,7 @@ public class PathwaySelectionDialog extends Dialog
 		for (Pathway p : model.getObjects(Pathway.class))
 		{
 			if (p.getPathwayComponent().isEmpty()) continue;
+			if (!p.getPathwayComponentOf().isEmpty()) continue;
 
 			TreeItem item = new TreeItem(tree, SWT.NONE);
 			item.setText(p.getDisplayName());
@@ -145,6 +146,7 @@ public class PathwaySelectionDialog extends Dialog
 	
 	private void setCheckedRecursive(TreeItem item, Set<String> selected)
 	{
+		item.setExpanded(true);
 		item.setChecked(selected.contains(item.getText()));
 
 		for (TreeItem child : item.getItems())

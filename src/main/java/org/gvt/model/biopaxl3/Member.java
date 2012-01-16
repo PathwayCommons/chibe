@@ -26,7 +26,7 @@ public class Member extends BioPAXEdge
 		assert parent instanceof Actor || parent instanceof ChbComplex;
 		assert child instanceof Actor || child instanceof ChbComplex;
 
-		setArrow("Source");
+		setArrow("Target");
 		setColor(COLOR);
 	}
 
@@ -45,5 +45,11 @@ public class Member extends BioPAXEdge
 	public boolean isDirected()
 	{
 		return false;
+	}
+
+	@Override
+	public boolean isEquivalenceEdge()
+	{
+		return true;
 	}
 }

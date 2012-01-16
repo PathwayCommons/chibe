@@ -499,7 +499,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	 * @param list
 	 * @param ent
 	 */
-	public static void addNamesAndTypeAndID(List<String[]> list, Entity ent)
+	public static void addNamesAndTypeAndID(List<String[]> list, Named ent)
 	{
 		assert ent != null;
 
@@ -563,33 +563,33 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 					list.add(new String[]{"Organism", src.toString()});
 				}
 			}
+		}
 
-			for (String comment : ent.getComment())
+		for (String comment : ent.getComment())
+		{
+			if (!comment.contains("@Layout"))
 			{
-				if (!comment.contains("@Layout"))
+				String c;
+
+				boolean first = true;
+
+				while (comment.length() > PROPERTY_CHAR_LIMIT)
 				{
-					String c;
+					int cutIndex = comment.lastIndexOf(" ", PROPERTY_CHAR_LIMIT);
+					if (cutIndex < 0) cutIndex = PROPERTY_CHAR_LIMIT;
 
-					boolean first = true;
+					c = comment.substring(0, cutIndex);
+					comment = comment.substring(cutIndex).trim();
 
-					while (comment.length() > PROPERTY_CHAR_LIMIT)
-					{
-						int cutIndex = comment.lastIndexOf(" ", PROPERTY_CHAR_LIMIT);
-						if (cutIndex < 0) cutIndex = PROPERTY_CHAR_LIMIT;
+					String prop = first ? "Comment" : "";
+					list.add(new String[]{prop, c});
+					first = false;
+				}
 
-						c = comment.substring(0, cutIndex);
-						comment = comment.substring(cutIndex).trim();
-
-						String prop = first ? "Comment" : "";
-						list.add(new String[]{prop, c});
-						first = false;
-					}
-
-					if (comment.trim().length() > 0)
-					{
-						String prop = first ? "Comment" : "";
-						list.add(new String[]{prop, comment.trim()});
-					}
+				if (comment.trim().length() > 0)
+				{
+					String prop = first ? "Comment" : "";
+					list.add(new String[]{prop, comment.trim()});
 				}
 			}
 		}

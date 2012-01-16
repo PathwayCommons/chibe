@@ -92,7 +92,7 @@ public class BFS
 			{
 				// Label the edge considering direction of traversal and type of current node
 
-				if (isFwd || !current.isBreadthNode())
+				if (isFwd || !current.isBreadthNode() || edge.isEquivalenceEdge())
 				{
 					setLabel(edge, getLabel(current));
 				}
@@ -110,7 +110,7 @@ public class BFS
 				{
 					// Label the neighbor according to the search direction and node type
 
-					if (!neigh.isBreadthNode() || !isFwd)
+					if (!neigh.isBreadthNode() || !isFwd || edge.isEquivalenceEdge())
 					{
 						setLabel(neigh, getLabel(edge));
 					}
