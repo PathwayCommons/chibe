@@ -1,10 +1,6 @@
 package org.gvt.gui;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
 import org.gvt.util.QueryOptionsPack;
@@ -24,31 +20,6 @@ public class CommonStreamQueryParamDialog extends AbstractQueryParamDialog
 	public CommonStreamQueryParamDialog(ChisioMain main)
 	{
 		super(main);
-	}
-
-	/**
-	 * Open the dialog
-	 */
-	public QueryOptionsPack open(QueryOptionsPack opt)
-	{
-		createContents(opt);
-
-		shell.setLocation(
-			getParent().getLocation().x + (getParent().getSize().x / 2) -
-			(shell.getSize().x / 2),
-			getParent().getLocation().y + (getParent().getSize().y / 2) -
-			(shell.getSize().y / 2));
-
-		shell.open();
-
-		shell.layout();
-		Display display = getParent().getDisplay();
-		while (!shell.isDisposed())
-		{
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-		return opt;
 	}
 
 	/**

@@ -1,13 +1,11 @@
 package org.gvt.action;
 
 import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
+import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
 import org.biopax.paxtools.model.Model;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
+import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
-import org.gvt.util.QueryOptionsPack;
 
 import java.util.List;
 
@@ -15,88 +13,43 @@ import java.util.List;
  * @author Ozgun Babur
  *
  */
-public class QueryPCNeighborsAction extends Action
+public class QueryPCNeighborsAction extends QueryPCAction
 {
-	private ChisioMain main;
-
-	/**
-	 * Dialog options are stored, in order to use next time dialog is opened.
-	 */
-	QueryOptionsPack options;
-
-	public QueryPCNeighborsAction(ChisioMain main)
+	public QueryPCNeighborsAction(ChisioMain main, boolean useSelected)
 	{
-		super("Query Neighbors");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
-		setToolTipText(getText());
-		this.main = main;
-		options = new QueryOptionsPack();
+		super(main, "Query Neighbors", useSelected);
 	}
 
 	public void run()
 	{
-		try
-		{
-			//open dialog
-			NeighborhoodQueryParamWithEntitiesDialog dialog =
-				new NeighborhoodQueryParamWithEntitiesDialog(main, null);
+		execute();
+	}
 
-			options = dialog.open(options);
+	@Override
+	protected Model doQuery() throws PathwayCommonsException
+	{
+		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		pc2.setGraphQueryLimit(options.getLengthLimit());
+		List<String> symbols = options.getFormattedSourceList();
 
-			if (!options.isCancel())
-			{
-				options.setCancel(true);
-			}
-			else
-			{
-				return;
-			}
+		PathwayCommons2Client.STREAM_DIRECTION dir =
+			options.isUpstream() && options.isDownstream() ?
+				PathwayCommons2Client.STREAM_DIRECTION.BOTHSTREAM :
+			options.isUpstream() ? PathwayCommons2Client.STREAM_DIRECTION.UPSTREAM :
+				PathwayCommons2Client.STREAM_DIRECTION.DOWNSTREAM;
 
-			List<String> symbols = options.getFormattedSourceList();
+		return pc2.getNeighborhood(symbols, dir);
+	}
 
-			if (symbols.isEmpty()) return;
+	@Override
+	protected AbstractQueryParamDialog getDialog()
+	{
+		return new NeighborhoodQueryParamWithEntitiesDialog(main, null);
+	}
 
-			main.lockWithMessage("Querying Pathway Commons ...");
-			PathwayCommons2Client pc2 = new PathwayCommons2Client();
-			pc2.setGraphQueryLimit(options.getLengthLimit());
-			Model model = pc2.getNeighborhood(symbols,
-				PathwayCommons2Client.STREAM_DIRECTION.BOTHSTREAM);
-			main.unlock();
-
-			if (model != null && !model.getObjects().isEmpty())
-			{
-				if (main.getOwlModel() != null)
-				{
-					MergeAction merge = new MergeAction(main, model);
-					merge.setOpenPathways(true);
-					merge.setCreateNewPathway(true);
-					merge.setNewPathwayName("Neighborhood");
-					merge.run();
-				}
-				else
-				{
-					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
-					load.setOpenPathways(true);
-
-					load.setPathwayName("Neighborhood");
-					load.run();
-				}
-			}
-			else
-			{
-				MessageDialog.openInformation(main.getShell(), "Not found!",
-					"Nothing found!");
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			MessageDialog.openError(main.getShell(), "Error",
-				"An error occured during querying:\n" + e.getMessage());
-		}
-		finally
-		{
-			main.unlock();
-		}
+	@Override
+	protected boolean canQuery()
+	{
+		return !options.getFormattedSourceList().isEmpty();
 	}
 }

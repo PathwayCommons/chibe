@@ -17,6 +17,8 @@ import org.gvt.gui.AbstractQueryParamDialog;
  */
 public class QueryOptionsPack implements Serializable
 {
+	private boolean useID;
+
 	/**
 	 * Length Limit of querying
 	 */
@@ -164,11 +166,13 @@ public class QueryOptionsPack implements Serializable
 
 	public List<String> getFormattedSourceList()
 	{
+		if (useID) return sourceList;
 		return getFormattedSymbols(sourceList);
 	}
 
 	public List<String> getFormattedTargetList()
 	{
+		if (useID) return targetList;
 		return getFormattedSymbols(targetList);
 	}
 
@@ -243,6 +247,16 @@ public class QueryOptionsPack implements Serializable
 	public void setLimitType(boolean limitType)
 	{
 		this.limitType = limitType;
+	}
+
+	public boolean isUseID()
+	{
+		return useID;
+	}
+
+	public void setUseID(boolean useID)
+	{
+		this.useID = useID;
 	}
 
 	/**

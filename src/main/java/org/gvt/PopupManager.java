@@ -61,19 +61,23 @@ public class PopupManager extends MenuManager
 		else if (ep instanceof NodeEditPart)
 		{
 			// NODE-COMPOUND POPUP
-			manager.add(new QueryPCNeighborsAction(main));
-			manager.add(new Separator());
 			manager.add(new HighlightSelectedAction(main));
 			manager.add(new RemoveHighlightFromSelectedAction(main));
 			manager.add(new DeleteAction(main));
 			manager.add(new InspectorAction(main, false));
 			manager.add(new Separator());
-			manager.add(new LocalNeighborhoodQueryAction(main, true));
-			manager.add(new LocalGoIQueryAction(main, true));
-			manager.add(new LocalCommonStreamQueryAction(main, true));
-			manager.add(new Separator());
-			manager.add(new QueryNeighborsAction(main, true));
-			manager.add(new QueryPathwaysAction(main, true));
+
+			MenuManager localQueryMenu = new MenuManager("&Local Query");
+			localQueryMenu.add(new LocalNeighborhoodQueryAction(main, true));
+			localQueryMenu.add(new LocalGoIQueryAction(main, true));
+			localQueryMenu.add(new LocalCommonStreamQueryAction(main, true));
+			manager.add(localQueryMenu);
+
+			MenuManager pcQueryMenu = new MenuManager("&PC Query");
+			pcQueryMenu.add(new QueryPCNeighborsAction(main, true));
+			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true));
+			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true));
+			manager.add(pcQueryMenu);
 		}
 		else if (ep instanceof ChsEdgeEditPart)
 		{

@@ -34,31 +34,6 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 	}
 
     /**
-	 * Open the dialog
-	 */
-	public QueryOptionsPack open(QueryOptionsPack opt)
-	{
-        createContents(opt);
-
-		shell.setLocation(
-			getParent().getLocation().x + (getParent().getSize().x / 2) -
-			(shell.getSize().x / 2),
-			getParent().getLocation().y + (getParent().getSize().y / 2) -
-			(shell.getSize().y / 2));
-
-		shell.open();
-
-		shell.layout();
-		Display display = getParent().getDisplay();
-		while (!shell.isDisposed())
-		{
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-		return opt;
-    }
-
-    /**
 	 * Create contents of the dialog.
 	 * Buttons, List, Text Field, Radio Buttons, etc.
 	 */

@@ -33,13 +33,15 @@
 		<!--<name>eclipse</name>-->
 		<!--<url>http://maven.eclipse.org/nexus/content/repositories/testing</url>-->
 		<!--</repository>-->
+        <repository>
+            <id>biopax.releases</id>
+            <name>BioPAX Snapshots Repository at Sourceforge</name>
+            <url>http://biopax.sourceforge.net/m2repo/releases/</url>
+        </repository>
 		<repository>
 			<id>biopax.snapshots</id>
 			<name>BioPAX Snapshots Repository at Sourceforge</name>
 			<url>http://biopax.sourceforge.net/m2repo/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
 		</repository>
 		<repository>
 			<id>chibe</id>
@@ -169,14 +171,14 @@
 		</dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
-			<artifactId>pathwaycommons-client</artifactId>
-			<version>4.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>sif-converter</artifactId>
 			<version>${biopax.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>pathwaycommons.cpath</groupId>
+            <artifactId>cpath-client</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
 		<dependency>
 			<groupId>org.patika.mada</groupId>
 			<artifactId>dataXML</artifactId>

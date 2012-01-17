@@ -613,9 +613,14 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 				NodeModel source = map.get(ctrlr.getRDFId());
 
-				if (source == null && ctrlr instanceof Pathway)
+				if (source == null)
 				{
-					source = new ChbPathway(root, (Pathway) ctrlr, map);
+					source = map.get(ctrlr.getRDFId() + con.getRDFId());
+					
+					if (source == null && ctrlr instanceof Pathway)
+					{
+						source = new ChbPathway(root, (Pathway) ctrlr, map);
+					}
 				}
 
 				new NonModulatedEffector(source, this, con, inter);

@@ -2,7 +2,6 @@ package org.gvt.gui;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.gvt.ChisioMain;
 import org.gvt.util.QueryOptionsPack;
 
@@ -19,31 +18,6 @@ public class GoIQueryParamDialog extends AbstractQueryParamDialog
     public GoIQueryParamDialog(ChisioMain main)
     {
         super(main);
-    }
-
-    /**
-     * Open the dialog
-     */
-    public QueryOptionsPack open(QueryOptionsPack opt)
-    {
-        createContents(opt);
-
-        shell.setLocation(
-            getParent().getLocation().x + (getParent().getSize().x / 2) -
-            (shell.getSize().x / 2),
-            getParent().getLocation().y + (getParent().getSize().y / 2) -
-            (shell.getSize().y / 2));
-
-        shell.open();
-
-        shell.layout();
-        Display display = getParent().getDisplay();
-        while (!shell.isDisposed())
-        {
-            if (!display.readAndDispatch())
-                display.sleep();
-        }
-        return opt;
     }
 
     /**

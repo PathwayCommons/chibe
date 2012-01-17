@@ -127,8 +127,8 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		}
 		else
 		{
-//		    setColor(getEntitySpecificColor());
-			setColor(getStringSpecificColor(getText()));
+		    setColor(getEntitySpecificColor());
+//			setColor(getStringSpecificColor(getText()));
 		}
 
 		String shp = "RoundRect";
@@ -270,9 +270,10 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	 */
 	public Color getEntitySpecificColor()
 	{
-		if (entity == null) return null;
-
-		return super.getStringSpecificColor(entity.getRDFId());
+		EntityHolder ent = getEntity();
+		if (ent.l3er != null) return super.getStringSpecificColor(ent.l3er.getRDFId());
+		else if (ent.l3pe != null) return super.getStringSpecificColor(ent.l3pe.getRDFId());
+		else return null;
 	}
 
 	public boolean isEvent()

@@ -1,105 +1,65 @@
 package org.gvt.action;
 
 import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
-import org.biopax.paxtools.model.BioPAXElement;
+import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
 import org.biopax.paxtools.model.Model;
-import org.biopax.paxtools.model.level3.Pathway;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
-import org.gvt.gui.PoIQueryParamWithEntitiesDialog;
+import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.StringInputDialog;
-import org.gvt.util.QueryOptionsPack;
-
-import java.util.List;
 
 /**
  * @author Ozgun Babur
  *
  */
-public class QueryPCGetAction extends Action
+public class QueryPCGetAction extends QueryPCAction
 {
-	private ChisioMain main;
+	String id;
 
-	/**
-	 * Dialog options are stored, in order to use next time dialog is opened.
-	 */
-	QueryOptionsPack options;
-
-	public QueryPCGetAction(ChisioMain main)
+	public QueryPCGetAction(ChisioMain main, boolean useSelected)
 	{
-		super("Get with RDF ID");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
-		setToolTipText(getText());
-		this.main = main;
-		options = new QueryOptionsPack();
+		super(main, "Get with RDF ID", useSelected);
 	}
 
 	public void run()
 	{
-		try
+		if (!useSelected)
 		{
 			StringInputDialog dialog = new StringInputDialog(main.getShell(), "Get Objects",
-				"Enter RDF ID of databse object", "");
+				"Enter RDF ID of databse object", id);
 
-			String id = dialog.open();
-
-			if (id == null || id.trim().length() == 0)
+			id = dialog.open();
+			if (id != null)
 			{
-				return;
-			}
-
-			id = id.trim();
-
-			main.lockWithMessage("Querying Pathway Commons ...");
-			PathwayCommons2Client pc2 = new PathwayCommons2Client();
-			Model model = pc2.get(id);
-			main.unlock();
-
-			BioPAXElement element = model.getByID(id);
-
-			if (model != null && !model.getObjects().isEmpty())
-			{
-				if (main.getOwlModel() != null)
-				{
-					MergeAction merge = new MergeAction(main, model);
-					merge.setOpenPathways(true);
-					merge.setCreateNewPathway(true);
-					if (!(element instanceof Pathway))
-					{
-						merge.setNewPathwayName(getText());
-					}
-					merge.run();
-				}
-				else
-				{
-					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
-					load.setOpenPathways(true);
-
-					if (!(element instanceof Pathway))
-					{
-						load.setPathwayName(getText());
-					}
-					load.run();
-				}
-			}
-			else
-			{
-				MessageDialog.openInformation(main.getShell(), "Not found!",
-					"Nothing found!");
+				id = id.trim();
+				if (id.length() == 0) id = null;
 			}
 		}
-		catch (Exception e)
+
+		execute();
+	}
+
+	@Override
+	protected Model doQuery() throws PathwayCommonsException
+	{
+		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+
+		if (useSelected && !options.getSourceList().isEmpty())
 		{
-			e.printStackTrace();
-			MessageDialog.openError(main.getShell(), "Error",
-				"An error occured during querying:\n" + e.getMessage());
-		}
-		finally
-		{
-			main.unlock();
+			id = options.getSourceList().iterator().next();
 		}
 
+		return pc2.get(id);
+	}
+
+	@Override
+	protected AbstractQueryParamDialog getDialog()
+	{
+		return null;
+	}
+
+	@Override
+	protected boolean canQuery()
+	{
+		return !(id == null && options.getSourceList().isEmpty());
 	}
 }

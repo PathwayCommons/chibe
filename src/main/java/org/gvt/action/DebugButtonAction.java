@@ -62,6 +62,7 @@ public class DebugButtonAction extends Action
 				if (model instanceof Actor)
 				{
 					Actor actor = (Actor) model;
+					System.out.println("pe id = " + actor.getEntity().getID());
 
 					for (Xref xref : ((SimplePhysicalEntity)actor.getEntity().l3pe).getEntityReference().getXref())
 					{

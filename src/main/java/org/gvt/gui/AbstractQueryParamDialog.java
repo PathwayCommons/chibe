@@ -560,6 +560,31 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		else return Collections.emptyList();
 	}
 
+	/**
+	 * Open the dialog
+	 */
+	public QueryOptionsPack open(QueryOptionsPack opt)
+	{
+		createContents(opt);
+
+		shell.setLocation(
+			getParent().getLocation().x + (getParent().getSize().x / 2) -
+			(shell.getSize().x / 2),
+			getParent().getLocation().y + (getParent().getSize().y / 2) -
+			(shell.getSize().y / 2));
+
+		shell.open();
+
+		shell.layout();
+		Display display = getParent().getDisplay();
+		while (!shell.isDisposed())
+		{
+			if (!display.readAndDispatch())
+				display.sleep();
+		}
+		return opt;
+	}
+
 	class EntityListGroup extends Composite
 	{
 		protected List entityList;

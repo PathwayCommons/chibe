@@ -1,6 +1,5 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.controller.Merger;
 import org.biopax.paxtools.controller.SimpleEditorMap;
 import org.biopax.paxtools.controller.SimpleMerger;
 import org.biopax.paxtools.io.BioPAXIOHandler;
@@ -8,6 +7,7 @@ import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level2.interaction;
+import org.biopax.paxtools.model.level3.Interaction;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -18,7 +18,6 @@ import org.gvt.model.BioPAXGraph;
 import org.gvt.util.BioPAXReader;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -255,9 +254,19 @@ public class MergeAction extends Action
 	{
 		List<String> ids = new ArrayList<String>();
 
-		for (interaction inter : model.getObjects(interaction.class))
+		if (model.getLevel() == BioPAXLevel.L2)
 		{
-			ids.add(inter.getRDFId());
+			for (interaction inter : model.getObjects(interaction.class))
+			{
+				ids.add(inter.getRDFId());
+			}
+		}
+		else if (model.getLevel() == BioPAXLevel.L3)
+		{
+			for (Interaction inter : model.getObjects(Interaction.class))
+			{
+				ids.add(inter.getRDFId());
+			}
 		}
 		return ids;
 	}

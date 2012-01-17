@@ -161,6 +161,11 @@ public class BioPAXL3Reader
 					Actor actor = new Actor(parent, pe, inter);
 					map.put(pe.getRDFId() + inter.getRDFId(), actor);
 				}
+				for (Control control : pe.getControllerOf())
+				{
+					Actor actor = new Actor(parent, pe, control);
+					map.put(pe.getRDFId() + control.getRDFId(), actor);
+				}
 			}
 		}
 

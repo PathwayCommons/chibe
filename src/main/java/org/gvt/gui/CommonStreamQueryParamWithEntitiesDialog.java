@@ -4,7 +4,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.gvt.ChisioMain;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.QueryOptionsPack;
@@ -33,31 +32,6 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 	{
 		super(main);
 		this.allEntities = allEntities;
-	}
-
-	/**
-	 * Open the dialog
-	 */
-	public QueryOptionsPack open(QueryOptionsPack opt)
-	{
-		createContents(opt);
-
-		shell.setLocation(
-			getParent().getLocation().x + (getParent().getSize().x / 2) -
-			(shell.getSize().x / 2),
-			getParent().getLocation().y + (getParent().getSize().y / 2) -
-			(shell.getSize().y / 2));
-
-		shell.open();
-
-		shell.layout();
-		Display display = getParent().getDisplay();
-		while (!shell.isDisposed())
-		{
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-		return opt;
 	}
 
 	/**

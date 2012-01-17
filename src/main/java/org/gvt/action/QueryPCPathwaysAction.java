@@ -1,15 +1,15 @@
 package org.gvt.action;
 
-import cpath.service.jaxb.ServiceResponse;
+import cpath.service.jaxb.SearchHitType;
+import cpath.service.jaxb.SearchResponseType;
 import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
+import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
 import org.biopax.paxtools.model.Model;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
+import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.StringInputDialog;
-import org.gvt.util.QueryOptionsPack;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,22 +19,15 @@ import java.util.List;
  * @author Ozgun Babur
  *
  */
-public class QueryPCPathwaysAction extends Action
+public class QueryPCPathwaysAction extends QueryPCAction
 {
-	private ChisioMain main;
-
-	/**
-	 * Dialog options are stored, in order to use next time dialog is opened.
-	 */
-	QueryOptionsPack options;
+	String keyword;
+	
+	String pathwayID;
 
 	public QueryPCPathwaysAction(ChisioMain main)
 	{
-		super("Query Pathways");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
-		setToolTipText(getText());
-		this.main = main;
-		options = new QueryOptionsPack();
+		super(main, "Query Pathways", false);
 	}
 
 	public void run()
@@ -42,9 +35,9 @@ public class QueryPCPathwaysAction extends Action
 		try
 		{
 			StringInputDialog dialog = new StringInputDialog(main.getShell(), "Search Pathways",
-				"Enter a keyword for pathway name", "");
+				"Enter a keyword for pathway name", keyword);
 
-			String keyword = dialog.open();
+			keyword = dialog.open();
 
 			if (keyword == null || keyword.trim().length() == 0)
 			{
@@ -56,7 +49,7 @@ public class QueryPCPathwaysAction extends Action
 			main.lockWithMessage("Querying Pathway Commons ...");
 			PathwayCommons2Client pc2 = new PathwayCommons2Client();
 			pc2.setType("Pathway");
-			ServiceResponse resp = pc2.find(keyword);
+			SearchResponseType resp = pc2.find(keyword);
 			main.unlock();
 
 			List<Holder> holders = extractResultFromServResp(resp);
@@ -71,33 +64,9 @@ public class QueryPCPathwaysAction extends Action
 
 			if (selected == null) return;
 			
-			String id = getIDList(holders).get(names.indexOf(selected));
+			pathwayID = getIDList(holders).get(names.indexOf(selected));
 
-			main.lockWithMessage("Querying Pathway Commons ...");
-			pc2 = new PathwayCommons2Client();
-			Model model = pc2.get(id);
-			main.unlock();
-
-			if (model != null && !model.getObjects().isEmpty())
-			{
-				if (main.getOwlModel() != null)
-				{
-					MergeAction merge = new MergeAction(main, model);
-					merge.setOpenPathways(true);
-					merge.run();
-				}
-				else
-				{
-					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
-					load.setOpenPathways(true);
-					load.run();
-				}
-			}
-			else
-			{
-				MessageDialog.openInformation(main.getShell(), "Not found!",
-					"Nothing found!");
-			}
+			execute();
 		}
 		catch (Exception e)
 		{
@@ -108,13 +77,19 @@ public class QueryPCPathwaysAction extends Action
 		finally
 		{
 			main.unlock();
+			pathwayID = null;
 		}
 
 	}
 	
-	private List<Holder> extractResultFromServResp(ServiceResponse resp)
+	private List<Holder> extractResultFromServResp(SearchResponseType resp)
 	{
-		return null; //todo
+		List<Holder> holders = new ArrayList<Holder>();
+		for (SearchHitType hit : resp.getSearchHit())
+		{
+			holders.add(new Holder(hit.getName().iterator().next(), hit.getUri()));
+		}
+		return holders;
 	}
 	
 	private List<String> getNamesList(List<Holder> holders)
@@ -136,7 +111,26 @@ public class QueryPCPathwaysAction extends Action
 		}
 		return ids;
 	}
-	
+
+	@Override
+	protected Model doQuery() throws PathwayCommonsException
+	{
+		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		return pc2.get(pathwayID);
+	}
+
+	@Override
+	protected AbstractQueryParamDialog getDialog()
+	{
+		return null;
+	}
+
+	@Override
+	protected boolean canQuery()
+	{
+		return pathwayID != null && pathwayID.length() > 0;
+	}
+
 	private class Holder implements Comparable
 	{
 		String name;

@@ -165,13 +165,13 @@ public class TopMenuBar
 
 		// Query new pathway commons
 		menuBar.add(pcNewMenu);
-		pcNewMenu.add(new QueryPCNeighborsAction(chisio));
-		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio));
-		pcNewMenu.add(new QueryPCPOIAction(chisio));
-		pcNewMenu.add(new QueryPCCommonStreamAction(chisio));
+		pcNewMenu.add(new QueryPCNeighborsAction(chisio, false));
+		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio, false));
+		pcNewMenu.add(new QueryPCPathsFromToAction(chisio));
+		pcNewMenu.add(new QueryPCCommonStreamAction(chisio, false));
 		pcNewMenu.add(new Separator());
 		pcNewMenu.add(new QueryPCPathwaysAction(chisio));
-		pcNewMenu.add(new QueryPCGetAction(chisio));
+		pcNewMenu.add(new QueryPCGetAction(chisio, false));
 
 		// HELP
 		menuBar.add(helpMenu);
