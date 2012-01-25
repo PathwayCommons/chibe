@@ -271,7 +271,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public Color getEntitySpecificColor()
 	{
 		EntityHolder ent = getEntity();
-		if (ent.l3er != null) return super.getStringSpecificColor(ent.l3er.getRDFId());
+		if (ent.l3er != null) return super.getStringSpecificColor(ent.l3er.getRDFId()+"X");
 		else if (ent.l3pe != null) return super.getStringSpecificColor(ent.l3pe.getRDFId());
 		else return null;
 	}

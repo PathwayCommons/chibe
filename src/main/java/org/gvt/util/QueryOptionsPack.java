@@ -49,9 +49,6 @@ public class QueryOptionsPack implements Serializable
 	private boolean downstream;
 	private boolean upstream;
 
-	// This is used when direction is either up or down
-	private boolean direction;
-
 	/**
 	 * A value that will be summed with shortest path's length and the result
 	 * will be the length limit.
@@ -83,7 +80,6 @@ public class QueryOptionsPack implements Serializable
 		this.targetList = null;
 		this.downstream = true;
 		this.upstream = false;
-		this.direction = true;
 		this.shortestPlusKLimit = 0;
 		this.limitType = true;
 		this.strict = false;
@@ -209,16 +205,6 @@ public class QueryOptionsPack implements Serializable
 		this.upstream = upstream;
 	}
 
-	public boolean isDirection()
-	{
-		return direction;
-	}
-
-	public void setDirection(boolean direction)
-	{
-		this.direction = direction;
-	}
-
 	public int getShortestPlusKLimit()
 	{
 		return shortestPlusKLimit;
@@ -266,9 +252,6 @@ public class QueryOptionsPack implements Serializable
 	{
 		setLengthLimit(AbstractQueryParamDialog.DEFAULT_LENGTH_LIMIT);
 		setCurrentView(AbstractQueryParamDialog.CURRENT_VIEW);
-
-		//set default value of downstream
-		setDirection(AbstractQueryParamDialog.DOWNSTREAM);
 
 		setUpstream(true);
 		setDownstream(true);

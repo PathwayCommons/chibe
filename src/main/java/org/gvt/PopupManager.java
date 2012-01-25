@@ -76,7 +76,8 @@ public class PopupManager extends MenuManager
 			MenuManager pcQueryMenu = new MenuManager("&PC Query");
 			pcQueryMenu.add(new QueryPCNeighborsAction(main, true));
 			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true));
-			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true));
+			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true, true));
+			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true, false));
 			manager.add(pcQueryMenu);
 		}
 		else if (ep instanceof ChsEdgeEditPart)

@@ -325,16 +325,14 @@ public abstract class AbstractQueryParamDialog extends Dialog
 
 		downstreamButton = new Button(streamDirectionGroup, SWT.RADIO);
 		downstreamButton.setText("Downstream");
-		gridData =
-			new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		downstreamButton.setLayoutData(gridData);
 
 		// Upstream Radio Button
 
 		upstreamButton = new Button(streamDirectionGroup, SWT.RADIO);
 		upstreamButton.setText("Upstream");
-		gridData =
-			new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		upstreamButton.setLayoutData(gridData);
 
 		// Downstream & Upstream Radio Button
@@ -342,8 +340,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			bothButton = new Button(streamDirectionGroup, SWT.RADIO);
 			bothButton.setText("Both");
-			gridData =
-				new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+			gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 			bothButton.setLayoutData(gridData);
 		}
 	}
@@ -426,7 +423,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			// Downstream, Upstream or Both
 
-			if (opt.isDownstream() && opt.isUpstream())
+			if (opt.isDownstream() && opt.isUpstream() && bothButton != null)
 			{
 				bothButton.setSelection(true);
 			}

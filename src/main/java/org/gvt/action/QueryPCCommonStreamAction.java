@@ -15,9 +15,27 @@ import java.util.List;
  */
 public class QueryPCCommonStreamAction extends QueryPCAction
 {
-	public QueryPCCommonStreamAction(ChisioMain main, boolean useSelected)
+	boolean downstream;
+
+	public QueryPCCommonStreamAction(ChisioMain main)
 	{
-		super(main, "Query Common Stream", useSelected);
+		super(main, "Query Common Stream", false);
+	}
+
+	public QueryPCCommonStreamAction(ChisioMain main, boolean useSelected, boolean downstream)
+	{
+		this(main);
+		super.useSelected = useSelected;
+		this.downstream = downstream;
+
+		if (useSelected)
+		{
+			setText(downstream ? "Query Common Downstream" : "Query Common Upstream");
+
+			options.setUpstream(!downstream);
+			options.setDownstream(downstream);
+			options.setLengthLimit(2);
+		}
 	}
 
 	public void run()
@@ -32,10 +50,12 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 
 		PathwayCommons2Client pc2 = new PathwayCommons2Client();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
-		return pc2.getCommonStream(sourceSymbols, (options.isDirection() ==
-			AbstractQueryParamDialog.DOWNSTREAM ?
+
+		PathwayCommons2Client.STREAM_DIRECTION direction = options.isDownstream() ?
 			PathwayCommons2Client.STREAM_DIRECTION.DOWNSTREAM :
-			PathwayCommons2Client.STREAM_DIRECTION.UPSTREAM));
+			PathwayCommons2Client.STREAM_DIRECTION.UPSTREAM;
+
+		return pc2.getCommonStream(sourceSymbols, direction);
 	}
 
 	@Override
