@@ -10,6 +10,7 @@ import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.StringInputDialog;
+import org.gvt.util.Conf;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +48,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 			keyword = keyword.trim();
 
 			main.lockWithMessage("Querying Pathway Commons ...");
-			PathwayCommons2Client pc2 = new PathwayCommons2Client();
+			PathwayCommons2Client pc2 = getPCClient();
 			pc2.setType("Pathway");
 			SearchResponseType resp = pc2.find(keyword);
 			main.unlock();

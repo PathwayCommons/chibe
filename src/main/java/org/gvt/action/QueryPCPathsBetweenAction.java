@@ -28,8 +28,8 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws PathwayCommonsException
 	{
-		List<String> sourceSymbols = options.getFormattedSourceList();
-		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		List<String> sourceSymbols = options.getConvertedSourceList();
+		PathwayCommons2Client pc2 = getPCClient();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
 		return pc2.getPathsBetween(sourceSymbols);
 	}
@@ -43,6 +43,6 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return options.getFormattedSourceList().size() > 1;
+		return options.getConvertedSourceList().size() > 1;
 	}
 }

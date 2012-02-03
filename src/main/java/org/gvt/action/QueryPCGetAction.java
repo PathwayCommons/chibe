@@ -6,6 +6,7 @@ import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.StringInputDialog;
+import org.gvt.util.Conf;
 
 /**
  * @author Ozgun Babur
@@ -41,7 +42,7 @@ public class QueryPCGetAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws PathwayCommonsException
 	{
-		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		PathwayCommons2Client pc2 = getPCClient();
 
 		if (useSelected && !options.getSourceList().isEmpty())
 		{

@@ -69,7 +69,7 @@ public class QueryOptionsPack implements Serializable
 	/**
 	 * A prefix for querying PC with gene symbols
 	 */
-	final String SYMBOL_PREFIX = "urn:biopax:RelationshipXref:HGNC_";
+	final String SYMBOL_PREFIX = "urn:biopax:RelationshipXref:HGNC_HGNC%3A";
 
 	public QueryOptionsPack()
 	{
@@ -138,13 +138,13 @@ public class QueryOptionsPack implements Serializable
 		this.targetList = targetList;
 	}
 
-	protected List<String> getFormattedSymbols(List<String> symbols)
+	protected List<String> getConvertedSymbols(List<String> symbols)
 	{
 		List<String> list = new ArrayList<String>();
 
 		for (String s : symbols)
 		{
-			list.add(SYMBOL_PREFIX + s);
+			list.add(SYMBOL_PREFIX + HGNCUtil.getHGNCID(s));
 		}
 		return list;
 	}
@@ -160,16 +160,16 @@ public class QueryOptionsPack implements Serializable
 		return text.trim();
 	}
 
-	public List<String> getFormattedSourceList()
+	public List<String> getConvertedSourceList()
 	{
 		if (useID) return sourceList;
-		return getFormattedSymbols(sourceList);
+		return getConvertedSymbols(sourceList);
 	}
 
-	public List<String> getFormattedTargetList()
+	public List<String> getConvertedTargetList()
 	{
 		if (useID) return targetList;
-		return getFormattedSymbols(targetList);
+		return getConvertedSymbols(targetList);
 	}
 
 	public String getOneStringSources()

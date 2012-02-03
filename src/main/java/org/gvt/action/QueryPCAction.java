@@ -19,6 +19,7 @@ import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.ChbComplex;
+import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
 
 import java.util.*;
@@ -192,5 +193,12 @@ public abstract class QueryPCAction extends Action
 		options.setSourceList(new ArrayList<String>(set));
 		options.setUseID(true);
 		return !options.getSourceList().isEmpty();
+	}
+
+	protected PathwayCommons2Client getPCClient()
+	{
+		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		pc2.setEndPointURL(Conf.get(Conf.PC_URL_KEY));
+		return pc2;
 	}
 }

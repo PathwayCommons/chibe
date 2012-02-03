@@ -46,9 +46,9 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws PathwayCommonsException
 	{
-		List<String> sourceSymbols = options.getFormattedSourceList();
+		List<String> sourceSymbols = options.getConvertedSourceList();
 
-		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		PathwayCommons2Client pc2 = getPCClient();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
 
 		PathwayCommons2Client.STREAM_DIRECTION direction = options.isDownstream() ?
@@ -67,6 +67,6 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return !options.getFormattedSourceList().isEmpty();
+		return !options.getConvertedSourceList().isEmpty();
 	}
 }
