@@ -61,6 +61,7 @@ public class QueryPCGetAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return !(id == null && options.getSourceList().isEmpty());
+		return !(id == null &&
+			(options.getSourceList() == null || options.getSourceList().isEmpty()));
 	}
 }

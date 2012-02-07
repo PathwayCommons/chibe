@@ -109,6 +109,32 @@ public class BioPAXL3Reader
 
 		for (PhysicalEntity pe : model.getObjects(PhysicalEntity.class))
 		{
+			if (pe instanceof SimplePhysicalEntity)
+			{
+				SimplePhysicalEntity spe = (SimplePhysicalEntity) pe;
+
+				EntityReference er = spe.getEntityReference();
+				if (er != null)
+				{
+					for (EntityReference cer : er.getMemberEntityReference())
+					{
+						System.out.println("ER " + er + " has child ER = " + cer);
+						for (SimplePhysicalEntity cspe : cer.getEntityReferenceOf())
+						{
+							System.out.println("and have PE: " + cspe);
+						}
+					}
+					for (EntityReference per : er.getMemberEntityReferenceOf())
+					{
+						System.out.println("ER " + er + " has parent ER = " + per);
+						for (SimplePhysicalEntity pspe : per.getEntityReferenceOf())
+						{
+							System.out.println("and have PE: " + pspe);
+						}
+					}
+				}
+			}
+
 			if (pe.getStandardName() == null)
 			{
 				if (pe.getDisplayName() != null)

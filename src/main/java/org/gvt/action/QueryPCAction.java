@@ -92,7 +92,8 @@ public abstract class QueryPCAction extends Action
 		}
 		catch (Exception e)
 		{
-			if (e instanceof NoResultsFoundException)
+			if (e instanceof NoResultsFoundException ||
+				e.getCause() instanceof NoResultsFoundException)
 			{
 				alertNoResults();
 			}
@@ -111,7 +112,7 @@ public abstract class QueryPCAction extends Action
 
 	protected void alertNoResults()
 	{
-		MessageDialog.openInformation(main.getShell(), "Not found!", "Nothing found!");
+		MessageDialog.openInformation(main.getShell(), "Empty result set", "No results found!");
 	}
 
 	/**

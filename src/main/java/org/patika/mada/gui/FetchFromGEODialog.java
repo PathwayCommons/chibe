@@ -415,6 +415,14 @@ public class FetchFromGEODialog extends Dialog
 		}
 		return platformFile;
 	}
+
+	static
+	{
+		if (!directory.exists())
+		{
+			directory.mkdir();
+		}
+	}
 }
 
 
