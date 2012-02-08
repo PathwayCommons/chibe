@@ -586,7 +586,19 @@ public class ExperimentDataManager
 	{
 		Set<ExperimentData> datas = new HashSet<ExperimentData>();
 
-		for (XRef ref : node.getReferences())
+		addMappedData(datas, node.getReferences());
+		addMappedData(datas, node.getSecondaryReferences());
+
+		if (!datas.isEmpty())
+		{
+			ExperimentData data = averageData(datas);
+			node.setExperimentData(data);
+		}
+	}
+
+	private void addMappedData(Set<ExperimentData> datas, List<XRef> refs)
+	{
+		for (XRef ref : refs)
 		{
 			ExperimentData data = this.getExperimentData(ref);
 
@@ -594,12 +606,6 @@ public class ExperimentDataManager
 			{
 				datas.add(data);
 			}
-		}
-
-		if (!datas.isEmpty())
-		{
-			ExperimentData data = averageData(datas);
-			node.setExperimentData(data);
 		}
 	}
 

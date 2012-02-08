@@ -125,6 +125,12 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL2Node
 		}
 	}
 
+	@Override
+	public List<XRef> getSecondaryReferences()
+	{
+		return Collections.emptyList();
+	}
+
 	/**
 	 * Extract cross-references from the based entity.
 	 * @return list of possible names

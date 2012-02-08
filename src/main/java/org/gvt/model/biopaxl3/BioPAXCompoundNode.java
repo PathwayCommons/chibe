@@ -114,6 +114,12 @@ public abstract class BioPAXCompoundNode extends CompoundModel implements IBioPA
 		}
 	}
 
+	@Override
+	public List<XRef> getSecondaryReferences()
+	{
+		return Collections.emptyList();
+	}
+
 	public String getName()
 	{
 		return this.getText();

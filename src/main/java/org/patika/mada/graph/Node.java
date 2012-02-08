@@ -76,6 +76,12 @@ public interface Node extends GraphObject
 	 */
 	public List<XRef> getReferences();
 
+	/**
+	 * This method gets the list of references associated with this node.
+	 * @return references list
+	 */
+	public List<XRef> getSecondaryReferences();
+
 	//==========================================================================
 	// Section: Navigation
 	//==========================================================================

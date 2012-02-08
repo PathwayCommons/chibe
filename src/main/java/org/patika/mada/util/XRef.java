@@ -39,7 +39,7 @@ public class XRef
 		this.db = db;
 		this.ref = ref;
 
-		dbSet.add(db);
+		registerDB(db);
 	}
 
 	public XRef(xref r)
@@ -121,6 +121,11 @@ public class XRef
 	public static void clearDBSet()
 	{
 		dbSet.clear();
+	}
+	
+	public static void registerDB(String db)
+	{
+		dbSet.add(db);
 	}
 
 	/**

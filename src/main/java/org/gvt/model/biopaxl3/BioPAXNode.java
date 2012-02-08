@@ -31,6 +31,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	private int id;
 
 	private List<XRef> references;
+	private List<XRef> secondaryReferences;
 
 	protected NodeUtil util;
 
@@ -40,6 +41,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		command.execute();
 
 		this.references = new ArrayList<XRef>();
+		this.secondaryReferences = new ArrayList<XRef>();
 		this.util = new NodeUtil(this);
 	}
 
@@ -125,6 +127,20 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		}
 	}
 
+	@Override
+	public List<XRef> getSecondaryReferences()
+	{
+		return secondaryReferences;
+	}
+
+	public void addSecondaryReference(XRef ref)
+	{
+		if (!this.secondaryReferences.contains(ref))
+		{
+			this.secondaryReferences.add(ref);
+		}
+	}
+
 	/**
 	 * Extract cross-references from the based entity.
 	 * @return list of possible names
@@ -151,6 +167,19 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 			if (xr != null)
 			{
 				this.addReference(new XRef(xr));
+			}
+		}
+
+		if (ent instanceof SimplePhysicalEntity)
+		{
+			SimplePhysicalEntity spe = (SimplePhysicalEntity) ent;
+			EntityReference er = spe.getEntityReference();
+			if (er != null)
+			{
+				for (Xref xr : er.getXref())
+				{
+					this.addSecondaryReference(new XRef(xr));
+				}
 			}
 		}
 

@@ -1188,7 +1188,8 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 		"Entrez Gene",
 		"Locuslink ID",
 		"Locuslink_ID",
-		"EntrezGeneID");
+		"EntrezGeneID",
+		"ENTREZ_GENE_ID");
 
 	// 4- Unigene
 	public static final List<String> COMMON_UNIGENE_COLUMN_NAMES = Arrays.asList(
