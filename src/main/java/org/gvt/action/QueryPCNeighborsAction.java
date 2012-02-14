@@ -1,8 +1,9 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
-import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
+import cpath.client.internal.PathwayCommons2Client;
+import cpath.client.internal.util.PathwayCommonsException;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.query.algorithm.Direction;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
@@ -32,11 +33,8 @@ public class QueryPCNeighborsAction extends QueryPCAction
 		pc2.setGraphQueryLimit(options.getLengthLimit());
 		List<String> symbols = options.getConvertedSourceList();
 
-		PathwayCommons2Client.STREAM_DIRECTION dir =
-			options.isUpstream() && options.isDownstream() ?
-				PathwayCommons2Client.STREAM_DIRECTION.BOTHSTREAM :
-			options.isUpstream() ? PathwayCommons2Client.STREAM_DIRECTION.UPSTREAM :
-				PathwayCommons2Client.STREAM_DIRECTION.DOWNSTREAM;
+		Direction dir = options.isUpstream() && options.isDownstream() ? Direction.BOTHSTREAM :
+			options.isUpstream() ? Direction.UPSTREAM : Direction.DOWNSTREAM;
 
 		return pc2.getNeighborhood(symbols, dir);
 	}

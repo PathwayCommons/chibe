@@ -1,6 +1,7 @@
 package org.patika.mada.util;
 
 import org.eclipse.swt.graphics.Color;
+import org.gvt.util.Conf;
 
 import java.util.Arrays;
 import java.util.List;
@@ -173,26 +174,23 @@ public abstract class ExperimentData implements Representable
 		{
 			return highC;
 		}
-		else if (v > mid)
+		else if (v > mid_h)
 		{
 			return new Color (null,
-				getValueByRatio(v, mid, high, midC.getRed(), highC.getRed()),
-				getValueByRatio(v, mid, high, midC.getGreen(), highC.getGreen()),
-				getValueByRatio(v, mid, high, midC.getBlue(), highC.getBlue()));
+				getValueByRatio(v, mid_h, high, midC.getRed(), highC.getRed()),
+				getValueByRatio(v, mid_h, high, midC.getGreen(), highC.getGreen()),
+				getValueByRatio(v, mid_h, high, midC.getBlue(), highC.getBlue()));
 		}
-		
-		/*	UK: Adjusted coloring methods to suit proteomics data, where fold change values are used often. 
-		 * 	See below where high, mid, and low are defined.	*/
-		else if (v <= mid && v >= -mid)
+		else if (v <= mid_h && v >= mid_l)
 		{
 			return midC;
 		}
-		else if (v < -mid && v > low)
+		else if (v < mid_l && v > low)
 		{
 			return new Color (null,
-				getValueByRatio(v, low, -mid, lowC.getRed(), midC.getRed()),
-				getValueByRatio(v, low, -mid, lowC.getGreen(), midC.getGreen()),
-				getValueByRatio(v, low, -mid, lowC.getBlue(), midC.getBlue()));
+				getValueByRatio(v, low, mid_l, lowC.getRed(), midC.getRed()),
+				getValueByRatio(v, low, mid_l, lowC.getGreen(), midC.getGreen()),
+				getValueByRatio(v, low, mid_l, lowC.getBlue(), midC.getBlue()));
 		}
 		else
 		{
@@ -271,16 +269,16 @@ public abstract class ExperimentData implements Representable
 	public static final int ABSENT = -1;
 	public static final int UNKNOWN = 0;
 
-	private static final Color highC = new Color(null, 230, 0, 0);
-	private static final Color midC = new Color(null, 230, 230, 230);
-	/*	UK: Green used instead of blue for downregulation, to be consistent with genomics/proteomics conventions. 	*/
-	private static final Color lowC = new Color(null, 0, 0, 230);
+	private static final Color highC = Conf.getColor(Conf.EXPERIMENT_UP_COLOR);
+	private static final Color midC = Conf.getColor(Conf.EXPERIMENT_MIDDLE_COLOR);
+	private static final Color lowC = Conf.getColor(Conf.EXPERIMENT_DOWN_COLOR);
 	
 	/*	UK: Modified high, mid and low to fit better for proteomics use, where regulation values are often represented as 
 	 * 	fold change in the range (-inf, -1] U [1, inf)	*/
-	private static final double high = 3D;
-	private static final double mid = 1D;
-	private static final double low = -3D;
+	private static final double high = Conf.getNumber(Conf.EXPERIMENT_MAX_UPREGULATION);
+	private static final double mid_h = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_UPPER_BOUND);
+	private static final double mid_l = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_LOWER_BOUND);
+	private static final double low = Conf.getNumber(Conf.EXPERIMENT_MAX_DOWNREGULATION);
 	private static final int DISPLAY_DIGIT = 3;
 
 	private static final Color DEFAULT_TEXT_COLOR = new Color(null, 0, 0, 0);

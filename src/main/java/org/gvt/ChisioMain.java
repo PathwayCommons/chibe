@@ -1,8 +1,8 @@
 package org.gvt;
 
+import cpath.client.internal.PathwayCommonsIOHandler;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
-import org.biopax.paxtools.io.pathwayCommons.PathwayCommonsIOHandler;
 import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;

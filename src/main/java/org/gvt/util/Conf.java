@@ -1,5 +1,7 @@
 package org.gvt.util;
 
+import org.eclipse.swt.graphics.Color;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,8 +11,19 @@ import java.util.Map;
  */
 public class Conf
 {
-	public static final String PC_URL_KEY = "Pathway Commons URL";
-	public static final String CONF_FILENAME = "conf.txt";
+	public static final String PATHWAY_COMMONS_URL = "PATHWAY_COMMONS_URL";
+
+	public static final String EXPERIMENT_UP_COLOR = "EXPERIMENT_UP_COLOR";
+	public static final String EXPERIMENT_DOWN_COLOR = "EXPERIMENT_DOWN_COLOR";
+	public static final String EXPERIMENT_MIDDLE_COLOR = "EXPERIMENT_MIDDLE_COLOR";
+
+	public static final String EXPERIMENT_MAX_UPREGULATION = "EXPERIMENT_MAX_UPREGULATION";
+	public static final String EXPERIMENT_NO_CHANGE_UPPER_BOUND = "EXPERIMENT_NO_CHANGE_UPPER_BOUND";
+	public static final String EXPERIMENT_NO_CHANGE_LOWER_BOUND = "EXPERIMENT_NO_CHANGE_LOWER_BOUND";
+	public static final String EXPERIMENT_MAX_DOWNREGULATION = "EXPERIMENT_MAX_DOWNREGULATION";
+
+	public static final String CONF_FILENAME = "chibe-conf.txt";
+
 	private static String confPath;
 
 	private static Map<String, String> conf;
@@ -21,8 +34,7 @@ public class Conf
 
 		try
 		{
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-				Conf.class.getResourceAsStream(CONF_FILENAME)));
+			BufferedReader reader = new BufferedReader(new FileReader(confPath));
 			
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
 			{
@@ -42,25 +54,79 @@ public class Conf
 		return map;
 	}
 
-	private static void writeDefaultConfFile()
+	private static boolean writeDefaultConfFile()
 	{
 		try
 		{
 			BufferedWriter writer = new BufferedWriter(new FileWriter(confPath));
 
-			writer.write(PC_URL_KEY + " = http://awabi.cbio.mskcc.org/pc2/");
+			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/pc2/\n");
+
+			writer.write(EXPERIMENT_UP_COLOR + " = 230 0 0\n");
+			writer.write(EXPERIMENT_DOWN_COLOR + " = 0 0 230\n");
+			writer.write(EXPERIMENT_MIDDLE_COLOR + " = 230 230 230\n");
+
+			writer.write(EXPERIMENT_MAX_UPREGULATION + " = 2\n");
+			writer.write(EXPERIMENT_NO_CHANGE_UPPER_BOUND + " = 1\n");
+			writer.write(EXPERIMENT_NO_CHANGE_LOWER_BOUND + " = -1\n");
+			writer.write(EXPERIMENT_MAX_DOWNREGULATION + " = -2\n");
 
 			writer.close();
+			return true;
+		}
+		catch (FileNotFoundException e)
+		{
+			return false;
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 	}
 
 	public static String get(String property)
 	{
 		return conf.get(property);
+	}
+	
+	public static Color getColor(String key)
+	{
+		String val = get(key);
+		if (val != null)
+		{
+			String[] v = val.split(" ");
+			if (v.length == 3)
+			{
+				try
+				{
+					return new Color(null,
+						Integer.parseInt(v[0]), Integer.parseInt(v[1]), Integer.parseInt(v[2]));
+				}
+				catch (NumberFormatException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static double getNumber(String key)
+	{
+		String val = get(key);
+		if (val != null)
+		{
+			try
+			{
+				return Double.parseDouble(val);
+			}
+			catch (NumberFormatException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return 0;
 	}
 	
 	static
@@ -70,7 +136,11 @@ public class Conf
 		
 		if (!confFile.exists())
 		{
-			writeDefaultConfFile();
+			if (!writeDefaultConfFile())
+			{
+				confPath = CONF_FILENAME;
+				writeDefaultConfFile();
+			}
 		}
 
 		conf = parse();

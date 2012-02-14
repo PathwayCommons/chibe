@@ -191,7 +191,9 @@ public class ExperimentDataAutomaticConvertionWizard extends ExperimentDataConve
 			{
 				MessageDialog.openWarning(null,
 					"No data!",
-				 	"There is no external reference matching between graph and data");
+				 	"There is no external reference matching between graph and data.\n" +
+						 "Please make sure your BioPAX model contains proper external references " +
+						 "that matches the references in expression data annotation.");
 				return;
 			}
 

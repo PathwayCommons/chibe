@@ -1,16 +1,15 @@
 package org.gvt.action;
 
-import cpath.service.jaxb.SearchHitType;
-import cpath.service.jaxb.SearchResponseType;
-import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
-import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
+import cpath.client.internal.PathwayCommons2Client;
+import cpath.client.internal.util.PathwayCommonsException;
+import cpath.service.jaxb.SearchHit;
+import cpath.service.jaxb.SearchResponse;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.StringInputDialog;
-import org.gvt.util.Conf;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +49,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 			main.lockWithMessage("Querying Pathway Commons ...");
 			PathwayCommons2Client pc2 = getPCClient();
 			pc2.setType("Pathway");
-			SearchResponseType resp = pc2.find(keyword);
+			SearchResponse resp = (SearchResponse) pc2.find(keyword);
 			main.unlock();
 
 			List<Holder> holders = extractResultFromServResp(resp);
@@ -83,12 +82,12 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 	}
 	
-	private List<Holder> extractResultFromServResp(SearchResponseType resp)
+	private List<Holder> extractResultFromServResp(SearchResponse resp)
 	{
 		List<Holder> holders = new ArrayList<Holder>();
-		for (SearchHitType hit : resp.getSearchHit())
+		for (SearchHit hit : resp.getSearchHit())
 		{
-			holders.add(new Holder(hit.getName().iterator().next(), hit.getUri()));
+			holders.add(new Holder(hit.getName(), hit.getUri()));
 		}
 		return holders;
 	}
@@ -116,7 +115,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws PathwayCommonsException
 	{
-		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		PathwayCommons2Client pc2 = getPCClient();
 		return pc2.get(pathwayID);
 	}
 

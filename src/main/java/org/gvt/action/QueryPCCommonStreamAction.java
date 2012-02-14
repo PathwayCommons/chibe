@@ -1,8 +1,9 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
-import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
+import cpath.client.internal.PathwayCommons2Client;
+import cpath.client.internal.util.PathwayCommonsException;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.query.algorithm.Direction;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.CommonStreamQueryParamWithEntitiesDialog;
@@ -51,9 +52,7 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 		PathwayCommons2Client pc2 = getPCClient();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
 
-		PathwayCommons2Client.STREAM_DIRECTION direction = options.isDownstream() ?
-			PathwayCommons2Client.STREAM_DIRECTION.DOWNSTREAM :
-			PathwayCommons2Client.STREAM_DIRECTION.UPSTREAM;
+		Direction direction = options.isDownstream() ? Direction.DOWNSTREAM : Direction.UPSTREAM;
 
 		return pc2.getCommonStream(sourceSymbols, direction);
 	}

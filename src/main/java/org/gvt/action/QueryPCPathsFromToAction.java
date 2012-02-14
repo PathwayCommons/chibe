@@ -1,7 +1,7 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
-import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
+import cpath.client.internal.PathwayCommons2Client;
+import cpath.client.internal.util.PathwayCommonsException;
 import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;

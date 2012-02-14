@@ -1,7 +1,7 @@
 package org.gvt.action;
 
+import cpath.client.internal.PathwayCommonsIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
-import org.biopax.paxtools.io.pathwayCommons.PathwayCommonsIOHandler;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;

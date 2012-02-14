@@ -1,9 +1,8 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.io.pathwayCommons.PathwayCommons2Client;
-import org.biopax.paxtools.io.pathwayCommons.util.NoResultsFoundException;
-import org.biopax.paxtools.io.pathwayCommons.util.PathwayCommonsException;
-import org.biopax.paxtools.model.BioPAXElement;
+import cpath.client.internal.PathwayCommons2Client;
+import cpath.client.internal.util.NoResultsFoundException;
+import cpath.client.internal.util.PathwayCommonsException;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.eclipse.gef.EditPart;
@@ -14,15 +13,15 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
-import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
-import org.gvt.model.biopaxl3.Actor;
-import org.gvt.model.biopaxl3.ChbComplex;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author Ozgun Babur
@@ -199,7 +198,7 @@ public abstract class QueryPCAction extends Action
 	protected PathwayCommons2Client getPCClient()
 	{
 		PathwayCommons2Client pc2 = new PathwayCommons2Client();
-		pc2.setEndPointURL(Conf.get(Conf.PC_URL_KEY));
+		pc2.setEndPointURL(Conf.get(Conf.PATHWAY_COMMONS_URL));
 		return pc2;
 	}
 }
