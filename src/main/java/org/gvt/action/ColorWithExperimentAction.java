@@ -106,11 +106,11 @@ public class ColorWithExperimentAction extends Action
 
 	private class ColoringSelectionRunnable implements ItemSelectionRunnable
 	{
-		public void run(Collection<String> selectedTerms)
+		public void run(Collection selectedTerms)
 		{
 			assert selectedTerms.size() == 1;
 
-			String type = selectedTerms.iterator().next();
+			String type = selectedTerms.iterator().next().toString();
 
 			if (type.equals(ItemSelectionDialog.NONE))
 			{

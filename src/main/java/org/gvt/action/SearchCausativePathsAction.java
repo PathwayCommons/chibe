@@ -229,7 +229,7 @@ public class SearchCausativePathsAction extends Action
 
 			dialog.setUpdateUponSelection(true);
 			dialog.setDoSort(false);
-			String lastItem = dialog.open();
+			Object lastItem = dialog.open();
 
 			if (lastItem == null || !lastItem.equals(ItemSelectionDialog.NONE))
 			{
@@ -250,14 +250,14 @@ public class SearchCausativePathsAction extends Action
 	{
 		private String lastID;
 
-		public void run(Collection<String> selectedTerms)
+		public void run(Collection selectedTerms)
 		{
 			if (selectedTerms.isEmpty())
 			{
 				return;
 			}
 
-			String id = selectedTerms.iterator().next();
+			String id = selectedTerms.iterator().next().toString();
 
 			run(id);
 		}

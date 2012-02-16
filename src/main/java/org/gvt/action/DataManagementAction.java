@@ -60,7 +60,9 @@ public class DataManagementAction extends Action
 					null);
 
 				dialog.setMinValidSelect(1);
-				type = dialog.open();
+				Object selected = dialog.open();
+				if (selected != null) type = selected.toString();
+				
 
 				if (dialog.isCancelled()) type = null;
 			}

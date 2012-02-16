@@ -12,5 +12,5 @@ import java.util.Collection;
  */
 public interface ItemSelectionRunnable
 {
-	public void run(Collection<String> selectedTerms);
+	public void run(Collection selectedTerms);
 }

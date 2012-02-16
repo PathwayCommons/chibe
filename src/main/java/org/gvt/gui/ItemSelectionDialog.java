@@ -25,12 +25,12 @@ public class ItemSelectionDialog extends Dialog
 	/**
 	 * Supported rules.
 	 */
-	private List<String> possibleItems;
+	private List possibleItems;
 
 	/**
 	 * Rule types that user selected.
 	 */
-	private List<String> selectedItems;
+	private List selectedItems;
 
 	/**
 	 * Multiple selection eanbled or disabled.
@@ -103,7 +103,7 @@ public class ItemSelectionDialog extends Dialog
 	 * Texts of the buttons are sometimes truncated. So we use this map for remembering original
 	 * texts of buttons.
 	 */
-	Map<Button, String> but2orig;
+	Map<Button, Object> but2orig;
 
 	/**
 	 * Constructor.
@@ -116,8 +116,8 @@ public class ItemSelectionDialog extends Dialog
 		int width,
 		String title,
 		String message,
-		List<String> possibleItems,
-		List<String> selectedItems,
+		List possibleItems,
+		List selectedItems,
 		boolean multipleSelect,
 		boolean modal,
 		ItemSelectionRunnable selectionRun)
@@ -136,7 +136,7 @@ public class ItemSelectionDialog extends Dialog
 		this.doSort = true;
 		this.minValidSelect = 0;
 		this.use3dots = modal;
-		but2orig = new HashMap<Button, String>();
+		but2orig = new HashMap<Button, Object>();
 	}
 
 	public boolean isUpdateUponSelection()
@@ -177,7 +177,7 @@ public class ItemSelectionDialog extends Dialog
 	/**
 	 * Open the dialog. Also returns the selected item if only one is selected.
 	 */
-	public String open()
+	public Object open()
 	{
 		pressedCancel = true;
 		createContents();
@@ -257,25 +257,24 @@ public class ItemSelectionDialog extends Dialog
 		itemButtonArray = new Button[possibleItems.size()];
 		int i = 0;
 
-		for (String text : possibleItems)
+		for (Object pItem : possibleItems)
 		{
 			Button itemBox = new Button(itemsGroup, multipleSelect ? SWT.CHECK : SWT.RADIO);
 			itemButtonArray[i++] = itemBox;
 			itemBox.setLayoutData(new GridData(SWT.BEGINNING, SWT.FILL, true, false));
 
-			but2orig.put(itemBox, text);
+			but2orig.put(itemBox, pItem);
 
 			if (use3dots)
 			{
-				String txt = truncate(text, itemBox.getFont(), width - 87);
-				if (!txt.equals(text))
+				String txt = truncate(pItem.toString(), itemBox.getFont(), width - 87);
+				if (!txt.equals(pItem))
 				{
-					itemBox.setToolTipText(text);
-					text = txt;
+					itemBox.setToolTipText(pItem.toString());
 				}
+				itemBox.setText(txt);
 			}
-
-			itemBox.setText(text);
+			else itemBox.setText(pItem.toString());
 
 			itemBox.addSelectionListener(adapter);
 			itemBox.setSelection(selectedItems.contains(but2orig.get(itemBox)));
@@ -340,7 +339,7 @@ public class ItemSelectionDialog extends Dialog
 		return pressedCancel;
 	}
 
-	public List<String> getSelectedItems()
+	public List getSelectedItems()
 	{
 		return selectedItems;
 	}
@@ -349,20 +348,20 @@ public class ItemSelectionDialog extends Dialog
 	 * Makes the selections possible programmatically. Trows an exception if item not found.
 	 * @param item to select
 	 */
-	public void selectItem(String item)
+	public void selectItem(Object item)
 	{
 		int index = possibleItems.indexOf(item);
 		itemButtonArray[index].setSelection(true);
 	}
 
-	public void runAsIfSelected(List<String> list)
+	public void runAsIfSelected(List list)
 	{
 		this.selectionRun.run(list);
 	}
 
-	public void runAsIfSelected(String item)
+	public void runAsIfSelected(Object item)
 	{
-		List<String> list = new ArrayList<String>();
+		List list = new ArrayList();
 		list.add(item);
 		this.selectionRun.run(list);
 	}
@@ -376,7 +375,7 @@ public class ItemSelectionDialog extends Dialog
 			if ((button.getStyle() & SWT.CHECK) > 0  ||
 				(button.getStyle() & SWT.RADIO) > 0)
 			{
-				String item = but2orig.get(button);
+				Object item = but2orig.get(button);
 
 				if (button.getSelection())
 				{

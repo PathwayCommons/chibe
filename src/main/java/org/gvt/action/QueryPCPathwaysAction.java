@@ -1,7 +1,7 @@
 package org.gvt.action;
 
-import cpath.client.internal.PathwayCommons2Client;
-import cpath.client.internal.util.PathwayCommonsException;
+import cpath.client.CPath2Client;
+import cpath.client.util.CPathException;
 import cpath.service.jaxb.SearchHit;
 import cpath.service.jaxb.SearchResponse;
 import org.biopax.paxtools.model.Model;
@@ -11,9 +11,7 @@ import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.StringInputDialog;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Ozgun Babur
@@ -44,27 +42,26 @@ public class QueryPCPathwaysAction extends QueryPCAction
 				return;
 			}
 
-			keyword = keyword.trim();
+			keyword = keyword.trim().toLowerCase();
 
 			main.lockWithMessage("Querying Pathway Commons ...");
-			PathwayCommons2Client pc2 = getPCClient();
+			CPath2Client pc2 = getPCClient();
 			pc2.setType("Pathway");
-			SearchResponse resp = (SearchResponse) pc2.find(keyword);
+			SearchResponse resp = (SearchResponse) pc2.search("name:" + keyword);
 			main.unlock();
 
-			List<Holder> holders = extractResultFromServResp(resp);
-			Collections.sort(holders);
+			List<Holder> holders = extractResultFromServResp(resp, keyword);
 
-			List<String> names = getNamesList(holders);
 			ItemSelectionDialog isd = new ItemSelectionDialog(main.getShell(),
-				500, "Result Pathways", "Select Pathway to Get", names, null,
+				500, "Result Pathways", "Select Pathway to Get", holders, null,
 				false, true, null);
+			isd.setDoSort(false);
 
-			String selected = isd.open();
+			Object selected = isd.open();
 
 			if (selected == null) return;
 			
-			pathwayID = getIDList(holders).get(names.indexOf(selected));
+			pathwayID = ((Holder) selected).id;
 
 			execute();
 		}
@@ -79,27 +76,29 @@ public class QueryPCPathwaysAction extends QueryPCAction
 			main.unlock();
 			pathwayID = null;
 		}
-
 	}
 	
-	private List<Holder> extractResultFromServResp(SearchResponse resp)
+	private List<Holder> extractResultFromServResp(SearchResponse resp, String keyword)
 	{
 		List<Holder> holders = new ArrayList<Holder>();
+//		Set<String> words = getKeywords(keyword);
+
 		for (SearchHit hit : resp.getSearchHit())
 		{
-			holders.add(new Holder(hit.getName(), hit.getUri()));
+//			String name = hit.getName().toLowerCase();
+
+//			for (String word : words)
+			{
+//				if (name.contains(word))
+				{
+					Holder h = new Holder(hit.getName(), hit.getUri());
+//					if (!holders.contains(h))
+						holders.add(h);
+//					break;
+				}
+			}
 		}
 		return holders;
-	}
-	
-	private List<String> getNamesList(List<Holder> holders)
-	{
-		List<String> names = new ArrayList<String>(holders.size());
-		for (Holder holder : holders)
-		{
-			names.add(holder.name);
-		}
-		return names;
 	}
 	
 	private List<String> getIDList(List<Holder> holders)
@@ -112,10 +111,21 @@ public class QueryPCPathwaysAction extends QueryPCAction
 		return ids;
 	}
 
-	@Override
-	protected Model doQuery() throws PathwayCommonsException
+	private Set<String> getKeywords(String keyword)
 	{
-		PathwayCommons2Client pc2 = getPCClient();
+		Set<String> set = new HashSet<String>();
+		for (String s : keyword.split(" "))
+		{
+			s = s.trim();
+			if (s.length() > 1) set.add(s);
+		}
+		return set;
+	}
+	
+	@Override
+	protected Model doQuery() throws CPathException
+	{
+		CPath2Client pc2 = getPCClient();
 		return pc2.get(pathwayID);
 	}
 
@@ -146,6 +156,29 @@ public class QueryPCPathwaysAction extends QueryPCAction
 		public int compareTo(Object o)
 		{
 			return name.compareTo(((Holder) o).name);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return id.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if (o instanceof Holder)
+			{
+				Holder h = (Holder) o;
+				return id.equals(h.id);
+			}
+			return false;
+		}
+
+		@Override
+		public String toString()
+		{
+			return name;
 		}
 	}
 }

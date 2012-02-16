@@ -1,7 +1,7 @@
 package org.gvt.action;
 
-import cpath.client.internal.PathwayCommons2Client;
-import cpath.client.internal.util.PathwayCommonsException;
+import cpath.client.CPath2Client;
+import cpath.client.util.CPathException;
 import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
@@ -26,12 +26,12 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 	}
 
 	@Override
-	protected Model doQuery() throws PathwayCommonsException
+	protected Model doQuery() throws CPathException
 	{
 		List<String> sourceSymbols = options.getConvertedSourceList();
 		List<String> targetSymbols = options.getConvertedTargetList();
 
-		PathwayCommons2Client pc2 = getPCClient();
+		CPath2Client pc2 = getPCClient();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
 		return pc2.getPathsFromTo(sourceSymbols, targetSymbols);
 	}

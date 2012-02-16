@@ -28,7 +28,7 @@ public class ChbTempReac extends BioPAXNode
 		super(root);
 
 		setColor(COLOR);
-		setText("");
+		setText("t");
 		setSize(new Dimension(8, 12));
 		setShape("Rectangle");
 	}
@@ -52,11 +52,6 @@ public class ChbTempReac extends BioPAXNode
 	{
 		extractReferences(tr);
 		setTooltipText(tr.getDisplayName());
-	}
-
-	public boolean isT()
-	{
-		return true;
 	}
 
 	public TemplateReaction getTemplateReaction()
@@ -221,7 +216,7 @@ public class ChbTempReac extends BioPAXNode
 
 	public boolean isTranscriptionEvent()
 	{
-		return isT();
+		return true;
 	}
 
 	private Set<Node> tabu;

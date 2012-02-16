@@ -1,6 +1,6 @@
 package org.gvt.action;
 
-import cpath.client.internal.PathwayCommonsIOHandler;
+import cpath.client.PathwayCommonsIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.action.Action;

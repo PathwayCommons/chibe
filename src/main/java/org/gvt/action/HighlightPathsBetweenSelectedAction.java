@@ -136,7 +136,7 @@ public class HighlightPathsBetweenSelectedAction extends Action
 				pathIDs, new ArrayList<String>(), false, false, new Runner());
 
 			dialog.setUpdateUponSelection(true);
-			String lastItem = dialog.open();
+			Object lastItem = dialog.open();
 
 			// Below lines are responsible for clearing any highlighting after closing the dialog.
 			// But we do not want it to disappear. So this is disabled.
@@ -156,14 +156,14 @@ public class HighlightPathsBetweenSelectedAction extends Action
 	{
 		private String lastID;
 
-		public void run(Collection<String> selectedTerms)
+		public void run(Collection selectedTerms)
 		{
 			if (selectedTerms.isEmpty())
 			{
 				return;
 			}
 
-			String id = selectedTerms.iterator().next();
+			String id = selectedTerms.iterator().next().toString();
 
 			run(id);
 		}

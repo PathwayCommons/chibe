@@ -1,8 +1,8 @@
 package org.gvt.action;
 
-import cpath.client.internal.PathwayCommons2Client;
-import cpath.client.internal.util.NoResultsFoundException;
-import cpath.client.internal.util.PathwayCommonsException;
+import cpath.client.CPath2Client;
+import cpath.client.util.CPathException;
+import cpath.client.util.NoResultsFoundException;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.eclipse.gef.EditPart;
@@ -118,7 +118,7 @@ public abstract class QueryPCAction extends Action
 	 * Queries pathway commons, gets the model.
 	 * @return
 	 */
-	protected abstract Model doQuery() throws PathwayCommonsException;
+	protected abstract Model doQuery() throws CPathException;
 
 	/**
 	 * Provides the parameter dialog that will display to get input.
@@ -195,9 +195,9 @@ public abstract class QueryPCAction extends Action
 		return !options.getSourceList().isEmpty();
 	}
 
-	protected PathwayCommons2Client getPCClient()
+	protected CPath2Client getPCClient()
 	{
-		PathwayCommons2Client pc2 = new PathwayCommons2Client();
+		CPath2Client pc2 = CPath2Client.newInstance();
 		pc2.setEndPointURL(Conf.get(Conf.PATHWAY_COMMONS_URL));
 		return pc2;
 	}
