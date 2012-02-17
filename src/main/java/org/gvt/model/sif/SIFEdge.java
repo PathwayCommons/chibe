@@ -171,6 +171,8 @@ public class SIFEdge extends BioPAXEdge
 			new Color(null, 100, 200, 0), SOLID, POSITIVE, false));
 		addType(new EdgeType(BinaryInteractionType.INACTIVATES,
 			new Color(null, 200, 100, 0), SOLID, NEGATIVE, false));
+		addType(new EdgeType(BinaryInteractionType.GENERIC_OF,
+			new Color(null, 150, 150, 0), SOLID, POSITIVE, true));
 	}
 
 }
