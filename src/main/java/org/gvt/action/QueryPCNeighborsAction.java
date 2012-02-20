@@ -29,9 +29,10 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws CPathException
 	{
+		List<String> symbols = options.getConvertedSourceList();
+
 		CPath2Client pc2 = getPCClient();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
-		List<String> symbols = options.getConvertedSourceList();
 
 		Direction dir = options.isUpstream() && options.isDownstream() ? Direction.BOTHSTREAM :
 			options.isUpstream() ? Direction.UPSTREAM : Direction.DOWNSTREAM;
@@ -48,6 +49,8 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return !options.getConvertedSourceList().isEmpty();
+		List<String> symbols = options.getConvertedSourceList();
+		warnForUnknownSymbols(options.getUnknownSymbols());
+		return !symbols.isEmpty();
 	}
 }

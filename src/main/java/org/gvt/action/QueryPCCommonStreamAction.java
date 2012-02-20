@@ -66,6 +66,8 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return !options.getConvertedSourceList().isEmpty();
+		List<String> sourceSymbols = options.getConvertedSourceList();
+		warnForUnknownSymbols(options.getUnknownSymbols());
+		return sourceSymbols.size() > 1;
 	}
 }

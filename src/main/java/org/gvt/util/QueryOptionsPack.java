@@ -45,6 +45,11 @@ public class QueryOptionsPack implements Serializable
 	 */
 	private List<String> targetList;
 
+	/**
+	 * Symbols whose HGNC ID is unknown to ChiBE.
+	 */
+	private List<String> unknownSymbols;
+
 	// These are used when bothstream is an option, like in neighborhood
 	private boolean downstream;
 	private boolean upstream;
@@ -138,13 +143,34 @@ public class QueryOptionsPack implements Serializable
 		this.targetList = targetList;
 	}
 
+	public List<String> getUnknownSymbols()
+	{
+		return unknownSymbols;
+	}
+
+	public void clearUnknownSymbols()
+	{
+		if (unknownSymbols != null) unknownSymbols.clear();
+	}
+
 	protected List<String> getConvertedSymbols(List<String> symbols)
 	{
+		if (unknownSymbols == null) unknownSymbols = new ArrayList<String>();
+
 		List<String> list = new ArrayList<String>();
 
 		for (String s : symbols)
 		{
-			list.add(SYMBOL_PREFIX + HGNCUtil.getHGNCID(s));
+			Integer hgncid = HGNCUtil.getHGNCID(s);
+
+			if (hgncid == null)
+			{
+				unknownSymbols.add(s);
+			}
+			else
+			{
+				list.add(SYMBOL_PREFIX + hgncid);
+			}
 		}
 		return list;
 	}

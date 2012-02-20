@@ -18,10 +18,7 @@ import org.gvt.model.NodeModel;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Ozgun Babur
@@ -65,28 +62,31 @@ public abstract class QueryPCAction extends Action
 			Model model = doQuery();
 			main.unlock();
 
-			if (model != null && !model.getObjects().isEmpty())
+			if (model != null )
 			{
-				if (main.getOwlModel() != null)
+				if (!model.getObjects().isEmpty())
 				{
-					MergeAction merge = new MergeAction(main, model);
-					merge.setOpenPathways(true);
-					merge.setCreateNewPathway(true);
-					if (!modelHasNonEmptyPathway(model)) merge.setNewPathwayName(getText());
-					merge.run();
+					if (main.getOwlModel() != null)
+					{
+						MergeAction merge = new MergeAction(main, model);
+						merge.setOpenPathways(true);
+						merge.setCreateNewPathway(true);
+						if (!modelHasNonEmptyPathway(model)) merge.setNewPathwayName(getText());
+						merge.run();
+					}
+					else
+					{
+						LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
+						load.setOpenPathways(true);
+
+						if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getText());
+						load.run();
+					}
 				}
 				else
 				{
-					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
-					load.setOpenPathways(true);
-
-					if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getText());
-					load.run();
+					alertNoResults();
 				}
-			}
-			else
-			{
-				alertNoResults();
 			}
 		}
 		catch (Exception e)
@@ -134,6 +134,7 @@ public abstract class QueryPCAction extends Action
 
 	protected boolean showParameterDialog()
 	{
+		options.clearUnknownSymbols();
 		AbstractQueryParamDialog dialog = getDialog();
 
 		// If the dialog is null, then it is not needed
@@ -200,5 +201,23 @@ public abstract class QueryPCAction extends Action
 		CPath2Client pc2 = CPath2Client.newInstance();
 		pc2.setEndPointURL(Conf.get(Conf.PATHWAY_COMMONS_URL));
 		return pc2;
+	}
+	
+	protected void warnForUnknownSymbols(List<String> unknown)
+	{
+		if (unknown.size() > 0)
+		{
+			String s = "Unknown symbol";
+			
+			if (unknown.size() > 1) s += "s";
+			s += ":";
+
+			for (String un : unknown)
+			{
+				s += "  \"" + un + "\"";
+			}
+
+			MessageDialog.openWarning(main.getShell(), "Some symbols are unfamiliar", s);
+		}
 	}
 }

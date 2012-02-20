@@ -45,7 +45,9 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return !options.getConvertedSourceList().isEmpty() &&
-			!options.getConvertedTargetList().isEmpty();
+		List<String> sourceSymbols = options.getConvertedSourceList();
+		List<String> targetSymbols = options.getConvertedTargetList();
+		warnForUnknownSymbols(options.getUnknownSymbols());
+		return !sourceSymbols.isEmpty() && !targetSymbols.isEmpty();
 	}
 }

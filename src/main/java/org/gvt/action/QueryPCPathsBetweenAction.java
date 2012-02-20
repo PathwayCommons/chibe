@@ -43,6 +43,8 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return options.getConvertedSourceList().size() > 1;
+		List<String> sourceSymbols = options.getConvertedSourceList();
+		warnForUnknownSymbols(options.getUnknownSymbols());
+		return sourceSymbols.size() > 1;
 	}
 }

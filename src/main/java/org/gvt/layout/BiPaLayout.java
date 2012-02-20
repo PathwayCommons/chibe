@@ -63,6 +63,29 @@ public class BiPaLayout extends CoSELayout
 			comp.setWidth(pack.getWidth());
 			comp.setHeight(pack.getHeight());
 
+			 // Redirect the edges of complex members to the complex.
+
+			for (Object ch : childGr.getNodes())
+			{
+				BiPaNode chNd = (BiPaNode) ch;
+				for (Object obj : new ArrayList(chNd.getEdges()))
+				{
+					LEdge edge = (LEdge) obj;
+					if (edge.source == chNd)
+					{
+						chNd.getEdges().remove(edge);
+						edge.source = comp;
+						comp.getEdges().add(edge);
+					}
+					else if (edge.target == chNd)
+					{
+						chNd.getEdges().remove(edge);
+						edge.target = comp;
+						comp.getEdges().add(edge);
+					}
+				}
+			}
+
 //			this.getLGraphManager().getGraphs().remove(childGr);
 //			this.getLGraphManager().getNodeList().removeAll(childGr.getNodes());
 		}

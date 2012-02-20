@@ -11,6 +11,7 @@ public class BiPaNode extends CoSENode
 {
 	private int type;
 	private boolean hasInfo;
+	private String text;
 
 	public static final int COMPLEX = 1;
 	public static final int MEMBER = 2;
@@ -31,6 +32,8 @@ public class BiPaNode extends CoSENode
 
 	private void setParam(NodeModel model)
 	{
+		if (model != null) this.text = model.getText();
+
 		if (model instanceof org.gvt.model.biopaxl2.Complex ||
 			model instanceof org.gvt.model.biopaxl3.ChbComplex)
 		{
