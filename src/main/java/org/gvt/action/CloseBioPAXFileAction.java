@@ -26,6 +26,7 @@ public class CloseBioPAXFileAction extends Action
 			main.closeAllTabs(false);
 			main.setRootGraph(null);
 			main.setOwlFileName(null);
+			ChisioMain.updateCombo("100%");
 		}
 	}
 }

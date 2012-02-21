@@ -25,4 +25,13 @@ public class UniquePrinter
 			memory.add(o);
 		}
 	}
+
+	/**
+	 * Just for printing the system properties to the console. I sometimes need this for debugging
+	 * something.
+	 */
+	public static void main(String[] args)
+	{
+		System.getProperties().list(System.out);
+	}
 }
