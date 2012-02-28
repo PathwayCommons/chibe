@@ -471,7 +471,15 @@ public class BioPAXL3Reader
 			else
 			{
 				ComplexMember cm = new ComplexMember(c, pe, top_cmp);
-				if (!map.containsKey(pe.getRDFId())) map.put(pe.getRDFId(), cm);
+
+				if (isUbique(pe))
+				{
+					map.put(pe.getRDFId() + current_cmp.getRDFId(), cm);
+				}
+				else if (!map.containsKey(pe.getRDFId()))
+				{
+					map.put(pe.getRDFId(), cm);
+				}
 			}
 		}
 	}
