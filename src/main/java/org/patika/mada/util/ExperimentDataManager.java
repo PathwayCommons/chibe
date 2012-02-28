@@ -234,6 +234,8 @@ public class ExperimentDataManager
 		if (!experimentMapsList.isEmpty() && firstInd.isEmpty())
 		{
 			firstInd.add(0);
+			
+			if (experimentMapsList.size() > 1) seconInd.add(1);
 		}
 
 		setDataToBeUsed(firstInd, seconInd);

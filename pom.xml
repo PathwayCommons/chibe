@@ -88,10 +88,10 @@
 
 	<profiles>
 		<profile>
-			<id>macosx</id>
+			<id>mac</id>
 			<activation>
 				<os>
-					<family>mac</family>
+					<name>MAC OS X</name>
 				</os>
 			</activation>
 			<properties>
@@ -99,10 +99,10 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>windows</id>
+			<id>win32</id>
 			<activation>
 				<os>
-					<family>windows</family>
+					<family>Windows</family>
 					<arch>x86</arch>
 				</os>
 			</activation>
@@ -114,7 +114,7 @@
 			<id>win64</id>
 			<activation>
 				<os>
-					<family>windows</family>
+					<family>Windows</family>
 					<arch>x86_64</arch>
 				</os>
 			</activation>
@@ -123,10 +123,10 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>linux</id>
+			<id>lin32</id>
 			<activation>
 				<os>
-					<family>linux</family>
+					<family>Linux</family>
                     <arch>x86</arch>
 				</os>
 			</activation>
@@ -135,7 +135,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>linux64</id>
+			<id>lin64</id>
 			<activation>
 				<os>
 					<family>Linux</family>

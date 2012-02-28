@@ -24,7 +24,7 @@ public class FetchFromGEOAction extends Action
 	 */
 	public FetchFromGEOAction (ChisioMain main)
 	{
-		super("Fetch from GEO ...");
+		super("Fetch From GEO ...");
 		this.main = main;
 	}
 

@@ -71,7 +71,20 @@ public class ChbControl extends BioPAXNode
 			}
 			else if (c.getControlledOf().isEmpty() && c.getController().size() == 1)
 			{
-				NodeModel source = map.get(c.getController().iterator().next().getRDFId());
+				Controller ctrl = c.getController().iterator().next();
+
+				NodeModel source = map.get(ctrl.getRDFId());
+
+				if (source == null)
+				{
+					source = map.get(ctrl.getRDFId() + c.getRDFId());
+				}
+				
+				if (source == null && ctrl instanceof Pathway)
+				{
+					source = new ChbPathway(root, (Pathway) ctrl, map);
+				}
+
 				new NonModulatedEffector(source, this, c, con);
 			}
 			else

@@ -205,7 +205,7 @@ public abstract class QueryPCAction extends Action
 	
 	protected void warnForUnknownSymbols(List<String> unknown)
 	{
-		if (unknown.size() > 0)
+		if (unknown != null && unknown.size() > 0)
 		{
 			String s = "Unknown symbol";
 			

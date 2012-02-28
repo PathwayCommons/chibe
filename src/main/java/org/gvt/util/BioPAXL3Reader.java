@@ -109,31 +109,34 @@ public class BioPAXL3Reader
 
 		for (PhysicalEntity pe : model.getObjects(PhysicalEntity.class))
 		{
-			if (pe instanceof SimplePhysicalEntity)
-			{
-				SimplePhysicalEntity spe = (SimplePhysicalEntity) pe;
-
-				EntityReference er = spe.getEntityReference();
-				if (er != null)
-				{
-					for (EntityReference cer : er.getMemberEntityReference())
-					{
-						System.out.println("ER " + er + " has child ER = " + cer);
-						for (SimplePhysicalEntity cspe : cer.getEntityReferenceOf())
-						{
-							System.out.println("and have PE: " + cspe);
-						}
-					}
-					for (EntityReference per : er.getMemberEntityReferenceOf())
-					{
-						System.out.println("ER " + er + " has parent ER = " + per);
-						for (SimplePhysicalEntity pspe : per.getEntityReferenceOf())
-						{
-							System.out.println("and have PE: " + pspe);
-						}
-					}
-				}
-			}
+//			if (pe instanceof SimplePhysicalEntity)
+//			{
+//				SimplePhysicalEntity spe = (SimplePhysicalEntity) pe;
+//
+//				EntityReference er = spe.getEntityReference();
+//				if (er != null)
+//				{
+//					for (EntityReference cer : er.getMemberEntityReference())
+//					{
+//						for (SimplePhysicalEntity cpe : cer.getEntityReferenceOf())
+//						{
+//							if (cpe.getMemberPhysicalEntityOf().isEmpty())
+//							{
+//								System.out.println("A generic is defined only in ER level");
+//								System.out.println("er.getRDFId() = " + er.getRDFId());
+//								System.out.println("pe.getRDFId() = " + pe.getRDFId());
+//								System.out.println("cer.getRDFId() = " + cer.getRDFId());
+//								System.out.println("cpe.getRDFId() = " + cpe.getRDFId());
+//
+//								if (!pe.getFeature().isEmpty())
+//								{
+//									System.out.println("and with some feature");
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
 
 			if (pe.getStandardName() == null)
 			{

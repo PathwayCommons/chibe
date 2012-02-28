@@ -18,7 +18,7 @@ public class QueryPCGetAction extends QueryPCAction
 
 	public QueryPCGetAction(ChisioMain main, boolean useSelected)
 	{
-		super(main, "Get with RDF ID", useSelected);
+		super(main, "Get With RDF ID", useSelected);
 	}
 
 	public void run()

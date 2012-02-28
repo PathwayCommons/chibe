@@ -209,20 +209,25 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			{
 				ModificationFeature mf = (ModificationFeature) feat;
 				SequenceModificationVocabulary voc = mf.getModificationType();
-				Set<String> terms = voc.getTerm();
 
-				if (!terms.isEmpty())
+				if (voc != null)
 				{
-					if (terms.size() > 1)
-					{
-						System.err.print("Terms has more than one term. Second: ");
-						Iterator<String> iter = terms.iterator();
-						iter.next();
-						System.err.println(iter.next());
-					}
+					Set<String> terms = voc.getTerm();
 
-					featStr = terms.iterator().next();
+					if (!terms.isEmpty())
+					{
+						if (terms.size() > 1)
+						{
+							System.err.print("Terms has more than one term. Second: ");
+							Iterator<String> iter = terms.iterator();
+							iter.next();
+							System.err.println(iter.next());
+						}
+
+						featStr = terms.iterator().next();
+					}
 				}
+				else featStr = "?";
 			}
 			else if (feat instanceof FragmentFeature)
 			{

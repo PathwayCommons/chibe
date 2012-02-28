@@ -71,6 +71,19 @@ public class PathwaySelectionDialog extends Dialog
 
 		setChecks(tree, selected);
 
+		tree.addListener(SWT.Selection, new Listener()
+		{
+			public void handleEvent(Event event)
+			{
+				if (event.detail == SWT.CHECK)
+				{
+					TreeItem item = (TreeItem) event.item;
+					propagateCheckStatus(item, tree);
+				}
+			}
+		});
+
+
 		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		tree.setLayoutData(data);
 
@@ -84,7 +97,7 @@ public class PathwaySelectionDialog extends Dialog
 				selected.clear();
 				for (TreeItem item : checked)
 				{
-					selected.add(item.getText());
+					if (!selected.contains(item.getText())) selected.add(item.getText());
 				}
 
 				pressedCancel = false;
@@ -181,6 +194,35 @@ public class PathwaySelectionDialog extends Dialog
 		for (TreeItem child : item.getItems())
 		{
 			collectChecked(child, set);
+		}
+	}
+	
+	private void propagateCheckStatus(TreeItem copy, Tree tree)
+	{
+		Listener lis = tree.getListeners(SWT.Selection)[0];
+		tree.removeListener(SWT.Selection, lis);
+
+		for (TreeItem item : tree.getItems())
+		{
+			propagateCheckStatus(copy, item);
+		}
+		
+		tree.addListener(SWT.Selection, lis);
+	}
+
+	private void propagateCheckStatus(TreeItem copy, TreeItem item)
+	{
+		if (item == copy) return;
+
+		if (item.getText().equals(copy.getText()))
+		{
+			item.setChecked(copy.getChecked());
+			return;
+		}
+
+		for (TreeItem child : item.getItems())
+		{
+			propagateCheckStatus(copy, child);
 		}
 	}
 }
