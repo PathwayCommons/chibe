@@ -199,8 +199,14 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		List<String> list = new ArrayList<String>();
 
-		Set<EntityFeature> feats = entity.getFeature();
+		extractFeatures(list, entity.getFeature(), false);
+		extractFeatures(list, entity.getNotFeature(), true);
 
+		return list;
+	}
+
+	private void extractFeatures(List<String> list, Set<EntityFeature> feats, boolean not)
+	{
 		for (EntityFeature feat : feats)
 		{
 			String featStr = null;
@@ -244,16 +250,11 @@ public class Actor extends BioPAXNode implements EntityAssociated
 					featStr += " @" + ss.getSequencePosition();
 				}
 
+				if (not) featStr = "-" + featStr;
+
 				list.add(featStr);
 			}
 		}
-
-		// Add "active transcription factor" and "native state" tags
-
-		if (isActiveTF()) list.add("active tf");
-		if (isNativeState()) list.add("native");
-		
-		return list;
 	}
 
 	public boolean hasInfoString()
@@ -299,16 +300,6 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public boolean isBreadthNode()
 	{
 		return true;
-	}
-
-	public boolean isActiveTF()
-	{
-		return util.hasModelTag(BioPAXL3Graph.ACTIVE_TF_TAG);
-	}
-
-	public boolean isNativeState()
-	{
-		return util.hasModelTag(BioPAXL3Graph.NATIVE_STATE_TAG);
 	}
 
 	public String getIDHash()

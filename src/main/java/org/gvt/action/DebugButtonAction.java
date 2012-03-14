@@ -62,6 +62,7 @@ public class DebugButtonAction extends Action
 				if (model instanceof Actor)
 				{
 					Actor actor = (Actor) model;
+					System.out.println(actor.getEntity().l3pe.getDisplayName());
 					System.out.println("pe id = " + actor.getEntity().getID());
 
 					for (Xref xref : ((SimplePhysicalEntity)actor.getEntity().l3pe).getEntityReference().getXref())
@@ -73,6 +74,7 @@ public class DebugButtonAction extends Action
 				else if (o instanceof ChbComplex)
 				{
 					ChbComplex cmp = (ChbComplex) o;
+					System.out.println(cmp.getEntity().l3pe.getDisplayName());
 					System.out.println(cmp.getComplex().getRDFId());
 				}
 				else if (o instanceof ChbConversion)

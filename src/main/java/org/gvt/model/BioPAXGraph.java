@@ -404,8 +404,6 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 
 	public static final String MODEL_TAG_SEPARATOR = "@";
 
-	public static final String ACTIVE_TF_TAG = "ACTIVE_TF";
-	public static final String NATIVE_STATE_TAG = "NATIVE_STATE";
 	public static final String DEPLETING_REACTION_TAG = "DEPLETING_REACTION";
 	public static final String TRANSCRIPTION_TAG = "TRANSCRIPTION_TAG";
 

@@ -28,7 +28,7 @@ public class InfoFigure extends Figure
 	/**
 	 * Specifies whether this feature is a "NOT" feature defined in BiopAX level 3.
 	 */
-	private boolean isNot = false;
+	private boolean not;
 
 	/**
 	 * Order number of the info box.
@@ -61,6 +61,13 @@ public class InfoFigure extends Figure
 		else if (info.indexOf("[") > 0) this.info = info.substring(0, info.indexOf("[")).trim();
 		else this.info = info;
 
+		not = false;
+		if (info.startsWith("-")) 
+		{
+			this.info = info.substring(1);
+			not = true;
+		}
+		
 		Label label = new Label(getLetter(this.info));
 		label.setToolTip(new Label(info));
 
@@ -111,7 +118,7 @@ public class InfoFigure extends Figure
 				break;
 		}
 
-		if (isNot)
+		if (not)
 		{
 			g.setForegroundColor(DEFAULT_NOT_COLOR);
 			g.drawLine(p.x,  p.y, p.x + dim.width, p.y + dim.height);
@@ -187,63 +194,43 @@ public class InfoFigure extends Figure
 	protected static final Map<String, Color> bordColorMap = new HashMap<String, Color>();
 	protected static final Map<String, String> letterMap = new HashMap<String, String>();
 
+	private static void put(String s, Color b, Color f, String l)
+	{
+		assert s != null;
+		if (b != null) backColorMap.put(s, b);
+		if (f != null) foreColorMap.put(s, f);
+		if (l != null) letterMap.put(s, l);
+	}
+	
 	static
 	{
+		final Color WHITE = new Color(null, 255, 255, 255);
 		final Color PHOSPHO_BG = new Color(null, 230, 230, 100);
 		final Color PHOSPHO_FORE = new Color(null, 0, 0, 50);
 		final Color ACTIVE_BG = new Color(null, 50, 150, 50);
-		final Color ACTIVE_FORE = new Color(null, 255, 255, 255);
+		final Color ACTIVE_FORE = WHITE;
 		final Color INACTIVE_BG = new Color(null, 150, 50, 50);
-		final Color INACTIVE_FORE = new Color(null, 255, 255, 255);
-		backColorMap.put("phosphorylation", PHOSPHO_BG); // yellow
-		foreColorMap.put("phosphorylation", PHOSPHO_FORE); // black like blue
-		backColorMap.put("phosphorylation site", PHOSPHO_BG); // yellow
-		foreColorMap.put("phosphorylation site", PHOSPHO_FORE); // black like blue
-		backColorMap.put("phosphate group", PHOSPHO_BG); // yellow
-		foreColorMap.put("phosphate group", PHOSPHO_FORE); // black like blue
-		backColorMap.put("phosphorylated residue", PHOSPHO_BG); // yellow
-		foreColorMap.put("phosphorylated residue", PHOSPHO_FORE); // black like blue
-		backColorMap.put("o-phospho-l-serine", PHOSPHO_BG); // yellow
-		foreColorMap.put("o-phospho-l-serine", PHOSPHO_FORE); // black like blue
-		letterMap.put("o-phospho-l-serine", "p");
-		backColorMap.put("o-phospho-l-threonine", PHOSPHO_BG); // yellow
-		foreColorMap.put("o-phospho-l-threonine", PHOSPHO_FORE); // black like blue
-		letterMap.put("o-phospho-l-threonine", "p");
-		backColorMap.put("-phospho-l-tyrosine", PHOSPHO_BG); // yellow
-		foreColorMap.put("-phospho-l-tyrosine", PHOSPHO_FORE); // black like blue
-		letterMap.put("-phospho-l-tyrosine", "p");
+		final Color INACTIVE_FORE = WHITE;
+		
+		put("phosphorylation", PHOSPHO_BG, PHOSPHO_FORE, null);
+		put("phosphorylation site", PHOSPHO_BG, PHOSPHO_FORE, null);
+		put("phosphate group", PHOSPHO_BG, PHOSPHO_FORE, null);
+		put("phosphorylated residue", PHOSPHO_BG, PHOSPHO_FORE, null);
+		put("o-phospho-l-serine", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("o-phospho-l-threonine", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("o4'-phospho-l-tyrosine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 
-		backColorMap.put("active", ACTIVE_BG); // green
-		foreColorMap.put("active", ACTIVE_FORE); // white
+		put("active", ACTIVE_BG, ACTIVE_FORE, null);
+		put("inactive", INACTIVE_BG, INACTIVE_FORE, null);
+		put("residue modification, inactive", INACTIVE_BG, INACTIVE_FORE, "i");
+		put("residue modification, active", ACTIVE_BG, ACTIVE_FORE, "a");
 
-		backColorMap.put("active tf", new Color(null, 70, 150, 70)); // green
-		foreColorMap.put("active tf", new Color(null, 255, 255, 255)); // white
-		letterMap.put("active tf", "t");
-
-		backColorMap.put("inactive", INACTIVE_BG); // red
-		foreColorMap.put("inactive", INACTIVE_FORE); // white
-
-		backColorMap.put("residue modification, inactive", INACTIVE_BG); // red
-		foreColorMap.put("residue modification, inactive", INACTIVE_FORE); // white
-		letterMap.put("residue modification, inactive", "i");
-
-		backColorMap.put("residue modification, active", ACTIVE_BG); // red
-		foreColorMap.put("residue modification, active", ACTIVE_FORE); // white
-		letterMap.put("residue modification, active", "a");
-
-		backColorMap.put("native", new Color(null, 200, 200, 200)); // light gray
-		foreColorMap.put("native", new Color(null, 100, 100, 100)); // dark gray
-
-		backColorMap.put("ubiquitination site", new Color(null, 150, 80, 80)); // red
-		foreColorMap.put("ubiquitination site", new Color(null, 255, 255, 255)); // white
-
-		backColorMap.put("chain coordinates", new Color(null, 150, 150, 150)); // light gray
-		foreColorMap.put("chain coordinates", new Color(null, 255, 255, 255)); // white
-
-		foreColorMap.put("methylated lysine", new Color(null, 20, 20, 100)); // blue
-
-		foreColorMap.put("n-acetylated l-lysine", new Color(null, 20, 80, 20)); // green
-		letterMap.put("n-acetylated l-lysine", "a");
+		put("native", new Color(null, 200, 200, 200), new Color(null, 100, 100, 100), null);
+		put("ubiquitination site", new Color(null, 150, 80, 80), WHITE, null);
+		put("chain coordinates", new Color(null, 150, 150, 150), WHITE, null);
+		put("methylated lysine", null, new Color(null, 20, 20, 100), null);
+		put("n-acetylated l-lysine", null, new Color(null, 20, 80, 20), "a");
+		put("n4-glycosyl-l-asparagine", null, new Color(null, 20, 20, 100), "g");
 	}
 
 	protected static final int OVAL = 0;

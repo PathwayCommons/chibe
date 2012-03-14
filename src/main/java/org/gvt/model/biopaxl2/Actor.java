@@ -275,11 +275,6 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			}
 		}
 
-		// Add "active transcription factor" and "native state" tags
-
-		if (isActiveTF()) list.add("active tf");
-		if (isNativeState()) list.add("native");
-		
 		return list;
 	}
 
@@ -328,16 +323,6 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public boolean isBreadthNode()
 	{
 		return true;
-	}
-
-	public boolean isActiveTF()
-	{
-		return util.hasModelTag(BioPAXL2Graph.ACTIVE_TF_TAG);
-	}
-
-	public boolean isNativeState()
-	{
-		return util.hasModelTag(BioPAXL2Graph.NATIVE_STATE_TAG);
 	}
 
 	public String getIDHash()
