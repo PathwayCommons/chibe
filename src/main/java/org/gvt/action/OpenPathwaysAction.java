@@ -1,5 +1,6 @@
 package org.gvt.action;
 
+import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
@@ -94,23 +95,36 @@ public class OpenPathwaysAction extends Action
 			pathways = new ArrayList<String>();
 			pathways.addAll(main.getOpenTabNames());
 
-// This commented out code was displaying a list of pathways
-//			ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
-//				500,
-//				"Pathway Selection Dialog",
-//				"Select pathways to view",
-//				allNames, pathways, true, true, null);
+            if (model.getLevel() == BioPAXLevel.L2)
+            {
+                ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
+                    500,
+                    "Pathway Selection Dialog",
+                    "Select pathways to view",
+                    allNames, pathways, true, true, null);
 
-			PathwaySelectionDialog dialog = new PathwaySelectionDialog(
-				main.getShell(), model, pathways);
+                dialog.open();
 
-			dialog.open();
+                if (dialog.isCancelled())
+                {
+                    pathways = null;
+                    return;
+                }
+            }
+            else
+            {
+                PathwaySelectionDialog dialog = new PathwaySelectionDialog(
+                        main.getShell(), model, pathways);
 
-			if (dialog.isCancelled())
-			{
-				pathways = null;
-				return;
-			}
+                dialog.open();
+
+                if (dialog.isCancelled())
+                {
+                    pathways = null;
+                    return;
+                }
+            }
+
 
 			for (String name : new ArrayList<String>(main.getOpenTabNames()))
 			{
