@@ -220,4 +220,10 @@ public abstract class QueryPCAction extends Action
 			MessageDialog.openWarning(main.getShell(), "Some symbols are unfamiliar", s);
 		}
 	}
+
+	protected void warnForLowInput(int required, int found)
+	{
+		MessageDialog.openWarning(main.getShell(), "Need more input", "Query needs at least " +
+			required + " entities. Currently only " + found + " is recognized.");
+	}
 }

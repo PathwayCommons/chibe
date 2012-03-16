@@ -45,6 +45,10 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	{
 		List<String> sourceSymbols = options.getConvertedSourceList();
 		warnForUnknownSymbols(options.getUnknownSymbols());
+		if (sourceSymbols.size() < 2)
+		{
+			warnForLowInput(2, sourceSymbols.size());
+		}
 		return sourceSymbols.size() > 1;
 	}
 }
