@@ -158,13 +158,11 @@ public abstract class AbstractQueryParamDialog extends Dialog
 	/**
 	 * Method for creating Result View Group
 	 */
-	protected void createResultViewGroup(int horizontalSpan,
-		int verticalSpan)
+	protected void createResultViewGroup(int horizontalSpan, int verticalSpan)
 	{
 		resultViewGroup = new Group(shell, SWT.NONE);
 		resultViewGroup.setText("Show result in");
-		GridData gridData = 
-			new GridData(GridData.FILL, GridData.BEGINNING, false, false);
+		GridData gridData = new GridData(GridData.FILL, GridData.BEGINNING, false, false);
 		gridData.horizontalSpan = horizontalSpan;
 		gridData.verticalSpan = verticalSpan;
 		resultViewGroup.setLayoutData(gridData);
@@ -174,16 +172,14 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		
 		currentViewButton = new Button(resultViewGroup, SWT.RADIO);
 		currentViewButton.setText("Current view");
-		gridData = 
-			new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		currentViewButton.setLayoutData(gridData);
 		
 		//New View Radio Button
 		
 		newViewButton = new Button(resultViewGroup, SWT.RADIO);
 		newViewButton.setText("New view");
-		gridData = 
-			new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		newViewButton.setLayoutData(gridData);
 	}
 	

@@ -86,6 +86,12 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 		// Group for execute, cancel and default buttons
 		createExeCancDefGroup(opt, 6);
 
+		// Disable features that are not supported yet
+		if (allEntities == null)
+		{
+			currentViewButton.setEnabled(false);
+		}
+
 		//pack dialog
 		shell.pack();
 

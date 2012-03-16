@@ -83,6 +83,12 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 
 		createExeCancDefGroup(opt, 4);
 
+		// Disable features that are not currently supported
+		if (allEntities == null)
+		{
+			currentViewButton.setEnabled(false);
+		}
+
         //pack dialog
         shell.pack();
 
