@@ -23,6 +23,13 @@ public class PathwayHolder
 	public pathway l2p;
 	public Pathway l3p;
 
+	/**
+	 * Constructor for null pathway
+	 */
+	public PathwayHolder()
+	{
+	}
+
 	public PathwayHolder(pathway l2p)
 	{
 		this.l2p = l2p;

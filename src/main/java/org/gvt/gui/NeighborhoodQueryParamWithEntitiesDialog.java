@@ -95,6 +95,12 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 
 		createExeCancDefGroup(opt, 6);
 
+		// Disable features that are not currently supported
+		if (allEntities == null)
+		{
+			currentViewButton.setEnabled(false);
+		}
+
 		//pack dialog
 		shell.pack();
 

@@ -57,7 +57,7 @@ public class DuplicatePathwayAction extends Action
 
 			PathwayHolder p = original.getPathway();
 			BioPAXGraph graph = main.getRootGraph().excise(p);
-			graph.setPathway(null);
+			graph.setPathway(new PathwayHolder());
 
 			String name = p.getName();
 
