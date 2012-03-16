@@ -54,67 +54,9 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 		gridLayout.numColumns = 6;
 		shell.setLayout(gridLayout);
 
-        //source entity list's label
+		GridData gridData;
 
-		Label sourceLabel = new Label(shell, SWT.NONE);
-        sourceLabel.setText("Source");
-        GridData gridData = new GridData(GridData.CENTER, GridData.END,
-            false, false);
-        gridData.horizontalSpan = 1;
-        sourceLabel.setLayoutData(gridData);
-
-        //target entity list's label
-
-		Label targetLabel = new Label(shell, SWT.NONE);
-        targetLabel.setText("Target");
-        gridData = new GridData(GridData.CENTER, GridData.END, false, false);
-        gridData.horizontalSpan = 1;
-        targetLabel.setLayoutData(gridData);
-
-        //Group for currentViewButton and newViewButton
-        createResultViewGroup(2, 2);
-
-        //Group for lengthLimitButton and shortestPlusKButton
-
-		Group limitTypeGroup = new Group(shell, SWT.NONE);
-        limitTypeGroup.setText("Stop distance");
-        gridData = new GridData(GridData.FILL, GridData.BEGINNING, false, false);
-		gridData.horizontalSpan = 2;
-		gridData.verticalSpan = 2;
-        limitTypeGroup.setLayoutData(gridData);
-		limitTypeGroup.setLayout(new GridLayout(2, true));
-
-        //Length limit radio button
-
-        lengthLimitButton = new Button(limitTypeGroup, SWT.RADIO);
-        lengthLimitButton.setText("Length limit");
-        gridData = new GridData(GridData.BEGINNING, GridData.CENTER,
-            false, false);
-        lengthLimitButton.setLayoutData(gridData);
-        
-        //Length limit text
-
-        lengthLimit = new Text(limitTypeGroup, SWT.BORDER);
-        lengthLimit.addKeyListener(keyAdapter);
-        gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
-        lengthLimit.setLayoutData(gridData);
-
-        //Shortest+k radio button
-
-        shortestPlusKButton = new Button(limitTypeGroup, SWT.RADIO);
-        shortestPlusKButton.setText("Shortest+k");
-        gridData = new GridData(GridData.BEGINNING, GridData.CENTER,
-            false, false);
-        shortestPlusKButton.setLayoutData(gridData);
-
-        //Shortest+k text
-
-        shortestPlusK = new Text(limitTypeGroup, SWT.BORDER);
-        shortestPlusK.addKeyListener(keyAdapter);
-        gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
-        shortestPlusK.setLayoutData(gridData);
-
-        //Source enity list
+		//Source enity list
 
 		gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
 		gridData.verticalSpan = 5;
@@ -133,7 +75,7 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 			sourceST.setLayoutData(gridData);
 		}
 
-        //Target entity list
+		//Target entity list
 		gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
 		gridData.verticalSpan = 5;
 		gridData.horizontalSpan = 1;
@@ -152,6 +94,47 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 			targetST.setLayoutData(gridData);
 		}
 
+        //Group for currentViewButton and newViewButton
+        createResultViewGroup(2, 2);
+
+        //Group for lengthLimitButton and shortestPlusKButton
+
+		Group limitTypeGroup = new Group(shell, SWT.NONE);
+        limitTypeGroup.setText("Stop distance");
+        gridData = new GridData(GridData.FILL, GridData.BEGINNING, false, false);
+		gridData.horizontalSpan = 2;
+		gridData.verticalSpan = 2;
+        limitTypeGroup.setLayoutData(gridData);
+		limitTypeGroup.setLayout(new GridLayout(2, true));
+
+        //Length limit radio button
+
+        lengthLimitButton = new Button(limitTypeGroup, SWT.RADIO);
+        lengthLimitButton.setText("Length limit");
+        gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+        lengthLimitButton.setLayoutData(gridData);
+        
+        //Length limit text
+
+        lengthLimit = new Text(limitTypeGroup, SWT.BORDER);
+        lengthLimit.addKeyListener(keyAdapter);
+        gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
+        lengthLimit.setLayoutData(gridData);
+
+        //Shortest+k radio button
+
+        shortestPlusKButton = new Button(limitTypeGroup, SWT.RADIO);
+        shortestPlusKButton.setText("Shortest+k");
+        gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+        shortestPlusKButton.setLayoutData(gridData);
+
+        //Shortest+k text
+
+        shortestPlusK = new Text(limitTypeGroup, SWT.BORDER);
+        shortestPlusK.addKeyListener(keyAdapter);
+        gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
+        shortestPlusK.setLayoutData(gridData);
+
         //Strict check box
 
         strictButton = new Button(shell, SWT.CHECK | SWT.WRAP);
@@ -163,6 +146,14 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 
 		// Group for execute, cancel and default buttons
 		createExeCancDefGroup(opt, 8);
+
+		// Disable features that are not currently supported
+		if (allEntities == null)
+		{
+			shortestPlusKButton.setEnabled(false);
+			strictButton.setEnabled(false);
+			currentViewButton.setEnabled(false);
+		}
 
 		//pack dialog
 		shell.pack();
