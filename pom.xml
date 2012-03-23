@@ -9,7 +9,7 @@
 	<version>2.0</version>
 
 	<properties>
-		<biopax.version>4.1.0-SNAPSHOT</biopax.version>
+		<paxtools.version>4.1.2-SNAPSHOT</paxtools.version>
 
 		<!--Below code is used for creating platform dependent builds. If you are creating a build
 			for a different platform, comment out the "profiles" section and comment in the below
@@ -123,6 +123,18 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>win64</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+					<arch>amd64</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-win32-win32-x86-64</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
 			<id>lin32</id>
 			<activation>
 				<os>
@@ -132,6 +144,18 @@
 			</activation>
 			<properties>
 				<swt.artifactId>swt-gtk-linux-x86</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>lin64</id>
+			<activation>
+				<os>
+					<family>Linux</family>
+                    <arch>x86</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-gtk-linux-x86-64</swt.artifactId>
 			</properties>
 		</profile>
 		<profile>
@@ -172,12 +196,12 @@
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>paxtools-core</artifactId>
-			<version>${biopax.version}</version>
+			<version>${paxtools.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>sif-converter</artifactId>
-			<version>${biopax.version}</version>
+			<version>${paxtools.version}</version>
 		</dependency>
         <dependency>
             <groupId>pathwaycommons.cpath</groupId>
