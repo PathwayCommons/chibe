@@ -29,7 +29,7 @@ public class LocalPathIterationQueryAction extends Action
 	 */
 	public LocalPathIterationQueryAction(ChisioMain main)
 	{
-		super("Path Iteration Query");
+		super("Path Iteration");
 		setToolTipText(getText());
 
 		this.main = main;

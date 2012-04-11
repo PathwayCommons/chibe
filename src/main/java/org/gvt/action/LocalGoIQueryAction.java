@@ -38,7 +38,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
      */
     public LocalGoIQueryAction(ChisioMain main, boolean useSelection)
     {
-        super(main, "GoI Query");
+        super(main, "Graph Of Interest");
         setToolTipText(getText());
         options = new QueryOptionsPack();
         this.main = main;

@@ -25,7 +25,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 	public QueryPCPathwaysAction(ChisioMain main)
 	{
-		super(main, "Query Pathways", false);
+		super(main, "Pathways", false);
 	}
 
 	public void run()

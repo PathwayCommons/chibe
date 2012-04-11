@@ -274,5 +274,5 @@ public class ChbTempReac extends BioPAXNode
 		return tr.getRDFId();
 	}
 
-	private static final Color COLOR = new Color(null, 170, 170, 170);
+	private static final Color COLOR = new Color(null, 230, 230, 230);
 }

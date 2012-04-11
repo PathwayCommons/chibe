@@ -20,7 +20,7 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 
 	public QueryPCCommonStreamAction(ChisioMain main)
 	{
-		super(main, "Query Common Stream", false);
+		super(main, "Common Stream", false);
 	}
 
 	public QueryPCCommonStreamAction(ChisioMain main, boolean useSelected, boolean downstream)
@@ -31,7 +31,7 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 
 		if (useSelected)
 		{
-			setText(downstream ? "Query Common Downstream" : "Query Common Upstream");
+			setText(downstream ? "Common Downstream" : "Common Upstream");
 
 			options.setUpstream(!downstream);
 			options.setDownstream(downstream);
