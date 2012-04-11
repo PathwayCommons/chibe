@@ -35,7 +35,7 @@ public class LocalCompartmentQueryAction extends AbstractLocalQueryAction
 	 */
 	public LocalCompartmentQueryAction(ChisioMain main)
 	{
-		super(main, "Compartment Query");
+		super(main, "Compartment");
 		setToolTipText(getText());
 		options = new QueryOptionsPack();
 		this.main = main;

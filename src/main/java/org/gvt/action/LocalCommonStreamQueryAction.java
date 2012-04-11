@@ -39,7 +39,7 @@ public class LocalCommonStreamQueryAction extends AbstractLocalQueryAction
 	 */
 	public LocalCommonStreamQueryAction(ChisioMain main, boolean useSelection)
 	{
-		super(main, "Common Stream Query");
+		super(main, "Common Stream");
 		setToolTipText(getText());
 		options = new QueryOptionsPack();
 		this.main = main;

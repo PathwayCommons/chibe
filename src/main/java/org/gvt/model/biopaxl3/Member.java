@@ -28,6 +28,7 @@ public class Member extends BioPAXEdge
 
 		setArrow("Target");
 		setColor(COLOR);
+		setStyle("Dashed");
 	}
 
 	public Member(Member excised, Map<NodeModel, NodeModel> map)

@@ -18,7 +18,7 @@ public class QueryPCNeighborsAction extends QueryPCAction
 {
 	public QueryPCNeighborsAction(ChisioMain main, boolean useSelected)
 	{
-		super(main, "Query Neighbors", useSelected);
+		super(main, "Neighborhood", useSelected);
 	}
 
 	public void run()

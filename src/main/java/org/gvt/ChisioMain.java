@@ -793,13 +793,21 @@ public class ChisioMain extends ApplicationWindow
 	{
 		this.owlFileName = filename;
 
+		String suffix = "";
+		Model model = getOwlModel();
+		if (model != null)
+		{
+			suffix = " (Level " + (model.getLevel() == BioPAXLevel.L3 ? "3" : "2") + ")";
+		}
+		suffix += " - " + TOOL_NAME;
+
 		if (filename != null)
 		{
-			this.getShell().setText(filename + " - " + TOOL_NAME);
+			this.getShell().setText(filename + suffix);
 		}
 		else
 		{
-			this.getShell().setText(TOOL_NAME);
+			this.getShell().setText(suffix);
 		}
 	}
 

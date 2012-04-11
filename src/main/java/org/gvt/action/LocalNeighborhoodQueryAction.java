@@ -42,7 +42,7 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 	 */
 	public LocalNeighborhoodQueryAction(ChisioMain main, boolean useSelection)
 	{
-		super(main, "Neighborhood Query");
+		super(main, "Neighborhood");
 		setToolTipText(getText());
 		options = new QueryOptionsPack();
 		this.main = main;

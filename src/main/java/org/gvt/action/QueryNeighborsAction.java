@@ -46,7 +46,7 @@ public class QueryNeighborsAction extends Action
 
 	public QueryNeighborsAction(ChisioMain main, boolean useSelectedNodes)
 	{
-		super("Query Neighbors");
+		super("Neighborhood");
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
 		setToolTipText(getText());
 		this.main = main;
