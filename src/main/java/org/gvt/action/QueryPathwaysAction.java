@@ -2,6 +2,7 @@ package org.gvt.action;
 
 import cpath.client.PathwayCommonsIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
+import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -62,194 +63,202 @@ public class QueryPathwaysAction extends Action
 
 	public void run()
 	{
-		if (refs == null)
-		{
-			refs = new HashSet<XRef>();
+        if(main.getOwlModel().getLevel().equals(BioPAXLevel.L2))
+        {
+            if (refs == null)
+            {
+                refs = new HashSet<XRef>();
 
-			if (useSelectedNodes && main.getViewer() != null)
-			{
-				for (Object o : main.getSelectedModel())
-				{
-					if (o instanceof Actor)
-					{
-						refs.addAll(((Actor) o).getReferences());
-					}
-					else if (o instanceof Complex)
-					{
-						refs.addAll(((Complex) o).getReferences());
-					}
-				}
-			}
-		}
+                if (useSelectedNodes && main.getViewer() != null)
+                {
+                    for (Object o : main.getSelectedModel())
+                    {
+                        if (o instanceof Actor)
+                        {
+                            refs.addAll(((Actor) o).getReferences());
+                        }
+                        else if (o instanceof Complex)
+                        {
+                            refs.addAll(((Complex) o).getReferences());
+                        }
+                    }
+                }
+            }
 
-		if (refs.isEmpty() && !useSelectedNodes)
-		{
-			StringInputDialog dialog = new StringInputDialog(main.getShell(), "Query Pathways",
-				"Enter UniProt or Entrez Gene ID", null);
+            if (refs.isEmpty() && !useSelectedNodes)
+            {
+                StringInputDialog dialog = new StringInputDialog(main.getShell(), "Query Pathways",
+                    "Enter UniProt or Entrez Gene ID", null);
 
-			String ids = dialog.open();
+                String ids = dialog.open();
 
-			if (ids != null && ids.trim().length() > 0)
-			{
-				for (String id : ids.split(" "))
-				{
-					if (id.length() < 1) continue;
-					
-					String dbtext = Character.isDigit(id.charAt(0)) ?
-						XRef.ENTREZ_GENE : XRef.UNIPROT;
+                if (ids != null && ids.trim().length() > 0)
+                {
+                    for (String id : ids.split(" "))
+                    {
+                        if (id.length() < 1) continue;
 
-					refs.add(new XRef(dbtext + ":" + id));
-				}
-			}
-		}
+                        String dbtext = Character.isDigit(id.charAt(0)) ?
+                            XRef.ENTREZ_GENE : XRef.UNIPROT;
 
-		if (!refs.isEmpty())
-		{
-			try
-			{
-				main.lockWithMessage("Querying Pathway Commons Database ...");
+                        refs.add(new XRef(dbtext + ":" + id));
+                    }
+                }
+            }
 
-				PathwayCommonsIOHandler ioHandler = new PathwayCommonsIOHandler(new SimpleIOHandler());
-				Map<String, String> pathToID = new HashMap<String, String>();
-				List<String> resultPathways = new ArrayList<String>();
+            if (!refs.isEmpty())
+            {
+                try
+                {
+                    main.lockWithMessage("Querying Pathway Commons Database ...");
 
-				XRef xr = XRef.getFirstRef(refs,
-					new String[]{XRef.CPATH, XRef.ENTREZ_GENE, XRef.UNIPROT});
+                    PathwayCommonsIOHandler ioHandler = new PathwayCommonsIOHandler(new SimpleIOHandler());
+                    Map<String, String> pathToID = new HashMap<String, String>();
+                    List<String> resultPathways = new ArrayList<String>();
 
-				refs.clear();
-				if (xr != null)
-				{
-					refs.add(xr);
-				}
-				else
-				{
-					MessageDialog.openError(main.getShell(), "No Reference ID",
-						"No CPATH, Entrez Gene or UniProt ID found to query.");
-				}
+                    XRef xr = XRef.getFirstRef(refs,
+                        new String[]{XRef.CPATH, XRef.ENTREZ_GENE, XRef.UNIPROT});
 
-				
-				for (XRef ref : refs)
-				{
-					if (ref.getDb().equalsIgnoreCase(XRef.CPATH))
-					{
-						ioHandler.setInputIdType(PathwayCommonsIOHandler.ID_TYPE.CPATH_ID);
-					}
-					else if (ref.getDb().equalsIgnoreCase(XRef.UNIPROT))
-					{
-						ioHandler.setInputIdType(PathwayCommonsIOHandler.ID_TYPE.UNIPROT);
-					}
-					else if (ref.getDb().equalsIgnoreCase(XRef.ENTREZ_GENE))
-					{
-						ioHandler.setInputIdType(PathwayCommonsIOHandler.ID_TYPE.ENTREZ_GENE);
-					}
-					else
-					{
-						continue;
-					}
-
-					System.out.println("Querying pathways for " + ref);
-
-					List<List<String>> resultList = ioHandler.getPathways(ref.getRef());
-					main.unlock();
-
-					if (resultList.get(0).get(0).contains("xml"))
-					{
-						MessageDialog.openError(main.getShell(), "Error!", "Unexpected error!");
-						resultList.clear();
-					}
-					else if (resultList.get(1).size() == 2)
-					{
-//						MessageDialog.openInformation(main.getShell(), "No results",
-//							"No results found.");
-
-						resultList.clear();
-					}
-					else
-					{
-						resultList.remove(0);
-					}
-
-					// Prepare the result as listable pathway items
-
-					for (List<String> columns : resultList)
-					{
-						assert columns.size() == 4;
-
-						String cpathid = columns.get(3);
-
-						if (!pathToID.containsValue(cpathid))
-						{
-							String pathwayName = columns.get(1);
-							String db = columns.get(2);
-
-							String line = "[" + db + "] " + pathwayName;
-
-							resultPathways.add(line);
-							pathToID.put(line, cpathid);
-						}
-					}
-				}
-				
-				if (!resultPathways.isEmpty())
-				{
-					ArrayList<String> selectedItems = new ArrayList<String>();
-
-					ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
-						500,
-						"Pathway Selection Dialog",
-						"Select pathways to retrieve",
-						resultPathways, selectedItems,
-						true, true, null);
-
-					dialog.setMinValidSelect(1);
-					dialog.open();
-
-					List<String> idList = new ArrayList<String>();
-
-					if (!dialog.isCancelled())
-					{
-						for (String item : selectedItems)
-						{
-							idList.add(pathToID.get(item));
-						}
-					}
-
-					if (!idList.isEmpty())
-					{
-						try
-						{
-							main.lockWithMessage("Querying Pathway Commons Database ...");
-							queryIDs(ioHandler, idList);
-						}
-						catch (Exception e){e.printStackTrace();}
-						finally { main.unlock(); }
+                    refs.clear();
+                    if (xr != null)
+                    {
+                        refs.add(xr);
+                    }
+                    else
+                    {
+                        MessageDialog.openError(main.getShell(), "No Reference ID",
+                            "No CPATH, Entrez Gene or UniProt ID found to query.");
+                    }
 
 
-						new UpdatePathwayAction(main, true).run();
-						OpenPathwaysAction opa = new OpenPathwaysAction(main);
-						opa.setRefsToHighlight(refs);
-						opa.run();
-					}
-				}
-				else if (!refs.isEmpty())
-				{
-					MessageDialog.openInformation(main.getShell(), "Not found!",
-						"No pathway found.");
-				}
-			}
-			catch (Exception e)
-			{
-				refs = null;
-				e.printStackTrace();
-				MessageDialog.openError(main.getShell(), "Error",
-					"An error occured during querying:\n" + e.getMessage());
-			}
-			finally
-			{
-				main.unlock();
-			}
-		}
-		refs = null;
+                    for (XRef ref : refs)
+                    {
+                        if (ref.getDb().equalsIgnoreCase(XRef.CPATH))
+                        {
+                            ioHandler.setInputIdType(PathwayCommonsIOHandler.ID_TYPE.CPATH_ID);
+                        }
+                        else if (ref.getDb().equalsIgnoreCase(XRef.UNIPROT))
+                        {
+                            ioHandler.setInputIdType(PathwayCommonsIOHandler.ID_TYPE.UNIPROT);
+                        }
+                        else if (ref.getDb().equalsIgnoreCase(XRef.ENTREZ_GENE))
+                        {
+                            ioHandler.setInputIdType(PathwayCommonsIOHandler.ID_TYPE.ENTREZ_GENE);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                        System.out.println("Querying pathways for " + ref);
+
+                        List<List<String>> resultList = ioHandler.getPathways(ref.getRef());
+                        main.unlock();
+
+                        if (resultList.get(0).get(0).contains("xml"))
+                        {
+                            MessageDialog.openError(main.getShell(), "Error!", "Unexpected error!");
+                            resultList.clear();
+                        }
+                        else if (resultList.get(1).size() == 2)
+                        {
+    //						MessageDialog.openInformation(main.getShell(), "No results",
+    //							"No results found.");
+
+                            resultList.clear();
+                        }
+                        else
+                        {
+                            resultList.remove(0);
+                        }
+
+                        // Prepare the result as listable pathway items
+
+                        for (List<String> columns : resultList)
+                        {
+                            assert columns.size() == 4;
+
+                            String cpathid = columns.get(3);
+
+                            if (!pathToID.containsValue(cpathid))
+                            {
+                                String pathwayName = columns.get(1);
+                                String db = columns.get(2);
+
+                                String line = "[" + db + "] " + pathwayName;
+
+                                resultPathways.add(line);
+                                pathToID.put(line, cpathid);
+                            }
+                        }
+                    }
+
+                    if (!resultPathways.isEmpty())
+                    {
+                        ArrayList<String> selectedItems = new ArrayList<String>();
+
+                        ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
+                            500,
+                            "Pathway Selection Dialog",
+                            "Select pathways to retrieve",
+                            resultPathways, selectedItems,
+                            true, true, null);
+
+                        dialog.setMinValidSelect(1);
+                        dialog.open();
+
+                        List<String> idList = new ArrayList<String>();
+
+                        if (!dialog.isCancelled())
+                        {
+                            for (String item : selectedItems)
+                            {
+                                idList.add(pathToID.get(item));
+                            }
+                        }
+
+                        if (!idList.isEmpty())
+                        {
+                            try
+                            {
+                                main.lockWithMessage("Querying Pathway Commons Database ...");
+                                queryIDs(ioHandler, idList);
+                            }
+                            catch (Exception e){e.printStackTrace();}
+                            finally { main.unlock(); }
+
+
+                            new UpdatePathwayAction(main, true).run();
+                            OpenPathwaysAction opa = new OpenPathwaysAction(main);
+                            opa.setRefsToHighlight(refs);
+                            opa.run();
+                        }
+                    }
+                    else if (!refs.isEmpty())
+                    {
+                        MessageDialog.openInformation(main.getShell(), "Not found!",
+                            "No pathway found.");
+                    }
+                }
+                catch (Exception e)
+                {
+                    refs = null;
+                    e.printStackTrace();
+                    MessageDialog.openError(main.getShell(), "Error",
+                        "An error occured during querying:\n" + e.getMessage());
+                }
+                finally
+                {
+                    main.unlock();
+                }
+            }
+            refs = null;
+        }
+        else
+        {
+            MessageDialog.openError(main.getShell(), "Incompatible Levels","This query is only applicable to Level 2 models.");
+        }
+
 	}
 
 	private void queryIDs(PathwayCommonsIOHandler ioHandler, List<String> idList) throws IOException

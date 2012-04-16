@@ -144,7 +144,8 @@ public class MergeAction extends Action
 			}
 		}
 
-		// For now we only have one source model
+
+        // For now we only have one source model
 		HashSet<Model> sources = new HashSet<Model>();
 
 		try
@@ -166,42 +167,49 @@ public class MergeAction extends Action
 				return;
 			}
 
-			// Typical merging process
-			sources.add(model);
-			Model target = main.getOwlModel();
+            if(main.getOwlModel().getLevel().equals(model.getLevel()))
+            {
+                // Typical merging process
+                sources.add(model);
+                Model target = main.getOwlModel();
 
-			SimpleMerger merger = new SimpleMerger(SimpleEditorMap.get(target.getLevel()));
-			merger.merge(target, sources.toArray(new Model[sources.size()]));
+                SimpleMerger merger = new SimpleMerger(SimpleEditorMap.get(target.getLevel()));
+                merger.merge(target, sources.toArray(new Model[sources.size()]));
 
-			BioPAXReader reader = new BioPAXReader(target);
-			BioPAXGraph graph = (BioPAXGraph) reader.readXMLFile(null);
+                BioPAXReader reader = new BioPAXReader(target);
+                BioPAXGraph graph = (BioPAXGraph) reader.readXMLFile(null);
 
-			if (createNewPathway)
-			{
-				List<String> intids = getInteractionIDs(model);
-				newPathwayName = graph.createPathway(
-					newPathwayName == null ? "Neighborhood" : newPathwayName, intids);
-				main.getAllPathwayNames().add(newPathwayName);
-			}
+                if (createNewPathway)
+                {
+                    List<String> intids = getInteractionIDs(model);
+                    newPathwayName = graph.createPathway(
+                        newPathwayName == null ? "Neighborhood" : newPathwayName, intids);
+                    main.getAllPathwayNames().add(newPathwayName);
+                }
 
-			main.setRootGraph(graph);
-			main.makeDirty();
+                main.setRootGraph(graph);
+                main.makeDirty();
 
-			if (updatePathways) new UpdatePathwayAction(main, true).run();
+                if (updatePathways) new UpdatePathwayAction(main, true).run();
 
-			if (openPathways)
-			{
-				if (newPathwayName != null)
-				{
-					List<String> pnames = new ArrayList<String>(main.getOpenTabNames());
-					pnames.add(newPathwayName);
-					new OpenPathwaysAction(main, pnames).run();
-				}
-				else
-				{
-					new OpenPathwaysAction(main).run();
-				}
-			}
+                if (openPathways)
+                {
+                    if (newPathwayName != null)
+                    {
+                        List<String> pnames = new ArrayList<String>(main.getOpenTabNames());
+                        pnames.add(newPathwayName);
+                        new OpenPathwaysAction(main, pnames).run();
+                    }
+                    else
+                    {
+                        new OpenPathwaysAction(main).run();
+                    }
+			    }
+            }
+            else
+            {
+                MessageDialog.openError(main.getShell(), "Incompatible Levels", "Models with different levels cannot be merged.");
+            }
 
 //			// Prepare a RDF list for merged elements
 //			// we are going to use it for highlighting

@@ -4,6 +4,7 @@ import cpath.client.CPath2Client;
 import cpath.client.util.CPathException;
 import cpath.service.jaxb.SearchHit;
 import cpath.service.jaxb.SearchResponse;
+import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
@@ -30,52 +31,59 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 	public void run()
 	{
-		try
-		{
-			StringInputDialog dialog = new StringInputDialog(main.getShell(), "Search Pathways",
-				"Enter a keyword for pathway name", keyword);
+        if(main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
+        {
+            try
+            {
+                StringInputDialog dialog = new StringInputDialog(main.getShell(), "Search Pathways",
+                    "Enter a keyword for pathway name", keyword);
 
-			keyword = dialog.open();
+                keyword = dialog.open();
 
-			if (keyword == null || keyword.trim().length() == 0)
-			{
-				return;
-			}
+                if (keyword == null || keyword.trim().length() == 0)
+                {
+                    return;
+                }
 
-			keyword = keyword.trim().toLowerCase();
+                keyword = keyword.trim().toLowerCase();
 
-			main.lockWithMessage("Querying Pathway Commons ...");
-			CPath2Client pc2 = getPCClient();
-			pc2.setType("Pathway");
-			SearchResponse resp = (SearchResponse) pc2.search("name:" + keyword);
-			main.unlock();
+                main.lockWithMessage("Querying Pathway Commons ...");
+                CPath2Client pc2 = getPCClient();
+                pc2.setType("Pathway");
+                SearchResponse resp = (SearchResponse) pc2.search("name:" + keyword);
+                main.unlock();
 
-			List<Holder> holders = extractResultFromServResp(resp, keyword);
+                List<Holder> holders = extractResultFromServResp(resp, keyword);
 
-			ItemSelectionDialog isd = new ItemSelectionDialog(main.getShell(),
-				500, "Result Pathways", "Select Pathway to Get", holders, null,
-				false, true, null);
-			isd.setDoSort(false);
+                ItemSelectionDialog isd = new ItemSelectionDialog(main.getShell(),
+                    500, "Result Pathways", "Select Pathway to Get", holders, null,
+                    false, true, null);
+                isd.setDoSort(false);
 
-			Object selected = isd.open();
+                Object selected = isd.open();
 
-			if (selected == null) return;
-			
-			pathwayID = ((Holder) selected).id;
+                if (selected == null) return;
 
-			execute();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			MessageDialog.openError(main.getShell(), "Error",
-				"An error occured during querying:\n" + e.getMessage());
-		}
-		finally
-		{
-			main.unlock();
-			pathwayID = null;
-		}
+                pathwayID = ((Holder) selected).id;
+
+                execute();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                MessageDialog.openError(main.getShell(), "Error",
+                    "An error occured during querying:\n" + e.getMessage());
+            }
+            finally
+            {
+                main.unlock();
+                pathwayID = null;
+            }
+        }
+        else
+        {
+            MessageDialog.openError(main.getShell(), "Incompatible Levels","This query is only applicable to Level 3 models.");
+        }
 	}
 	
 	private List<Holder> extractResultFromServResp(SearchResponse resp, String keyword)

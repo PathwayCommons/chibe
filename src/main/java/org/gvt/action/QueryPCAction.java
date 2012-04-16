@@ -3,6 +3,7 @@ package org.gvt.action;
 import cpath.client.CPath2Client;
 import cpath.client.util.CPathException;
 import cpath.client.util.NoResultsFoundException;
+import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.eclipse.gef.EditPart;
@@ -51,62 +52,69 @@ public abstract class QueryPCAction extends Action
 
 	public void execute()
 	{
-		try
-		{
-			if (!(useSelected && setSelectedPEIDsAsSource()))
-				if (!showParameterDialog()) return;
+        if(main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
+        {
+            try
+            {
+                if (!(useSelected && setSelectedPEIDsAsSource()))
+                    if (!showParameterDialog()) return;
 
-			if (!canQuery()) return;
-			
-			main.lockWithMessage("Querying Pathway Commons ...");
-			Model model = doQuery();
-			main.unlock();
+                if (!canQuery()) return;
 
-			if (model != null )
-			{
-				if (!model.getObjects().isEmpty())
-				{
-					if (main.getOwlModel() != null)
-					{
-						MergeAction merge = new MergeAction(main, model);
-						merge.setOpenPathways(true);
-						merge.setCreateNewPathway(true);
-						if (!modelHasNonEmptyPathway(model)) merge.setNewPathwayName(getText());
-						merge.run();
-					}
-					else
-					{
-						LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
-						load.setOpenPathways(true);
+                main.lockWithMessage("Querying Pathway Commons ...");
+                Model model = doQuery();
+                main.unlock();
 
-						if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getText());
-						load.run();
-					}
-				}
-				else
-				{
-					alertNoResults();
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			if (e instanceof NoResultsFoundException ||
-				e.getCause() instanceof NoResultsFoundException)
-			{
-				alertNoResults();
-			}
-			else
-			{
-				e.printStackTrace();
-				MessageDialog.openError(main.getShell(), "Error",
-					"An error occured during querying:\n" + e.getMessage());
-			}
-		}
-		finally
-		{
-			main.unlock();
-		}
+                if (model != null )
+                {
+                    if (!model.getObjects().isEmpty())
+                    {
+                        if (main.getOwlModel() != null)
+                        {
+                            MergeAction merge = new MergeAction(main, model);
+                            merge.setOpenPathways(true);
+                            merge.setCreateNewPathway(true);
+                            if (!modelHasNonEmptyPathway(model)) merge.setNewPathwayName(getText());
+                            merge.run();
+                        }
+                        else
+                        {
+                            LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
+                            load.setOpenPathways(true);
+
+                            if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getText());
+                            load.run();
+                        }
+                    }
+                    else
+                    {
+                        alertNoResults();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                if (e instanceof NoResultsFoundException ||
+                    e.getCause() instanceof NoResultsFoundException)
+                {
+                    alertNoResults();
+                }
+                else
+                {
+                    e.printStackTrace();
+                    MessageDialog.openError(main.getShell(), "Error",
+                        "An error occured during querying:\n" + e.getMessage());
+                }
+            }
+            finally
+            {
+                main.unlock();
+            }
+        }
+        else
+        {
+            MessageDialog.openError(main.getShell(), "Incompatible Levels","This query is only applicable to Level 3 models.");
+        }
 	}
 
 	protected void alertNoResults()
