@@ -8,8 +8,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.gvt.ChisioMain;
+import org.gvt.model.CompoundModel;
 import org.gvt.model.GraphObject;
-import org.gvt.model.biopaxl2.Compartment;
 import org.gvt.util.QueryOptionsPack;
 
 import java.util.ArrayList;
@@ -38,24 +38,24 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 	/**
 	 * All compartments of graph
 	 */
-	ArrayList<Compartment> allCompartments;
+	ArrayList<CompoundModel> allCompartments;
 
 	/**
 	 * Compartments which are added to source list and to target list.
 	 */
-	ArrayList<Compartment> sourceAddedCompartments;
-	ArrayList<Compartment> targetAddedCompartments;
+	ArrayList<CompoundModel> sourceAddedCompartments;
+	ArrayList<CompoundModel> targetAddedCompartments;
 
 	/**
 	 * Getters
 	 */
 
-	public ArrayList<Compartment> getSourceAddedCompartments()
+	public ArrayList<CompoundModel> getSourceAddedCompartments()
 	{
 		return this.sourceAddedCompartments;
 	}
 
-	public ArrayList<Compartment> getTargetAddedCompartments()
+	public ArrayList<CompoundModel> getTargetAddedCompartments()
 	{
 		return this.targetAddedCompartments;
 	}
@@ -67,20 +67,21 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 	{
 		super(main);
 
-		this.allCompartments = new ArrayList<Compartment>();
+		this.allCompartments = new ArrayList<CompoundModel>();
 		// Selecting compartments from whole node set
 		
 		Set<GraphObject> candidate = main.getRootGraph().getNodes();
 		for (GraphObject go : candidate)
 		{
-			if (go instanceof Compartment)
+			if (go instanceof org.gvt.model.biopaxl2.Compartment ||
+				go instanceof org.gvt.model.biopaxl3.Compartment)
 			{
-				allCompartments.add((Compartment)go);
+				allCompartments.add((CompoundModel)go);
 			}
 		}
 
-		this.sourceAddedCompartments = new ArrayList<Compartment>();
-		this.targetAddedCompartments = new ArrayList<Compartment>();
+		this.sourceAddedCompartments = new ArrayList<CompoundModel>();
+		this.targetAddedCompartments = new ArrayList<CompoundModel>();
 	}
 
 	/**
@@ -210,14 +211,14 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 				if (addPressed)
 				{
 					//for each selected compartment
-					for (Compartment compartment :
+					for (CompoundModel compartment :
 						addCompartment.getSelectedCompartments())
 					{
 						//check if compartment has been added before
 						if (!sourceAddedCompartments.contains(compartment))
 						{
 							//add compartment name to source compartment list
-							entityList.add(compartment.getName());
+							entityList.add(compartment.getText());
 
 							//add compartment to sourceAddedCompartments ArrayList
 							sourceAddedCompartments.add(compartment);
@@ -248,11 +249,11 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 					//search among all sourceAddedCompartments
 					for (int j = 0 ; j < sourceAddedCompartments.size() ; j++)
 					{
-						Compartment compartment = sourceAddedCompartments.get(j);
+						CompoundModel compartment = sourceAddedCompartments.get(j);
 
 						//if corresponding compartment is found
 						if (selected != null &&
-							selected.equals(compartment.getName()))
+							selected.equals(compartment.getText()))
 						{
 							//remove compartment from sourceAddedCompartments ArrayList
 							sourceAddedCompartments.remove(j);
@@ -288,14 +289,14 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 				if (addPressed)
 				{
 					//for each selected compartment
-					for (Compartment compartment :
+					for (CompoundModel compartment :
 						addCompartment.getSelectedCompartments())
 					{
 						//check if compartment has been added before
 						if (!targetAddedCompartments.contains(compartment))
 						{
 							//add compartment name to target compartment list
-							targetCompartmentList.add(compartment.getName());
+							targetCompartmentList.add(compartment.getText());
 
 							//add compartment to targetAddedCompartments ArrayList
 							targetAddedCompartments.add(compartment);
@@ -326,11 +327,11 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 					//search among all targetAddedCompartments
 					for (int j = 0; j < targetAddedCompartments.size(); j++)
 					{
-						Compartment compartment = targetAddedCompartments.get(j);
+						CompoundModel compartment = targetAddedCompartments.get(j);
 
 						//if corresponding compartment is found
 						if (selected != null &&
-							selected.equals(compartment.getName()))
+							selected.equals(compartment.getText()))
 						{
 							//remove compartment from targetAddedCompartments ArrayList
 							targetAddedCompartments.remove(j);

@@ -219,6 +219,7 @@ public class InfoFigure extends Figure
 		put("o-phospho-l-serine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("o-phospho-l-threonine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("o4'-phospho-l-tyrosine", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("mi:0170", PHOSPHO_BG, PHOSPHO_FORE, "p");
 
 		put("active", ACTIVE_BG, ACTIVE_FORE, null);
 		put("inactive", INACTIVE_BG, INACTIVE_FORE, null);
