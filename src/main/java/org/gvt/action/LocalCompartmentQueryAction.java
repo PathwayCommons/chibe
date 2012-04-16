@@ -2,7 +2,7 @@ package org.gvt.action;
 
 import org.gvt.ChisioMain;
 import org.gvt.gui.CompartmentQueryParamWithEntitiesDialog;
-import org.gvt.model.biopaxl2.Compartment;
+import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.biopax.paxtools.model.Model;
@@ -73,12 +73,12 @@ public class LocalCompartmentQueryAction extends AbstractLocalQueryAction
         Set<Node> targetNodes = new HashSet<Node>();
 
 		//Get added source compartments.
-        ArrayList<Compartment> sourceAddedCompartments =
+        ArrayList<CompoundModel> sourceAddedCompartments =
 			dialog.getSourceAddedCompartments();
 
 		Set<GraphObject> sourceSet = new HashSet<GraphObject>();
 		//Get nodes and edges from source added compartments.
-		for (Compartment compartment : sourceAddedCompartments)
+		for (CompoundModel compartment : sourceAddedCompartments)
 		{
 			sourceSet.addAll(compartment.getChildren());
 		}
@@ -93,12 +93,12 @@ public class LocalCompartmentQueryAction extends AbstractLocalQueryAction
         }
 
 		//Get added target compartments.
-        ArrayList<Compartment> targetAddedCompartments =
+        ArrayList<CompoundModel> targetAddedCompartments =
 			dialog.getTargetAddedCompartments();
 
         Set<GraphObject> targetSet = new HashSet<GraphObject>();
 		//Get nodes and edges from target added compartments.
-		for (Compartment compartment : targetAddedCompartments)
+		for (CompoundModel compartment : targetAddedCompartments)
 		{
 			targetSet.addAll(compartment.getChildren());
 		}

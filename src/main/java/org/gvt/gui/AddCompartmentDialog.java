@@ -8,7 +8,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.gvt.model.biopaxl2.Compartment;
+import org.gvt.model.CompoundModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,12 +23,12 @@ public class AddCompartmentDialog extends Dialog
 	/**
 	 * Selected compartments
 	 */
-	private ArrayList<Compartment> selectedCompartments;
+	private ArrayList<CompoundModel> selectedCompartments;
 
 	/**
 	 * All compartments
 	 */
-	private ArrayList<Compartment> allCompartments;
+	private ArrayList<CompoundModel> allCompartments;
 
 	private String[] allCompartmentNames;
 
@@ -57,7 +57,7 @@ public class AddCompartmentDialog extends Dialog
 	 * Constructor
 	 */
 	public AddCompartmentDialog(Shell shell,
-		ArrayList<Compartment> allCompartments)
+		ArrayList<CompoundModel> allCompartments)
 	{
 		super(shell);
 		this.shell = shell;
@@ -68,11 +68,11 @@ public class AddCompartmentDialog extends Dialog
 		this.allCompartmentNames = new String[allCompartments.size()];
 		for (int i = 0; i < allCompartments.size(); i ++)
 		{
-			allCompartmentNames[i] = allCompartments.get(i).getName();
+			allCompartmentNames[i] = allCompartments.get(i).getText();
 		}
 		Arrays.sort(allCompartmentNames);
 		
-		this.selectedCompartments = new ArrayList<Compartment>();
+		this.selectedCompartments = new ArrayList<CompoundModel>();
 
 		addPressed = false;
 	}
@@ -187,9 +187,9 @@ public class AddCompartmentDialog extends Dialog
 
 		for (String selected : selectionResult)
 		{
-			for (Compartment compartment : allCompartments)
+			for (CompoundModel compartment : allCompartments)
 			{
-				if (selected != null && selected.equals(compartment.getName()))
+				if (selected != null && selected.equals(compartment.getText()))
 				{
 					this.selectedCompartments.add(compartment);
 				}
@@ -200,7 +200,7 @@ public class AddCompartmentDialog extends Dialog
 	/**
 	 * Getter
 	 */
-	public ArrayList<Compartment> getSelectedCompartments()
+	public ArrayList<CompoundModel> getSelectedCompartments()
 	{
 		return selectedCompartments;
 	}
