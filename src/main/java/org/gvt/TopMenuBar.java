@@ -57,7 +57,8 @@ public class TopMenuBar
 			MenuManager newPathwayMenu = new MenuManager("&Create");
 			newPathwayMenu.add(new DuplicatePathwayAction(chisio));
 			newPathwayMenu.add(new GetNeighborhoodOfSelectedEntityAction(chisio));
-			newPathwayMenu.add(new CropToHighlightedAction(chisio));
+			newPathwayMenu.add(new CropAction(chisio, CropAction.CropTo.HIGHLIGHTED));
+			newPathwayMenu.add(new CropAction(chisio, CropAction.CropTo.SELECTED));
 		pathwayMenu.add(newPathwayMenu);
 		MenuManager deletePathwayMenu = new MenuManager("&Delete");
 			deletePathwayMenu.add(new DeletePathwayAction(chisio));

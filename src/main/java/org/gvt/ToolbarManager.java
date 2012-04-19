@@ -23,7 +23,8 @@ public class ToolbarManager extends ToolBarManager
 		add(new Separator());
 		add(new OpenPathwaysAction(main, null));
 		add(new ClosePathwayAction(main, false));
-		add(new CropToHighlightedAction(main));
+		add(new CropAction(main, CropAction.CropTo.HIGHLIGHTED));
+		add(new CropAction(main, CropAction.CropTo.SELECTED));
 		add(new DeletePathwayAction(main, false));
 		add(new UpdatePathwayAction(main, true));
 		add(new Separator());
