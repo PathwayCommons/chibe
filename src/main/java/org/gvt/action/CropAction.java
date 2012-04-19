@@ -1,8 +1,11 @@
 package org.gvt.action;
 
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.EdgeModel;
@@ -10,6 +13,7 @@ import org.gvt.model.NodeModel;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -20,19 +24,23 @@ import java.util.Set;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class CropToHighlightedAction extends Action
+public class CropAction extends Action
 {
 	ChisioMain main;
+	CropTo type;
 
 	/**
 	 * Constructor
 	 */
-	public CropToHighlightedAction(ChisioMain main)
+	public CropAction(ChisioMain main, CropTo type)
 	{
-		super("Crop To Highlighted");
+		super("Crop To " + type.toString().substring(0,1) +
+			type.toString().substring(1).toLowerCase());
+
 		setToolTipText(getText());
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/pathway-create-crop.png"));
 		this.main = main;
+		this.type = type;
 	}
 
 	public void run()
@@ -55,21 +63,48 @@ public class CropToHighlightedAction extends Action
 
 		Set<GraphObject> cropto = new HashSet<GraphObject>();
 
-		for (Object o : graph.getNodes())
+		if (type == CropTo.HIGHLIGHTED)
 		{
-			NodeModel node = (NodeModel) o;
-			if (node.isHighlight())
+			for (Object o : graph.getNodes())
 			{
-				cropto.add((GraphObject) node);
+				NodeModel node = (NodeModel) o;
+				if (node.isHighlight())
+				{
+					cropto.add((GraphObject) node);
+				}
+			}
+
+			for (Object o : graph.getEdges())
+			{
+				EdgeModel edge = (EdgeModel) o;
+				if (edge.isHighlight())
+				{
+					cropto.add((GraphObject) edge);
+				}
 			}
 		}
-
-		for (Object o : graph.getEdges())
+		else if (type == CropTo.SELECTED)
 		{
-			EdgeModel edge = (EdgeModel) o;
-			if (edge.isHighlight())
+			ScrollingGraphicalViewer viewer = main.getViewer();
+
+			if (viewer != null)
 			{
-				cropto.add((GraphObject) edge);
+				// Iterates selected objects
+				Iterator selectedObjects = ((IStructuredSelection) viewer.getSelection()).iterator();
+
+				while (selectedObjects.hasNext())
+				{
+					Object model = ((EditPart)selectedObjects.next()).getModel();
+
+					if (model instanceof NodeModel)
+					{
+						cropto.add((GraphObject) model);
+					}
+					else if (model instanceof EdgeModel)
+					{
+						cropto.add((GraphObject) model);
+					}
+				}
 			}
 		}
 
@@ -86,5 +121,11 @@ public class CropToHighlightedAction extends Action
 		main.createNewTab(excised);
 		new CoSELayoutAction(main).run();
 		excised.recordLayout();
+	}
+
+	public enum CropTo
+	{
+		HIGHLIGHTED,
+		SELECTED
 	}
 }

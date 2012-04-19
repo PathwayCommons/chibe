@@ -73,7 +73,7 @@ public class QueryNeighborsAction extends Action
 
 	public void run()
 	{
-        if(main.getOwlModel().getLevel().equals(BioPAXLevel.L2))
+        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L2))
         {
             if (refs == null)
             {

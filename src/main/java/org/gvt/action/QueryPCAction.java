@@ -52,7 +52,7 @@ public abstract class QueryPCAction extends Action
 
 	public void execute()
 	{
-        if(main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
+        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
         {
             try
             {
