@@ -25,7 +25,7 @@ public class QueryPCGetAction extends QueryPCAction
 
 	public void run()
 	{
-        if(main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
+        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
         {
             if (!useSelected)
             {
