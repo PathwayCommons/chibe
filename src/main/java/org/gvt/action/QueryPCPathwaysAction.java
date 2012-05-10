@@ -26,7 +26,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 	public QueryPCPathwaysAction(ChisioMain main)
 	{
-		super(main, "Pathways", false);
+		super(main, "Pathways With Keyword ...", false);
 	}
 
 	public void run()
@@ -36,7 +36,8 @@ public class QueryPCPathwaysAction extends QueryPCAction
             try
             {
                 StringInputDialog dialog = new StringInputDialog(main.getShell(), "Search Pathways",
-                    "Enter a keyword for pathway name", keyword);
+                    "Enter a keyword for pathway name", keyword,
+                    "Find pathways related to the specified keyword");
 
                 keyword = dialog.open();
 

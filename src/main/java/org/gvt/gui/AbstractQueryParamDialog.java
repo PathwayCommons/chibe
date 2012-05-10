@@ -8,6 +8,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
@@ -27,6 +28,11 @@ import org.gvt.util.EntityHolder;
  */
 public abstract class AbstractQueryParamDialog extends Dialog 
 {
+    /**
+     * Explanatory information about each query
+     */
+    protected Label infoLabel;
+
 	/**
 	 * buttons for adding and removing entities
 	 */
@@ -134,6 +140,14 @@ public abstract class AbstractQueryParamDialog extends Dialog
 	{
 		shell = new Shell(getParent(), 
 			SWT.RESIZE | SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+        // Information is added as the first thing into each query dialog.
+        infoLabel = new Label(shell, SWT.NONE);
+        GridData gridData = new GridData(GridData.FILL, GridData.FILL, false, false);
+        // Maximum span within all different query dialogs
+        gridData.horizontalSpan = 8;
+        gridData.verticalSpan = 6;
+        infoLabel.setLayoutData(gridData);
 	}
 	
 	/**

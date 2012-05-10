@@ -17,7 +17,7 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 {
 	public QueryPCPathsBetweenAction(ChisioMain main, boolean useSelected)
 	{
-		super(main, "Paths Between", useSelected);
+		super(main, "Network Of Interest ...", useSelected);
 	}
 
 	public void run()

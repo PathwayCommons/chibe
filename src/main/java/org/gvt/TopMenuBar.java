@@ -163,12 +163,12 @@ public class TopMenuBar
 
 
 		// Query old pathway commons
-		MenuManager pcOldMenu = new MenuManager("&PC (Level2)");
+		MenuManager pcOldMenu = new MenuManager("&Pathway Commons (Level 2)");
 		queryMenu.add(pcOldMenu);
 		pcOldMenu.add(new QueryNeighborsAction(chisio, false));
 		pcOldMenu.add(new QueryPathwaysAction(chisio, false));
 
-		MenuManager pcNewMenu = new MenuManager("&PC (Level 3)");
+		MenuManager pcNewMenu = new MenuManager("&Pathway Commons (Level 3)");
 
 		// Query new pathway commons
 		queryMenu.add(pcNewMenu);

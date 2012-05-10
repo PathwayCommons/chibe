@@ -92,6 +92,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 	{
 		super.createContents(opt);
 		shell.setText("Compartment Query Properties");
+        infoLabel.setText("Find paths that originate in one compartment and end in another compartment");
 
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(

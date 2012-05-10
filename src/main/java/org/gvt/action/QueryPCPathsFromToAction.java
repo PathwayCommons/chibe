@@ -17,7 +17,7 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 {
 	public QueryPCPathsFromToAction(ChisioMain main)
 	{
-		super(main, "Paths From--To--", false);
+		super(main, "Paths Of Interest ...", false);
 	}
 
 	public void run()

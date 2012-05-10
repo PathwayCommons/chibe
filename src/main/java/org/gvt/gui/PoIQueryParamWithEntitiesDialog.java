@@ -41,6 +41,7 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 	{
         super.createContents(opt);
         shell.setText("PoI Query Properties");
+        infoLabel.setText("Find all paths from a set of source entities to a set of target entities");
 
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(

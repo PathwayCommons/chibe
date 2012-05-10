@@ -32,6 +32,7 @@ public class NeighborhoodQueryParamDialog extends AbstractQueryParamDialog
 	{
 		super.createContents(opt);
 		shell.setText("Neighborhood Query Properties");
+        infoLabel.setText(NeighborhoodQueryParamWithEntitiesDialog.info);
 
 		// Set Image
 		ImageDescriptor id = 
