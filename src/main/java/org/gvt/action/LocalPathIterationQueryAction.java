@@ -29,7 +29,7 @@ public class LocalPathIterationQueryAction extends Action
 	 */
 	public LocalPathIterationQueryAction(ChisioMain main)
 	{
-		super("Path Iteration");
+		super("Path Iteration ...");
 		setToolTipText(getText());
 
 		this.main = main;
@@ -122,7 +122,7 @@ public class LocalPathIterationQueryAction extends Action
 		ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
 			300,
 			"Path Selection Dialog",
-			"Select path to visualize",
+			"Select one of the longest paths to visualize",
 			stringResult,
 			new ArrayList<String>(),
 			false,

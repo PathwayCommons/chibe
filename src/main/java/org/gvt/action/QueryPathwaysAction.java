@@ -38,7 +38,7 @@ public class QueryPathwaysAction extends Action
 
 	public QueryPathwaysAction(ChisioMain main, boolean useSelectedNodes)
 	{
-		super("Pathways");
+		super("Pathways ...");
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-pathways.png"));
 		setToolTipText(getText());
 		this.main = main;
@@ -88,7 +88,8 @@ public class QueryPathwaysAction extends Action
             if (refs.isEmpty() && !useSelectedNodes)
             {
                 StringInputDialog dialog = new StringInputDialog(main.getShell(), "Query Pathways",
-                    "Enter UniProt or Entrez Gene ID", null);
+                    "Enter UniProt or Entrez Gene ID", null,
+                    "Find pathways related to the specified molecule");
 
                 String ids = dialog.open();
 

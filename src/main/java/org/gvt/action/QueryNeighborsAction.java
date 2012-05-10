@@ -8,6 +8,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
+import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
 import org.gvt.gui.StringInputDialog;
 import org.gvt.model.biopaxl2.Actor;
 import org.gvt.model.biopaxl2.Complex;
@@ -47,7 +48,7 @@ public class QueryNeighborsAction extends Action
 
 	public QueryNeighborsAction(ChisioMain main, boolean useSelectedNodes)
 	{
-		super("Neighborhood");
+		super("Neighborhood ...");
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-neighbors.png"));
 		setToolTipText(getText());
 		this.main = main;
@@ -98,7 +99,7 @@ public class QueryNeighborsAction extends Action
             if (refs.isEmpty() && !useSelectedNodes)
             {
                 StringInputDialog dialog = new StringInputDialog(main.getShell(), "Query Neighborhood",
-                    "Enter UniProt or Entrez Gene ID", null);
+                    "Enter UniProt or Entrez Gene ID", null, NeighborhoodQueryParamWithEntitiesDialog.info);
 
                 String ids = dialog.open();
 

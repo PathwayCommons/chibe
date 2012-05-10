@@ -52,6 +52,7 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 	{
 		super.createContents(opt);
 		shell.setText("Neighborhood Query Properties");
+        infoLabel.setText(info);
 
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
@@ -107,4 +108,6 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 		//set initial values from opt OptionsPack
 		setInitialValues(opt);
 	}
+
+    public static String info = "Find the neighbors of an entity within a certain distance";
 }

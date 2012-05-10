@@ -40,6 +40,7 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
     {
         super.createContents(opt);
         shell.setText("GoI Query Properties");
+        infoLabel.setText(info);
 
         //Set Image
 
@@ -96,4 +97,5 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         setInitialValues(opt);
     }
 
+    public static String info = "Find all paths between any two entities of the specified set";
 }

@@ -30,6 +30,7 @@ public class CommonStreamQueryParamDialog extends AbstractQueryParamDialog
 	{
 		super.createContents(opt);
 		shell.setText("Common Stream Query Properties");
+        infoLabel.setText(CommonStreamQueryParamWithEntitiesDialog.info);
 
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(

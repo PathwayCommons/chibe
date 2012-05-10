@@ -28,6 +28,7 @@ public class GoIQueryParamDialog extends AbstractQueryParamDialog
     {
         super.createContents(opt);
         shell.setText("GoI Query Properties");
+        infoLabel.setText(GoIQueryParamWithEntitiesDialog.info);
 
         //Set Image
         

@@ -3,6 +3,7 @@ package org.gvt.gui;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
@@ -26,6 +27,12 @@ public class StringInputDialog extends Dialog
 	private String title;
 
 	private String input;
+
+    /**
+     * Information about functionality of the dialog
+     */
+    private String info;
+    private boolean infoPresent = false;
 
 	private boolean selectText;
 
@@ -52,6 +59,20 @@ public class StringInputDialog extends Dialog
 		this.message = message;
 		this.input = input;
 	}
+
+    /**
+     * Constructor used for cases where an informative message is found in the dialog.
+     *
+     */
+    public StringInputDialog(Shell shell, String title, String message, String input, String info)
+    {
+        super(shell);
+        this.title = title;
+        this.message = message;
+        this.input = input;
+        this.info = info;
+        this.infoPresent = true;
+    }
 
 	public void setSelectText(boolean selectText)
 	{
@@ -87,6 +108,16 @@ public class StringInputDialog extends Dialog
 	{
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 
+        // If there is an information to display, it is added in the first place.
+        if(infoPresent)
+        {
+            Label infoLabel = new Label(shell, SWT.NONE);
+            infoLabel.setText(this.info);
+            GridData gridData = new GridData(GridData.FILL, GridData.FILL, false, false);
+            gridData.verticalSpan = 6;
+            infoLabel.setLayoutData(gridData);
+        }
+
 		GridLayout grLy = new GridLayout();
 		grLy.numColumns = 1;
 		shell.setLayout(grLy);
@@ -97,7 +128,7 @@ public class StringInputDialog extends Dialog
 		itemsGroup.setLayout(new FillLayout());
 		itemsGroup.setText(message);
 
-		GridData gd = new GridData();
+		GridData gd = new GridData(GridData.FILL, GridData.FILL, false, true);
 		gd.widthHint = 200;
 		gd.heightHint = 20;
 		itemsGroup.setLayoutData(gd);

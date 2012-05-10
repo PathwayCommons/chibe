@@ -42,6 +42,7 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 	{
 		super.createContents(opt);
 		shell.setText("Common Stream Query Properties");
+        infoLabel.setText(info);
 
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
@@ -98,4 +99,6 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 		//set initial values from opt OptionsPack
 		setInitialValues(opt);
 	}
+
+    public static String info = "Find molecules that are affecting or affected by a specific set of molecules in common";
 }

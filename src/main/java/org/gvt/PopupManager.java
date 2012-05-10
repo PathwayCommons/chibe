@@ -73,7 +73,7 @@ public class PopupManager extends MenuManager
 			localQueryMenu.add(new LocalCommonStreamQueryAction(main, true));
 			manager.add(localQueryMenu);
 
-			MenuManager pcQueryMenu = new MenuManager("&PC Query");
+			MenuManager pcQueryMenu = new MenuManager("&Pathway Commons Query");
 			pcQueryMenu.add(new QueryPCNeighborsAction(main, true));
 			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true));
 			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true, true));
