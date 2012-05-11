@@ -48,7 +48,7 @@ public class OpenPathwaysAction extends Action
 	{
 		super("Open Pathway ...");
 		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/pathway-open.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/pathway-open.png"));
 		this.main = main;
 	}
 

@@ -19,8 +19,7 @@ public class MarqueeZoomToolAction extends AbstractGEFToolAction
 	{
 		super(text, main);
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class,
-			"icon/zoom.png"));
+			getClass(), "../icon/zoom.png"));
 	}
 
 	protected Tool createTool()

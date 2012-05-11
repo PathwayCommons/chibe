@@ -27,8 +27,7 @@ public class SpringLayoutAction extends Action
 		setText("Spring Layout");
 		setToolTipText(getText());
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class,
-			"icon/layout-spring.gif"));
+			getClass(), "../icon/layout-spring.gif"));
 		this.main = main;
 
 	}

@@ -29,7 +29,7 @@ public class DeleteAction extends Action
 	public DeleteAction(ChisioMain main)
 	{
 		super("Hide Selected");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/delete.gif"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/delete.gif"));
 		this.main = main;
 		setToolTipText(getText());
 	}

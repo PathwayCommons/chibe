@@ -118,7 +118,7 @@ public class ExperimentDataManagementDialog extends Dialog implements SelectionL
 		shell.setText(dataManager.getType());
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			ExperimentDataManagementDialog.class, "/src/main/resources/org/gvt/icon/cbe-icon.png");
+			getClass(), "../../../gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		shell.setLayout(new org.eclipse.swt.layout.GridLayout(2, false));

@@ -42,8 +42,7 @@ public class PrintAction extends Action
 		super("Print Pathway ...");
 		setToolTipText(getText());
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class,
-			"icon/print.png"));
+			getClass(), "../icon/print.png"));
 		this.main = chisio;		
 	}
 

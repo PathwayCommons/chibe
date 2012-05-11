@@ -212,8 +212,7 @@ public class ChisioMain extends ApplicationWindow
 		getShell().setText(TOOL_NAME);
 		getShell().setSize(800, 600);
 		this.getShell().setImage(
-			ImageDescriptor.createFromFile(ChisioMain.class,
-				"icon/cbe-icon.png").createImage());
+			ImageDescriptor.createFromFile(getClass(), "icon/cbe-icon.png").createImage());
 
 		Composite compositeRoot = new Composite(parent, SWT.BORDER);
 		compositeRoot.setLayout(new FillLayout());
@@ -323,7 +322,7 @@ public class ChisioMain extends ApplicationWindow
 		if (root instanceof SIFGraph)
 		{
 			ImageDescriptor id = ImageDescriptor.createFromFile(
-				ChisioMain.class, "icon/sif.png");
+				getClass(), "icon/sif.png");
 
 			tab.setImage(id.createImage());
 		}

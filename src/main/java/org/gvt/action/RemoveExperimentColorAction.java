@@ -19,7 +19,7 @@ public class RemoveExperimentColorAction extends Action
 	public RemoveExperimentColorAction(ChisioMain main)
 	{
 		super("Remove Data Colors");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/uncolor-experiment.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/uncolor-experiment.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

@@ -57,7 +57,7 @@ public class MergeAction extends Action
 	{
 		super("Merge With ...");
 		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/merge.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/merge.png"));
 
 		this.main = chisio;
 

@@ -25,7 +25,7 @@ public class LoadRawExpDataAction extends Action
 	public LoadRawExpDataAction(ChisioMain main)
 	{
 		super("Load Raw Data ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/open.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/open.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

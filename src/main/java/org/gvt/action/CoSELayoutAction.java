@@ -35,8 +35,7 @@ public class CoSELayoutAction extends Action
 		super("CoSE Layout");
 		setToolTipText(getText());
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class,
-			"icon/layout-cose.gif"));
+			getClass(), "../icon/layout-cose.gif"));
 		this.main = main;
 		this.viewer = viewer;
 	}

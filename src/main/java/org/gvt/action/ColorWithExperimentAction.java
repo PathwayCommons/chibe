@@ -28,7 +28,7 @@ public class ColorWithExperimentAction extends Action
 	public ColorWithExperimentAction(ChisioMain main)
 	{
 		super("Use Data Colors");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/color-experiment.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/color-experiment.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

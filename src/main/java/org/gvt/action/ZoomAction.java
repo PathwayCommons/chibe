@@ -47,22 +47,19 @@ public class ZoomAction extends Action
 		{
 			super.setText("Zoom In");
 			super.setImageDescriptor(
-				ImageDescriptor.createFromFile(ChisioMain.class,
-					"icon/zoom-in.png"));
+				ImageDescriptor.createFromFile(getClass(), "../icon/zoom-in.png"));
 		}
 		else if (zoom == -1)
 		{
 			super.setText("Zoom Out");
 			super.setImageDescriptor(
-				ImageDescriptor.createFromFile(ChisioMain.class,
-					"icon/zoom-out.png"));
+				ImageDescriptor.createFromFile(getClass(), "../icon/zoom-out.png"));
 		}
 		else if (zoom == 0)
 		{
 			super.setText("Fit In Window");
 			super.setImageDescriptor(
-				ImageDescriptor.createFromFile(ChisioMain.class,
-					"icon/zoom-fit.png"));
+				ImageDescriptor.createFromFile(getClass(), "../icon/zoom-fit.png"));
 		}
 		else
 		{

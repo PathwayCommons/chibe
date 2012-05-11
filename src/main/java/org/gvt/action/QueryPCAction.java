@@ -43,7 +43,7 @@ public abstract class QueryPCAction extends Action
 	{
 		super(text);
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class, "icon/query-neighbors.png"));
+			getClass(), "../icon/query-neighbors.png"));
 		setToolTipText(getText());
 		this.main = main;
 		options = new QueryOptionsPack();

@@ -36,11 +36,11 @@ public class DeletePathwayAction extends Action
 
 		if (allOpenPathways)
 		{
-			setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/pathway-delete-all.png"));			
+			setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/pathway-delete-all.png"));
 		}
 		else
 		{
-			setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/pathway-delete.png"));
+			setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/pathway-delete.png"));
 		}
 
 		this.setToolTipText(getText());
