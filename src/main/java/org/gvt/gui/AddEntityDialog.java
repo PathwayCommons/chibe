@@ -155,8 +155,8 @@ public class AddEntityDialog extends Dialog
 		
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			NeighborhoodQueryParamWithEntitiesDialog.class,
-			"/src/main/resources/org/gvt/icon/cbe-icon.png");
+			AddEntityDialog.class, "../icon/cbe-icon.png");
+
 		shell.setImage(id.createImage());
 		
 		//layout of shell contains 6 columns

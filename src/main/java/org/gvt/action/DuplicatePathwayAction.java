@@ -25,7 +25,7 @@ public class DuplicatePathwayAction extends Action
 	public DuplicatePathwayAction(ChisioMain main)
 	{
 		super("Duplicate Pathway");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/pathway-create-duplicate.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/pathway-create-duplicate.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

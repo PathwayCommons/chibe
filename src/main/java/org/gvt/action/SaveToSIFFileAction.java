@@ -34,7 +34,7 @@ public class SaveToSIFFileAction extends Action
 	public SaveToSIFFileAction(ChisioMain chisio)
 	{
 		super("Save As SIF File ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/save-as.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/save-as.png"));
 		setToolTipText(getText());
 		this.main = chisio;
 	}

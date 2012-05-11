@@ -95,9 +95,7 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
         infoLabel.setText("Find paths that originate in one compartment and end in another compartment");
 
 		//Set Image
-		ImageDescriptor id = ImageDescriptor.createFromFile(
-			CompartmentQueryParamWithEntitiesDialog.class,
-			"/src/main/resources/org/gvt/icon/cbe-icon.png");
+		ImageDescriptor id = ImageDescriptor.createFromFile(getClass(), "../icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		//layout of shell will contain 8 columns.

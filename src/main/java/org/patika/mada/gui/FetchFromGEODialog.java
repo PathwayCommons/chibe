@@ -127,8 +127,7 @@ public class FetchFromGEODialog extends Dialog
 		shell.setText("Fetch from GEO");
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			FetchFromGEODialog.class,
-			"/src/main/resources/org/gvt/icon/cbe-icon.png");
+			getClass(), "../../../gvt/icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		GridLayout gridLayout = new GridLayout();

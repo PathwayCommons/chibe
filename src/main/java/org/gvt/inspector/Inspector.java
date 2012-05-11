@@ -78,8 +78,7 @@ public abstract class Inspector extends Dialog
 		this.shell = new Shell(main.getShell(), SWT.DIALOG_TRIM | SWT.RESIZE);
 		this.shell.setText(title + " Properties");
 
-		ImageDescriptor id = ImageDescriptor.createFromFile(
-			Inspector.class, "/src/main/resources/org/gvt/icon/cbe-icon.png");
+		ImageDescriptor id = ImageDescriptor.createFromFile(getClass(), "../icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		GridLayout layout = new GridLayout();

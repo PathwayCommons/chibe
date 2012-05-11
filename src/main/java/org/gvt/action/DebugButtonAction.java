@@ -37,7 +37,7 @@ public class DebugButtonAction extends Action
 			"code after pressing this button.\n" +
 			"Insert your code in the class\n" +
 			"DebugButtonAction");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/bug.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/bug.png"));
 		this.main = main;
 	}
 

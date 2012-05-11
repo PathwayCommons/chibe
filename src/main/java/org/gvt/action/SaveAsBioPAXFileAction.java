@@ -29,7 +29,7 @@ public class SaveAsBioPAXFileAction extends Action
 	{
 		super("Save As ...");
 		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/save-as.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/save-as.png"));
 		this.main = chisio;
 	}
 

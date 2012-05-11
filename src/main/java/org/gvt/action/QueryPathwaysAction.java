@@ -39,7 +39,7 @@ public class QueryPathwaysAction extends Action
 	public QueryPathwaysAction(ChisioMain main, boolean useSelectedNodes)
 	{
 		super("Pathways ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/query-pathways.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/query-pathways.png"));
 		setToolTipText(getText());
 		this.main = main;
 		this.useSelectedNodes = useSelectedNodes;
