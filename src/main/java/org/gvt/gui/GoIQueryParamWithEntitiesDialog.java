@@ -44,7 +44,7 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 
         //Set Image
 
-        ImageDescriptor id = ImageDescriptor.createFromFile(getClass(), "../icon/cbe-icon.png");
+        ImageDescriptor id = ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png");
         shell.setImage(id.createImage());
 
         //layout of shell contains 4 columns

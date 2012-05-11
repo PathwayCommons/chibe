@@ -57,7 +57,7 @@ public class LoadBioPaxModelAction extends Action
 	{
 		super("Load ...");
 		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/open.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/open.png"));
 
 		this.openPathways = true;
 		this.main = chisio;

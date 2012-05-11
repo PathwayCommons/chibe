@@ -8,6 +8,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.gvt.ChisioMain;
 import org.gvt.model.CompoundModel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,7 +116,7 @@ public class AddCompartmentDialog extends Dialog
 
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			getClass(), "../icon/cbe-icon.png");
+			ChisioMain.class, "icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		//layout of shell contains 2 columns

@@ -52,7 +52,7 @@ public class UpdatePathwayAction extends Action
 
 		if (allOpenPathways)
 		{
-			setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/pathway-update-all.png"));
+			setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/pathway-update-all.png"));
 		}
 
 		this.setToolTipText(this.getText());

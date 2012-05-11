@@ -28,7 +28,7 @@ public class HighlightSelectedAction extends Action
 	public HighlightSelectedAction(ChisioMain main)
 	{
 		super("Highlight Selected");
-		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/highlight.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/highlight.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

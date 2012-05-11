@@ -36,7 +36,7 @@ public class LoadSIFFileAction extends Action
 		super("Load SIF File ...");
 		setToolTipText(getText());
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			getClass(), "../icon/open.png"));
+			ChisioMain.class, "icon/open.png"));
 
 		this.main = chisio;
 		this.runLayout = true;

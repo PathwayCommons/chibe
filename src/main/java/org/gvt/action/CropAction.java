@@ -39,7 +39,7 @@ public class CropAction extends Action
 
 		setToolTipText(getText());
 		setImageDescriptor(ImageDescriptor.createFromFile(
-                getClass(), "../icon/pathway-create-crop.png"));
+                ChisioMain.class, "icon/pathway-create-crop.png"));
 		this.main = main;
 		this.type = type;
 	}

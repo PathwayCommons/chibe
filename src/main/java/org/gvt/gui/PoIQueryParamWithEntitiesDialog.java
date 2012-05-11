@@ -44,7 +44,7 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         infoLabel.setText("Find all paths from a set of source entities to a set of target entities");
 
 		//Set Image
-		ImageDescriptor id = ImageDescriptor.createFromFile(getClass(), "../icon/cbe-icon.png");
+		ImageDescriptor id = ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
         //layout of shell will contain 8 columns.

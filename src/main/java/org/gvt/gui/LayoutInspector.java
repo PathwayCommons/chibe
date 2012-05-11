@@ -126,7 +126,7 @@ public class LayoutInspector extends Dialog
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		shell.setText("Layout Properties");
 
-		ImageDescriptor id = ImageDescriptor.createFromFile(getClass(), "../icon/cbe-icon.png");
+		ImageDescriptor id = ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		GridLayout gridLy = new GridLayout();

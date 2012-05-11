@@ -60,7 +60,7 @@ public class AboutDialog extends Dialog
 		shell.setLayout(new GridLayout());
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			getClass(), "../icon/cbe-icon.png");
+			ChisioMain.class, "icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		shell.setBackground(ColorConstants.white);
@@ -73,10 +73,10 @@ public class AboutDialog extends Dialog
 		shell.setLocation(size.x/2 + loc.x - s.x/2, size.y/2 + loc.y -s.y/2);
 
 		ImageDescriptor bcbiLogo =
-			ImageDescriptor.createFromFile(getClass(), "../icon/BCBI-logo-small.gif");
+			ImageDescriptor.createFromFile(ChisioMain.class, "icon/BCBI-logo-small.gif");
 
 		ImageDescriptor cbioLogo =
-			ImageDescriptor.createFromFile(getClass(), "../icon/cbio.png");
+			ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbio.png");
 
 		Label bcbiLabel = new Label(shell, SWT.CENTER);
 		GridData gridData = new GridData(SWT.CENTER, SWT.CENTER, false, false);

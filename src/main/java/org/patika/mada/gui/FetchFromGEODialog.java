@@ -127,7 +127,7 @@ public class FetchFromGEODialog extends Dialog
 		shell.setText("Fetch from GEO");
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
-			getClass(), "../../../gvt/icon/cbe-icon.png");
+                ChisioMain.class, "icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		GridLayout gridLayout = new GridLayout();

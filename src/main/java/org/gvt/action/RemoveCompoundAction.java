@@ -34,7 +34,7 @@ public class RemoveCompoundAction extends Action
 	{
 		super("Hide Compound");
 		this.setImageDescriptor(ImageDescriptor.createFromFile(
-			getClass(), "../icon/delete-comp.gif"));
+			ChisioMain.class, "icon/delete-comp.gif"));
 		this.setToolTipText(getText());
 		this.main = main;
 	}

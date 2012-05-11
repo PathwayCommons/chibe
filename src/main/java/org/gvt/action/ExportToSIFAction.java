@@ -32,7 +32,7 @@ public class ExportToSIFAction extends Action
 	public ExportToSIFAction(ChisioMain main)
 	{
 		super("Create SIF View ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/sif.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/sif.png"));
 		setToolTipText(getText());
 		this.main = main;
 		this.ruleTypes = new ArrayList<BinaryInteractionType>();

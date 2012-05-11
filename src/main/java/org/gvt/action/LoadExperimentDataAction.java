@@ -44,7 +44,7 @@ public class LoadExperimentDataAction extends Action
 	public LoadExperimentDataAction(ChisioMain main)
 	{
 		super("Load ChiBE Formatted Data ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/open-cbe-formatted.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/open-cbe-formatted.png"));
 		setToolTipText(getText());
 		this.main = main;
 		this.local = true;
