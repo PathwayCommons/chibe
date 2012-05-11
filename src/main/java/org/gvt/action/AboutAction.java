@@ -19,7 +19,7 @@ public class AboutAction extends Action
 		setText("About Chisio BioPAX Editor");
 		setToolTipText(getText());
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			getClass(), "../icon/cbe-icon.png"));
+			ChisioMain.class, "icon/cbe-icon.png"));
 		this.main = main;
 	}
 

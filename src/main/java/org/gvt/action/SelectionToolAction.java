@@ -20,7 +20,7 @@ public class SelectionToolAction extends AbstractGEFToolAction
 	{
 		super(text, main);
 		setImageDescriptor(ImageDescriptor.createFromFile(
-			getClass(), "../icon/select.png"));
+			ChisioMain.class, "icon/select.png"));
 	}
 
 	protected Tool createTool()

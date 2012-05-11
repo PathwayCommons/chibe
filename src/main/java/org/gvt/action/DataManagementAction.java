@@ -25,7 +25,7 @@ public class DataManagementAction extends Action
 	{
 		super("Data Selection ...");
 		setImageDescriptor(ImageDescriptor.createFromFile(
-                getClass(), "../icon/data-selection.png"));
+                ChisioMain.class, "icon/data-selection.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

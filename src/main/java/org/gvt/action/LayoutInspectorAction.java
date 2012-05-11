@@ -22,7 +22,7 @@ public class LayoutInspectorAction extends Action
 	public LayoutInspectorAction(ChisioMain main)
 	{
 		super("Layout Properties ...");
-		this.setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/layout-inspector.png"));
+		this.setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/layout-inspector.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

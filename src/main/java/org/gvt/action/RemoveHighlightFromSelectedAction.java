@@ -24,7 +24,7 @@ public class RemoveHighlightFromSelectedAction extends Action
 	public RemoveHighlightFromSelectedAction(ChisioMain main)
 	{
 		super("Unhighlight Selected");
-		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/unhighlight.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/unhighlight.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}

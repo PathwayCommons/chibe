@@ -28,12 +28,12 @@ public class ClosePathwayAction extends Action
 		if (allOpenPathways)
 		{
 			setImageDescriptor(ImageDescriptor.createFromFile(
-                    getClass(), "../icon/pathway-close-all.png"));
+                    ChisioMain.class, "icon/pathway-close-all.png"));
 		}
 		else
 		{
 			setImageDescriptor(ImageDescriptor.createFromFile(
-                    getClass(), "../icon/pathway-close.png"));
+                    ChisioMain.class, "icon/pathway-close.png"));
 		}
 
 		this.setToolTipText(this.getText());

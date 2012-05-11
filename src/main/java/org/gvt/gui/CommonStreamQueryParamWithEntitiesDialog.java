@@ -45,7 +45,7 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
         infoLabel.setText(info);
 
 		//Set Image
-		ImageDescriptor id = ImageDescriptor.createFromFile(getClass(), "../icon/cbe-icon.png");
+		ImageDescriptor id = ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png");
 		shell.setImage(id.createImage());
 
 		//layout of shell contains 6 columns

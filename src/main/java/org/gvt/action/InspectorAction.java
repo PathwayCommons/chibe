@@ -34,7 +34,7 @@ public class InspectorAction extends Action
 	public InspectorAction(ChisioMain main, boolean isGraph)
 	{
 		setText(isGraph ? "Properties ..." : "Object Properties ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(getClass(), "../icon/inspector.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/inspector.png"));
 		setToolTipText(getText());
 		this.main = main;
 	}
