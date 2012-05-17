@@ -1,6 +1,7 @@
 package org.gvt.gui;
 
 import org.biopax.paxtools.io.sif.BinaryInteractionType;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -93,6 +94,7 @@ public class ExportToSIFDialog extends Dialog
 	{
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		shell.setText("SIF Rules Settings");
+        shell.setImage(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png").createImage());
 		GridLayout gridLy = new GridLayout();
 		gridLy.numColumns = 1;
 		shell.setLayout(gridLy);

@@ -1,5 +1,6 @@
 package org.gvt.gui;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
@@ -11,6 +12,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.draw2d.TextUtilities;
+import org.gvt.ChisioMain;
 
 import java.util.*;
 import java.util.List;
@@ -183,6 +185,7 @@ public class ItemSelectionDialog extends Dialog
 		createContents();
 
 		shell.setText(title);
+        shell.setImage(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png").createImage());
 		shell.pack();
 		if (shell.getSize().y > 500) shell.setSize(new Point(shell.getSize().x, 500));
 
