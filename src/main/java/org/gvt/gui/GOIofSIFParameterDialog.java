@@ -1,6 +1,7 @@
 package org.gvt.gui;
 
 import org.biopax.paxtools.io.sif.BinaryInteractionType;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -8,6 +9,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
+import org.gvt.ChisioMain;
 
 import java.io.File;
 import java.util.HashMap;
@@ -120,6 +122,7 @@ public class GOIofSIFParameterDialog extends Dialog
 	{
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		shell.setText("Find GoI on SIF File");
+        shell.setImage(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png").createImage());
 		shell.setLayout(new GridLayout());
 
 		ButtonAdapter adapter = new ButtonAdapter();

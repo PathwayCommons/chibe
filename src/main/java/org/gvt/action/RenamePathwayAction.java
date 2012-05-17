@@ -26,8 +26,8 @@ public class RenamePathwayAction extends Action
 	{
 		super("Rename Pathway ...");
 		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(getClass(),
-			"../icon/pathway-rename.png"));
+		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class,
+			"icon/pathway-rename.png"));
 		this.main = main;
 	}
 

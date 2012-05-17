@@ -1,5 +1,6 @@
 package org.gvt.gui;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -91,6 +92,8 @@ public class StringInputDialog extends Dialog
 				(shell.getSize().x / 2),
 			getParent().getLocation().y + (getParent().getSize().y / 2) -
 				(shell.getSize().y / 2));
+
+        shell.setImage(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png").createImage());
 
 		shell.open();
 
