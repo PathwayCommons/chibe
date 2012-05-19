@@ -22,6 +22,8 @@ public class Conf
 	public static final String EXPERIMENT_NO_CHANGE_LOWER_BOUND = "EXPERIMENT_NO_CHANGE_LOWER_BOUND";
 	public static final String EXPERIMENT_MAX_DOWNREGULATION = "EXPERIMENT_MAX_DOWNREGULATION";
 
+	public static final String DISPLAY_FRAGMENT_FEATURE = "DISPLAY_FRAGMENT_FEATURE";
+
 	public static final String CONF_FILENAME = "chibe-conf.txt";
 
 	private static String confPath;
@@ -60,7 +62,8 @@ public class Conf
 		{
 			BufferedWriter writer = new BufferedWriter(new FileWriter(confPath));
 
-			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/pc2/\n");
+			writer.write(PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n");
+//			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n");
 
 			writer.write(EXPERIMENT_UP_COLOR + " = 230 0 0\n");
 			writer.write(EXPERIMENT_DOWN_COLOR + " = 0 0 230\n");
@@ -70,6 +73,8 @@ public class Conf
 			writer.write(EXPERIMENT_NO_CHANGE_UPPER_BOUND + " = 1\n");
 			writer.write(EXPERIMENT_NO_CHANGE_LOWER_BOUND + " = -1\n");
 			writer.write(EXPERIMENT_MAX_DOWNREGULATION + " = -2\n");
+
+			writer.write(DISPLAY_FRAGMENT_FEATURE + " = false\n");
 
 			writer.close();
 			return true;
@@ -87,7 +92,8 @@ public class Conf
 
 	public static String get(String property)
 	{
-		return conf.get(property);
+		if (conf.containsKey(property)) return conf.get(property);
+		else return "";
 	}
 	
 	public static Color getColor(String key)

@@ -125,7 +125,7 @@ public class PathwaySelectionDialog extends Dialog
 
 	private void fillTree(Tree tree)
 	{
-		for (Pathway p : model.getObjects(Pathway.class))
+		for (Pathway p : order(model.getObjects(Pathway.class)))
 		{
 			if (p.getPathwayComponent().isEmpty()) continue;
 			if (!p.getPathwayComponentOf().isEmpty()) continue;
@@ -134,6 +134,21 @@ public class PathwaySelectionDialog extends Dialog
 			item.setText(p.getDisplayName());
 			handleChildren(p, item);
 		}
+	}
+	
+	private List<Pathway> order(Set<Pathway> set)
+	{
+		List<Pathway> list = new ArrayList<Pathway>(set);
+		
+		Collections.sort(list, new Comparator<Pathway>()
+		{
+			@Override
+			public int compare(Pathway p1, Pathway p2)
+			{
+				return p1.getDisplayName().compareTo(p2.getDisplayName());
+			}
+		});
+		return list;
 	}
 
 	private void handleChildren(Pathway p, TreeItem parent)

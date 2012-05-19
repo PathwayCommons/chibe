@@ -5,8 +5,10 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.gvt.ChisioMain;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
+import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
@@ -205,6 +207,8 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return list;
 	}
 
+	static boolean showFragmentFeature = Conf.get(Conf.DISPLAY_FRAGMENT_FEATURE).equals("true");
+	
 	private void extractFeatures(List<String> list, Set<EntityFeature> feats, boolean not)
 	{
 		for (EntityFeature feat : feats)
@@ -224,9 +228,9 @@ public class Actor extends BioPAXNode implements EntityAssociated
 					{
 						if (terms.size() > 1)
 						{
-							System.err.print("Terms has more than one term. Second: ");
+							System.err.print("Terms has more than one term. First: ");
 							Iterator<String> iter = terms.iterator();
-							iter.next();
+							System.err.print(iter.next() + "  Second:");
 							System.err.println(iter.next());
 						}
 
@@ -235,7 +239,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				}
 				else featStr = "?";
 			}
-			else if (feat instanceof FragmentFeature)
+			else if (showFragmentFeature && feat instanceof FragmentFeature)
 			{
 				featStr = "fragment";
 			}

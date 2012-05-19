@@ -211,7 +211,10 @@ public class InfoFigure extends Figure
 		final Color ACTIVE_FORE = WHITE;
 		final Color INACTIVE_BG = new Color(null, 150, 50, 50);
 		final Color INACTIVE_FORE = WHITE;
-		
+		final Color METHYL_FORE = new Color(null, 20, 20, 200);
+		final Color GLYCOSYL_FORE = new Color(null, 20, 20, 100);
+		final Color UBIQUITIN_BG = new Color(null, 150, 80, 80);
+
 		put("phosphorylation", PHOSPHO_BG, PHOSPHO_FORE, null);
 		put("phosphorylation site", PHOSPHO_BG, PHOSPHO_FORE, null);
 		put("phosphate group", PHOSPHO_BG, PHOSPHO_FORE, null);
@@ -227,11 +230,17 @@ public class InfoFigure extends Figure
 		put("residue modification, active", ACTIVE_BG, ACTIVE_FORE, "a");
 
 		put("native", new Color(null, 200, 200, 200), new Color(null, 100, 100, 100), null);
-		put("ubiquitination site", new Color(null, 150, 80, 80), WHITE, null);
+		put("ubiquitination site", UBIQUITIN_BG, WHITE, null);
+		put("ubiquitinylated lysine", UBIQUITIN_BG, WHITE, null);
 		put("chain coordinates", new Color(null, 150, 150, 150), WHITE, null);
-		put("methylated lysine", null, new Color(null, 20, 20, 100), null);
+		put("methylated lysine", null, METHYL_FORE, null);
+		put("n6,n6-dimethyl-l-lysine", null, METHYL_FORE, "m");
+		put("n6-methyl-l-lysine", null, METHYL_FORE, "m");
 		put("n-acetylated l-lysine", null, new Color(null, 20, 80, 20), "a");
-		put("n4-glycosyl-l-asparagine", null, new Color(null, 20, 20, 100), "g");
+		put("n4-glycosyl-l-asparagine", null, GLYCOSYL_FORE, "g");
+		put("o-glycosyl-l-threonine", null, GLYCOSYL_FORE, "g");
+		put("o-glucosyl-l-serine", null, GLYCOSYL_FORE, "g");
+		put("o-fucosyl-l-threonine", null, GLYCOSYL_FORE, "f");
 	}
 
 	protected static final int OVAL = 0;
