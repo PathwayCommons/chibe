@@ -1,5 +1,6 @@
 package org.gvt.action;
 
+import org.biopax.paxtools.model.level3.EntityReference;
 import org.biopax.paxtools.model.level3.SimplePhysicalEntity;
 import org.biopax.paxtools.model.level3.UnificationXref;
 import org.biopax.paxtools.model.level3.Xref;
@@ -9,10 +10,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.gvt.ChisioMain;
+import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.ChbComplex;
 import org.gvt.model.biopaxl3.ChbConversion;
+import org.gvt.model.biopaxl3.NonModulatedEffector;
 
 import java.util.*;
 
@@ -64,12 +67,14 @@ public class DebugButtonAction extends Action
 					Actor actor = (Actor) model;
 					System.out.println(actor.getEntity().l3pe.getDisplayName());
 					System.out.println("pe id = " + actor.getEntity().getID());
+					if (actor.getEntity().l3er != null)
+						System.out.println("er id = " + actor.getEntity().l3er.getRDFId());
 
-					for (Xref xref : ((SimplePhysicalEntity)actor.getEntity().l3pe).getEntityReference().getXref())
-					{
-						if (xref instanceof UnificationXref)
-							System.out.println(xref);
-					}
+//					for (Xref xref : ((SimplePhysicalEntity)actor.getEntity().l3pe).getEntityReference().getXref())
+//					{
+//						if (xref instanceof UnificationXref)
+//							System.out.println(xref);
+//					}
 				}
 				else if (o instanceof ChbComplex)
 				{
@@ -83,8 +88,11 @@ public class DebugButtonAction extends Action
 					System.out.println("conversion id = " + cnv.getConversion().getRDFId());
 				}
 			}
+			else if (o instanceof NonModulatedEffector)
+			{
+				System.out.println("cont id = " + ((NonModulatedEffector) o).getControl().getRDFId());
+			}
 		}
-
 	}
 
 	static class Waiter

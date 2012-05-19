@@ -1,6 +1,7 @@
 package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.level3.*;
+import org.biopax.paxtools.model.level3.Process;
 import org.gvt.model.NodeModel;
 import org.patika.mada.graph.Edge;
 
@@ -23,12 +24,12 @@ public class NonModulatedEffector extends BioPAXEdge
 	 */
 	private Control cont;
 
-	private Interaction controlled;
+	private Process controlled;
 
 	private int sign;
 
 	public NonModulatedEffector(NodeModel source, NodeModel target, Control cont,
-		Interaction controlled)
+		Process controlled)
 	{
 		super(source, target);
 
@@ -58,7 +59,7 @@ public class NonModulatedEffector extends BioPAXEdge
 		return cont;
 	}
 
-	public Interaction getControlled()
+	public Process getControlled()
 	{
 		return controlled;
 	}

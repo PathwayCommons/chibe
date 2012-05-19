@@ -1,6 +1,7 @@
 package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.level3.*;
+import org.biopax.paxtools.model.level3.Process;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
@@ -93,6 +94,20 @@ public class ChbControl extends BioPAXNode
 				map.put(c.getRDFId(), ctrl);
 			}
 		}
+
+		// connect controlled pathways
+
+		for (Process process : con.getControlled())
+		{
+			if (process instanceof Pathway)
+			{
+				ChbPathway pat = (ChbPathway) map.get(process.getRDFId());
+				if (pat == null) pat = new ChbPathway(root, (Pathway) process, map);
+				new EffectorSecondHalf(this, pat, con);
+			}
+		}
+
+
 		this.con = con;
 
 		configFromModel();

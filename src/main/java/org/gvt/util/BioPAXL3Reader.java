@@ -6,6 +6,7 @@ import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.*;
+import org.biopax.paxtools.model.level3.Process;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -17,10 +18,7 @@ import org.patika.mada.util.XRef;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * GraphML reader class for loading graphml files
@@ -177,7 +175,9 @@ public class BioPAXL3Reader
 
 			if (!isUbique(pe))
 			{
-				if (pe.getComponentOf().isEmpty() || !pe.getParticipantOf().isEmpty())
+				if (pe.getComponentOf().isEmpty() ||
+					!pe.getParticipantOf().isEmpty() ||
+					!pe.getControllerOf().isEmpty())
 				{
 					Actor actor = new Actor(parent, pe, null);
 					map.put(pe.getRDFId(), actor);
@@ -205,6 +205,7 @@ public class BioPAXL3Reader
 			if (cmp.getParticipantOf().isEmpty())
 			{
 				ChbComplex c = new ChbComplex(root, cmp);
+				map.put(cmp.getRDFId(), c);
 				createComplexContent(c, cmp, cmp, map);
 			}
 			else
@@ -273,6 +274,47 @@ public class BioPAXL3Reader
 			{
 				forwd = new ChbConversion(compart, conv, ChbConversion.LEFT_TO_RIGHT, map);
 				forwd.selectBestCompartment();
+			}
+		}
+
+		// Create controls that do not control an interaction
+		
+		for (PhysicalEntity pe : model.getObjects(PhysicalEntity.class))
+		{
+			
+			for (Control ctrl : pe.getControllerOf())
+			{
+				boolean controlsAnInter = false;
+				for (Process proc : ctrl.getControlled())
+				{
+					if (proc instanceof Interaction)
+					{
+						controlsAnInter = true;
+						break;
+					}
+				}
+				if (!controlsAnInter && !ctrl.getControlled().isEmpty())
+				{
+					if (ctrl.getControlled().size() == 1 && ctrl.getController().isEmpty())
+					{
+						Pathway pat = (Pathway) ctrl.getControlled().iterator().next();
+						ChbPathway patNode = (ChbPathway) map.get(pat.getRDFId());
+						
+						if (patNode == null) 
+						{
+							String compName = Hub.getPossibleCompartmentName(Collections.singleton(pe));
+
+							if (compName != null && nestCompartments)
+								compName = CompartmentManager.getUnifiedName(compName);
+
+							CompoundModel compart = compName == null ?
+								root : (CompoundModel) map.get(compName);
+
+							patNode = new ChbPathway(compart, pat, map);
+							new NonModulatedEffector(map.get(pe.getRDFId()), patNode, ctrl, pat);
+						}
+					}
+				}
 			}
 		}
 
@@ -361,6 +403,17 @@ public class BioPAXL3Reader
 
 					new Pairing(inter, ends[0], ends[1]);
 				}
+			}
+		}
+
+		// Pathways should have a display name in ChiBE
+		for (Pathway p : model.getObjects(Pathway.class))
+		{
+			if (p.getDisplayName() == null)
+			{
+				if (p.getStandardName() != null) p.setDisplayName(p.getStandardName());
+				else if (!p.getName().isEmpty()) p.setDisplayName(p.getName().iterator().next());
+				else p.setDisplayName(p.getRDFId());
 			}
 		}
 	}

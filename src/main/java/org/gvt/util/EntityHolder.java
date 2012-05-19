@@ -194,7 +194,7 @@ public class EntityHolder
 
 			for (Xref ref : l3er.getXref())
 			{
-				if (ref.getId().toLowerCase().contains(word)) return true;
+				if (ref.getId() != null && ref.getId().toLowerCase().contains(word)) return true;
 			}
 		}
 

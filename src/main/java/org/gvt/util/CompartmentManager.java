@@ -157,6 +157,7 @@ public class CompartmentManager
 		unifierMap.put("nuclear envelope", NUCLEAR_MEM);
 		unifierMap.put(EXTRACELLULAR.toLowerCase(), EXTRACELLULAR);
 		unifierMap.put("extracellular region", EXTRACELLULAR);
+		unifierMap.put("extracellular space", EXTRACELLULAR);
 		unifierMap.put("tight junction", EXTRACELLULAR);
 		unifierMap.put(MITOCH_OUTER_MEM.toLowerCase(), MITOCH_OUTER_MEM);
 		unifierMap.put(MITOCH_INNER_MEM.toLowerCase(), MITOCH_INNER_MEM);
