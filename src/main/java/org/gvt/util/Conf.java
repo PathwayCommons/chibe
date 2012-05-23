@@ -62,8 +62,8 @@ public class Conf
 		{
 			BufferedWriter writer = new BufferedWriter(new FileWriter(confPath));
 
-			writer.write(PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n");
-//			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n");
+//			writer.write(PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n");
+			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n");
 
 			writer.write(EXPERIMENT_UP_COLOR + " = 230 0 0\n");
 			writer.write(EXPERIMENT_DOWN_COLOR + " = 0 0 230\n");
