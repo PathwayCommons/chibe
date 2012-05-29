@@ -741,10 +741,9 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			java.util.List<String> list = new ArrayList<String>();
 			String text = symbolText.getText();
-			for (String s : text.split(System.getProperty("line.separator")))
+			for (String s : text.replaceAll(",", " ").split("\\s+"))
 			{
-				s = s.trim();
-				if (s != null && s.length() > 1) list.add(s);
+				if (s != null && s.length() > 1 && !list.contains(s)) list.add(s);
 			}
 			return list;
 		}
