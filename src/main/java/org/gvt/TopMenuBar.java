@@ -137,6 +137,7 @@ public class TopMenuBar
 		// DATA
 		menuBar.add(dataMenu);
 		dataMenu.add(new FetchFromGEOAction(chisio));
+        dataMenu.add(new FetchFromCBioPortalAction(chisio));
 		dataMenu.add(new LoadRawExpDataAction(chisio));
 		dataMenu.add(new LoadExperimentDataAction(chisio));
 		dataMenu.add(new Separator());
