@@ -9,7 +9,7 @@
 	<version>2.0</version>
 
 	<properties>
-		<paxtools.version>4.1.2-SNAPSHOT</paxtools.version>
+		<paxtools.version>4.1.5-SNAPSHOT</paxtools.version>
 
 		<!--Below code is used for creating platform dependent builds. If you are creating a build
 			for a different platform, comment out the "profiles" section and comment in the below
@@ -198,6 +198,11 @@
 			<artifactId>paxtools-core</artifactId>
 			<version>${paxtools.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.biopax.paxtools</groupId>
+            <artifactId>paxtools-causality</artifactId>
+            <version>${paxtools.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>sif-converter</artifactId>
