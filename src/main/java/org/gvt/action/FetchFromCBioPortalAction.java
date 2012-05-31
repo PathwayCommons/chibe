@@ -127,6 +127,7 @@ public class FetchFromCBioPortalAction extends Action {
                  Experiment experiment = expFactory.createExperiment();
                  experiment.setNo(count++);
                  experiment.setExperimentName(caseId);
+                 experiment.setExperimentInfo("Cancer Study: " + cancerStudy.getName() + "\nCase: " + caseId);
 
                  experimentData.getExperiment().add(experiment);
              } catch (JAXBException e) {
@@ -168,14 +169,15 @@ public class FetchFromCBioPortalAction extends Action {
                     tuple.setNo(count++);
                     tuple.setValue(expValue);
                     row.getValue().add(tuple);
-
-                    experimentData.getRow().add(row);
                 }
+
+                experimentData.getRow().add(row);
             } catch (JAXBException e) {
                 MessageDialog.openError(main.getShell(), "Error!",
                         "Could not process experiment.");
                 return;
             }
+
         }
 
         String fileName = saveExperiment(experimentData, fileNameSuggestion);
@@ -193,6 +195,7 @@ public class FetchFromCBioPortalAction extends Action {
   		while (!done)
   		{
   			FileDialog fileChooser = new FileDialog(main.getShell(), SWT.SAVE);
+            fileChooser.setFilterPath("experiments/");
 
   			if (fileNameSuggestion != null)
   			{

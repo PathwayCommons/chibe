@@ -134,7 +134,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
                 try {
                     caseListList.removeAll();
                     for (CaseList caseList : cBioPortalAccessor.getCaseListsForCurrentStudy()) {
-                        caseListList.add(caseList.getDescription() + "(" + caseList.getCases().length + " cases)");
+                        caseListList.add(caseList.getDescription() + " (" + caseList.getCases().length + " cases)");
                     }
                     caseListList.select(0);
 
