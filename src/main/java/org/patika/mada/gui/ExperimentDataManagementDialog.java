@@ -152,13 +152,12 @@ public class ExperimentDataManagementDialog extends Dialog implements SelectionL
 
 
 		// Experiments table
-
 		experimentGroup = new Group(shell, SWT.NONE);
 		experimentGroup.setLayout(new FillLayout());
 		experimentGroup.setText("Loaded Experiments");
 		data = new GridData(GridData.FILL_BOTH);
 		//data.grabExcessVerticalSpace = true;
-        data.heightHint = 400;
+        data.heightHint = 500;
 		experimentGroup.setLayoutData(data);
 
 		// Selected experiment info group
