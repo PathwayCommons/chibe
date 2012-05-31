@@ -80,11 +80,22 @@ public class FetchFromCBioPortalAction extends Action {
             }
         }
 
-        // We don't want to merge all data types into a single result
-        // so let's extract'em and work one by one
-        ArrayList<GeneticProfile> geneticProfiles
-                = new ArrayList<GeneticProfile>(currentGeneticProfiles);
-        currentGeneticProfiles.clear();
+        // Decide on a few things
+        String dataName, dataType, dataDesc, fileNameSuggestion;
+        if(currentGeneticProfiles.size() > 1) {
+            dataType = dataName = "multiple data types";
+            fileNameSuggestion = cBioPortalAccessor.getCurrentCancerStudy().getStudyId() + "_multi.ced";
+            dataDesc = "";
+            for (GeneticProfile currentGeneticProfile : currentGeneticProfiles) {
+                dataDesc += currentGeneticProfile.getName() + " | " + currentGeneticProfile.getDescription() + "\n";
+            }
+        } else {
+            GeneticProfile geneticProfile = currentGeneticProfiles.iterator().next();
+            dataName = geneticProfile.getName();
+            dataType = geneticProfile.getType().toString();
+            fileNameSuggestion = geneticProfile.getId() + ".ced";
+            dataDesc = geneticProfile.getDescription();
+        }
 
         ObjectFactory expFactory = new ObjectFactory();
 
@@ -92,92 +103,87 @@ public class FetchFromCBioPortalAction extends Action {
         CaseList caseList = cBioPortalAccessor.getCurrentCaseList();
 
         // Now load data
-        for (GeneticProfile geneticProfile : geneticProfiles) {
-            main.lockWithMessage("Loading " + geneticProfile.getName() + "...");
-            cBioPortalAccessor.setCurrentGeneticProfiles(Collections.singletonList(geneticProfile));
+        main.lockWithMessage("Loading " + dataName + "...");
 
-            ChisioExperimentData experimentData;
+        ChisioExperimentData experimentData;
+        try {
+            experimentData = expFactory.createRootExperimentData();
+        } catch (JAXBException e) {
+            MessageDialog.openError(main.getShell(), "Error!",
+                    "Could not create experiment.");
+            return;
+        }
+        experimentData.setExperimentType(dataType);
+        String experimentInfo = cancerStudy.getName() + " | "
+                + caseList.getDescription() + " (" + caseList.getCases().length + " cases) \n"
+                + dataName + "\n"
+                + dataDesc;
+        experimentData.setExperimentSetInfo(experimentInfo);
+
+        int count = 0;
+         // Create sub-experiments for each sample
+         for (String caseId : caseList.getCases()) {
+             try {
+                 Experiment experiment = expFactory.createExperiment();
+                 experiment.setNo(count++);
+                 experiment.setExperimentName(caseId);
+
+                 experimentData.getExperiment().add(experiment);
+             } catch (JAXBException e) {
+                 MessageDialog.openError(main.getShell(), "Error!",
+                         "Could not create experiment.");
+                 return;
+             }
+         }
+
+        // Iterate over genes
+        // TODO: optimize this and grab all results with single request.
+        for (String gene : geneNames) {
+            AlterationPack alterations = cBioPortalAccessor.getAlterations(gene);
             try {
-                experimentData = expFactory.createRootExperimentData();
+                Row row = expFactory.createRow();
+                Reference ref = expFactory.createReference();
+                ref.setDb(ExperimentDataConvertionWizard.COMMON_GENE_SYMBOL_COLUMN_NAMES.iterator().next());
+                ref.setValue(gene);
+                row.getRef().add(ref);
+
+                count = 0;
+                for (Change change : alterations.get(Alteration.ANY)) {
+                    double expValue = .0D;
+
+                    if(change.isAbsent() || !change.isAltered()) {
+                        expValue = .0D;
+                    } else {
+                        switch (change) {
+                            case ACTIVATING:
+                                expValue = 1.0D;
+                                break;
+                            case INHIBITING:
+                                expValue = -1.0D;
+                                break;
+                        }
+                    }
+
+                    ValueTuple tuple = expFactory.createValueTuple();
+                    tuple.setNo(count++);
+                    tuple.setValue(expValue);
+                    row.getValue().add(tuple);
+
+                    experimentData.getRow().add(row);
+                }
             } catch (JAXBException e) {
                 MessageDialog.openError(main.getShell(), "Error!",
-                        "Could not create experiment.");
+                        "Could not process experiment.");
                 return;
             }
-            experimentData.setExperimentType(geneticProfile.getType().toString());
-            String experimentInfo = cancerStudy.getName() + " | "
-                    + caseList.getDescription() + " (" + caseList.getCases().length + " cases) | "
-                    + geneticProfile.getName() + " | "
-                    + geneticProfile.getDescription();
-            experimentData.setExperimentSetInfo(experimentInfo);
-
-            Alteration alterationType =
-                    GeneticProfile.GENETIC_PROFILE_TYPE.convertToAlteration(geneticProfile.getType());
-
-            int count = 0;
-             // Create sub-experiments for each sample
-             for (String caseId : caseList.getCases()) {
-                 try {
-                     Experiment experiment = expFactory.createExperiment();
-                     experiment.setNo(count++);
-                     experiment.setExperimentName(caseId);
-
-                     experimentData.getExperiment().add(experiment);
-                 } catch (JAXBException e) {
-                     MessageDialog.openError(main.getShell(), "Error!",
-                             "Could not create experiment.");
-                     return;
-                 }
-             }
-
-            // Iterate over genes
-            // TODO: optimize this and grab all results with single request.
-            for (String gene : geneNames) {
-                AlterationPack alterations = cBioPortalAccessor.getAlterations(gene);
-                try {
-                    Row row = expFactory.createRow();
-                    Reference ref = expFactory.createReference();
-                    ref.setDb(ExperimentDataConvertionWizard.COMMON_GENE_SYMBOL_COLUMN_NAMES.iterator().next());
-                    ref.setValue(gene);
-                    row.getRef().add(ref);
-
-                    count = 0;
-                    for (Change change : alterations.get(alterationType)) {
-                        double expValue = .0D;
-
-                        if(change.isAbsent() || !change.isAltered()) {
-                            expValue = alterationType.isGenomic() ? .0D : 1.0D;
-                        } else {
-                            switch (change) {
-                                case ACTIVATING:
-                                    expValue = 1.0D;
-                                    break;
-                                case INHIBITING:
-                                    expValue = -1.0D;
-                                    break;
-                            }
-                        }
-
-                        ValueTuple tuple = expFactory.createValueTuple();
-                        tuple.setNo(count++);
-                        tuple.setValue(expValue);
-                        row.getValue().add(tuple);
-                    }
-                } catch (JAXBException e) {
-                    MessageDialog.openError(main.getShell(), "Error!",
-                            "Could not process experiment.");
-                    return;
-                }
-            }
-
-            String fileName
-                    = saveExperiment(experimentData, geneticProfile.getId() + "_" + caseList.getId() + ".ced");
-
-            if(fileName != null)
-                (new LoadExperimentDataAction(main, fileName)).run();
-
-            main.unlock();
         }
+
+        String fileName = saveExperiment(experimentData, fileNameSuggestion);
+
+        if(fileName != null)
+            (new LoadExperimentDataAction(main, fileName)).run();
+
+        main.unlock();
     }
 
     public String saveExperiment(ChisioExperimentData data, String fileNameSuggestion) {
