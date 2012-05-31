@@ -4,12 +4,6 @@ import org.biopax.paxtools.causality.data.CBioPortalAccessor;
 import org.biopax.paxtools.causality.data.CancerStudy;
 import org.biopax.paxtools.causality.data.CaseList;
 import org.biopax.paxtools.causality.data.GeneticProfile;
-import org.biopax.paxtools.causality.util.HGNCUtil;
-import org.biopax.paxtools.model.BioPAXElement;
-import org.biopax.paxtools.model.Model;
-import org.biopax.paxtools.model.level3.ProteinReference;
-import org.biopax.paxtools.model.level3.RelationshipXref;
-import org.biopax.paxtools.model.level3.Xref;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -20,10 +14,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.List;
 import org.gvt.ChisioMain;
-import org.patika.mada.dataXML.ChisioExperimentData;
 
 import java.io.IOException;
-import java.util.*;
 
 public class FetchFromCBioPortalDialog extends Dialog {
     private ChisioMain main;
@@ -107,7 +99,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
         caseListList.setLayoutData(gridData);
 
         Label genomicProfileLabel = new Label(shell, SWT.NONE);
-        genomicProfileLabel.setText("3) Select a genomic profile");
+        genomicProfileLabel.setText("3) Select genomic profile(s)");
         gridData = new GridData(GridData.FILL, GridData.FILL, false, false);
         gridData.horizontalSpan = 2;
         genomicProfileLabel.setLayoutData(gridData);
@@ -118,11 +110,11 @@ public class FetchFromCBioPortalDialog extends Dialog {
         gridData.heightHint = 100;
         genomicProfilesList.setLayoutData(gridData);
 
-        final Button fetchButton = new Button(shell, SWT.NONE);
-        fetchButton.setText("Load data");
+        final Button loadDataButton = new Button(shell, SWT.NONE);
+        loadDataButton.setText("Load data");
         gridData = new GridData(GridData.END, GridData.CENTER, true, false);
-        fetchButton.setEnabled(false);
-        fetchButton.setLayoutData(gridData);
+        loadDataButton.setEnabled(false);
+        loadDataButton.setLayoutData(gridData);
 
         Button cancelButton = new Button(shell, SWT.NONE);
         cancelButton.setText("Cancel");
@@ -166,11 +158,11 @@ public class FetchFromCBioPortalDialog extends Dialog {
         genomicProfilesList.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent selectionEvent) {
-                fetchButton.setEnabled(genomicProfilesList.getSelectionCount() > 0);
+                loadDataButton.setEnabled(genomicProfilesList.getSelectionCount() > 0);
             }
         });
 
-        fetchButton.addSelectionListener(new SelectionAdapter() {
+        loadDataButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent selectionEvent) {
                 try {
@@ -188,6 +180,8 @@ public class FetchFromCBioPortalDialog extends Dialog {
                 }
 
                 java.util.List<GeneticProfile> geneticProfiles = null;
+                java.util.List<GeneticProfile> selectedProfiles = cBioPortalAccessor.getCurrentGeneticProfiles();
+
                 try {
                     geneticProfiles = cBioPortalAccessor.getGeneticProfilesForCurrentStudy();
                 } catch (IOException e) {
@@ -200,17 +194,13 @@ public class FetchFromCBioPortalDialog extends Dialog {
                     return;
                 }
 
-                java.util.List<String> geneNames = new ArrayList<String>();
-                Model model = main.getOwlModel();
-                for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
-                    if(xref.getDb().startsWith("HGNC"))
-                        geneNames.add(HGNCUtil.getSymbol(Integer.parseInt(xref.getId().split("%3A")[1])));
+                selectedProfiles.clear();
+                for (int i : genomicProfilesList.getSelectionIndices()) {
+                    GeneticProfile geneticProfile =  geneticProfiles.get(i);
+                    selectedProfiles.add(geneticProfile);
                 }
 
-                for (int i : genomicProfilesList.getSelectionIndices()) {
-                    GeneticProfile geneticProfile = geneticProfiles.get(i);
-                    cBioPortalAccessor.setCurrentGeneticProfiles(Collections.singletonList(geneticProfile));
-                }
+                // Load data inside action, not here; so let's close this dialog first.
                 shell.close();
             }
         });
@@ -220,5 +210,9 @@ public class FetchFromCBioPortalDialog extends Dialog {
                 shell.close();
             }
         });
+    }
+
+    public CBioPortalAccessor getAccessor() {
+        return cBioPortalAccessor;
     }
 }

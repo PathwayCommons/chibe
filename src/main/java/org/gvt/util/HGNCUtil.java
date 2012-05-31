@@ -12,6 +12,7 @@ import java.util.Map;
 public class HGNCUtil
 {
 	private static Map<String, Integer> sym2id;
+    private static Map<Integer, String> id2sym;
 
 	public static void main(String[] args)
 	{
@@ -27,12 +28,18 @@ public class HGNCUtil
 	{
 		return sym2id.get(symbol);
 	}
+
+    public static String getSymbol(Integer hgncID)
+   	{
+   		return id2sym.get(hgncID);
+   	}
 	
 	static
 	{
 		try
 		{
 			sym2id = new HashMap<String, Integer>();
+            id2sym = new HashMap<Integer, String>();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 				HGNCUtil.class.getResourceAsStream("hgnc.txt")));
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
@@ -41,6 +48,7 @@ public class HGNCUtil
 				String sym = token[1];
 				Integer id = Integer.parseInt(token[0]);
 				sym2id.put(sym, id);
+                id2sym.put(id, sym);
 			}
 			reader.close();
 		}
