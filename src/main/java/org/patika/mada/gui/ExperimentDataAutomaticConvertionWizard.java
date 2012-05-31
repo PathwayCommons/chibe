@@ -2,7 +2,6 @@ package org.patika.mada.gui;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.patika.mada.dataXML.ChisioExperimentData;
-import org.patika.mada.dataXML.Experiment;
 
 import javax.swing.*;
 import javax.xml.bind.JAXBContext;
