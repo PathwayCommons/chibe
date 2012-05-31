@@ -13,6 +13,9 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.gui.FetchFromCBioPortalDialog;
 import org.gvt.util.HGNCUtil;
@@ -103,7 +106,7 @@ public class FetchFromCBioPortalAction extends Action {
             }
             experimentData.setExperimentType(geneticProfile.getType().toString());
             String experimentInfo = cancerStudy.getName() + " | "
-                    + caseList.getDescription() + " (" + caseList.getCases().length + "cases ) | "
+                    + caseList.getDescription() + " (" + caseList.getCases().length + " cases) | "
                     + geneticProfile.getName() + " | "
                     + geneticProfile.getDescription();
             experimentData.setExperimentSetInfo(experimentInfo);
@@ -134,7 +137,7 @@ public class FetchFromCBioPortalAction extends Action {
                 try {
                     Row row = expFactory.createRow();
                     Reference ref = expFactory.createReference();
-                    ref.setDb("HGNC");
+                    ref.setDb(ExperimentDataConvertionWizard.COMMON_GENE_SYMBOL_COLUMN_NAMES.iterator().next());
                     ref.setValue(gene);
                     row.getRef().add(ref);
 
@@ -167,8 +170,96 @@ public class FetchFromCBioPortalAction extends Action {
                 }
             }
 
+            String fileName
+                    = saveExperiment(experimentData, geneticProfile.getId() + "_" + caseList.getId() + ".ced");
+
+            if(fileName != null)
+                (new LoadExperimentDataAction(main, fileName)).run();
+
             main.unlock();
         }
     }
 
+    public String saveExperiment(ChisioExperimentData data, String fileNameSuggestion) {
+        String fileName = null;
+  		boolean done = false;
+
+  		while (!done)
+  		{
+  			FileDialog fileChooser = new FileDialog(main.getShell(), SWT.SAVE);
+
+  			if (fileNameSuggestion != null)
+  			{
+  				if (!fileNameSuggestion.endsWith(".ced"))
+  				{
+  					if (fileNameSuggestion.indexOf(".") > 0)
+  					{
+  						fileNameSuggestion = fileNameSuggestion.substring(
+  							0, fileNameSuggestion.lastIndexOf("."));
+  					}
+  					fileNameSuggestion += ".ced";
+  				}
+
+  				fileChooser.setFileName(fileNameSuggestion);
+  			}
+
+  			String[] filterExtensions = new String[]{"*.ced"};
+  			String[] filterNames = new String[]{"BioPAX (*.ced)"};
+
+  			fileChooser.setFilterExtensions(filterExtensions);
+  			fileChooser.setFilterNames(filterNames);
+  			fileName = fileChooser.open();
+
+  			if (fileName == null)
+  			{
+  				// User has cancelled, so quit and return
+  				done = true;
+  			}
+  			else
+  			{
+  				// User has selected a file; see if it already exists
+  				File file = new File(fileName);
+
+  				if (file.exists()) {
+  					// The file already exists; asks for confirmation
+  					MessageBox mb = new MessageBox(
+  						fileChooser.getParent(),
+  						SWT.ICON_WARNING | SWT.YES | SWT.NO);
+
+  					// We really should read this string from a
+  					// resource bundle
+  					mb.setMessage(fileName +
+  						" already exists. Do you want to overwrite?");
+  					mb.setText("Confirm Replace File");
+  					// If they click Yes, we're done and we drop out. If
+  					// they click No, we redisplay the File Dialog
+  					done = mb.open() == SWT.YES;
+  				}
+  				else {
+  					// File does not exist, so drop out
+  					done = true;
+  				}
+  			}
+  		}
+
+        if(fileName == null)
+            return fileName;
+
+        try {
+            JAXBContext jc = JAXBContext.newInstance("org.patika.mada.dataXML");
+            Marshaller m = jc.createMarshaller();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+
+            m.setProperty("jaxb.formatted.output", Boolean.TRUE);
+            m.marshal(data, writer);
+
+            writer.close();
+        } catch (Exception e) {
+            MessageDialog.openError(main.getShell(), "Error!",
+                     "Could not create experiment.");
+            return null;
+        }
+
+        return fileName;
+    }
 }
