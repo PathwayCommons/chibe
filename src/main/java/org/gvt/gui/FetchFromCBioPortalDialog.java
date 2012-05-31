@@ -16,6 +16,9 @@ import org.eclipse.swt.widgets.List;
 import org.gvt.ChisioMain;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FetchFromCBioPortalDialog extends Dialog {
     private ChisioMain main;
@@ -98,6 +101,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
         gridData.horizontalSpan = 2;
         caseListList.setLayoutData(gridData);
 
+        final ArrayList<GeneticProfile> supportedProfiles = new ArrayList<GeneticProfile>();
         Label genomicProfileLabel = new Label(shell, SWT.NONE);
         genomicProfileLabel.setText("3) Select genomic profile(s)");
         gridData = new GridData(GridData.FILL, GridData.FILL, false, false);
@@ -139,8 +143,16 @@ public class FetchFromCBioPortalDialog extends Dialog {
                     caseListList.select(0);
 
                     genomicProfilesList.removeAll();
+                    supportedProfiles.clear();
                     for (GeneticProfile geneticProfile : cBioPortalAccessor.getGeneticProfilesForCurrentStudy()) {
-                        genomicProfilesList.add(geneticProfile.getName());
+                        // Currently we only support these guys
+                        switch(geneticProfile.getType()) {
+                            case COPY_NUMBER_ALTERATION:
+                            case MRNA_EXPRESSION:
+                            case MUTATION_EXTENDED:
+                                genomicProfilesList.add(geneticProfile.getName());
+                                supportedProfiles.add(geneticProfile);
+                        }
                     }
 
                 } catch (IOException e) {
@@ -196,7 +208,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
 
                 selectedProfiles.clear();
                 for (int i : genomicProfilesList.getSelectionIndices()) {
-                    GeneticProfile geneticProfile =  geneticProfiles.get(i);
+                    GeneticProfile geneticProfile =  supportedProfiles.get(i);
                     selectedProfiles.add(geneticProfile);
                 }
 
