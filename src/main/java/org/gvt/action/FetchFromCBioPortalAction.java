@@ -18,10 +18,12 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.gui.FetchFromCBioPortalDialog;
+import org.gvt.model.BioPAXGraph;
 import org.gvt.util.HGNCUtil;
 import org.patika.mada.dataXML.*;
 import org.patika.mada.gui.ExperimentDataConvertionWizard;
 import org.patika.mada.gui.FetchFromGEODialog;
+import org.patika.mada.util.ExperimentDataManager;
 
 import javax.swing.*;
 import javax.xml.bind.JAXBContext;
@@ -180,10 +182,36 @@ public class FetchFromCBioPortalAction extends Action {
 
         }
 
+
         String fileName = saveExperiment(experimentData, fileNameSuggestion);
 
         if(fileName != null)
             (new LoadExperimentDataAction(main, fileName)).run();
+
+        // Let's try to adjust the settings
+        ExperimentDataManager dataManager = main.getExperimentDataManager(dataType);
+        dataManager.getSecondExpIndices().clear();
+        dataManager.getFirstExpIndices().clear();
+        for(int i=0; i < caseList.getCases().length; i++)
+            dataManager.getFirstExpIndices().add(i);
+
+        // And apply the coloring
+        List<BioPAXGraph> graphs = main.getAllPathwayGraphs();
+        graphs.add(main.getRootGraph());
+        for (BioPAXGraph graph : graphs) {
+            dataManager.clearExperimentData(graph);
+            dataManager.associateExperimentData(graph);
+            if (graph.getLastAppliedColoring() != null) {
+                graph.setLastAppliedColoring(null);
+                new ColorWithExperimentAction(main, graph, dataManager.getType()).run();
+            }
+        }
+        BioPAXGraph currentGraph = main.getPathwayGraph();
+        if (currentGraph != null && currentGraph.getLastAppliedColoring() == null) {
+            new ColorWithExperimentAction(main, currentGraph, dataManager.getType()).run();
+        }
+
+        // All done, let's quit
 
         main.unlock();
     }
