@@ -699,13 +699,6 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 				e.printStackTrace();
 			}
 
-//			System.out.println("Total read lines = " + lineCounter);
-//			System.out.println("mapped and added =" + added);
-//			System.out.println("null_key=" + null_key);
-//			System.out.println("null_experiment_valeu=" + null_experiment_value);
-//			System.out.println("not_included_in_key_pid=" + not_mapped_key_in_data);
-//			System.out.println("non_numerical=" + non_numerical_vallue);
-
 			fileno++;
 		}
 	}

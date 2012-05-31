@@ -157,7 +157,8 @@ public class ExperimentDataManagementDialog extends Dialog implements SelectionL
 		experimentGroup.setLayout(new FillLayout());
 		experimentGroup.setText("Loaded Experiments");
 		data = new GridData(GridData.FILL_BOTH);
-		data.grabExcessVerticalSpace = true;
+		//data.grabExcessVerticalSpace = true;
+        data.heightHint = 400;
 		experimentGroup.setLayoutData(data);
 
 		// Selected experiment info group
