@@ -23,6 +23,7 @@ import org.gvt.util.HGNCUtil;
 import org.patika.mada.dataXML.*;
 import org.patika.mada.gui.ExperimentDataConvertionWizard;
 import org.patika.mada.gui.FetchFromGEODialog;
+import org.patika.mada.util.ExperimentData;
 import org.patika.mada.util.ExperimentDataManager;
 
 import javax.swing.*;
@@ -97,7 +98,22 @@ public class FetchFromCBioPortalAction extends Action {
         } else {
             GeneticProfile geneticProfile = currentGeneticProfiles.iterator().next();
             dataName = geneticProfile.getName();
-            dataType = geneticProfile.getType().toString();
+            switch (geneticProfile.getType()) {
+                case COPY_NUMBER_ALTERATION:
+                    dataType = ExperimentData.COPY_NUMBER_VARIATION;
+                    break;
+                case MUTATION_EXTENDED:
+                    dataType = ExperimentData.MUTATION_DATA;
+                    break;
+                case MRNA_EXPRESSION:
+                    dataType = ExperimentData.EXPRESSION_DATA;
+                    break;
+                default:
+                    MessageDialog.openError(main.getShell(), "Error!",
+                            "Unknown data type: " + geneticProfile.getType().toString());
+                    return;
+            }
+
             fileNameSuggestion = geneticProfile.getId() + ".ced";
             dataDesc = geneticProfile.getDescription();
         }
@@ -164,8 +180,8 @@ public class FetchFromCBioPortalAction extends Action {
                             case ACTIVATING:
                                 expValue = 1.0D;
                                 break;
-                            case INHIBITING:
-                                expValue = -1.0D;
+                            case INHIBITING: // TODO: fix these
+                                expValue = (dataType.equals(ExperimentData.MUTATION_DATA) ? 2.0D : -1.0D);
                                 break;
                         }
                     }

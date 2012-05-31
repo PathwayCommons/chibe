@@ -538,7 +538,7 @@ public class ExperimentDataManager
 
 			if (v2 != null)
 			{
-				return createxpErimentData(v1, v2);
+				return createExperimentData(v1, v2);
 			}
 		}
 		return null;
@@ -635,7 +635,7 @@ public class ExperimentDataManager
 		}
 		else
 		{
-			return createxpErimentData(average(v1s), average(v2s));
+			return createExperimentData(average(v1s), average(v2s));
 		}
 	}
 
@@ -813,7 +813,7 @@ public class ExperimentDataManager
 		}
 	}
 
-	private ExperimentData createxpErimentData(double v1, double v2)
+	private ExperimentData createExperimentData(double v1, double v2)
 	{
 		if (type.equals(ExperimentData.EXPRESSION_DATA))
 		{
