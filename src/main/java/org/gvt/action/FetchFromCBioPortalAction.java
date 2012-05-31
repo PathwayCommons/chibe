@@ -36,6 +36,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class FetchFromCBioPortalAction extends Action {
@@ -67,7 +68,8 @@ public class FetchFromCBioPortalAction extends Action {
         }
 
         // Extract gene names from the current BioPAX model
-        java.util.List<String> geneNames = new ArrayList<String>();
+        List<String> geneNames = new ArrayList<String>();
+        HashMap<String, String> geneNameToXrefStr = new HashMap<String, String>();
         Model model = main.getOwlModel();
         for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
             if (xref.getDb().startsWith("HGNC")) {
@@ -79,6 +81,7 @@ public class FetchFromCBioPortalAction extends Action {
                                 : tokens[0].trim();
 
                 geneNames.add(geneName);
+                geneNameToXrefStr.put(geneName, xref.getId());
             }
         }
 
@@ -146,8 +149,8 @@ public class FetchFromCBioPortalAction extends Action {
             try {
                 Row row = expFactory.createRow();
                 Reference ref = expFactory.createReference();
-                ref.setDb(ExperimentDataConvertionWizard.COMMON_GENE_SYMBOL_COLUMN_NAMES.iterator().next());
-                ref.setValue(gene);
+                ref.setDb("HGNC");
+                ref.setValue(geneNameToXrefStr.get(gene));
                 row.getRef().add(ref);
 
                 count = 0;
