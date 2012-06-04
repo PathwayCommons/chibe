@@ -159,12 +159,11 @@ public class FetchFromCBioPortalAction extends Action {
 
                 count = 0;
                 for (Change change : alterations.get(Alteration.ANY)) {
+                    // TODO: Special value for NO_DATA?
                     double expValue =
-                            change.isAbsent()
-                                    ? AlterationData.VALUES.NO_DATA.toDouble()
-                                    : (change.isAltered()
-                                        ? AlterationData.VALUES.ALTERED.toDouble()
-                                        : AlterationData.VALUES.NOT_ALTERED.toDouble());
+                            (change.isAbsent() || !change.isAltered())
+                                    ? AlterationData.VALUES.NOT_ALTERED.toDouble()
+                                    : AlterationData.VALUES.ALTERED.toDouble();
 
                     ValueTuple tuple = expFactory.createValueTuple();
                     tuple.setNo(count++);
