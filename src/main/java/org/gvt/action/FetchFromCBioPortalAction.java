@@ -186,8 +186,11 @@ public class FetchFromCBioPortalAction extends Action {
         dataManager.setData(experimentData);
         dataManager.getSecondExpIndices().clear();
         dataManager.getFirstExpIndices().clear();
-        for(int i=0; i < caseList.getCases().length; i++)
+
+		for(int i=0; i < caseList.getCases().length; i++)
             dataManager.getFirstExpIndices().add(i);
+
+		dataManager.setAveraging(ExperimentDataManager.MEAN);
 
         // And apply the coloring
         List<BioPAXGraph> graphs = main.getAllPathwayGraphs();
