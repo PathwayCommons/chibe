@@ -17,8 +17,6 @@ import org.gvt.ChisioMain;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FetchFromCBioPortalDialog extends Dialog {
     private ChisioMain main;
