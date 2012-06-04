@@ -807,6 +807,10 @@ public class ExperimentDataManager
 		{
 			return new MutationData(v);
 		}
+        else if (type.equals(ExperimentData.ALTERATION_DATA))
+        {
+            return new AlterationData(v);
+        }
 		else
 		{
 			throw new RuntimeException("Invalid data type: " + type);
@@ -831,6 +835,9 @@ public class ExperimentDataManager
 		{
 			return new MutationData(v1, v2);
 		}
+        else if (type.equals(ExperimentData.ALTERATION_DATA)) {
+            return new AlterationData(v1, v2);
+        }
 		else
 		{
 			throw new RuntimeException("Invalid data type: " + type);

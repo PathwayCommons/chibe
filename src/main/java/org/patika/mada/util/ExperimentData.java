@@ -250,6 +250,7 @@ public abstract class ExperimentData implements Representable
 	public static List<String> getDataTypes()
 	{
 		return Arrays.asList(
+            ALTERATION_DATA,
 			EXPRESSION_DATA,
 			MASS_SPEC_DATA, 
 			COPY_NUMBER_VARIATION,
@@ -262,6 +263,7 @@ public abstract class ExperimentData implements Representable
 	public static final String MASS_SPEC_DATA = "Mass Spectrometry Data";
 	public static final String COPY_NUMBER_VARIATION = "Copy Number Variation Data";
 	public static final String MUTATION_DATA = "Mutation Data";
+    public static final String ALTERATION_DATA = "Alteration Data";
 
 	// Presence - absence constants
 

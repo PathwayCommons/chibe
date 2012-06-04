@@ -23,6 +23,7 @@ import org.gvt.util.HGNCUtil;
 import org.patika.mada.dataXML.*;
 import org.patika.mada.gui.ExperimentDataConvertionWizard;
 import org.patika.mada.gui.FetchFromGEODialog;
+import org.patika.mada.util.AlterationData;
 import org.patika.mada.util.ExperimentData;
 import org.patika.mada.util.ExperimentDataManager;
 
@@ -87,9 +88,9 @@ public class FetchFromCBioPortalAction extends Action {
         }
 
         // Decide on a few things
-        String dataName, dataType, dataDesc, fileNameSuggestion;
+        String dataName, dataDesc, fileNameSuggestion;
         if(currentGeneticProfiles.size() > 1) {
-            dataType = dataName = "multiple data types";
+            dataName = "multiple data types";
             fileNameSuggestion = cBioPortalAccessor.getCurrentCancerStudy().getStudyId() + "_multi.ced";
             dataDesc = "";
             for (GeneticProfile currentGeneticProfile : currentGeneticProfiles) {
@@ -98,22 +99,6 @@ public class FetchFromCBioPortalAction extends Action {
         } else {
             GeneticProfile geneticProfile = currentGeneticProfiles.iterator().next();
             dataName = geneticProfile.getName();
-            switch (geneticProfile.getType()) {
-                case COPY_NUMBER_ALTERATION:
-                    dataType = ExperimentData.COPY_NUMBER_VARIATION;
-                    break;
-                case MUTATION_EXTENDED:
-                    dataType = ExperimentData.MUTATION_DATA;
-                    break;
-                case MRNA_EXPRESSION:
-                    dataType = ExperimentData.EXPRESSION_DATA;
-                    break;
-                default:
-                    MessageDialog.openError(main.getShell(), "Error!",
-                            "Unknown data type: " + geneticProfile.getType().toString());
-                    return;
-            }
-
             fileNameSuggestion = geneticProfile.getId() + ".ced";
             dataDesc = geneticProfile.getDescription();
         }
@@ -134,7 +119,10 @@ public class FetchFromCBioPortalAction extends Action {
                     "Could not create experiment.");
             return;
         }
-        experimentData.setExperimentType(dataType);
+
+        String alterationDataType = ExperimentData.ALTERATION_DATA;
+
+        experimentData.setExperimentType(alterationDataType);
         String experimentInfo = cancerStudy.getName() + " | "
                 + caseList.getDescription() + " (" + caseList.getCases().length + " cases) \n"
                 + dataName + "\n"
@@ -171,20 +159,12 @@ public class FetchFromCBioPortalAction extends Action {
 
                 count = 0;
                 for (Change change : alterations.get(Alteration.ANY)) {
-                    double expValue = .0D;
-
-                    if(change.isAbsent() || !change.isAltered()) {
-                        expValue = .0D;
-                    } else {
-                        switch (change) {
-                            case ACTIVATING:
-                                expValue = 1.0D;
-                                break;
-                            case INHIBITING: // TODO: fix these
-                                expValue = (dataType.equals(ExperimentData.MUTATION_DATA) ? 2.0D : -1.0D);
-                                break;
-                        }
-                    }
+                    double expValue =
+                            change.isAbsent()
+                                    ? AlterationData.VALUES.NO_DATA.toDouble()
+                                    : (change.isAltered()
+                                        ? AlterationData.VALUES.ALTERED.toDouble()
+                                        : AlterationData.VALUES.NOT_ALTERED.toDouble());
 
                     ValueTuple tuple = expFactory.createValueTuple();
                     tuple.setNo(count++);
@@ -201,14 +181,10 @@ public class FetchFromCBioPortalAction extends Action {
 
         }
 
-
-        String fileName = saveExperiment(experimentData, fileNameSuggestion);
-
-        if(fileName != null)
-            (new LoadExperimentDataAction(main, fileName)).run();
-
         // Let's try to adjust the settings
-        ExperimentDataManager dataManager = main.getExperimentDataManager(dataType);
+        main.setExperimentData(experimentData, fileNameSuggestion);
+        ExperimentDataManager dataManager = main.getExperimentDataManager(alterationDataType);
+        dataManager.setData(experimentData);
         dataManager.getSecondExpIndices().clear();
         dataManager.getFirstExpIndices().clear();
         for(int i=0; i < caseList.getCases().length; i++)
@@ -233,89 +209,5 @@ public class FetchFromCBioPortalAction extends Action {
         // All done, let's quit
 
         main.unlock();
-    }
-
-    public String saveExperiment(ChisioExperimentData data, String fileNameSuggestion) {
-        String fileName = null;
-  		boolean done = false;
-
-  		while (!done)
-  		{
-  			FileDialog fileChooser = new FileDialog(main.getShell(), SWT.SAVE);
-            fileChooser.setFilterPath("experiments/");
-
-  			if (fileNameSuggestion != null)
-  			{
-  				if (!fileNameSuggestion.endsWith(".ced"))
-  				{
-  					if (fileNameSuggestion.indexOf(".") > 0)
-  					{
-  						fileNameSuggestion = fileNameSuggestion.substring(
-  							0, fileNameSuggestion.lastIndexOf("."));
-  					}
-  					fileNameSuggestion += ".ced";
-  				}
-
-  				fileChooser.setFileName(fileNameSuggestion);
-  			}
-
-  			String[] filterExtensions = new String[]{"*.ced"};
-  			String[] filterNames = new String[]{"BioPAX (*.ced)"};
-
-  			fileChooser.setFilterExtensions(filterExtensions);
-  			fileChooser.setFilterNames(filterNames);
-  			fileName = fileChooser.open();
-
-  			if (fileName == null)
-  			{
-  				// User has cancelled, so quit and return
-  				done = true;
-  			}
-  			else
-  			{
-  				// User has selected a file; see if it already exists
-  				File file = new File(fileName);
-
-  				if (file.exists()) {
-  					// The file already exists; asks for confirmation
-  					MessageBox mb = new MessageBox(
-  						fileChooser.getParent(),
-  						SWT.ICON_WARNING | SWT.YES | SWT.NO);
-
-  					// We really should read this string from a
-  					// resource bundle
-  					mb.setMessage(fileName +
-  						" already exists. Do you want to overwrite?");
-  					mb.setText("Confirm Replace File");
-  					// If they click Yes, we're done and we drop out. If
-  					// they click No, we redisplay the File Dialog
-  					done = mb.open() == SWT.YES;
-  				}
-  				else {
-  					// File does not exist, so drop out
-  					done = true;
-  				}
-  			}
-  		}
-
-        if(fileName == null)
-            return fileName;
-
-        try {
-            JAXBContext jc = JAXBContext.newInstance("org.patika.mada.dataXML");
-            Marshaller m = jc.createMarshaller();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-
-            m.setProperty("jaxb.formatted.output", Boolean.TRUE);
-            m.marshal(data, writer);
-
-            writer.close();
-        } catch (Exception e) {
-            MessageDialog.openError(main.getShell(), "Error!",
-                     "Could not create experiment.");
-            return null;
-        }
-
-        return fileName;
     }
 }
