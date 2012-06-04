@@ -59,7 +59,6 @@ public class AlterationData extends ExperimentData {
                 nonalt.getGreen() + (int) greenDiff,
                 nonalt.getBlue() + (int) blueDiff);
 
-        System.out.println("Value " + getValue() + "\t\t" + rgb);
         return new Color(alt.getDevice(), rgb);
     }
 
