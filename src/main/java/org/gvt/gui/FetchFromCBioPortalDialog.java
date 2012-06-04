@@ -22,6 +22,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
     private ChisioMain main;
     private Shell shell;
     private CBioPortalAccessor cBioPortalAccessor = null;
+    private static int[] memorizeChoices = {-1, -1, -1};
 
     public FetchFromCBioPortalDialog(ChisioMain main) {
         super(main.getShell(), SWT.NONE);
@@ -131,37 +132,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
 
             @Override
             public void widgetSelected(SelectionEvent selectionEvent) {
-                CancerStudy cancerStudy = cBioPortalAccessor.getCancerStudies().get(comboDropDown.getSelectionIndex());
-                cBioPortalAccessor.setCurrentCancerStudy(cancerStudy);
-                try {
-                    caseListList.removeAll();
-                    for (CaseList caseList : cBioPortalAccessor.getCaseListsForCurrentStudy()) {
-                        caseListList.add(caseList.getDescription() + " (" + caseList.getCases().length + " cases)");
-                    }
-                    caseListList.select(0);
-
-                    genomicProfilesList.removeAll();
-                    supportedProfiles.clear();
-                    for (GeneticProfile geneticProfile : cBioPortalAccessor.getGeneticProfilesForCurrentStudy()) {
-                        // Currently we only support these guys
-                        switch(geneticProfile.getType()) {
-                            case COPY_NUMBER_ALTERATION:
-                            case MRNA_EXPRESSION:
-                            case MUTATION_EXTENDED:
-                                genomicProfilesList.add(geneticProfile.getName());
-                                supportedProfiles.add(geneticProfile);
-                        }
-                    }
-
-                } catch (IOException e) {
-                    MessageDialog.openError(
-                            main.getShell(),
-                            "Error!",
-                            "Could not load meta data for current study.\n" + e.toString()
-                    );
-
-                }
-
+                selectCancerStudy(comboDropDown, caseListList, genomicProfilesList, supportedProfiles);
             }
         });
 
@@ -175,8 +146,10 @@ public class FetchFromCBioPortalDialog extends Dialog {
         loadDataButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent selectionEvent) {
+                int selectionIndex = 0;
+
                 try {
-                    int selectionIndex = caseListList.getSelectionIndex();
+                    selectionIndex = caseListList.getSelectionIndex();
                     CaseList caseList = cBioPortalAccessor.getCaseListsForCurrentStudy().get(selectionIndex);
                     cBioPortalAccessor.setCurrentCaseList(caseList);
                 } catch (IOException e) {
@@ -210,6 +183,12 @@ public class FetchFromCBioPortalDialog extends Dialog {
                     selectedProfiles.add(geneticProfile);
                 }
 
+                // Remember these for the next time
+                memorizeChoices[0]
+                        = cBioPortalAccessor.getCancerStudies().indexOf(cBioPortalAccessor.getCurrentCancerStudy());
+                memorizeChoices[1] = selectionIndex;
+                memorizeChoices[2] = genomicProfilesList.getSelectionIndex();
+
                 // Load data inside action, not here; so let's close this dialog first.
                 shell.close();
             }
@@ -220,6 +199,51 @@ public class FetchFromCBioPortalDialog extends Dialog {
                 shell.close();
             }
         });
+
+        // If we saved the options, then select those before the user does.
+        if(memorizeChoices[0] != -1) {
+            comboDropDown.select(memorizeChoices[0]);
+            selectCancerStudy(comboDropDown, caseListList, genomicProfilesList, supportedProfiles);
+            caseListList.select(memorizeChoices[1]);
+            genomicProfilesList.select(memorizeChoices[2]);
+            loadDataButton.setEnabled(true);
+        }
+    }
+
+    private void selectCancerStudy(Combo comboDropDown,
+                                   Combo caseListList,
+                                   List genomicProfilesList,
+                                   ArrayList<GeneticProfile> supportedProfiles) {
+        CancerStudy cancerStudy = cBioPortalAccessor.getCancerStudies().get(comboDropDown.getSelectionIndex());
+        cBioPortalAccessor.setCurrentCancerStudy(cancerStudy);
+        try {
+            caseListList.removeAll();
+            for (CaseList caseList : cBioPortalAccessor.getCaseListsForCurrentStudy()) {
+                caseListList.add(caseList.getDescription() + " (" + caseList.getCases().length + " cases)");
+            }
+            caseListList.select(0);
+
+            genomicProfilesList.removeAll();
+            supportedProfiles.clear();
+            for (GeneticProfile geneticProfile : cBioPortalAccessor.getGeneticProfilesForCurrentStudy()) {
+                // Currently we only support these guys
+                switch(geneticProfile.getType()) {
+                    case COPY_NUMBER_ALTERATION:
+                    case MRNA_EXPRESSION:
+                    case MUTATION_EXTENDED:
+                        genomicProfilesList.add(geneticProfile.getName());
+                        supportedProfiles.add(geneticProfile);
+                }
+            }
+
+        } catch (IOException e) {
+            MessageDialog.openError(
+                    main.getShell(),
+                    "Error!",
+                    "Could not load meta data for current study.\n" + e.toString()
+            );
+
+        }
     }
 
     public CBioPortalAccessor getAccessor() {
