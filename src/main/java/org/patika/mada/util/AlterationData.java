@@ -42,8 +42,8 @@ public class AlterationData extends ExperimentData {
     @Override
     public Color getNodeColor() {
         // Reverse log-scale the color to make alterations more obvious, e.g. 10% more red
-        double C = 10.0;
-        double value = (getValue() * C) + .000001D; // To prevent NaNs
+        double C = 100.0;
+        double value = (getValue() * C) + 1.0D; // To prevent NaNs
         Color alt = Conf.getColor(Conf.EXPERIMENT_UP_COLOR);
         Color nonalt = Conf.getColor(Conf.EXPERIMENT_MIDDLE_COLOR);
 
@@ -51,14 +51,15 @@ public class AlterationData extends ExperimentData {
         float greenDiff = alt.getGreen() - nonalt.getGreen();
         float blueDiff = alt.getBlue() - nonalt.getBlue();
 
-        redDiff = (float) (redDiff * (Math.exp(value) / Math.exp(C)));
-        greenDiff = (float) (greenDiff * (Math.exp(value) / Math.exp(C)));
-        blueDiff = (float) (blueDiff * (Math.exp(value) / Math.exp(C)));
+        redDiff = (float) (redDiff * (Math.log(value) / Math.log(C)));
+        greenDiff = (float) (greenDiff * (Math.log(value) / Math.log(C)));
+        blueDiff = (float) (blueDiff * (Math.log(value) / Math.log(C)));
         RGB rgb = new RGB(
                 nonalt.getRed() + (int) redDiff,
                 nonalt.getGreen() + (int) greenDiff,
                 nonalt.getBlue() + (int) blueDiff);
 
+        System.out.println("Value: " + value + "\t\t" + rgb + "\t\t" + (Math.log(value) / Math.log(C)));
         return new Color(alt.getDevice(), rgb);
     }
 
