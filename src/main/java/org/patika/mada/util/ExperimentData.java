@@ -3,6 +3,7 @@ package org.patika.mada.util;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.util.Conf;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -205,25 +206,11 @@ public abstract class ExperimentData implements Representable
 			((((num - numLow) / (numHigh - numLow)) * (colorNum2 - colorNum1)) + colorNum1);
 	}
 
+	static final DecimalFormat fmt = new DecimalFormat("0.##");
+
 	public String getToolTipText()
 	{
-		String v = "" + getValue();
-
-		int d = v.startsWith("-") ? DISPLAY_DIGIT + 1 : DISPLAY_DIGIT;
-		int loc = v.indexOf(".");
-
-		if (loc > 0)
-		{
-			if (loc >= d)
-			{
-				v = v.substring(0, loc);
-			}
-			else
-			{
-				v = v.substring(0, Math.min(d + 1, v.length()));
-			}
-		}
-		return v;
+		return fmt.format(getValue());
 	}
 
 	public Color getTextColor()
@@ -281,7 +268,6 @@ public abstract class ExperimentData implements Representable
 	private static final double mid_h = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_UPPER_BOUND);
 	private static final double mid_l = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_LOWER_BOUND);
 	private static final double low = Conf.getNumber(Conf.EXPERIMENT_MAX_DOWNREGULATION);
-	private static final int DISPLAY_DIGIT = 3;
 
 	private static final Color DEFAULT_TEXT_COLOR = new Color(null, 0, 0, 0);
 }

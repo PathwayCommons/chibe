@@ -1,5 +1,6 @@
 package org.gvt.editpart;
 
+import org.biopax.paxtools.model.level3.SmallMolecule;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Layer;
@@ -19,6 +20,8 @@ import org.gvt.figure.HighlightLayer;
 import org.gvt.figure.NodeFigure;
 import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
+import org.gvt.model.biopaxl3.Actor;
+import org.gvt.util.EntityHolder;
 
 import java.beans.PropertyChangeEvent;
 import java.util.List;
@@ -54,6 +57,20 @@ public class ChsNodeEditPart extends EditPartWithListener
 			(HighlightLayer) getLayer(HighlightLayer.HIGHLIGHT_LAYER),
 			getNodeModel().isHighlight());
 
+		if (model instanceof Actor)
+		{
+			EntityHolder eh = ((Actor) model).getEntity();
+			if (eh.l3pe instanceof SmallMolecule)
+			{
+				nFigure.setSmallMolecule(true);
+				
+				if (((Actor) model).isUbique())
+				{
+					nFigure.setDrawCloneMarker(true);
+				}
+			}
+		}
+		
 		return nFigure;
 	}
 
