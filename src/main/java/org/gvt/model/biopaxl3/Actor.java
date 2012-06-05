@@ -108,6 +108,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			}
 
 			width = Math.max(suggestInitialWidth(), 15);
+			setBorderColor(UBIQUE_BORDER_COLOR);
 		}
 		else
 		{
@@ -407,4 +408,5 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public static final int DEFAULT_INFO_BULB = 6;
 	public static final int MIN_INITIAL_WIDTH = 40;
 	public static final Color SMALL_MOL_BG_COLOR = new Color(null, 255, 255, 255);
+	public static final Color UBIQUE_BORDER_COLOR = new Color(null, 180, 180, 180);
 }

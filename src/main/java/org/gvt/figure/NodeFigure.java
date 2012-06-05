@@ -11,6 +11,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.internal.gtk.GdkColor;
 import org.gvt.ChsXYLayout;
 import org.gvt.model.NodeModel;
 
@@ -35,6 +36,9 @@ public class NodeFigure extends Figure
 	boolean highlight;
 
 	Color highlightColor;
+	
+	boolean smallMolecule;
+	boolean drawCloneMarker;
 
 	public PointList triangle = new PointList(3);
 
@@ -79,11 +83,35 @@ public class NodeFigure extends Figure
 		updateTextColor(textColor);
 		updateHighlightColor(highlightColor);
 		updateShape(shape);
+
+		smallMolecule = false;
+		drawCloneMarker = false;
 	}
 
 // -----------------------------------------------------------------------------
 // Section: Update methods.
 // -----------------------------------------------------------------------------
+
+
+	public boolean isSmallMolecule()
+	{
+		return smallMolecule;
+	}
+
+	public void setSmallMolecule(boolean smallMolecule)
+	{
+		this.smallMolecule = smallMolecule;
+	}
+
+	public boolean isDrawCloneMarker()
+	{
+		return drawCloneMarker;
+	}
+
+	public void setDrawCloneMarker(boolean drawCloneMarker)
+	{
+		this.drawCloneMarker = drawCloneMarker;
+	}
 
 	public void updateText(String str)
 	{
@@ -238,8 +266,23 @@ public class NodeFigure extends Figure
 			Rectangle r = getParent().getBounds().getCopy();
 			setBounds(r);
 			label.setBounds(r);
-			int rounding = 10;
+			int rounding = smallMolecule ? 15 : 10;
+
 			g.fillRoundRectangle(r, rounding, rounding);
+
+			if (drawCloneMarker)
+			{
+				Color old = g.getBackgroundColor();
+				g.setBackgroundColor(new Color(null, 220, 220, 220));
+				
+				double ratio = 0.3;
+				
+				g.setClip(new Rectangle(r.x, (int) Math.round(r.y + (r.height * (1-ratio))), r.width, (int) Math.round(r.height * ratio)));
+				g.fillRoundRectangle(r, rounding, rounding);
+				g.setBackgroundColor(old);
+				g.setClip(r);
+			}
+
 			r.height--;
 			r.width--;
 			g.drawRoundRectangle(r, rounding, rounding);
