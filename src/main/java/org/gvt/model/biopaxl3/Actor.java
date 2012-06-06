@@ -36,6 +36,8 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	 */
 	protected Entity related;
 
+	int multimerNo;
+	
 	/**
 	 * Constructor.
 	 * @param root container node
@@ -61,6 +63,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 		this.entity = entity;
 		this.related = related;
+		this.multimerNo = 1;
 		configFromModel();
 	}
 
@@ -69,10 +72,26 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		super(excised, root);
 		this.entity = excised.getEntity().l3pe;
 		this.related = excised.getRelated();
+		this.multimerNo = excised.multimerNo;
 		getReferences().clear();
 		configFromModel();
 	}
 
+	public int getMultimerNo()
+	{
+		return multimerNo;
+	}
+
+	public void setMultimerNo(int multimerNo)
+	{
+		this.multimerNo = multimerNo;
+	}
+
+	public boolean isMultimer()
+	{
+		return multimerNo > 1;
+	}
+	
 	public void configFromModel()
 	{
 		// Extract references from entity

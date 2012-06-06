@@ -51,7 +51,8 @@ public class ChsNodeEditPart extends EditPartWithListener
 			model.getBorderColor(),
 			model.getShape(),
 			model.getHighlightColor(),
-			model.isHighlight());
+			model.isHighlight(),
+			model instanceof Actor ? ((Actor) model).getMultimerNo() : 1);
 
 		nFigure.updateHighlight(
 			(HighlightLayer) getLayer(HighlightLayer.HIGHLIGHT_LAYER),
