@@ -34,7 +34,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
 	 */
 	public LocalPoIQueryAction(ChisioMain main)
 	{
-		super(main, "Paths Of Interest ...");
+		super(main, "Paths From To ...");
 		setToolTipText(getText());
 		options = new QueryOptionsPack();
 		this.main = main;
@@ -154,7 +154,7 @@ public class LocalPoIQueryAction extends AbstractLocalQueryAction
         {
             viewAndHighlightResult(result,
                 options.isCurrentView(),
-                "Paths of Interest");
+                "Paths From To");
         }
     }
 }
