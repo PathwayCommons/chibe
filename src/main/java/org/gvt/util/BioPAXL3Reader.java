@@ -202,13 +202,14 @@ public class BioPAXL3Reader
 
 		for (Complex cmp : model.getObjects(Complex.class))
 		{
-			if (cmp.getParticipantOf().isEmpty())
-			{
-				ChbComplex c = new ChbComplex(root, cmp);
-				map.put(cmp.getRDFId(), c);
-				createComplexContent(c, cmp, cmp, map);
-			}
-			else
+// I don't remember why I wrote the below commented out lines.
+//			if (cmp.getParticipantOf().isEmpty())
+//			{
+//				ChbComplex c = new ChbComplex(root, cmp);
+//				map.put(cmp.getRDFId(), c);
+//				createComplexContent(c, cmp, cmp, map);
+//			}
+//			else
 			{
 				CompoundModel compart = getCompartment(cmp, map, root);
 
@@ -228,6 +229,12 @@ public class BioPAXL3Reader
 				if (cmp.getComponent().isEmpty())
 				{
 					nd = new Actor(compart, cmp, null);
+				}
+				else if (hasSingleMultimerMember(cmp))
+				{
+					PhysicalEntity mem = cmp.getComponent().iterator().next();
+					nd = new Actor(compart, mem, cmp);
+					((Actor) nd).setMultimerNo(getStoichiometry(cmp, mem));
 				}
 				else
 				{
@@ -524,6 +531,7 @@ public class BioPAXL3Reader
 			else
 			{
 				ComplexMember cm = new ComplexMember(c, pe, top_cmp);
+				cm.setMultimerNo(getStoichiometry(current_cmp, pe));
 
 				if (isUbique(pe))
 				{
@@ -537,6 +545,23 @@ public class BioPAXL3Reader
 		}
 	}
 
+	private int getStoichiometry(Complex c, PhysicalEntity mem)
+	{
+		for (Stoichiometry st : c.getComponentStoichiometry())
+		{
+			if (st.getPhysicalEntity().equals(mem)) return (int) st.getStoichiometricCoefficient();
+		}
+		return 1;
+	}
+	
+	private boolean hasSingleMultimerMember(Complex c)
+	{
+		return c.getComponent().size() == 1 &&
+			c.getComponent().iterator().next() instanceof SimplePhysicalEntity &&
+			c.getComponentStoichiometry().size() == 1 &&
+			c.getComponentStoichiometry().iterator().next().getStoichiometricCoefficient() > 1;
+	}
+	
 	/**
 	 * Checks if there is an evidence that the conversion works in the specified
 	 * direction.

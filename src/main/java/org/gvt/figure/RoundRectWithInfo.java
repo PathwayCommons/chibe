@@ -20,11 +20,13 @@ public class RoundRectWithInfo extends Figure
 	 * List of information two show.
  	 */
 	List<String> infos;
+	boolean multimer;
 
-	public RoundRectWithInfo(Rectangle bounds, List<String> infos, Label label)
+	public RoundRectWithInfo(Rectangle bounds, List<String> infos, Label label, boolean multimer)
 	{
 		setBounds(bounds);
 		this.infos = infos;
+		this.multimer = multimer;
 
 		this.add(label);
 
@@ -51,10 +53,34 @@ public class RoundRectWithInfo extends Figure
 		rect.height -= SPAN;
 
 		int rounding = 10;
-		g.fillRoundRectangle(rect, rounding, rounding);
-		rect.height--;
-		rect.width--;
-		g.drawRoundRectangle(rect, rounding, rounding);
+
+		if (multimer)
+		{
+			int shift = 2;
+			rect.height -= shift;
+			rect.width -= shift;
+			rect.x += shift;
+			rect.y += shift;
+			g.fillRoundRectangle(rect, rounding, rounding);
+			rect.height--;
+			rect.width--;
+			g.drawRoundRectangle(rect, rounding, rounding);
+			rect.height++;
+			rect.width++;
+			rect.x -= shift;
+			rect.y -= shift;
+			g.fillRoundRectangle(rect, rounding, rounding);
+			rect.height--;
+			rect.width--;
+			g.drawRoundRectangle(rect, rounding, rounding);
+		}
+		else
+		{
+			g.fillRoundRectangle(rect, rounding, rounding);
+			rect.height--;
+			rect.width--;
+			g.drawRoundRectangle(rect, rounding, rounding);
+		}
 	}
 
 //	public void drawInfoBoxes(Graphics g, Rectangle r)

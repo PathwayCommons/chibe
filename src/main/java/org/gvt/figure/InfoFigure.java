@@ -72,7 +72,7 @@ public class InfoFigure extends Figure
 		label.setToolTip(new Label(info));
 
 		Rectangle r = getBounds().getCopy();
-		r.y -= 2;
+		r.y -= 1;
 		r.x += 1;
 
 		label.setBounds(r);
@@ -165,7 +165,9 @@ public class InfoFigure extends Figure
 	{
 		if (Character.isDigit(letter.charAt(0)) ||
 			info.equals("active") || info.equals("active tf") ||
-			info.equals("native") || info.equals("inactive"))
+			info.equals("native") || info.equals("inactive") ||
+			info.equals("residue modification, active") ||
+			info.equals("residue modification, inactive"))
 		{
 			return RECT;
 		}
@@ -183,7 +185,7 @@ public class InfoFigure extends Figure
 
 	protected static final Font FONT = new Font(null, "Segoe UI", 7, 0);
 	protected static final Color DIGIT_BACK_COLOR = new Color(null, 250, 250, 250);
-	protected static final Color DIGIT_FORE_COLOR = new Color(null, 150, 0, 0);
+	protected static final Color DIGIT_FORE_COLOR = new Color(null, 0, 0, 0);
 	protected static final Color DEFAULT_BACK_COLOR = new Color(null, 255, 255, 255);
 	protected static final Color DEFAULT_FORE_COLOR = new Color(null, 50, 50, 50);
 	protected static final Color DEFAULT_BORD_COLOR = new Color(null, 0, 0, 0);
@@ -213,7 +215,7 @@ public class InfoFigure extends Figure
 		final Color INACTIVE_FORE = WHITE;
 		final Color METHYL_FORE = new Color(null, 20, 20, 200);
 		final Color GLYCOSYL_FORE = new Color(null, 20, 20, 100);
-		final Color UBIQUITIN_BG = new Color(null, 150, 80, 80);
+		final Color UBIQUITIN_FORE = new Color(null, 100, 20, 20);
 
 		put("phosphorylation", PHOSPHO_BG, PHOSPHO_FORE, null);
 		put("phosphorylation site", PHOSPHO_BG, PHOSPHO_FORE, null);
@@ -230,8 +232,8 @@ public class InfoFigure extends Figure
 		put("residue modification, active", ACTIVE_BG, ACTIVE_FORE, "a");
 
 		put("native", new Color(null, 200, 200, 200), new Color(null, 100, 100, 100), null);
-		put("ubiquitination site", UBIQUITIN_BG, WHITE, null);
-		put("ubiquitinylated lysine", UBIQUITIN_BG, WHITE, null);
+		put("ubiquitination site", null, UBIQUITIN_FORE, null);
+		put("ubiquitinylated lysine", null, UBIQUITIN_FORE, null);
 		put("chain coordinates", new Color(null, 150, 150, 150), WHITE, null);
 		put("methylated lysine", null, METHYL_FORE, null);
 		put("n6,n6-dimethyl-l-lysine", null, METHYL_FORE, "m");

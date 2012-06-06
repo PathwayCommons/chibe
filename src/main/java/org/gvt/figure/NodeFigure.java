@@ -37,6 +37,7 @@ public class NodeFigure extends Figure
 	Color highlightColor;
 	
 	boolean smallMolecule;
+	int multimer;
 	boolean drawCloneMarker;
 
 	public PointList triangle = new PointList(3);
@@ -59,7 +60,8 @@ public class NodeFigure extends Figure
 		Color borderColor,
 		String shape,
 		Color highlightColor,
-		boolean highlight)
+		boolean highlight,
+		int multimer)
 	{
 		super();
 
@@ -70,7 +72,8 @@ public class NodeFigure extends Figure
 		add(label);
 		
 		this.highlight = highlight;
-		
+		this.multimer = multimer;
+
 		setBackgroundColor(color);
 		setForegroundColor(borderColor);
 		setLayoutManager(new ChsXYLayout());
@@ -100,6 +103,16 @@ public class NodeFigure extends Figure
 	public void setSmallMolecule(boolean smallMolecule)
 	{
 		this.smallMolecule = smallMolecule;
+	}
+
+	public int getMultimer()
+	{
+		return multimer;
+	}
+
+	public void setMultimer(int multimer)
+	{
+		this.multimer = multimer;
 	}
 
 	public boolean isDrawCloneMarker()
@@ -171,20 +184,26 @@ public class NodeFigure extends Figure
 		{
 //			assert shape.indexOf(";") > 0 && shape.length() >= 19 : "shape = " + shape;
 
-			if (shape.indexOf(";") > 0)
+			int semicolIndex = shape.indexOf(";");
+			if (semicolIndex > 0 || multimer > 1)
 			{
 				List<String> infos = new ArrayList<String>();
 
-				String line = shape.substring(shape.indexOf(";")+1);
-				for (String info : line.split(";"))
+				if (semicolIndex > 0)
 				{
-					if (info.length() > 0)
+					String line = shape.substring(semicolIndex +1);
+					for (String info : line.split(";"))
 					{
-						infos.add(info);
+						if (info.length() > 0)
+						{
+							infos.add(info);
+						}
 					}
 				}
-	
-				add(new RoundRectWithInfo(getBounds(), infos, label));
+
+				if (multimer > 1) infos.add(0, "" + multimer);
+
+				add(new RoundRectWithInfo(getBounds(), infos, label, multimer > 1));
 			}
 			else
 			{
@@ -267,24 +286,29 @@ public class NodeFigure extends Figure
 			label.setBounds(r);
 			int rounding = smallMolecule ? 15 : 10;
 
-			g.fillRoundRectangle(r, rounding, rounding);
-
-			if (drawCloneMarker)
+//			else
 			{
-				Color old = g.getBackgroundColor();
-				g.setBackgroundColor(new Color(null, 220, 220, 220));
-				
-				double ratio = 0.3;
-				
-				g.setClip(new Rectangle(r.x, (int) Math.round(r.y + (r.height * (1-ratio))), r.width, (int) Math.round(r.height * ratio)));
-				g.fillRoundRectangle(r, rounding, rounding);
-				g.setBackgroundColor(old);
-				g.setClip(r);
-			}
 
-			r.height--;
-			r.width--;
-			g.drawRoundRectangle(r, rounding, rounding);
+				g.fillRoundRectangle(r, rounding, rounding);
+
+				if (drawCloneMarker)
+				{
+					Color old = g.getBackgroundColor();
+					g.setBackgroundColor(new Color(null, 220, 220, 220));
+
+					double ratio = 0.3;
+
+					g.setClip(new Rectangle(r.x, (int) Math.round(r.y + (r.height * (1-ratio))),
+						r.width, (int) Math.round(r.height * ratio)));
+					g.fillRoundRectangle(r, rounding, rounding);
+					g.setBackgroundColor(old);
+					g.setClip(r);
+				}
+
+				r.height--;
+				r.width--;
+				g.drawRoundRectangle(r, rounding, rounding);
+			}
 		}
 	}
 

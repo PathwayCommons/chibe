@@ -38,7 +38,7 @@ public class CompoundFigure extends NodeFigure
 			borderColor,
 			"Rectangle",
 			highlightColor,
-			highlight);
+			highlight, 1);
 
 		this.labelHeight = CompoundModel.LABEL_HEIGHT;
 		this.label.setOpaque(true);
