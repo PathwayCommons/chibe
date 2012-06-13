@@ -38,12 +38,19 @@ public class NonModulatedEffector extends BioPAXEdge
 		assert target instanceof ChbConversion || target instanceof ChbTempReac ||
 			target instanceof ChbControl || target instanceof Hub;
 
-		setArrow("Target");
 		this.cont = cont;
 		this.controlled = controlled;
 		this.sign = ChbControl.isActivation(cont) ? Edge.POSITIVE : Edge.NEGATIVE;
 
 		setColor(isPositive() ? ChbControl.EDGE_COLOR_ACTIVATE : ChbControl.EDGE_COLOR_INHIBIT);
+        if (cont instanceof Catalysis)
+        {
+            setArrow("Catalysis");
+        }
+        else
+        {
+            setArrow(isPositive() ? "Stimulation" : "Inhibition");
+        }
 	}
 
 	public NonModulatedEffector(NonModulatedEffector excised, Map<NodeModel, NodeModel> map)

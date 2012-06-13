@@ -35,7 +35,7 @@ public class EffectorSecondHalf extends BioPAXEdge
 		this.cont = cont;
 		this.sign = Control.isActivation(cont) ? Edge.POSITIVE : Edge.NEGATIVE;
 
-		setArrow("Target");
+        setArrow("Modulation");
 		setColor(this.isPositive() ? Control.EDGE_COLOR_ACTIVATE : Control.EDGE_COLOR_INHIBIT);
 	}
 
