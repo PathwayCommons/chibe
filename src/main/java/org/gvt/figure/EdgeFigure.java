@@ -1,6 +1,8 @@
 package org.gvt.figure;
 
 import org.eclipse.draw2d.*;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -139,6 +141,46 @@ public class EdgeFigure extends PolylineConnection
 				setTargetDecoration(new PolygonDecoration());
 				setSourceDecoration(new PolygonDecoration());
 			}
+            else if (this.arrow.equals("Modulation"))
+            {
+                PolygonDecoration pg = new PolygonDecoration();
+                pg.setTemplate(new PointList(new int[] {-1,-1,-2,0,-1,1,0,0}));
+                pg.setBackgroundColor(new Color(null,255,255,255));
+
+                setSourceDecoration(null);
+                setTargetDecoration(pg);
+            }
+            else if (this.arrow.equals("Stimulation"))
+            {
+                PolygonDecoration pg = new PolygonDecoration();
+                pg.setBackgroundColor(new Color(null,255,255,255));
+                setSourceDecoration(null);
+                setTargetDecoration(pg);
+            }
+            else if (this.arrow.equals("Catalysis"))
+            {
+                // circle arrowhead with ConnectionEndpointLocator
+                Ellipse el = new Ellipse();
+                el.setSize(new Dimension(9,9));
+
+                ConnectionEndpointLocator cel = new ConnectionEndpointLocator(this,true);
+                cel.setUDistance(-2);
+                cel.setVDistance(0);
+
+                add(el,cel);
+
+                // circle arrowhead with ConnectionLocator
+//                ConnectionLocator cl = new ConnectionLocator(this, ConnectionLocator.TARGET);
+//                add(el,cl);
+
+            }
+            else if (this.arrow.equals("Inhibition"))
+            {
+                PolygonDecoration pl = new PolygonDecoration();
+                pl.setTemplate(new PointList(new int[] {0, -1, 0, 0, 0, 1}));
+                setSourceDecoration(null);
+                setTargetDecoration(pl);
+            }
 		}
 	}
 

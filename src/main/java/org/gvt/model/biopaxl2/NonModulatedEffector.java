@@ -35,12 +35,19 @@ public class NonModulatedEffector extends PEPBasedEdge
 		assert source instanceof Actor || source instanceof Complex;
 		assert target instanceof Conversion || target instanceof Control || target instanceof Hub;
 
-		setArrow("Target");
 		this.cont = cont;
 		this.controlled = controlled;
 		this.sign = Control.isActivation(cont) ? Edge.POSITIVE : Edge.NEGATIVE;
 
 		setColor(isPositive() ? Control.EDGE_COLOR_ACTIVATE : Control.EDGE_COLOR_INHIBIT);
+        if (cont instanceof catalysis)
+        {
+            setArrow("Catalysis");
+        }
+        else
+        {
+            setArrow(isPositive() ? "Stimulation" : "Inhibition");
+        }
 	}
 
 	public NonModulatedEffector(NonModulatedEffector excised, Map<NodeModel, NodeModel> map)

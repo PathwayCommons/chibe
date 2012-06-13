@@ -208,7 +208,11 @@ public abstract class Inspector extends Dialog
 							String[] arrowOfEdge = {"None",
 								"Source",
 								"Target",
-								"Both"};
+								"Both",
+                                "Modulation",
+                                "Stimulation",
+                                "Catalysis",
+                                "Inhibition"};
 							combo.setItems(arrowOfEdge);
 						}
 						else if (item.getText().equals("Shape"))
