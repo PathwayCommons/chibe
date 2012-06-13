@@ -1,6 +1,8 @@
 package org.gvt.model.biopaxl2;
 
 import org.biopax.paxtools.model.level2.control;
+import org.biopax.paxtools.model.level2.catalysis;
+import org.biopax.paxtools.model.level2.modulation;
 import org.gvt.model.NodeModel;
 import org.patika.mada.graph.Edge;
 
@@ -35,7 +37,11 @@ public class EffectorSecondHalf extends BioPAXEdge
 		this.cont = cont;
 		this.sign = Control.isActivation(cont) ? Edge.POSITIVE : Edge.NEGATIVE;
 
-        setArrow("Modulation");
+		setArrow(
+			cont instanceof catalysis ? "Catalysis" :
+				cont instanceof modulation ? "Modulation" :
+					this.isPositive() ? "Stimulation" : "Inhibition");
+
 		setColor(this.isPositive() ? Control.EDGE_COLOR_ACTIVATE : Control.EDGE_COLOR_INHIBIT);
 	}
 

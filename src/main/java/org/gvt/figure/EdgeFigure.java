@@ -1,11 +1,14 @@
 package org.gvt.figure;
 
 import org.eclipse.draw2d.*;
-import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.draw2d.geometry.Rectangle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class maintains the edge figure which is the UI of edges. Each edge has
@@ -144,7 +147,8 @@ public class EdgeFigure extends PolylineConnection
             else if (this.arrow.equals("Modulation"))
             {
                 PolygonDecoration pg = new PolygonDecoration();
-                pg.setTemplate(new PointList(new int[] {-1,-1,-2,0,-1,1,0,0}));
+				pg.setScale(4, 2.5);
+                pg.setTemplate(new PointList(new int[]{-1, -1, -2, 0, -1, 1, 0, 0}));
                 pg.setBackgroundColor(new Color(null,255,255,255));
 
                 setSourceDecoration(null);
@@ -159,27 +163,17 @@ public class EdgeFigure extends PolylineConnection
             }
             else if (this.arrow.equals("Catalysis"))
             {
-                // circle arrowhead with ConnectionEndpointLocator
-                Ellipse el = new Ellipse();
-                el.setSize(new Dimension(9,9));
-
-                ConnectionEndpointLocator cel = new ConnectionEndpointLocator(this,true);
-                cel.setUDistance(-2);
-                cel.setVDistance(0);
-
-                add(el,cel);
-
-                // circle arrowhead with ConnectionLocator
-//                ConnectionLocator cl = new ConnectionLocator(this, ConnectionLocator.TARGET);
-//                add(el,cl);
-
+                CircleDecoration el = new CircleDecoration();
+				setTargetDecoration(el);
             }
             else if (this.arrow.equals("Inhibition"))
             {
                 PolygonDecoration pl = new PolygonDecoration();
-                pl.setTemplate(new PointList(new int[] {0, -1, 0, 0, 0, 1}));
-                setSourceDecoration(null);
-                setTargetDecoration(pl);
+				pl.setTemplate(new PointList(new int[]{0, -3, 0, 0, 0, 3, -1, 3, -1, 0, -1, -3}));
+				pl.setScale(1, 1.2);
+//				pl.setTemplate(new PointList(new int[] {0, -1, 0, 0, 0, 1}));
+				setSourceDecoration(null);
+				setTargetDecoration(pl);
             }
 		}
 	}

@@ -43,14 +43,10 @@ public class NonModulatedEffector extends BioPAXEdge
 		this.sign = ChbControl.isActivation(cont) ? Edge.POSITIVE : Edge.NEGATIVE;
 
 		setColor(isPositive() ? ChbControl.EDGE_COLOR_ACTIVATE : ChbControl.EDGE_COLOR_INHIBIT);
-        if (cont instanceof Catalysis)
-        {
-            setArrow("Catalysis");
-        }
-        else
-        {
-            setArrow(isPositive() ? "Stimulation" : "Inhibition");
-        }
+		setArrow(
+			cont instanceof Catalysis ? "Catalysis" :
+				cont instanceof Modulation ? "Modulation" :
+					this.isPositive() ? "Stimulation" : "Inhibition");
 	}
 
 	public NonModulatedEffector(NonModulatedEffector excised, Map<NodeModel, NodeModel> map)

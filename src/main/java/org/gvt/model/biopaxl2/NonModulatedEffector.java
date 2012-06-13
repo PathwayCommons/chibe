@@ -40,14 +40,11 @@ public class NonModulatedEffector extends PEPBasedEdge
 		this.sign = Control.isActivation(cont) ? Edge.POSITIVE : Edge.NEGATIVE;
 
 		setColor(isPositive() ? Control.EDGE_COLOR_ACTIVATE : Control.EDGE_COLOR_INHIBIT);
-        if (cont instanceof catalysis)
-        {
-            setArrow("Catalysis");
-        }
-        else
-        {
-            setArrow(isPositive() ? "Stimulation" : "Inhibition");
-        }
+		setArrow(
+			cont instanceof catalysis ? "Catalysis" :
+				cont instanceof modulation ? "Modulation" :
+					this.isPositive() ? "Stimulation" : "Inhibition");
+
 	}
 
 	public NonModulatedEffector(NonModulatedEffector excised, Map<NodeModel, NodeModel> map)
