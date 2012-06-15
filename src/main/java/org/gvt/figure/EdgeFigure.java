@@ -168,10 +168,9 @@ public class EdgeFigure extends PolylineConnection
             }
             else if (this.arrow.equals("Inhibition"))
             {
-                PolygonDecoration pl = new PolygonDecoration();
-				pl.setTemplate(new PointList(new int[]{0, -3, 0, 0, 0, 3, -1, 3, -1, 0, -1, -3}));
-				pl.setScale(1, 1.2);
-//				pl.setTemplate(new PointList(new int[] {0, -1, 0, 0, 0, 1}));
+                PolylineDecoration pl = new PolylineDecoration();
+				pl.setTemplate(new PointList(new int[]{0, -1, 0, 0, 0, 1}));
+                pl.setLineWidth(3);
 				setSourceDecoration(null);
 				setTargetDecoration(pl);
             }
