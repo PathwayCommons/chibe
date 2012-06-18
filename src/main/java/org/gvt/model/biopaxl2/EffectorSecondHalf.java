@@ -39,7 +39,7 @@ public class EffectorSecondHalf extends BioPAXEdge
 
 		setArrow(
 			cont instanceof catalysis ? "Catalysis" :
-				cont instanceof modulation ? "Modulation" :
+				cont.getCONTROL_TYPE() == null ? "Modulation" :
 					this.isPositive() ? "Stimulation" : "Inhibition");
 
 		setColor(this.isPositive() ? Control.EDGE_COLOR_ACTIVATE : Control.EDGE_COLOR_INHIBIT);

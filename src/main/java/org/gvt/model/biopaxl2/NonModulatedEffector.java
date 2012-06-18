@@ -42,7 +42,7 @@ public class NonModulatedEffector extends PEPBasedEdge
 		setColor(isPositive() ? Control.EDGE_COLOR_ACTIVATE : Control.EDGE_COLOR_INHIBIT);
 		setArrow(
 			cont instanceof catalysis ? "Catalysis" :
-				cont instanceof modulation ? "Modulation" :
+				cont.getCONTROL_TYPE() == null ? "Modulation" :
 					this.isPositive() ? "Stimulation" : "Inhibition");
 
 	}
