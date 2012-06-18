@@ -45,7 +45,7 @@ public class NonModulatedEffector extends BioPAXEdge
 		setColor(isPositive() ? ChbControl.EDGE_COLOR_ACTIVATE : ChbControl.EDGE_COLOR_INHIBIT);
 		setArrow(
 			cont instanceof Catalysis ? "Catalysis" :
-				cont instanceof Modulation ? "Modulation" :
+				cont.getControlType() == null ? "Modulation" :
 					this.isPositive() ? "Stimulation" : "Inhibition");
 	}
 
