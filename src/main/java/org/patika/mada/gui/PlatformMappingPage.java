@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.StringTokenizer;
 import java.util.HashMap;
 
@@ -238,7 +239,7 @@ public class PlatformMappingPage extends PatikaWizardPage implements ActionListe
 						String[] referenceInCombo = getReferenceArray();
 
 						mapTable = new ReferenceTable(this.mdcw, columns, referenceInCombo,
-							mdcw.getPredictedMatches(referenceInCombo, columns));
+							mdcw.getPredictedMatches(columns));
 
 						mapTable.getModel().addTableModelListener(this.mdcw);
 						scrollPane = new JScrollPane(mapTable);
@@ -267,13 +268,12 @@ public class PlatformMappingPage extends PatikaWizardPage implements ActionListe
  */
 	private String[] getReferenceArray()
 	{
-		java.util.List<String> reftypes = mdcw.getSupportedReferencesTypes();
-		String[] ref = new String[reftypes.size() + 2];
+        Collection<String> reftypes = ExperimentDataConvertionWizard.getKnownReferenceSetsMap().values();
+		String[] ref = new String[reftypes.size() + 1];
 
 		ref[0] = "None";
-		ref[1]="Key to data file(s)";
 
-		int i=2;
+		int i=1;
 		for (String s : reftypes)
 		{
 			ref[i++] = s;

@@ -1,11 +1,16 @@
 package org.gvt.action;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.patika.mada.dataXML.ChisioExperimentData;
+import org.patika.mada.dataXML.Row;
+import org.patika.mada.dataXML.impl.ReferenceImpl;
+import org.patika.mada.gui.ExperimentDataConvertionWizard;
+import org.patika.mada.util.XRef;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -13,6 +18,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.*;
 
 /**
  * @author Ozgun Babur
@@ -74,10 +80,24 @@ public class LoadExperimentDataAction extends Action
 				else 
 					data = (ChisioExperimentData) u.unmarshal(new URL(filename));
 
-				main.setExperimentData(data, filename);
+                // A mapping between reference names in graph and in data is the prerequisite of loading the data.
+                // Otherwise, a warning is displayed to inform the user about the lack of this matching.
 
-				// Apply coloring on the current view if exists
-				new ColorWithExperimentAction(main, null, data.getExperimentType()).run();
+                if(referenceMatch(data))
+                {
+				    main.setExperimentData(data, filename);
+
+				    // Apply coloring on the current view if exists
+				    new ColorWithExperimentAction(main, null, data.getExperimentType()).run();
+                }
+                else
+                {
+                    MessageDialog.openWarning(null,
+                        "No data!",
+                         "There is no external reference matching between graph and data.\n" +
+                             "Please make sure your BioPAX model contains proper external references " +
+                             "that matches the references in expression data annotation.");
+                }
 			}
 			catch (Exception e)
 			{
@@ -125,6 +145,58 @@ public class LoadExperimentDataAction extends Action
 
 		return f;
 	}
+
+    /**
+     * Overlap of reference names between graph and loaded data is checked.
+     *
+     */
+    public boolean referenceMatch(ChisioExperimentData data)
+    {
+        boolean isMatching = false;
+
+        // references found in the graph
+        ArrayList<String> graphRef = new ArrayList<String>(XRef.getDBSet());
+
+        // reference mapping from reference.txt
+        Map<List<String>,String> referenceList = ExperimentDataConvertionWizard.getKnownReferenceSetsMap();
+
+        // references found in loaded .ced file
+        Set<String> cedRef = new HashSet<String>();
+
+        // As all reference names will be same for each row, only the first one is used to obtain them from the data file.
+
+        Row row = (Row)data.getRow().get(0);
+        for (int i = 0; i < row.getRef().size(); i++)
+        {
+            cedRef.add(((ReferenceImpl)(row.getRef().get(i))).getDb());
+        }
+
+        for (String ref : graphRef)
+        {
+            String refTxt = null;
+
+            // Reference names in the graph is mapped to the values in referenceList to make them comparable with
+            // cedRef, which are obtained from referenceList.
+
+            for (List<String> strings : referenceList.keySet())
+            {
+                if (strings.contains(ref))
+                {
+                    refTxt = referenceList.get(strings);
+                    break;
+                }
+            }
+
+            // One matching reference is enough.
+            if(cedRef.contains(refTxt))
+            {
+                isMatching = true;
+                break;
+            }
+        }
+
+        return isMatching;
+    }
 
 	/**
 	 * Checks if the file name is a valid chisio experiment file name.

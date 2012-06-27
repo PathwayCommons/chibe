@@ -120,7 +120,7 @@ public class NonePlatformMappingPage extends PatikaWizardPage implements ActionL
 		String[] referenceInCombo = getReferenceArray();
 
 		mapTable = new ReferenceTable(mdcw, columns, referenceInCombo,
-			mdcw.getPredictedMatches(referenceInCombo, columns));
+			mdcw.getPredictedMatches(columns));
 
 		mapTable.getModel().addTableModelListener(this.mdcw);
 		scrollPane = new JScrollPane(mapTable);
@@ -320,7 +320,7 @@ public class NonePlatformMappingPage extends PatikaWizardPage implements ActionL
 	 */
 	private String[] getReferenceArray()
 	{
-		java.util.List<String> reftypes = mdcw.getSupportedReferencesTypes();
+        Collection<String> reftypes = ExperimentDataConvertionWizard.getKnownReferenceSetsMap().values();
 		String[] ref = new String[reftypes.size() + 2];
 
 		ref[0] = "None";

@@ -81,6 +81,11 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 
 	private Map<String, Row> index2Row;
 
+    /**
+	 * matched references between platform file and references.txt
+	 */
+	protected Map<String, String> match;
+
 	/**
 	 * Constuctor to initialize without GUI 
 	 * @param supportedReferenceTypes
@@ -1060,71 +1065,122 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 		return tokens.toArray(new String[tokens.size()]);
 	}
 
-	/**
-	 * Infers a matching from column names in the data file to the found reference names in graph
-	 * file.
-	 * @param graphRefs references found in the graph
-	 * @param dataCols column names in data file
-	 * @return inferred matching (column name --> ref in graph)
-	 */
-	protected Map<String, String> getPredictedMatches(String[] graphRefs, List<String> dataCols)
+    /**
+     * Infers a matching between references.txt file and column names in the data file
+     *
+     * @param dataCols dataCols column names in data file
+     * @return inferred matching
+     */
+	protected Map<String, String> getPredictedMatches(List<String> dataCols)
 	{
-		Map<String, String> match = new HashMap<String, String>();
+        match = new HashMap<String, String>();
+        Map<List<String>,String> referenceList = getKnownReferenceSetsMap();
 
-		// Get known reference sets
-		Map<String, List<String>> knownRefsSetsMap = getKnownReferenceSetsMap();
-
-		// Prepare a reverse map from refs in graph to synonyms sets
-
-		Map<List<String>, String> list2Ref = new HashMap<List<String>, String>();
-
-		for (String ref : graphRefs)
+        // Prepare a reverse map of referenceList
+		Map<String, List<String>> knownRefsSetsMap = new HashMap<String, List<String>>();
+		for (List<String> key : referenceList.keySet())
 		{
-			List<String> refSet = knownRefsSetsMap.get(ref);
-
-			if (refSet != null && !list2Ref.containsKey(refSet))
-			{
-				list2Ref.put(refSet, ref);
-			}
+			putInRefListMap(knownRefsSetsMap,key);
 		}
 
-		// Find a matching for column names
+        // Match reference names of data file with to the associated names in references.txt
+        for(String col : dataCols)
+        {
+            List<String> list = knownRefsSetsMap.get(col);
 
-		for (String col : dataCols)
-		{
-			List<String> list = knownRefsSetsMap.get(col);
-
-			if (list != null && list2Ref.containsKey(list))
-			{
-				match.put(col, list2Ref.get(list));
-			}
-		}
+            if(list != null && referenceList.containsKey(list))
+            {
+                match.put(col,referenceList.get(list));
+            }
+        }
 
 		return match;
 	}
 
 	/**
-	 * Prepares a map from known reference names to the sets of those names. These sets contain
-	 * other known names of the same reference, including the reference itself (used as key).
-	 * @return map from known reference names to the sets of those names
+	 * Prepares a map of references.txt file. Values are the synonyms of the reference name in key.
+     *
 	 */
-	private Map<String, List<String>> getKnownReferenceSetsMap()
+	public static Map<List<String>,String> getKnownReferenceSetsMap()
 	{
-		Map<String, List<String>> map = new HashMap<String, List<String>>();
+        Map<List<String>,String> refList = new HashMap<List<String>,String>();
+        Map<List<String>,String> userRefList = new HashMap<List<String>,String>();
 
-		putInRefListMap(map, COMMON_ENSEMBLE_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_GB_ACCESSION_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_GENE_ID_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_GENE_SYMBOL_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_OMIM_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_REF_SEQ_PROT_ID_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_REF_SEQ_TRANSCRIPT_ID_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_SWISSPROT_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_UNIGENE_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_CPATH_COLUMN_NAMES);
-		putInRefListMap(map, COMMON_KEY_COLUMN_NAMES);
+        try
+        {
+            File references = new File("src/main/resources/org/gvt/util/references.txt");
 
-		return map;
+            BufferedReader reader = new BufferedReader(new FileReader(references));
+
+            // discard the first line which contains note to user
+            String line = reader.readLine();
+
+            // Previously determined reference lists are read from file to be stored in refList map.
+
+            while(!(line = reader.readLine()).equals(""))
+            {
+                StringTokenizer tokenizer = new StringTokenizer(line,"\t");
+                String refName = tokenizer.nextToken();
+                List<String> refValues = new ArrayList<String>();
+                while(tokenizer.hasMoreTokens())
+                {
+                    String token = tokenizer.nextToken();
+                    refValues.add(token);
+                }
+                refList.put(refValues, refName);
+            }
+
+            // discard the first line which contains note to user
+            String userLine = reader.readLine();
+
+            // If there are any reference lists supplied by the user at the end of predefined lists,
+            // they will be stored in userRefList.
+
+            while(((userLine = reader.readLine()) != null) && !(userLine.equals("")))
+            {
+                StringTokenizer tokenizer = new StringTokenizer(userLine,"\t");
+                String userRefName = tokenizer.nextToken();
+                List<String> userRefValues = new ArrayList<String>();
+                while(tokenizer.hasMoreTokens())
+                {
+                    String token = tokenizer.nextToken();
+                    userRefValues.add(token);
+                }
+                userRefList.put(userRefValues, userRefName);
+            }
+
+            // In case there are overlapping reference values between refList and userRefList maps, entry in userRefList
+            // overrides the entry in refList.
+
+            ArrayList<List<String>> removeList = new ArrayList<List<String>>();
+
+            if(!userRefList.isEmpty())
+            {
+                for (Map.Entry<List<String>, String> userEntry : userRefList.entrySet())
+                {
+                    for (Map.Entry<List<String>, String> entry : refList.entrySet())
+                    {
+                        if(entry.getValue().equals(userEntry.getValue()))
+                        {
+                            removeList.add(entry.getKey());
+                        }
+                    }
+                }
+            }
+
+            for (List<String> list : removeList)
+            {
+                refList.remove(list);
+            }
+
+            refList.putAll(userRefList);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+		return refList;
 	}
 
 	/**

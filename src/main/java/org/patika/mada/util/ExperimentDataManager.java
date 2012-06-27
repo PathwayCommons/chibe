@@ -3,6 +3,7 @@ package org.patika.mada.util;
 import org.patika.mada.dataXML.*;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.Node;
+import org.patika.mada.gui.ExperimentDataConvertionWizard;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -665,13 +666,15 @@ public class ExperimentDataManager
 	 */
 	private Double getValue(List<Integer> expIndices, XRef ref)
 	{
-		if (expIndices.size() == 1) return getValue(expIndices.get(0), ref);
+        Map<List<String>,String> referenceList = ExperimentDataConvertionWizard.getKnownReferenceSetsMap();
+
+		if (expIndices.size() == 1) return getValue(expIndices.get(0), ref, referenceList);
 
 		List<Double> vals = new ArrayList<Double>();
 
 		for (int i : expIndices)
 		{
-			Double v = getValue(i, ref);
+			Double v = getValue(i, ref, referenceList);
 			if (v != null) vals.add(v);
 		}
 
@@ -706,29 +709,52 @@ public class ExperimentDataManager
 	 * @param ref reference to look for
 	 * @return value value associated with ref in the experiment
 	 */
-	private Double getValue(int expIndex, XRef ref)
+	private Double getValue(int expIndex, XRef ref, Map<List<String>,String> referenceList)
 	{
 		Map<XRef, List<Double>> map = this.experimentMapsList.get(expIndex);
 
-		if (map.containsKey(ref))
-		{
-			switch(this.averaging)
-			{
-				case MAX:
-					return max(map.get(ref));
-				case MEAN:
-					return mean(map.get(ref));
-				case MEDIAN:
-					return median(map.get(ref));
-				default:
-					throw new RuntimeException(
-						"Invalid averaging method: " + averaging);
-			}
-		}
-		else
-		{
-			return null;
-		}
+        // XRef object's reference names are mapped to names in references.txt in order to make them comparable with
+        // values obtained from .ced file.
+
+        String newDb = null;
+        for (List<String> strings : referenceList.keySet())
+        {
+            if (strings.contains(ref.getDb()))
+            {
+                newDb = referenceList.get(strings);
+            }
+        }
+
+        if (newDb != null)
+        {
+            // If there is a reference matching, a new XRef object - which will be used for comparison - is created
+            // with the particular reference name.
+            XRef newRef = new XRef(newDb, ref.getRef());
+
+            if (map.containsKey(newRef))
+            {
+                switch(this.averaging)
+                {
+                    case MAX:
+                        return max(map.get(newRef));
+                    case MEAN:
+                        return mean(map.get(newRef));
+                    case MEDIAN:
+                        return median(map.get(newRef));
+                    default:
+                        throw new RuntimeException(
+                                "Invalid averaging method: " + averaging);
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
 	}
 
 	public Set<XRef> getReferenceSet()

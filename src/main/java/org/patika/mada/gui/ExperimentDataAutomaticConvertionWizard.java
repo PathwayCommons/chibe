@@ -108,10 +108,7 @@ public class ExperimentDataAutomaticConvertionWizard extends ExperimentDataConve
 				}
 			}
 
-			String[] referenceInCombo = getReferenceArray();
-
-			mapTable = new ReferenceTable(columnsPlatform,
-				getPredictedMatches(referenceInCombo, columnsPlatform));
+            mapTable = new ReferenceTable(columnsPlatform, getPredictedMatches(columnsPlatform));
 		}
 		catch (IOException e1)
 		{
@@ -320,24 +317,5 @@ public class ExperimentDataAutomaticConvertionWizard extends ExperimentDataConve
 			}
 		}
 		return index;
-	}
-
-	/**
- 	* Array for displaying references in graph
- 	*/
-	private String[] getReferenceArray()
-	{
-		java.util.List<String> reftypes = getSupportedReferencesTypes();
-		String[] ref = new String[reftypes.size() + 2];
-
-		ref[0] = "None";
-		ref[1] = "Key to data file(s)";
-
-		int i=2;
-		for (String s : reftypes)
-		{
-			ref[i++] = s;
-		}
-		return ref;
 	}
 }
