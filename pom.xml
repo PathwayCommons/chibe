@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>chibe</groupId>
+	<artifactId>chibe</artifactId>
+	<version>2.0</version>
+
+	<properties>
+		<paxtools.version>4.1.5-SNAPSHOT</paxtools.version>
+
+		<!--Below code is used for creating platform dependent builds. If you are creating a build
+			for a different platform, comment out the "profiles" section and comment in the below
+			line, and update to the correct swt type.-->
+
+		<!--<swt.artifactId>swt-win32-win32-x86</swt.artifactId>-->
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://repo1.maven.org/maven2/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+        <repository>
+            <id>maven-repository.dev.java.net</id>
+            <name>Java.net Maven 2 Repository</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+		<!--<repository>-->
+		<!--<id>eclipse</id>-->
+		<!--<name>eclipse</name>-->
+		<!--<url>http://maven.eclipse.org/nexus/content/repositories/testing</url>-->
+		<!--</repository>-->
+        <repository>
+            <id>biopax.releases</id>
+            <name>BioPAX Snapshots Repository at Sourceforge</name>
+            <url>http://biopax.sourceforge.net/m2repo/releases/</url>
+        </repository>
+		<repository>
+			<id>biopax.snapshots</id>
+			<name>BioPAX Snapshots Repository at Sourceforge</name>
+			<url>http://biopax.sourceforge.net/m2repo/snapshots/</url>
+		</repository>
+		<repository>
+			<id>chibe</id>
+			<name>ChiBE Specific</name>
+			<url>http://cbio.mskcc.org/~ozgun/m2repo/</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.2-beta-5</version>
+					<configuration>
+						<finalName>ChiBE</finalName>
+						<appendAssemblyId>false</appendAssemblyId>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+						<archive>
+							<manifest>
+								<mainClass>org.gvt.ChisioMain</mainClass>
+								<addClasspath>true</addClasspath>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>mac</id>
+			<activation>
+				<os>
+					<name>MAC OS X</name>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-carbon-macosx</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>win32</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+					<arch>x86</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-win32-win32-x86</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>win64</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+					<arch>x86_64</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-win32-win32-x86-64</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>win64</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+					<arch>amd64</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-win32-win32-x86-64</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>lin32</id>
+			<activation>
+				<os>
+					<family>Linux</family>
+                    <arch>x86</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-gtk-linux-x86</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>lin64</id>
+			<activation>
+				<os>
+					<family>Linux</family>
+                    <arch>x86</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-gtk-linux-x86-64</swt.artifactId>
+			</properties>
+		</profile>
+		<profile>
+			<id>lin64</id>
+			<activation>
+				<os>
+					<family>Linux</family>
+                    <arch>amd64</arch>
+				</os>
+			</activation>
+			<properties>
+				<swt.artifactId>swt-gtk-linux-x86-64</swt.artifactId>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>${swt.artifactId}</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>core.runtime</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>gef</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>jface</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.biopax.paxtools</groupId>
+			<artifactId>paxtools-core</artifactId>
+			<version>${paxtools.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.biopax.paxtools</groupId>
+            <artifactId>paxtools-causality</artifactId>
+            <version>${paxtools.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.biopax.paxtools</groupId>
+			<artifactId>sif-converter</artifactId>
+			<version>${paxtools.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>pathwaycommons.cpath</groupId>
+            <artifactId>cpath-client</artifactId>
+            <version>3.1.0-SNAPSHOT</version>
+        </dependency>
+		<dependency>
+			<groupId>org.patika.mada</groupId>
+			<artifactId>dataXML</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.graphdrawing.graphml</groupId>
+			<artifactId>xmlns</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
