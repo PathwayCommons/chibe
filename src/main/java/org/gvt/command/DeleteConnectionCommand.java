@@ -17,7 +17,7 @@ public class DeleteConnectionCommand extends Command
 		connection.setHighlight(false);
 		connection.detachSource();
 		connection.detachTarget();
-		connection.getSource().getParentModel().calculateSize();
+		connection.getSource().getParentModel().calculateSizeUp();
 	}
 
 	public void setConnectionModel(Object model)

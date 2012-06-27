@@ -9,6 +9,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 
+import org.gvt.LayoutManager;
+import org.ivis.layout.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +32,11 @@ public class CompoundModel extends NodeModel
 	private boolean isDirected = false;
 
 	protected List children;
+
+	/*
+	 * Cluster Manager of all graphs managed by this graph manager
+	 */
+	private EClusterManager eClusterManager;
 
 	public CompoundModel()
 	{
@@ -59,6 +67,48 @@ public class CompoundModel extends NodeModel
 		setText(lbl);
 	}
 
+	/**
+	 * This method returns the cluster manager of all graphs managed by this
+	 * graph manager.
+	 */
+	public EClusterManager getClusterManager()
+	{
+		return this.eClusterManager;
+	}
+
+	/**
+	 * This method sets the cluster manager of all graphs managed by this
+	 * graph manager.
+	 */
+	public void setClusterManager(EClusterManager eClusterManager)
+	{
+		this.eClusterManager = eClusterManager;
+	}
+
+	public void update(LGraphObject lGraphObj)
+	{
+		// this node is a compound, so calculate its size
+		this.calculateSizeUp();
+
+		// if this is the root model then animate the graph
+		if (this.isRoot())
+		{
+			LayoutManager.getInstance().animate();
+		}
+		else
+		// otherwise input graph object must be an LNode
+		{
+			LNode lNode = (LNode) lGraphObj;
+
+			// in case it's an empty compound, update its location as well
+			if (lNode.getChild() == null || lNode.getChild().getNodes().size() == 0)
+			{
+				this.setLocationAbs(
+					new Point(lNode.getRect().x,  lNode.getRect().y));
+			}
+		}
+	}
+
 	public void addChild(Object o)
 	{
 		this.children.add(o);
@@ -72,11 +122,84 @@ public class CompoundModel extends NodeModel
 
 	public void removeChild(Object o)
 	{
+		if (o instanceof NodeModel)
+		{
+			NodeModel nodeModel = (NodeModel) o;
+			nodeModel.resetClusters();
+		}
+
 		this.children.remove(o);
 		firePropertyChange(P_CHILDREN, o, null);
 	}
 
-	public void calculateSize()
+	public void setParentModel(CompoundModel parent)
+	{
+		super.setParentModel(parent);
+
+		// if a parent of a model is set as null, do not update ClusterManager
+		if (parent != null)
+		{
+			setClusterManager(parent.getClusterManager());
+		}
+	}
+
+	/**
+	 *  This method calculates sizes of children recursively and then
+	 *  calculates its own size.
+	 */
+	public void calculateSizeDown()
+	{
+
+		// First, recursively calculate sizes of children compounds
+		Iterator iter = this.children.iterator();
+
+		while (iter.hasNext())
+		{
+			NodeModel child = (NodeModel) iter.next();
+
+			if (child instanceof CompoundModel)
+			{
+				((CompoundModel) child).calculateSizeDown();
+			}
+		}
+
+		if (getParentModel() != null && !isRoot)
+		{
+			// Second, calculate size of this compound model
+			if (this.children.size() == 0)
+			{
+				setSize(CompoundModel.DEFAULT_SIZE);
+			}
+			else
+			{
+				Rectangle bound = calculateBounds();
+				Dimension diff =
+					getLocationAbs().getDifference(bound.getLocation());
+
+				setLocationAbs(new Point(bound.x - this.MARGIN_SIZE,
+					bound.y - this.MARGIN_SIZE));
+				setSize(new Dimension(bound.width + (2 * this.MARGIN_SIZE),
+					bound.height + (2 * this.MARGIN_SIZE) + this.LABEL_HEIGHT));
+
+				iter = this.children.iterator();
+
+				while (iter.hasNext())
+				{
+					NodeModel child = (NodeModel) iter.next();
+					child.setLocationAbs(child.getLocationAbs().translate(
+						diff.width + this.MARGIN_SIZE,
+						diff.height + this.MARGIN_SIZE));
+				}
+			}
+		}
+	}
+
+	/**
+	 * This method calculates the size of this compound model and then
+	 * recursively calculates the size of its parent, which continues
+	 * until root.
+	 */
+	public void calculateSizeUp()
 	{
 		if (getParentModel() != null && !isRoot)
 		{
@@ -106,8 +229,10 @@ public class CompoundModel extends NodeModel
 				}
 			}
 
-			(getParentModel()).calculateSize();
+			(getParentModel()).calculateSizeUp();
 		}
+
+		updatePolygonsOfChildren();
 	}
 
 	public void setMarginSize(int margin)
@@ -141,7 +266,7 @@ public class CompoundModel extends NodeModel
 			}
 		}
 
-		root.calculateSize();
+		root.calculateSizeUp();
 	}
 
 	public Iterator getEdgeIterator(int edgeType,
@@ -155,6 +280,10 @@ public class CompoundModel extends NodeModel
 	public void setAsRoot()
 	{
 		this.isRoot = true;
+		if(this.eClusterManager == null )
+		{
+			this.eClusterManager = new EClusterManager();
+		}
 	}
 
 	public boolean isRoot()
@@ -311,6 +440,129 @@ public class CompoundModel extends NodeModel
 		}
 
 		return new Rectangle(left, top, right - left, bottom - top);
+	}
+
+	// -----------------------------------------------------------------------------
+// Section: Implementation of Clustered Interface
+// -----------------------------------------------------------------------------
+	/**
+	 * This method add this compound model into a cluster with given cluster ID.
+	 * If such cluster doesn't exist in ClusterManager, it creates a new cluster.
+	 * This is done by calling super method. Since this is a compound model,
+	 * this operation is done recursively for every child.
+	 */
+	public void addCluster(int clusterID)
+	{
+		super.addCluster(clusterID);
+
+		// It is guaranteed here that a cluster with clusterID exists.
+		// Therefore, instead of iterating for each child, use the other
+		// addCluster(cluster) method for recursion.
+		Cluster cluster = this.eClusterManager.getClusterByID(clusterID);
+
+		//get all children node models
+		List childrenNodes = this.children;
+
+		Iterator itr = childrenNodes.iterator();
+
+		// iterate over each child node model
+		while (itr.hasNext() )
+		{
+			NodeModel childModel = (NodeModel) itr.next();
+
+			// recursively add children node models to the cluster
+			childModel.addCluster(cluster);
+		}
+	}
+
+	/**
+	 * This method adds the given cluster into cluster list of this compound
+	 * model, and moreover it adds this compound model into set of clustered
+	 * nodes of the given cluster. This is done by calling super method. Since
+	 * this is a compound model, this operation is done recursively.
+	 */
+	public void addCluster(Cluster cluster)
+	{
+		// call super method
+		super.addCluster(cluster);
+
+		// get all children node models
+		List childrenNodes = this.children;
+
+		Iterator itr = childrenNodes.iterator();
+
+		// iterate over each child node model
+		while ( itr.hasNext() )
+		{
+			NodeModel childModel = (NodeModel) itr.next();
+
+			// recursively add children node models to the cluster
+			childModel.addCluster(cluster);
+		}
+	}
+
+	/**
+	 * This method removes the given cluster from the cluster list of this
+	 * compound model, and moreover it removes this compound model from the
+	 * set of clustered nodes of the given cluster. This is done by calling
+	 * super method. Since this is a compound model, this operation is done
+	 * recursively.
+	 */
+	public void removeCluster(Cluster cluster)
+	{
+		// call super method
+		super.removeCluster(cluster);
+
+		// get all children node models
+		List childrenNodes = this.children;
+
+		Iterator itr = childrenNodes.iterator();
+
+		// iterate over each child node model
+		while ( itr.hasNext() )
+		{
+			NodeModel childModel = (NodeModel) itr.next();
+
+			// recursively remove children node models from the cluster
+			childModel.removeCluster(cluster);
+		}
+	}
+
+	public void resetClusters()
+	{
+		List<Cluster> clusters = new ArrayList<Cluster>();
+		clusters.addAll(this.clusters);
+
+		super.resetClusters();
+
+		List childrenNodes = this.children;
+
+		Iterator itr = childrenNodes.iterator();
+
+		while ( itr.hasNext() )
+		{
+			NodeModel childModel = (NodeModel) itr.next();
+
+			for (Cluster cluster : clusters)
+			{
+				childModel.removeCluster(cluster);
+			}
+		}
+	}
+
+	protected void updatePolygonsOfChildren()
+	{
+		super.updatePolygonsOfChildren();
+
+		// Call recursively all children
+		Iterator<NodeModel> childrenIter = this.children.iterator();
+
+		while ( childrenIter.hasNext() )
+		{
+			NodeModel childModel = childrenIter.next();
+
+			childModel.updatePolygonsOfChildren();
+		}
 	}
 
 // -----------------------------------------------------------------------------

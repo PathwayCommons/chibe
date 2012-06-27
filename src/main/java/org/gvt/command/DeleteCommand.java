@@ -65,7 +65,7 @@ public class DeleteCommand extends Command
 		}
 
 		primExecute();
-		parent.calculateSize();
+		parent.calculateSizeUp();
 	}
 
 	public void removeHighlights(CompoundModel mdl)

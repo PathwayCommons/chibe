@@ -1,17 +1,20 @@
 package org.gvt.layout;
 
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl2.Actor;
+import org.ivis.layout.LEdge;
+import org.ivis.layout.LGraph;
+import org.ivis.layout.LGraphManager;
+import org.ivis.layout.LNode;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * @author Ozgun Babur
  */
-public class BiPaLayout extends CoSELayout
+public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 {
 	/**
 	 * For remembering contents of a complex.
@@ -19,22 +22,21 @@ public class BiPaLayout extends CoSELayout
 	Map<BiPaNode, LGraph> childGraphMap;
 	Map<BiPaNode, MemberPack> memberPackMap;
 
-	public BiPaLayout(CompoundModel rootModel)
+	public BiPaLayout()
 	{
-		super(rootModel);
 		childGraphMap = new HashMap<BiPaNode, LGraph>();
 		memberPackMap = new HashMap<BiPaNode, MemberPack>();
 	}
 
-	public BiPaLayout(List nodes, List edges)
+	@Override
+	public LNode newNode(Object vNode)
 	{
-		super(nodes, edges);
-		childGraphMap = new HashMap<BiPaNode, LGraph>();
+		return new BiPaNode(this.graphManager, vNode);
 	}
 
-	public LNode createNewLNode(LGraphManager gm, NodeModel model, Point loc, Dimension size)
+	public LNode newNode(LGraphManager gm, Point loc, Dimension size, Object vNode)
 	{
-		return new BiPaNode(gm, model, loc, size);
+		return new BiPaNode(gm, loc, size, vNode);
 	}
 
 	public LNode createNewLNode(LGraphManager gm, NodeModel model)
@@ -47,7 +49,7 @@ public class BiPaLayout extends CoSELayout
 	 */
 	protected void clearComplexes()
 	{
-		for (Object o : getNodes())
+		for (Object o : getAllNodes())
 		{
 			if (!(o instanceof BiPaNode) || !((BiPaNode) o).isComplex()) continue;
 
@@ -59,7 +61,9 @@ public class BiPaLayout extends CoSELayout
 			childGraphMap.put(comp, childGr);
 			MemberPack pack = new MemberPack(childGr);
 			memberPackMap.put(comp, pack);
+			getGraphManager().getGraphs().remove(childGr);
 			comp.setChild(null);
+
 			comp.setWidth(pack.getWidth());
 			comp.setHeight(pack.getHeight());
 
@@ -71,25 +75,24 @@ public class BiPaLayout extends CoSELayout
 				for (Object obj : new ArrayList(chNd.getEdges()))
 				{
 					LEdge edge = (LEdge) obj;
-					if (edge.source == chNd)
+					if (edge.getSource() == chNd)
 					{
 						chNd.getEdges().remove(edge);
-						edge.source = comp;
+						edge.setSource(comp);
 						comp.getEdges().add(edge);
 					}
-					else if (edge.target == chNd)
+					else if (edge.getTarget() == chNd)
 					{
 						chNd.getEdges().remove(edge);
-						edge.target = comp;
+						edge.setTarget(comp);
 						comp.getEdges().add(edge);
 					}
 				}
 			}
-
-//			this.getLGraphManager().getGraphs().remove(childGr);
-//			this.getLGraphManager().getNodeList().removeAll(childGr.getNodes());
 		}
-//		this.getLGraphManager().resetArrays();
+		getGraphManager().resetAllNodes();
+		getGraphManager().resetAllNodesToApplyGravitation();
+		getGraphManager().resetAllEdges();
 	}
 
 	/**
@@ -101,20 +104,21 @@ public class BiPaLayout extends CoSELayout
 		{
 			LGraph chGr = childGraphMap.get(comp);
 			comp.setChild(chGr);
+			getGraphManager().getGraphs().add(chGr);
 			MemberPack pack = memberPackMap.get(comp);
 			pack.adjustLocations(comp.getLeft(), comp.getTop());
-
-//			this.getLGraphManager().getGraphs().add(chGr);
-//			this.getLGraphManager().getNodeList().addAll(chGr.getNodes());
 		}
-//		this.getLGraphManager().resetArrays();
+		getGraphManager().resetAllNodes();
+		getGraphManager().resetAllNodesToApplyGravitation();
+		getGraphManager().resetAllEdges();
 	}
 
-	public void layout()
+	public boolean layout()
 	{
 		clearComplexes();
-		super.layout();
+		boolean b = super.layout();
 		repopulateComplexes();
+		return b;
 	}
 
 

@@ -1,8 +1,17 @@
 package org.gvt.figure;
 
 import org.eclipse.draw2d.*;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Color;
 import org.gvt.ChisioMain;
+import org.gvt.model.ECluster;
+import org.gvt.model.GraphObject;
+import org.gvt.model.NodeModel;
+import org.ivis.layout.Cluster;
+import org.ivis.layout.Clustered;
+import org.ivis.util.PointD;
 
 import java.util.HashMap;
 
@@ -19,6 +28,9 @@ public class HighlightLayer extends Layer
 {
 	public static final String HIGHLIGHT_LAYER = "Highlight Layer";
 
+	public HashMap<Integer, HighlightClusterFigure> clusterHighlights =
+		new HashMap<Integer, HighlightClusterFigure>();
+
 	public HashMap highlighted = new HashMap();
 
 	private int highlightBorder = 6;
@@ -27,6 +39,34 @@ public class HighlightLayer extends Layer
 	{
 		setOpaque(true);
 		setLayoutManager(new XYLayout());
+	}
+
+	/**
+	 * Adds highlight to cluster
+	 */
+	public void addHighlightToCluster(Cluster cluster)
+	{
+		if (clusterHighlights.containsKey(cluster.getClusterID()))
+		{
+			remove((IFigure) clusterHighlights.get(cluster.getClusterID()));
+			clusterHighlights.remove(cluster.getClusterID());
+		}
+
+		HighlightClusterFigure highlight = new HighlightClusterFigure(this, cluster);
+		clusterHighlights.put(cluster.getClusterID(), highlight);
+		add(highlight, ((ECluster)cluster).getPointList().getBounds().getCopy().expand(1, 1));
+	}
+
+	/**
+	 * Remove highlight to cluster
+	 */
+	public void removeHighlightFromCluster(Cluster cluster)
+	{
+		if (clusterHighlights.containsKey(cluster.getClusterID()))
+		{
+			remove((IFigure) clusterHighlights.get(cluster.getClusterID()));
+			clusterHighlights.remove(cluster.getClusterID());
+		}
 	}
 
 	/**
@@ -62,6 +102,57 @@ public class HighlightLayer extends Layer
 			highlighted.remove(object);
 		}
 	}
+
+	/**
+	 * Highlight polygon for clusters
+	 */
+	class HighlightClusterFigure extends Figure
+	{
+		ECluster cluster;
+		HighlightLayer layer;
+
+		public HighlightClusterFigure(HighlightLayer layer, Cluster cluster)
+		{
+			this.cluster = (ECluster) cluster;
+			this.layer = layer;
+		}
+
+		protected void paintFigure(Graphics graphics)
+		{
+			if (ChisioMain.runningOnWindows)
+			{
+				graphics.setAlpha(100);
+			}
+
+			PointList pl = ((ECluster)cluster).getPointList();
+			Rectangle rect = pl.getBounds().getCopy();
+			setBounds(rect);
+
+			graphics.setBackgroundColor(this.cluster.getHighlightColor());
+			graphics.setForegroundColor(this.cluster.getHighlightColor());
+			graphics.fillPolygon(pl);
+
+//			System.out.println(pl.getBounds().x + " " + pl.getBounds().y);
+			//TODO: a counter method is used for preventing
+			// infinite recursive calls. Another solution should be found
+			layer.repaint(rect);
+//			if(counter % 2 == 0)
+//			{
+//				layer.repaintHelper(rect);
+//			}
+//			else
+//			{
+//				counter++;
+//			}
+		}
+	}
+//	public void repaintHelper(Rectangle rect)
+//	{
+//		counter++;
+//		repaint(rect);
+//	}
+
+	public static int counter = 0;
 
 	/**
 	 * Highlight for nodes/compounds

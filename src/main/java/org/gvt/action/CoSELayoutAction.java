@@ -8,6 +8,7 @@ import org.gvt.command.LayoutCommand;
 import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.layout.BiPaLayout;
 import org.gvt.model.CompoundModel;
+import org.ivis.layout.cose.CoSELayout;
 
 /**
  * Action for CoSE layout operation.
@@ -55,8 +56,8 @@ public class CoSELayoutAction extends Action
 //			main.lockWithMessage("Performing layout (" + root.getNodes().size() + " nodes, " +
 //				root.getEdges().size() + " edges) ...");
 
-	//		LayoutCommand command = new LayoutCommand(main, new CoSELayout(root));
-			LayoutCommand command = new LayoutCommand(viewer, new BiPaLayout(root));
+//			LayoutCommand command = new LayoutCommand(main, root, new CoSELayout());
+			LayoutCommand command = new LayoutCommand(main, root, new BiPaLayout());
 			command.execute();
 
 			main.makeDirty();

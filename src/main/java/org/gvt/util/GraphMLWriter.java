@@ -54,6 +54,9 @@ public class GraphMLWriter
 
 	KeyType highlightColorKey;
 
+	// margin of the graph
+	int marginSize = -1;
+
 	public Object writeXMLFile(CompoundModel root)
 	{
 		// create a new graphml file
@@ -198,10 +201,14 @@ public class GraphMLWriter
 			if (createNode(newNode, model))
 			{
 				// if node is a compound node than margin property must be added
+				if (marginSize < 0)
+				{
+					marginSize = CompoundModel.MARGIN_SIZE;
+				}
 
 				DataType marginData = rootGraph.addNewData();
 				marginData.setKey(marginKey.getId());
-				marginData.set(XmlString.Factory.newValue("0"));
+				marginData.set(XmlString.Factory.newValue("" + marginSize));
 
 				// Also the subgraph of this compound node must be created
 				GraphType newGraph = newNode.addNewGraph();
@@ -240,7 +247,7 @@ public class GraphMLWriter
 		// also add margin property for this graph at the end
 		DataType marginData = rootGraph.addNewData();
 		marginData.setKey(marginKey.getId());
-		marginData.set(XmlString.Factory.newValue("0"));
+		marginData.set(XmlString.Factory.newValue("" + marginSize));
 	}
 
 	public boolean createNode(NodeType newNode, NodeModel model)
@@ -248,31 +255,33 @@ public class GraphMLWriter
 		// write properties of this node into graphml file
 		DataType xData = newNode.addNewData();
 		xData.setKey(xKey.getId());
-		XmlString xStr = XmlString.Factory.newValue("" + model.getConstraint().x);
-		xData.set(xStr);
+		xData.set(XmlString.Factory.newValue(
+			"" + ((NodeModel) model).getConstraint().x));
 
 		DataType yData = newNode.addNewData();
 		yData.setKey(yKey.getId());
-		XmlString yStr = XmlString.Factory.newValue("" + model.getConstraint().y);
-		yData.set(yStr);
+		yData.set(XmlString.Factory.newValue(
+			"" + ((NodeModel) model).getConstraint().y));
 
 		DataType heightData = newNode.addNewData();
 		heightData.setKey(heightKey.getId());
-		heightData.set(XmlString.Factory.newValue("" + model.getConstraint().height));
+		heightData.set(XmlString.Factory.newValue(
+			"" + ((NodeModel) model).getConstraint().height));
 
 		DataType widthData = newNode.addNewData();
 		widthData.setKey(widthKey.getId());
-		XmlString widthStr = XmlString.Factory.newValue("" + model.getConstraint().width);
-		widthData.set(widthStr);
+		widthData.set(XmlString.Factory.newValue(
+			"" + ((NodeModel) model).getConstraint().width));
 
 		DataType colorData = newNode.addNewData();
 		colorData.setKey(colorKey.getId());
 		RGB rgb = model.getColor().getRGB();
-		colorData.set(XmlString.Factory.newValue(rgb.red + " " + rgb.green + " " + rgb.blue));
+		colorData.set(XmlString.Factory.newValue(rgb.red + " " +
+			rgb.green + " " + rgb.blue));
 
 		DataType borderColorData = newNode.addNewData();
 		borderColorData.setKey(borderColorKey.getId());
-		rgb = model.getBorderColor().getRGB();
+		rgb = ((NodeModel) model).getBorderColor().getRGB();
 		borderColorData.set(XmlString.Factory.newValue(rgb.red + " " +
 			rgb.green + " " + rgb.blue));
 
@@ -292,23 +301,18 @@ public class GraphMLWriter
 		textColorData.set(XmlString.Factory.newValue(rgb.red + " " +
 			rgb.green + " " + rgb.blue));
 
+		DataType clusterIDData = newNode.addNewData();
+		clusterIDData.setKey(clusterIDKey.getId());
+		clusterIDData.set(XmlString.Factory.newValue(
+			"" + ((NodeModel) model).getClusterIDs()));
+
 		if (model.isHighlight())
 		{
 			DataType highlightColorData = newNode.addNewData();
 			highlightColorData.setKey(highlightColorKey.getId());
-
-			String colorText;
-			if (model.getHighlightColor() != null)
-			{
-				rgb = model.getHighlightColor().getRGB();
-				colorText = rgb.red + " " + rgb.green + " " + rgb.blue;
-			}
-			else
-			{
-				colorText = "255 255 0";
-			}
-
-			highlightColorData.set(XmlString.Factory.newValue(colorText));
+			rgb = model.getHighlightColor().getRGB();
+			highlightColorData.set(XmlString.Factory.
+				newValue(rgb.red + " " + rgb.green + " " + rgb.blue));
 		}
 
 		if (model instanceof CompoundModel)
@@ -320,10 +324,7 @@ public class GraphMLWriter
 			// if node is a simple node, than write shape property
 			DataType shapeData = newNode.addNewData();
 			shapeData.setKey(shapeKey.getId());
-			String shp = model.getShape();
-			if (shp.startsWith("RoundRect")) shp = "Rectangle";
-			else if (shp.startsWith("Diamond")) shp = "Triangle";
-			shapeData.set(XmlString.Factory.newValue(shp));
+			shapeData.set(XmlString.Factory.newValue(model.getShape()));
 		}
 
 		return false;
@@ -384,18 +385,9 @@ public class GraphMLWriter
 		{
 			DataType highlightColorData = newEdge.addNewData();
 			highlightColorData.setKey(highlightColorKey.getId());
-			
-			String colorText;
-			if (model.getHighlightColor() != null)
-			{
-				rgb = model.getHighlightColor().getRGB();
-				colorText = rgb.red + " " + rgb.green + " " + rgb.blue;
-			}
-			else
-			{
-				colorText = "255 255 0";
-			}
-			highlightColorData.set(XmlString.Factory.newValue(colorText));
+			rgb = model.getHighlightColor().getRGB();
+			highlightColorData.set(XmlString.Factory.
+				newValue(rgb.red + " " + rgb.green + " " + rgb.blue));
 		}
 	}
 }

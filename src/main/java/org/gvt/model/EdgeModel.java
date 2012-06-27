@@ -5,8 +5,15 @@ import java.util.List;
 
 import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.SWT;
+
+import org.ivis.layout.LEdge;
+import org.ivis.layout.LGraphObject;
+import org.ivis.layout.Updatable;
+import org.ivis.util.DimensionD;
+import org.ivis.util.PointD;
 
 /**
  * This class implements an edge in a graph. An edge can have its own color,
@@ -16,7 +23,7 @@ import org.eclipse.swt.SWT;
  * 
  * Copyright: I-Vis Research Group, Bilkent University, 2007
  */
-public class EdgeModel extends GraphObject
+public class EdgeModel extends GraphObject implements Updatable
 {
 	private NodeModel sourceNode;
 
@@ -44,6 +51,40 @@ public class EdgeModel extends GraphObject
 		this.arrow = DEFAULT_ARROW;
 		this.width = DEFAULT_WIDTH;
 		this.bendpoints = new ArrayList();
+	}
+
+	public void update(LGraphObject lGraphObj)
+	{
+		// Since this is the update method of a v-level edge, it is assumed
+		// that the given LGraphObject is an instance of LEdge. So, cast
+		// operation is performed without type checking.
+		LEdge lEdge = (LEdge) lGraphObj;
+
+		// update bendpoints of the edge by using the l-level edge's
+		// bendpoint information
+
+		List bendpoints = new ArrayList();
+
+		for(PointD p: lEdge.getBendpoints())
+		{
+			PointD sourceLoc = new PointD(lEdge.getSource().getCenterX(),
+				lEdge.getSource().getCenterY());
+
+			PointD targetLoc = new PointD(lEdge.getTarget().getCenterX(),
+				lEdge.getTarget().getCenterY());
+
+			DimensionD dim1 = p.getDifference(sourceLoc);
+			DimensionD dim2 = p.getDifference(targetLoc);
+
+			EdgeBendpoint ebp = new EdgeBendpoint();
+			ebp.setRelativeDimensions(
+				new Dimension((int)(dim1.width), (int)(dim1.height)),
+				new Dimension((int)(dim2.width), (int)(dim2.height)));
+
+			bendpoints.add(ebp);
+		}
+
+		this.setBendpoints(bendpoints);
 	}
 
 	public String getStyle()

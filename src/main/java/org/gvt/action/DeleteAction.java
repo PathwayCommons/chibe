@@ -51,6 +51,7 @@ public class DeleteAction extends Action
 			if (childEditPart instanceof ChsNodeEditPart)
 			{
 				NodeModel node = (NodeModel) childEditPart.getModel();
+				node.resetClusters();
 				DeleteCommand command = new DeleteCommand();
 				command.setChild(node);
 				EditPart parent = childEditPart.getParent();
