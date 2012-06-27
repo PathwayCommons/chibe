@@ -7,7 +7,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
 import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.editpart.ChsScalableRootEditPart;
-import org.gvt.layout.LGraph;
 import org.gvt.model.CompoundModel;
 
 /**
@@ -96,7 +95,7 @@ public class ZoomAction extends Action
 			Rectangle r = root.calculateBounds();
 
 			// Graph Margins are added
-			r.expand(LGraph.getGraphMargin(), LGraph.getGraphMargin());
+			r.expand(CompoundModel.MARGIN_SIZE, CompoundModel.MARGIN_SIZE);
 
 			// Zoom to rectangle to fit in window
 			((ChsScalableRootEditPart) this.main.getViewer().getRootEditPart()).

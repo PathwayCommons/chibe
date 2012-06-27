@@ -91,6 +91,9 @@ public class ChisioMain extends ApplicationWindow
 
 	public static Color higlightColor;
 
+	// true if polygon is should be shown for each cluster
+	public boolean isClusterBoundShown;
+
 	public static Combo zoomCombo;
 
 	private String owlFileName;
@@ -118,6 +121,7 @@ public class ChisioMain extends ApplicationWindow
 		super(null);
 //		createChangeModeAction();
 		this.dataManagerMap = new HashMap<String, ExperimentDataManager>();
+		this.isClusterBoundShown = false;
 	}
 
 	protected void handleShellCloseEvent()

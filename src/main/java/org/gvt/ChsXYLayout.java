@@ -1,12 +1,9 @@
 package org.gvt;
 
-import java.util.ListIterator;
-
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.*;
-import org.gvt.layout.LayoutOptionsPack;
-import org.gvt.layout.AbstractLayout;
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.ivis.layout.LayoutOptionsPack;
 
 /**
  * This class extends the XYLayout class to implement XY Layout algorithm to
@@ -23,7 +20,8 @@ public class ChsXYLayout extends XYLayout
 	{
 		if(!LayoutOptionsPack.getInstance().getGeneral().
 			isAnimationDuringLayout() ||
-			AbstractLayout.animationOnLayout)
+			LayoutOptionsPack.getInstance().getGeneral().
+				isAnimationOnLayout())
 		{
 			GraphAnimation.recordInitialState(container);
 			if (GraphAnimation.playbackState(container))

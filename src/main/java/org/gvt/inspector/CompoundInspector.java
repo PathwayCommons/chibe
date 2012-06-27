@@ -4,9 +4,8 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.graphics.Font;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.GraphObject;
-import org.gvt.model.biopaxl2.Complex;
 import org.gvt.ChisioMain;
-import org.patika.mada.util.XRef;
+import org.ivis.layout.Cluster;
 
 import java.util.*;
 
@@ -52,6 +51,26 @@ public class CompoundInspector extends Inspector
 
 		item = addRow(table, "Border Color");
 		item.setBackground(1, ((CompoundModel) model).getBorderColor());
+
+		item = addRow(table, "Cluster ID");
+		// set clusters with commas
+		String clusterText = "";
+		Iterator<Cluster> itr = ((CompoundModel) model).getClusters().iterator();
+		// if there is no cluster
+		if ( !itr.hasNext() )
+		{
+			item.setText(1, "0");
+		}
+		else
+		{
+			clusterText += itr.next().getClusterID();
+			while ( itr.hasNext() )
+			{
+				clusterText += ", " + itr.next().getClusterID();
+			}
+			item.setText(1, clusterText);
+		}
+
 	}
 
 	private void prepareForGraphObject()

@@ -15,7 +15,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
 import org.gvt.action.*;
-import org.gvt.layout.*;
+import org.ivis.layout.LayoutConstants;
+import org.ivis.layout.LayoutOptionsPack;
+import org.ivis.layout.avsdf.AVSDFConstants;
+import org.ivis.layout.cise.CiSEConstants;
+import org.ivis.layout.cose.CoSEConstants;
+import org.ivis.layout.fd.FDLayoutConstants;
+import org.ivis.layout.sgym.SgymConstants;
+import org.ivis.layout.spring.SpringConstants;
 
 /**
  * This class maintains the Layout Properties dialog to set the parameters of
@@ -37,14 +44,23 @@ public class LayoutInspector extends Dialog
 	protected Button animateDuringLayoutButton;
 	protected Button animateOnLayoutButton;
 	private Button createBendsAsButton;
+	private Button uniformLeafNodeSizesButton;
 
 	//CoSE
 	private Scale gravityStrength,
+		gravityRange,
 		springStrength,
 		repulsionStrength,
-		compoundGravityStrength;
+		compoundGravityStrength,
+		compoundGravityRange;
 
 	private Text desiredEdgeLengthCoSE;
+
+	private Button smartEdgeLengthCalc;
+
+	private Button multiLevelScaling;
+
+	private Button smartRepulsionRangeCalc;
 
 	//Spring
 	private Text disconnectedNodeDistanceSpringRestLength;
@@ -176,6 +192,7 @@ public class LayoutInspector extends Dialog
 		animationPeriod.setSelection(50);
 		animationPeriod.setIncrement(5);
 		gridDt = new GridData(GridData.VERTICAL_ALIGN_CENTER);
+		gridDt.widthHint = 50;
 		animationPeriod.setLayoutData(gridDt);
 
 		final Group layoutQualityGroup = new Group(compositeGeneral, SWT.NONE);
@@ -207,6 +224,9 @@ public class LayoutInspector extends Dialog
 		createBendsAsButton = new Button(extra, SWT.CHECK);
 		createBendsAsButton.setText("Create Bends as Needed");
 
+		uniformLeafNodeSizesButton = new Button(extra, SWT.CHECK);
+		uniformLeafNodeSizesButton.setText("Uniform Leaf Node Sizes");
+
 		final TabItem coseTabItem = new TabItem(tabFolder, SWT.NONE);
 		coseTabItem.setText("CoSE");
 
@@ -219,6 +239,8 @@ public class LayoutInspector extends Dialog
 		gridLy.numColumns = 1;
 		compositeCoSE.setLayout(gridLy);
 
+		//--- Tuning group ------------------------------------------------------------------------|
+
 		tuningGroup = new Group(compositeCoSE, SWT.NONE);
 		tuningGroup.setText("Tuning");
 		gridLy = new GridLayout();
@@ -230,25 +252,50 @@ public class LayoutInspector extends Dialog
 
 		springStrength = new Scale(tuningGroup, SWT.NONE);
 		springStrength.setIncrement(5);
+		gridDt = new GridData();
+		gridDt.widthHint = 100;
+		springStrength.setLayoutData(gridDt);
 
 		final Label repulsionStrengthLabel = new Label(tuningGroup, SWT.NONE);
-		repulsionStrengthLabel.setText("Repulsion Strength");
+		repulsionStrengthLabel.setText("Repulsion");
 
 		repulsionStrength = new Scale(tuningGroup, SWT.NONE);
 		repulsionStrength.setIncrement(5);
+		repulsionStrength.setLayoutData(gridDt);
 
 		final Label gravityLevelLabel = new Label(tuningGroup, SWT.NONE);
-		gravityLevelLabel.setText("Gravity Strength");
+		gravityLevelLabel.setText("Gravity");
 
 		gravityStrength = new Scale(tuningGroup, SWT.NONE);
 		gravityStrength.setIncrement(5);
+		gravityStrength.setLayoutData(gridDt);
+
+		final Label gravityRangeLabel = new Label(tuningGroup, SWT.NONE);
+		gravityRangeLabel.setText("Gravity Range");
+
+		gravityRange = new Scale(tuningGroup, SWT.NONE);
+		gravityRange.setIncrement(5);
+		gravityRange.setLayoutData(gridDt);
 
 		final Label compoundGravityStrengthLabel = new Label(tuningGroup, SWT.NONE);
-		compoundGravityStrengthLabel.setText("Compound Gravity Strength");
+		compoundGravityStrengthLabel.setText("Compound Gravity");
 
 		compoundGravityStrength = new Scale(tuningGroup, SWT.NONE);
 		compoundGravityStrength.setIncrement(5);
+		compoundGravityStrength.setLayoutData(gridDt);
 		compositeCoSE.setTabList(new Control[] {tuningGroup});
+
+		final Label compoundGravityRangeLabel = new Label(tuningGroup, SWT.NONE);
+		compoundGravityRangeLabel.setText("Compound Gravity Range");
+
+		compoundGravityRange = new Scale(tuningGroup, SWT.NONE);
+		compoundGravityRange.setIncrement(5);
+		compoundGravityRange.setLayoutData(gridDt);
+
+		smartRepulsionRangeCalc = new Button(tuningGroup, SWT.CHECK);
+		smartRepulsionRangeCalc.setText("Smart Range Calculation");
+
+		//--- End of tuning group -----------------------------------------------------------------|
 
 		Composite desire = new Composite(compositeCoSE, SWT.NONE);
 		gridLy = new GridLayout();
@@ -265,6 +312,14 @@ public class LayoutInspector extends Dialog
 		gridDt = new GridData();
 		gridDt.widthHint = 30;
 		desiredEdgeLengthCoSE.setLayoutData(gridDt);
+
+		smartEdgeLengthCalc = new Button(compositeCoSE, SWT.CHECK);
+		smartEdgeLengthCalc.setText("Smart Edge Length Calculation");
+
+		multiLevelScaling = new Button(compositeCoSE, SWT.CHECK);
+		multiLevelScaling.setText("Multi-Level Scaling");
+
+		compositeCoSE.setTabList(new Control[] {tuningGroup});
 
 		final Composite compositeSpring = new Composite(tabFolder, SWT.NONE);
 		springTabItem.setControl(compositeSpring);
@@ -392,27 +447,38 @@ public class LayoutInspector extends Dialog
 
 		if (proofButton.getSelection())
 		{
-			lop.getGeneral().setLayoutQuality(AbstractLayout.PROOF_QUALITY);
+			lop.getGeneral().setLayoutQuality(LayoutConstants.PROOF_QUALITY);
 		}
 		else if (draftButton.getSelection())
 		{
-			lop.getGeneral().setLayoutQuality(AbstractLayout.DRAFT_QUALITY);
+			lop.getGeneral().setLayoutQuality(LayoutConstants.DRAFT_QUALITY);
 		}
 		else
 		{
-			lop.getGeneral().setLayoutQuality(AbstractLayout.DEFAULT_QUALITY);
+			lop.getGeneral().setLayoutQuality(LayoutConstants.DEFAULT_QUALITY);
 		}
 
 		lop.getGeneral().setIncremental(incremental.getSelection());
 		lop.getGeneral().setCreateBendsAsNeeded(
 			createBendsAsButton.getSelection());
+		lop.getGeneral().setUniformLeafNodeSizes(
+			uniformLeafNodeSizesButton.getSelection());
 
 		//CoSE
 		lop.getCoSE().setIdealEdgeLength(
 			Integer.parseInt(desiredEdgeLengthCoSE.getText()));
+		lop.getCoSE().setSmartEdgeLengthCalc(
+			smartEdgeLengthCalc.getSelection());
+		lop.getCoSE().setMultiLevelScaling(
+			multiLevelScaling.getSelection());
+		lop.getCoSE().setSmartRepulsionRangeCalc(
+			smartRepulsionRangeCalc.getSelection());
 		lop.getCoSE().setCompoundGravityStrength(
 			compoundGravityStrength.getSelection());
+		lop.getCoSE().setCompoundGravityRange(
+			compoundGravityRange.getSelection());
 		lop.getCoSE().setGravityStrength(gravityStrength.getSelection());
+		lop.getCoSE().setGravityRange(gravityRange.getSelection());
 		lop.getCoSE().setRepulsionStrength(repulsionStrength.getSelection());
 		lop.getCoSE().setSpringStrength(springStrength.getSelection());
 
@@ -435,12 +501,12 @@ public class LayoutInspector extends Dialog
 		animateOnLayoutButton.setSelection(
 			lop.getGeneral().isAnimationOnLayout());
 
-		if (lop.getGeneral().getLayoutQuality() == AbstractLayout.PROOF_QUALITY)
+		if (lop.getGeneral().getLayoutQuality() == LayoutConstants.PROOF_QUALITY)
 		{
 			proofButton.setSelection(true);
 		}
 		else if (lop.getGeneral().getLayoutQuality() ==
-			AbstractLayout.DRAFT_QUALITY)
+			LayoutConstants.DRAFT_QUALITY)
 		{
 			draftButton.setSelection(true);
 		}
@@ -452,13 +518,24 @@ public class LayoutInspector extends Dialog
 		incremental.setSelection(lop.getGeneral().isIncremental());
 		createBendsAsButton.setSelection(
 			lop.getGeneral().isCreateBendsAsNeeded());
+		uniformLeafNodeSizesButton.setSelection(
+			lop.getGeneral().isUniformLeafNodeSizes());
 
 		//CoSE
 		desiredEdgeLengthCoSE.setText(
 			String.valueOf(lop.getCoSE().getIdealEdgeLength()));
+		smartEdgeLengthCalc.setSelection(
+			lop.getCoSE().isSmartEdgeLengthCalc());
+		multiLevelScaling.setSelection(
+			lop.getCoSE().isMultiLevelScaling());
+		smartRepulsionRangeCalc.setSelection(
+			lop.getCoSE().isSmartRepulsionRangeCalc());
 		gravityStrength.setSelection(lop.getCoSE().getGravityStrength());
+		gravityRange.setSelection(lop.getCoSE().getGravityRange());
 		compoundGravityStrength.setSelection(
 			lop.getCoSE().getCompoundGravityStrength());
+		compoundGravityRange.setSelection(
+			lop.getCoSE().getCompoundGravityRange());
 		repulsionStrength.setSelection(lop.getCoSE().getRepulsionStrength());
 		springStrength.setSelection(lop.getCoSE().getSpringStrength());
 
@@ -475,24 +552,34 @@ public class LayoutInspector extends Dialog
 		{
 			//General
 			animateDuringLayoutButton.setSelection(
-				AbstractLayout.DEFAULT_ANIMATION_DURING_LAYOUT);
+				LayoutConstants.DEFAULT_ANIMATION_DURING_LAYOUT);
 			animationPeriod.setSelection(50);
 			animateOnLayoutButton.setSelection(
-				AbstractLayout.DEFAULT_ANIMATION_ON_LAYOUT);
+				LayoutConstants.DEFAULT_ANIMATION_ON_LAYOUT);
 			defaultButton.setSelection(true);
 			proofButton.setSelection(false);
 			draftButton.setSelection(false);
-			incremental.setSelection(AbstractLayout.DEFAULT_INCREMENTAL);
+			incremental.setSelection(LayoutConstants.DEFAULT_INCREMENTAL);
 			createBendsAsButton.setSelection(
-				AbstractLayout.DEFAULT_CREATE_BENDS_AS_NEEDED);
+				LayoutConstants.DEFAULT_CREATE_BENDS_AS_NEEDED);
+			uniformLeafNodeSizesButton.setSelection(
+				LayoutConstants.DEFAULT_UNIFORM_LEAF_NODE_SIZES);
 		}
 		else if (select == 1)
-		 {
+		{
 			//CoSE
 			desiredEdgeLengthCoSE.setText(
-				String.valueOf(CoSELayout.DEFAULT_EDGE_LENGTH));
+				String.valueOf(CoSEConstants.DEFAULT_EDGE_LENGTH));
+			smartEdgeLengthCalc.setSelection(
+				CoSEConstants.DEFAULT_USE_SMART_IDEAL_EDGE_LENGTH_CALCULATION);
+			multiLevelScaling.setSelection(
+				CoSEConstants.DEFAULT_USE_MULTI_LEVEL_SCALING);
+			smartRepulsionRangeCalc.setSelection(
+				FDLayoutConstants.DEFAULT_USE_SMART_REPULSION_RANGE_CALCULATION);
 			gravityStrength.setSelection(50);
+			gravityRange.setSelection(50);
 			compoundGravityStrength.setSelection(50);
+			compoundGravityRange.setSelection(50);
 			repulsionStrength.setSelection(50);
 			springStrength.setSelection(50);
 		}
@@ -500,9 +587,9 @@ public class LayoutInspector extends Dialog
 		{
 			//Spring
 			nodeDistanceRestLength.setText(String.valueOf((int)
-				SpringLayout.DEFAULT_NODE_DISTANCE_REST_LENGTH_CONSTANT));
+				SpringConstants.DEFAULT_NODE_DISTANCE_REST_LENGTH_CONSTANT));
 			disconnectedNodeDistanceSpringRestLength.setText(
-				String.valueOf((int) SpringLayout.
+				String.valueOf((int) SpringConstants.
 					DEFAULT_DISCONNECTED_NODE_DISTANCE_SPRING_REST_LENGTH));
 		}
 	}

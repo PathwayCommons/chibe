@@ -53,13 +53,13 @@ public class MoveCommand extends Command
 	{
 		oldConstraint = child.getConstraint().getCopy();
 		child.setPositiveLocation(constraint);
-		parent.calculateSize();
+		parent.calculateSizeUp();
 	}
 
 	public void undo()
 	{
 		child.setConstraint(oldConstraint);
-		parent.calculateSize();
+		parent.calculateSizeUp();
 	}
 
 	public void redo()

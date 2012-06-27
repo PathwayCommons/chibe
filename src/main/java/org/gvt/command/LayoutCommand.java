@@ -1,9 +1,10 @@
 package org.gvt.command;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
-import org.gvt.layout.*;
 import org.gvt.ChisioMain;
+import org.gvt.LayoutManager;
+import org.gvt.model.CompoundModel;
+import org.ivis.layout.*;
 
 /**
  * This command performs a layout on the compound graph passed to its
@@ -15,25 +16,30 @@ import org.gvt.ChisioMain;
  */
 public class LayoutCommand extends Command
 {
-	private AbstractLayout layout;
+	private LayoutManager manager;
 
-	public LayoutCommand(ChisioMain main, AbstractLayout layout)
+	public LayoutCommand(ChisioMain main, CompoundModel root, Layout layout)
 	{
 		super("Layout Command");
-		this.layout = layout;
-		this.layout.setViewer(main.getViewer());
-	}
-
-	public LayoutCommand(ScrollingGraphicalViewer viewer, AbstractLayout layout)
-	{
-		super("Layout Command");
-		this.layout = layout;
-		this.layout.setViewer(viewer);
+		this.manager = LayoutManager.getInstance();
+		this.manager.setLayout(layout);
+		this.manager.setRoot(root);
+		this.manager.setMain(main);
 	}
 
 	public void execute()
 	{
-		this.layout.runLayout();
+		// perform required operations before the layout
+		this.manager.preRun();
+
+		// create topology for chiLay
+		this.manager.createTopology();
+
+		// run the layout
+		this.manager.runLayout();
+
+		// finalize the layout by performing updates
+		this.manager.postRun();
 	}
 
 	public void redo()
