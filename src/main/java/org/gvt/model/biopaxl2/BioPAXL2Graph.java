@@ -201,7 +201,7 @@ public class BioPAXL2Graph extends BioPAXGraph
 		{
 			if (o instanceof CompoundModel)
 			{
-				((CompoundModel) o).calculateSize();
+				((CompoundModel) o).calculateSizeUp();
 			}
 		}
 		return allLayedOut;

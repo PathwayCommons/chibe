@@ -11,10 +11,9 @@ import org.gvt.editpolicy.ChsConnectionEditPolicy;
 import org.gvt.editpolicy.ChsConnectionEndpointEditPolicy;
 import org.gvt.figure.EdgeFigure;
 import org.gvt.figure.HighlightLayer;
-import org.gvt.layout.AbstractLayout;
-import org.gvt.layout.LayoutOptionsPack;
 import org.gvt.model.EdgeBendpoint;
 import org.gvt.model.EdgeModel;
+import org.ivis.layout.LayoutOptionsPack;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -57,7 +56,8 @@ public class ChsEdgeEditPart extends AbstractConnectionEditPart
 			{
 				if (!LayoutOptionsPack.getInstance().getGeneral().
 					isAnimationDuringLayout()
-					|| AbstractLayout.animationOnLayout)
+					|| LayoutOptionsPack.getInstance().getGeneral().
+					isAnimationOnLayout())
 				{
 					GraphAnimation.recordInitialState(conn);
 

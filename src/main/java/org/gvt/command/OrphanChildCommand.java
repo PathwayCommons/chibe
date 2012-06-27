@@ -39,7 +39,7 @@ public class OrphanChildCommand extends Command
 
 		if (!onlyRemoveCompound)
 		{
-			parent.calculateSize();
+			parent.calculateSizeUp();
 		}
 	}
 

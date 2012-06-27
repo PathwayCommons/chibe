@@ -32,7 +32,7 @@ public class CreateCommand extends Command
 	{
 		parent.addChild(child);
 		child.setParentModel(parent);
-		parent.calculateSize();
+		parent.calculateSizeUp();
 	}
 
 	public void setConstraint(Rectangle rect)

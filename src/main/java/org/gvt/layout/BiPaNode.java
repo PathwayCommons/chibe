@@ -1,13 +1,14 @@
 package org.gvt.layout;
 
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.gvt.model.NodeModel;
+import org.ivis.layout.LGraphManager;
+
+import java.awt.*;
 
 /**
  * Node for biopax graph layout.
  */
-public class BiPaNode extends CoSENode
+public class BiPaNode extends org.ivis.layout.cose.CoSENode
 {
 	private int type;
 	private boolean hasInfo;
@@ -18,16 +19,16 @@ public class BiPaNode extends CoSENode
 	public static final int COMPARTMENT = 3;
 	public static final int SIMPLE = 4;
 
-	public BiPaNode(LGraphManager gm, NodeModel model, Point loc, Dimension size)
+	public BiPaNode(LGraphManager gm, Object vNode)
 	{
-		super(gm, loc, size);
-		setParam(model);
+		super(gm, vNode);
+		setParam((NodeModel) vNode);
 	}
 
-	public BiPaNode(LGraphManager gm, NodeModel model)
+	public BiPaNode(LGraphManager gm, Point loc, Dimension size, Object vNode)
 	{
-		super(gm);
-		setParam(model);
+		super(gm, loc, size, vNode);
+		setParam((NodeModel) vNode);
 	}
 
 	private void setParam(NodeModel model)
@@ -82,11 +83,5 @@ public class BiPaNode extends CoSENode
 	public boolean hasInfo()
 	{
 		return hasInfo;
-	}
-
-	public boolean isReduced()
-	{
-		if (this.isComplexMember()) return true;
-		return super.isReduced();
 	}
 }

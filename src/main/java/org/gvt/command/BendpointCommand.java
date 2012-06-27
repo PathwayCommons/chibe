@@ -80,6 +80,6 @@ public class BendpointCommand extends Command
 	{
 		super.execute();
 		
-		getWire().getSource().getParentModel().calculateSize();
+		getWire().getSource().getParentModel().calculateSizeUp();
 	}
 }
