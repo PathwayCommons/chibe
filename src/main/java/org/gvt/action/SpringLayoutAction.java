@@ -5,8 +5,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
 import org.gvt.command.LayoutCommand;
 import org.gvt.editpart.ChsRootEditPart;
-import org.gvt.layout.SpringLayout;
 import org.gvt.model.CompoundModel;
+import org.ivis.layout.spring.SpringLayout;
 
 /**
  * Action for Spring Layout operation.
@@ -40,7 +40,7 @@ public class SpringLayoutAction extends Action
 			CompoundModel root = (CompoundModel)((ChsRootEditPart) main.getViewer().
 					getRootEditPart().getChildren().get(0)).getModel();
 
-			LayoutCommand command = new LayoutCommand(main, new SpringLayout(root));
+			LayoutCommand command = new LayoutCommand(main, root, new SpringLayout());
 			command.execute();
 		}
 		catch (Exception e)

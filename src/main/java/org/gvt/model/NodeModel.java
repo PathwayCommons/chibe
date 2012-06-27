@@ -8,9 +8,17 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.gvt.ChisioMain;
+import org.gvt.GraphAnimation;
+import org.gvt.LayoutManager;
+import org.ivis.layout.Cluster;
+import org.ivis.layout.ClusterManager;
+import org.ivis.layout.Clustered;
+import org.ivis.layout.LGraphObject;
+import org.ivis.layout.LNode;
+import org.ivis.layout.Updatable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,13 +30,18 @@ import java.util.List;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class NodeModel extends GraphObject
+public class NodeModel extends GraphObject implements Updatable, Clustered
 {
 	private CompoundModel parentModel = null;
 
 	protected Rectangle constraint = new Rectangle();
 
 	protected String shape;
+
+	/*
+	 * List of clusters, this node belongs to.
+	 */
+	protected List<Cluster> clusters;
 
 	protected Color borderColor;
 
@@ -63,6 +76,21 @@ public class NodeModel extends GraphObject
 		this.color = DEFAULT_COLOR;
 		this.borderColor = DEFAULT_BORDER_COLOR;
 		this.shape = DEFAULT_SHAPE;
+		this.clusters = new ArrayList<Cluster>();
+	}
+
+	public void update(LGraphObject lGraphObj)
+	{
+		// Since this is the update method of a v-level node, it is assumed
+		// that the given LGraphObject is an instance of LNode. So, cast
+		// operation is performed without type checking.
+		LNode lNode = (LNode) lGraphObj;
+
+		// this update operation should be performed only if the node is not
+		// a compound, compound node class performs a different operation
+		// in its own update method.
+		this.setLocationAbs(new Point(lNode.getRect().x,
+			lNode.getRect().y));
 	}
 
 	public void setConstraint(Rectangle rectangle)
@@ -162,6 +190,15 @@ public class NodeModel extends GraphObject
 	{
 		this.constraint.setLocation(p);
 		firePropertyChange(P_CONSTRAINT, null, constraint);
+
+		// Recalculate polygons
+		Iterator<Cluster> iter = this.getClusters().iterator();
+
+		while ( iter.hasNext() )
+		{
+			Cluster cluster = iter.next();
+			cluster.calculatePolygon();
+		}
 	}
 
 	/**
@@ -274,24 +311,52 @@ public class NodeModel extends GraphObject
 		return neigbors;
 	}
 
-	public int getLeft()
+	/**
+	 * This method returns the string that contains cluster ids separated by "|"
+	 */
+	public String getClusterIDs()
+	{
+		String clusterIDs = "";
+		for ( Cluster cluster : clusters )
+		{
+			clusterIDs = clusterIDs + cluster.getClusterID() + "|";
+		}
+
+		if (clusterIDs.length() - 1 > 0)
+			return clusterIDs.substring(0,clusterIDs.length() - 1);
+		else
+			return "0";
+	}
+
+	public double getLeft()
 	{
 		return this.constraint.x;
 	}
 
-	public int getRight()
+	public double getRight()
 	{
 		return this.constraint.x + this.constraint.width;
 	}
 
-	public int getTop()
+	public double getTop()
 	{
 		return this.constraint.y;
 	}
 
-	public int getBottom()
+	public double getBottom()
 	{
 		return this.constraint.y + this.constraint.height;
+	}
+
+	public int getCenterX()
+	{
+		return this.constraint.getCenter().x;
+	}
+
+	public int getCenterY()
+	{
+		return this.constraint.getCenter().y;
+
 	}
 
 	public void setPositiveLocation(Rectangle r)
@@ -312,7 +377,117 @@ public class NodeModel extends GraphObject
 		this.setLocationAbs(loc);
 	}
 
+	public List<Cluster> getClusters()
+	{
+		return this.clusters;
+	}
 // -----------------------------------------------------------------------------
+// Section: Implementation of Clustered Interface
+// -----------------------------------------------------------------------------
+	/**
+	 * This method add this node model into a cluster with given cluster ID. If
+	 * such cluster doesn't exist in ClusterManager, it creates a new cluster.
+	 */
+	public void addCluster(int clusterID)
+	{
+		// get cluster manager of the graph manager of this NodeModel
+		EClusterManager cm = this.parentModel.getClusterManager();
+
+		Cluster eCluster = cm.getClusterByID(clusterID);
+		if ( eCluster == null )
+		{
+			eCluster = new ECluster(cm, clusterID, "Cluster " + clusterID);
+			cm.addCluster(eCluster);
+		}
+
+		this.addCluster(eCluster);
+	}
+
+	/**
+	 * This method adds the given cluster into cluster list of this node model,
+	 * and moreover it adds this node model into set of node models of the given
+	 * cluster.
+	 */
+	public void addCluster(Cluster eCluster)
+	{
+		// check if it is not added before
+		if ( !this.clusters.contains(eCluster) )
+		{
+			// add given cluster into list of clusters
+			this.clusters.add(eCluster);
+
+			// add this node to set of nodes of the cluster
+			eCluster.getNodes().add(this);
+
+			eCluster.calculatePolygon();
+		}
+	}
+
+	/**
+	 * This method removes the given cluster from cluster list of this node
+	 * model, and moreover it removes this node model from the set of node
+	 * models of the given cluster.
+	 */
+	public void removeCluster(Cluster eCluster)
+	{
+		// check if given cluster exists
+		if ( this.clusters.contains(eCluster) )
+		{
+			// remove given cluster from list of clusters
+			this.clusters.remove(eCluster);
+
+			// remove this node from set of nodes of the cluster
+			eCluster.getNodes().remove(this);
+
+			eCluster.calculatePolygon();
+		}
+	}
+
+	/**
+	 * This method resets all cluster information of this node model.
+	 * This node model is deleted from all clusters it belongs to.
+	 */
+	public void resetClusters()
+	{
+		for ( Cluster cluster : this.clusters )
+		{
+			cluster.getNodes().remove(this);
+
+			cluster.calculatePolygon();
+		}
+		this.clusters.clear();
+	}
+
+	public Clustered getParent()
+	{
+		return this.parentModel;
+	}
+
+	protected void updatePolygonsOfChildren()
+	{
+		// Recalculate polygons
+		Iterator<Cluster> clusterIter = this.getClusters().iterator();
+
+		while ( clusterIter.hasNext() )
+		{
+			Cluster cluster = clusterIter.next();
+			cluster.calculatePolygon();
+		}
+	}
+
+	public boolean hasCommonCluster (NodeModel node)
+	{
+		for ( Cluster cluster : this.getClusters() )
+		{
+			if(node.getClusters().contains(cluster))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// -----------------------------------------------------------------------------
 // Section: Class Variables
 // -----------------------------------------------------------------------------
 	public static Dimension DEFAULT_SIZE = new Dimension(40, 40);
@@ -336,6 +511,8 @@ public class NodeModel extends GraphObject
 	public static final String P_CONSTRAINT = "_constraint";
 
 	public static final String P_SHAPE = "_shape";
+
+	public static final String P_CLUSTERID = "_clusterID";
 
 	public static final String P_BORDERCOLOR = "_borderColor";
 

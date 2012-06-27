@@ -1,5 +1,6 @@
 package org.gvt.action;
 
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.Tool;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
