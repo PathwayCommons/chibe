@@ -9,6 +9,7 @@ REF_SEQ_TRANSCRIPT_ID	Refseq trans	RefSeq Transcript ID
 ENSEMBLE_COLUMN	Ensembl Gene ID	Ensemble	Database DB:ensembl	ENSEMBL
 SWISSPROT	Swissprot	SWISSPROT	SwissProt	swissprot	SP_LIST	UniProt	UNIPROT	Uniprot	uniprot
 CPATH	CPATH
+HGNC	HGNC
 Key to data file(s)	ID	Key	KEY	Key to data file(s)
 
 // You can add your own reference matchings below. Please follow the notation above.
