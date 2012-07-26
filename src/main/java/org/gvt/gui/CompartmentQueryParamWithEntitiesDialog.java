@@ -26,15 +26,6 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 	private List targetCompartmentList;
 
-	private Button lengthLimitButton;
-	private Button shortestPlusKButton;
-	private Text shortestPlusK;
-
-	/**
-	* Type of PoI; strict or not.
-	*/
-	private Button strictButton;
-
 	/**
 	 * All compartments of graph
 	 */

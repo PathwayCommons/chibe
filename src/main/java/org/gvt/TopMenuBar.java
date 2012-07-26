@@ -184,6 +184,7 @@ public class TopMenuBar
 		// HELP
 		menuBar.add(helpMenu);
 		helpMenu.add(new HowToUseAction(chisio));
+        helpMenu.add(new LegendAction(chisio));
 		helpMenu.add(new AboutAction(chisio));
 
 		return menuBar;
