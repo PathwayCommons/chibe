@@ -1108,9 +1108,10 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 
         try
         {
-            File references = new File("src/main/resources/org/gvt/util/references.txt");
-
-            BufferedReader reader = new BufferedReader(new FileReader(references));
+            InputStream resourceAsStream = ExperimentDataConvertionWizard.class
+                    .getClassLoader().getResourceAsStream("org/gvt/util/references.txt");
+            InputStreamReader fileReader = new InputStreamReader(resourceAsStream);
+            BufferedReader reader = new BufferedReader(fileReader);
 
             // discard the first line which contains note to user
             String line = reader.readLine();
