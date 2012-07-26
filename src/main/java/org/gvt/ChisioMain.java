@@ -119,7 +119,7 @@ public class ChisioMain extends ApplicationWindow
 	private org.eclipse.jface.action.Action firstAction, secondAction;
 
     // Used for fetching data from cBio Portal
-    public CBioPortalAccessor cBioPortalAccessor;
+    public static CBioPortalAccessor cBioPortalAccessor;
 
     public ChisioMain()
 	{
