@@ -1,5 +1,9 @@
 package org.gvt.model.biopaxl3;
 
+import org.biopax.paxtools.causality.data.CBioPortalAccessor;
+import org.biopax.paxtools.causality.model.Alteration;
+import org.biopax.paxtools.causality.model.AlterationPack;
+import org.biopax.paxtools.causality.model.Change;
 import org.biopax.paxtools.model.level3.*;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
@@ -10,10 +14,13 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.HGNCUtil;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -393,16 +400,89 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		addDataSourceAndXrefAndComments(list, entity);
 
 		EntityHolder ent = getEntity();
-		
-		if (ent.l3er != null)
+        String geneName = null;
+
+        if (ent.l3er != null)
 		{
 			addNamesAndTypeAndID(list, ent.l3er);
 
 			for (Xref xr : ent.l3er.getXref())
 			{
 				list.add(new String[]{"Reference", xr.toString()});
+
+                // Remember the latest gene name
+                if(xr instanceof RelationshipXref) {
+                    if(xr.getDb().startsWith("HGNC")) {
+                        String[] tokens = xr.getId().split(":");
+                        // Is ist HGNC:GENE or HGNC:HGNC:123123
+                        geneName =
+                                (tokens.length > 1)
+                                        ? HGNCUtil.getSymbol(Integer.parseInt(tokens[1].trim()))
+                                        : tokens[0].trim();
+                    }
+                }
 			}
 		}
+
+
+        // Add the following statistics only if we got Portal data, otherwise skip it
+        CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
+        if( portalAccessor != null
+                && !portalAccessor.getCurrentGeneticProfiles().isEmpty()
+                && geneName != null ) {
+
+            // This will hit the cache, so no worries on the speed or connection status
+            AlterationPack alterations = portalAccessor.getAlterations(geneName);
+            Change[] changes = alterations.get(Alteration.ANY);
+            double activating, inhibiting, inactive, noChange, noData;
+            activating = inhibiting = inactive = noChange = noData = 0;
+
+            for (Change change : changes) {
+                switch (change) {
+                    case INHIBITING:
+                        inhibiting++;
+                        break;
+                    case ACTIVATING:
+                        activating++;
+                        break;
+                    case NO_CHANGE:
+                        noChange++;
+                        break;
+                    case NO_DATA:
+                        noData++;
+                        break;
+                    case STAY_INACTIVE:
+                        inactive++;
+                        break;
+                }
+            }
+
+            double sampleSize = changes.length;
+            inhibiting /= sampleSize;
+            activating /= sampleSize;
+            inactive /= sampleSize;
+            noData /= sampleSize;
+            noChange /= sampleSize;
+
+            NumberFormat n = NumberFormat.getPercentInstance();
+            n.setMaximumFractionDigits(1);
+
+            DecimalFormat decimalFormat = new DecimalFormat("#");
+            list.add(
+                    new String[]{"Alteration frequency",
+                            n.format(inhibiting + inactive + activating)
+                                    + " (out of " + decimalFormat.format(sampleSize) + " samples)"
+                    }
+            );
+            list.add(new String[]{" - Activating", n.format(activating)});
+            list.add(new String[]{" - Inhibiting", n.format(inhibiting)});
+            // We don't have "stays inactive" in cBio Portal data. So skipping it.
+            //list.add(new String[]{" - Stays inactive", n.format(inactive)});
+            list.add(new String[]{" - No data", n.format(noData)});
+            list.add(new String[]{" - No change", n.format(noChange)});
+
+        }
+
 
 		return list;
 	}
