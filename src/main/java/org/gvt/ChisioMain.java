@@ -1,6 +1,7 @@
 package org.gvt;
 
 import cpath.client.PathwayCommonsIOHandler;
+import org.biopax.paxtools.causality.data.CBioPortalAccessor;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.BioPAXElement;
@@ -116,7 +117,11 @@ public class ChisioMain extends ApplicationWindow
 	private boolean dirty;
 
 	private org.eclipse.jface.action.Action firstAction, secondAction;
-	public ChisioMain()
+
+    // Used for fetching data from cBio Portal
+    public CBioPortalAccessor cBioPortalAccessor;
+
+    public ChisioMain()
 	{
 		super(null);
 //		createChangeModeAction();
