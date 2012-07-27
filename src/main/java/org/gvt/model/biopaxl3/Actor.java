@@ -378,38 +378,13 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return false;
 	}
 
-	public List<String[]> getInspectable()
-	{
-		List<String[]> list = super.getInspectable();
-
-		addNamesAndTypeAndID(list, entity);
-
-		CellularLocationVocabulary voc = entity.getCellularLocation();
-
-		if (voc != null && !voc.getTerm().isEmpty())
-		{
-			list.add(new String[]{"Location", voc.getTerm().iterator().next()});
-		}
-
-		for (String info : getInfoStrings())
-		{
-			String type = Character.isDigit(info.charAt(0)) ? "Stochiometry" : "Modification";
-			list.add(new String[]{type, info});
-		}
-
-		addDataSourceAndXrefAndComments(list, entity);
-
-		EntityHolder ent = getEntity();
+    public List<String[]> getDataInspectable() {
+        List<String[]> list = new ArrayList<String[]>();
         String geneName = null;
 
-        if (ent.l3er != null)
-		{
-			addNamesAndTypeAndID(list, ent.l3er);
-
-			for (Xref xr : ent.l3er.getXref())
-			{
-				list.add(new String[]{"Reference", xr.toString()});
-
+        EntityHolder ent = getEntity();
+        if (ent.l3er != null) {
+            for (Xref xr : ent.l3er.getXref()) {
                 // Remember the latest gene name
                 if(xr instanceof RelationshipXref) {
                     if(xr.getDb().startsWith("HGNC")) {
@@ -421,9 +396,8 @@ public class Actor extends BioPAXNode implements EntityAssociated
                                         : tokens[0].trim();
                     }
                 }
-			}
-		}
-
+            }
+        }
 
         // Add the following statistics only if we got Portal data, otherwise skip it
         CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
@@ -468,21 +442,50 @@ public class Actor extends BioPAXNode implements EntityAssociated
             n.setMaximumFractionDigits(1);
 
             DecimalFormat decimalFormat = new DecimalFormat("#");
-            list.add(
-                    new String[]{"Alteration frequency",
-                            n.format(inhibiting + inactive + activating)
-                                    + " (out of " + decimalFormat.format(sampleSize) + " samples)"
-                    }
-            );
+            list.add(new String[]{"Number of samples",  decimalFormat.format(sampleSize)});
+            list.add(new String[]{"Alteration frequency", n.format(inhibiting + inactive + activating)});
             list.add(new String[]{" - Activating", n.format(activating)});
             list.add(new String[]{" - Inhibiting", n.format(inhibiting)});
             // We don't have "stays inactive" in cBio Portal data. So skipping it.
             //list.add(new String[]{" - Stays inactive", n.format(inactive)});
-            list.add(new String[]{" - No data", n.format(noData)});
-            list.add(new String[]{" - No change", n.format(noChange)});
-
+            list.add(new String[]{"No data", n.format(noData)});
+            list.add(new String[]{"No change", n.format(noChange)});
         }
 
+        return list;
+    }
+
+    public List<String[]> getInspectable()
+	{
+		List<String[]> list = super.getInspectable();
+
+		addNamesAndTypeAndID(list, entity);
+
+		CellularLocationVocabulary voc = entity.getCellularLocation();
+
+		if (voc != null && !voc.getTerm().isEmpty())
+		{
+			list.add(new String[]{"Location", voc.getTerm().iterator().next()});
+		}
+
+		for (String info : getInfoStrings())
+		{
+			String type = Character.isDigit(info.charAt(0)) ? "Stochiometry" : "Modification";
+			list.add(new String[]{type, info});
+		}
+
+		addDataSourceAndXrefAndComments(list, entity);
+
+		EntityHolder ent = getEntity();
+        if (ent.l3er != null)
+		{
+			addNamesAndTypeAndID(list, ent.l3er);
+
+			for (Xref xr : ent.l3er.getXref())
+			{
+				list.add(new String[]{"Reference", xr.toString()});
+			}
+		}
 
 		return list;
 	}
