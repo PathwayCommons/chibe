@@ -14,6 +14,7 @@ public class Conf
 	public static final String PATHWAY_COMMONS_URL = "PATHWAY_COMMONS_URL";
 
     public static final String CBIOPORTAL_URL = "CBIOPORTAL_URL";
+    public static final String CBIOPORTAL_USE_CACHE = "CBIOPORTAL_USE_CACHE";
 
 	public static final String EXPERIMENT_UP_COLOR = "EXPERIMENT_UP_COLOR";
 	public static final String EXPERIMENT_DOWN_COLOR = "EXPERIMENT_DOWN_COLOR";
@@ -68,6 +69,7 @@ public class Conf
 			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n");
 
             writer.write(CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n");
+            writer.write(CBIOPORTAL_USE_CACHE + " = true\n");
 
             writer.write(EXPERIMENT_UP_COLOR + " = 230 0 0\n");
 			writer.write(EXPERIMENT_DOWN_COLOR + " = 0 0 230\n");
@@ -138,6 +140,11 @@ public class Conf
 		}
 		return 0;
 	}
+
+    public static boolean getBoolean(String key) {
+        String val = get(key).toLowerCase();
+        return val.equals("true");
+    }
 	
 	static
 	{

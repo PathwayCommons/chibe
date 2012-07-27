@@ -234,7 +234,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return list;
 	}
 
-	static boolean showFragmentFeature = Conf.get(Conf.DISPLAY_FRAGMENT_FEATURE).equals("true");
+	static boolean showFragmentFeature = Conf.getBoolean(Conf.DISPLAY_FRAGMENT_FEATURE);
 	
 	private void extractFeatures(List<String> list, Set<EntityFeature> feats, boolean not)
 	{

@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.gui.FetchFromCBioPortalDialog;
 import org.gvt.model.BioPAXGraph;
+import org.gvt.util.Conf;
 import org.gvt.util.HGNCUtil;
 import org.patika.mada.dataXML.*;
 import org.patika.mada.gui.ExperimentDataConvertionWizard;
@@ -177,8 +178,11 @@ public class FetchFromCBioPortalAction extends Action {
                         "Could not process experiment.");
                 return;
             }
-
         }
+
+        // Advanced setting in order to save some memory for huge graphs
+        if(!Conf.getBoolean(Conf.CBIOPORTAL_USE_CACHE))
+            cBioPortalAccessor.clearAlterationCache();
 
         // Let's try to adjust the settings
         main.setExperimentData(experimentData, fileNameSuggestion);
