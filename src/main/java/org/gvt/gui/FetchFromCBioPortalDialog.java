@@ -14,6 +14,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.List;
 import org.gvt.ChisioMain;
+import org.gvt.util.Conf;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,9 +30,10 @@ public class FetchFromCBioPortalDialog extends Dialog {
     }
 
     public void open() {
-        if(main.cBioPortalAccessor == null) {
+        if(ChisioMain.cBioPortalAccessor == null) {
             try {
-                main.cBioPortalAccessor = new CBioPortalAccessor();
+                CBioPortalAccessor.setPortalURL(Conf.get(Conf.CBIOPORTAL_URL));
+                ChisioMain.cBioPortalAccessor = new CBioPortalAccessor();
             } catch (IOException e) {
                 MessageDialog.openError(main.getShell(),
                         "Error!",
@@ -84,7 +86,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
         comboDropDown.setLayoutData(gridData);
 
         comboDropDown.removeAll();
-        for (CancerStudy cancerStudy : main.cBioPortalAccessor.getCancerStudies()) {
+        for (CancerStudy cancerStudy : ChisioMain.cBioPortalAccessor.getCancerStudies()) {
             comboDropDown.add(cancerStudy.getName());
         }
 
@@ -145,12 +147,12 @@ public class FetchFromCBioPortalDialog extends Dialog {
         loadDataButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent selectionEvent) {
-                int selectionIndex = 0;
+                int selectionIndex;
 
                 try {
                     selectionIndex = caseListList.getSelectionIndex();
-                    CaseList caseList = main.cBioPortalAccessor.getCaseListsForCurrentStudy().get(selectionIndex);
-                    main.cBioPortalAccessor.setCurrentCaseList(caseList);
+                    CaseList caseList = ChisioMain.cBioPortalAccessor.getCaseListsForCurrentStudy().get(selectionIndex);
+                    ChisioMain.cBioPortalAccessor.setCurrentCaseList(caseList);
                 } catch (IOException e) {
                     MessageDialog.openError(
                             main.getShell(),
@@ -161,20 +163,8 @@ public class FetchFromCBioPortalDialog extends Dialog {
                     return;
                 }
 
-                java.util.List<GeneticProfile> geneticProfiles = null;
-                java.util.List<GeneticProfile> selectedProfiles = main.cBioPortalAccessor.getCurrentGeneticProfiles();
-
-                try {
-                    geneticProfiles = main.cBioPortalAccessor.getGeneticProfilesForCurrentStudy();
-                } catch (IOException e) {
-                    MessageDialog.openError(
-                            main.getShell(),
-                            "Error!",
-                            "Could not load case lists for current study.\n" + e.toString()
-                    );
-
-                    return;
-                }
+                java.util.List<GeneticProfile> selectedProfiles
+                        = ChisioMain.cBioPortalAccessor.getCurrentGeneticProfiles();
 
                 selectedProfiles.clear();
                 for (int i : genomicProfilesList.getSelectionIndices()) {
@@ -183,8 +173,8 @@ public class FetchFromCBioPortalDialog extends Dialog {
                 }
 
                 // Remember these for the next time
-                memorizeChoices[0]
-                        = main.cBioPortalAccessor.getCancerStudies().indexOf(main.cBioPortalAccessor.getCurrentCancerStudy());
+                memorizeChoices[0] = ChisioMain.cBioPortalAccessor.getCancerStudies()
+                        .indexOf(ChisioMain.cBioPortalAccessor.getCurrentCancerStudy());
                 memorizeChoices[1] = selectionIndex;
                 memorizeChoices[2] = genomicProfilesList.getSelectionIndex();
 
@@ -213,18 +203,18 @@ public class FetchFromCBioPortalDialog extends Dialog {
                                    Combo caseListList,
                                    List genomicProfilesList,
                                    ArrayList<GeneticProfile> supportedProfiles) {
-        CancerStudy cancerStudy = main.cBioPortalAccessor.getCancerStudies().get(comboDropDown.getSelectionIndex());
-        main.cBioPortalAccessor.setCurrentCancerStudy(cancerStudy);
+        CancerStudy cancerStudy = ChisioMain.cBioPortalAccessor.getCancerStudies().get(comboDropDown.getSelectionIndex());
+        ChisioMain.cBioPortalAccessor.setCurrentCancerStudy(cancerStudy);
         try {
             caseListList.removeAll();
-            for (CaseList caseList : main.cBioPortalAccessor.getCaseListsForCurrentStudy()) {
+            for (CaseList caseList : ChisioMain.cBioPortalAccessor.getCaseListsForCurrentStudy()) {
                 caseListList.add(caseList.getDescription() + " (" + caseList.getCases().length + " cases)");
             }
             caseListList.select(0);
 
             genomicProfilesList.removeAll();
             supportedProfiles.clear();
-            for (GeneticProfile geneticProfile : main.cBioPortalAccessor.getGeneticProfilesForCurrentStudy()) {
+            for (GeneticProfile geneticProfile : ChisioMain.cBioPortalAccessor.getGeneticProfilesForCurrentStudy()) {
                 // Currently we only support these guys
                 switch(geneticProfile.getType()) {
                     case COPY_NUMBER_ALTERATION:
@@ -246,6 +236,6 @@ public class FetchFromCBioPortalDialog extends Dialog {
     }
 
     public CBioPortalAccessor getAccessor() {
-        return main.cBioPortalAccessor;
+        return ChisioMain.cBioPortalAccessor;
     }
 }

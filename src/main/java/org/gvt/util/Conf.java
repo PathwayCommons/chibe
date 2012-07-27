@@ -13,6 +13,8 @@ public class Conf
 {
 	public static final String PATHWAY_COMMONS_URL = "PATHWAY_COMMONS_URL";
 
+    public static final String CBIOPORTAL_URL = "CBIOPORTAL_URL";
+
 	public static final String EXPERIMENT_UP_COLOR = "EXPERIMENT_UP_COLOR";
 	public static final String EXPERIMENT_DOWN_COLOR = "EXPERIMENT_DOWN_COLOR";
 	public static final String EXPERIMENT_MIDDLE_COLOR = "EXPERIMENT_MIDDLE_COLOR";
@@ -24,7 +26,7 @@ public class Conf
 
 	public static final String DISPLAY_FRAGMENT_FEATURE = "DISPLAY_FRAGMENT_FEATURE";
 
-	public static final String CONF_FILENAME = "chibe-conf.txt";
+	public static final String CONF_FILENAME = "`";
 
 	private static String confPath;
 
@@ -65,7 +67,9 @@ public class Conf
 //			writer.write(PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n");
 			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n");
 
-			writer.write(EXPERIMENT_UP_COLOR + " = 230 0 0\n");
+            writer.write(CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n");
+
+            writer.write(EXPERIMENT_UP_COLOR + " = 230 0 0\n");
 			writer.write(EXPERIMENT_DOWN_COLOR + " = 0 0 230\n");
 			writer.write(EXPERIMENT_MIDDLE_COLOR + " = 230 230 230\n");
 
