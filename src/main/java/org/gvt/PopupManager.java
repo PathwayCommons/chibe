@@ -1,5 +1,6 @@
 package org.gvt;
 
+import org.biopax.paxtools.causality.data.CBioPortalAccessor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.*;
 import org.eclipse.jface.action.IMenuManager;
@@ -79,7 +80,13 @@ public class PopupManager extends MenuManager
 			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true, true));
 			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true, false));
 			manager.add(pcQueryMenu);
-		}
+
+            CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
+            if( portalAccessor != null && !portalAccessor.getCurrentGeneticProfiles().isEmpty() ) {
+                manager.add(new Separator());
+                manager.add(new CBioPortalDataStatisticsAction(main));
+            }
+        }
 		else if (ep instanceof ChsEdgeEditPart)
 		{
 			// EDGE POPUP
