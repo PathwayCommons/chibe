@@ -111,7 +111,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>win64_x86</id>
+			<id>win64</id>
 			<activation>
 				<os>
 					<family>Windows</family>
@@ -147,7 +147,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>lin64_x86</id>
+			<id>lin64</id>
 			<activation>
 				<os>
 					<family>Linux</family>
