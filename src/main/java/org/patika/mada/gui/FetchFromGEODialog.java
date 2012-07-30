@@ -176,7 +176,10 @@ public class FetchFromGEODialog extends Dialog
 		{
 			public void widgetSelected(SelectionEvent arg0)
 			{
-				seriesIDText.setText(savedSeriesList.getSelection()[0]);
+//                if(savedSeriesList.getSelection().length > 0)
+                {
+				    seriesIDText.setText(savedSeriesList.getSelection()[0]);
+                }
 			}
 		});
 
