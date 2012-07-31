@@ -27,7 +27,7 @@ public class Conf
 
 	public static final String DISPLAY_FRAGMENT_FEATURE = "DISPLAY_FRAGMENT_FEATURE";
 
-	public static final String CONF_FILENAME = "`";
+	public static final String CONF_FILENAME = "chibe-conf.txt";
 
 	private static String confPath;
 
