@@ -114,16 +114,27 @@ public class FetchFromCBioPortalDialog extends Dialog {
         gridData.heightHint = 100;
         genomicProfilesList.setLayoutData(gridData);
 
-        final Button loadDataButton = new Button(shell, SWT.NONE);
+        Group buttonGroup = new Group(shell, SWT.NONE);
+        gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
+        gridData.horizontalSpan = 2;
+        buttonGroup.setLayoutData(gridData);
+        buttonGroup.setLayout(new GridLayout(3, true));
+
+        final Button loadDataButton = new Button(buttonGroup, SWT.NONE);
         loadDataButton.setText("Load data");
         gridData = new GridData(GridData.END, GridData.CENTER, true, false);
         loadDataButton.setEnabled(false);
         loadDataButton.setLayoutData(gridData);
 
-        Button cancelButton = new Button(shell, SWT.NONE);
+        Button cancelButton = new Button(buttonGroup, SWT.NONE);
         cancelButton.setText("Cancel");
-        gridData = new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
+        gridData = new GridData(GridData.CENTER, GridData.CENTER, true, false);
         cancelButton.setLayoutData(gridData);
+
+        Button settingsButton = new Button(buttonGroup, SWT.NONE);
+        settingsButton.setText("Settings");
+        gridData = new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
+        settingsButton.setLayoutData(gridData);
 
         comboDropDown.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -141,6 +152,13 @@ public class FetchFromCBioPortalDialog extends Dialog {
             @Override
             public void widgetSelected(SelectionEvent selectionEvent) {
                 loadDataButton.setEnabled(genomicProfilesList.getSelectionCount() > 0);
+            }
+        });
+
+        settingsButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent selectionEvent) {
+                CBioPortalSettingsDialog cBioPortalSettingsDialog = new CBioPortalSettingsDialog(main);
+                cBioPortalSettingsDialog.open();
             }
         });
 
