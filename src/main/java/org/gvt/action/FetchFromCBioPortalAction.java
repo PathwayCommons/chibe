@@ -13,6 +13,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
@@ -46,8 +47,9 @@ public class FetchFromCBioPortalAction extends Action {
     ChisioMain main;
 
    	public FetchFromCBioPortalAction (ChisioMain main) {
-   		super("Fetch from cBio Portal...");
-   		this.main = main;
+        super("Fetch from cBio Portal...");
+        setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbio_portal.png"));
+        this.main = main;
    	}
 
     public void run() {

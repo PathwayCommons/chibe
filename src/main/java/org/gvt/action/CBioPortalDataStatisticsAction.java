@@ -3,6 +3,7 @@ package org.gvt.action;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
 import org.gvt.inspector.CBioPortalInspector;
@@ -16,6 +17,7 @@ public class CBioPortalDataStatisticsAction extends Action {
 
     public CBioPortalDataStatisticsAction(ChisioMain main) {
         super("Show cBio Portal Data Details");
+        setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbio_portal.png"));
         setToolTipText(getText());
         this.main = main;
     }

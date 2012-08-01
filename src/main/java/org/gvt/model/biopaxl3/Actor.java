@@ -1,6 +1,7 @@
 package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.causality.data.CBioPortalAccessor;
+import org.biopax.paxtools.causality.data.GeneticProfile;
 import org.biopax.paxtools.causality.model.Alteration;
 import org.biopax.paxtools.causality.model.AlterationPack;
 import org.biopax.paxtools.causality.model.Change;
@@ -389,7 +390,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
                 if(xr instanceof RelationshipXref) {
                     if(xr.getDb().startsWith("HGNC")) {
                         String[] tokens = xr.getId().split(":");
-                        // Is ist HGNC:GENE or HGNC:HGNC:123123
+                        // Is it HGNC:GENE or HGNC:HGNC:123123
                         geneName =
                                 (tokens.length > 1)
                                         ? HGNCUtil.getSymbol(Integer.parseInt(tokens[1].trim()))
@@ -404,6 +405,16 @@ public class Actor extends BioPAXNode implements EntityAssociated
         if( portalAccessor != null
                 && !portalAccessor.getCurrentGeneticProfiles().isEmpty()
                 && geneName != null ) {
+
+            // Add data profile details
+            list.add(new String[]{"Cancer Study",  portalAccessor.getCurrentCancerStudy().getName()});
+            String profilesStr = "";
+            for (GeneticProfile geneticProfile : portalAccessor.getCurrentGeneticProfiles()) {
+                profilesStr += geneticProfile.getName() + "; ";
+            }
+            profilesStr = profilesStr.substring(0, profilesStr.length()-2);
+            list.add(new String[]{"Data profiles",  profilesStr});
+            list.add(new String[]{"Case set",  portalAccessor.getCurrentCaseList().getDescription()});
 
             // This will hit the cache, so no worries on the speed or connection status
             AlterationPack alterations = portalAccessor.getAlterations(geneName);
