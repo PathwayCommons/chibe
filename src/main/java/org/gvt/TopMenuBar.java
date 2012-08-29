@@ -174,7 +174,7 @@ public class TopMenuBar
 
 		// Query new pathway commons
 		queryMenu.add(pcNewMenu);
-		pcNewMenu.add(new QueryPCNeighborsAction(chisio, false));
+		pcNewMenu.add(new QueryPCNeighborsAction(chisio));
 		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio, false));
 		pcNewMenu.add(new QueryPCPathsFromToAction(chisio));
 		pcNewMenu.add(new QueryPCCommonStreamAction(chisio));

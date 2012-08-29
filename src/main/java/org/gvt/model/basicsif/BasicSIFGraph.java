@@ -40,7 +40,7 @@ public class BasicSIFGraph extends BioPAXL2Graph
 				BasicSIFNode target = (BasicSIFNode) edge.getTarget();
 				
 				writer.write(source.getRdfid() + "\t");
-				writer.write(edge.getType().getTag() + "\t");
+				writer.write(edge.type.getTag() + "\t");
 				writer.write(target.getRdfid() + "\n");
 			}
 

@@ -16,27 +16,20 @@ import java.util.List;
  */
 public class QueryPCCommonStreamAction extends QueryPCAction
 {
-	boolean downstream;
-
 	public QueryPCCommonStreamAction(ChisioMain main)
 	{
 		super(main, "Common Stream ...", false);
 	}
 
-	public QueryPCCommonStreamAction(ChisioMain main, boolean useSelected, boolean downstream)
+	public QueryPCCommonStreamAction(ChisioMain main, boolean downstream)
 	{
 		this(main);
-		super.useSelected = useSelected;
-		this.downstream = downstream;
+		super.useSelected = true;
+		setText(downstream ? "Downstream" : "Upstream");
 
-		if (useSelected)
-		{
-			setText(downstream ? "Common Downstream ..." : "Common Upstream ...");
-
-			options.setUpstream(!downstream);
-			options.setDownstream(downstream);
-			options.setLengthLimit(2);
-		}
+		options.setUpstream(!downstream);
+		options.setDownstream(downstream);
+		options.setLengthLimit(2);
 	}
 
 	public void run()

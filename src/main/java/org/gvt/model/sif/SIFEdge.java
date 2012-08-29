@@ -16,29 +16,24 @@ import java.util.List;
  */
 public class SIFEdge extends BioPAXEdge
 {
-	private BinaryInteractionType type;
+	private String tag;
 	private boolean breadthEdge;
 
 	public static Map<String, EdgeType> typeMap;
 
 	public SIFEdge(SIFNode source, SIFNode target, String tag)
 	{
-		this(source, target, getType(tag).intType);
-	}
-
-	public SIFEdge(SIFNode source, SIFNode target, BinaryInteractionType type)
-	{
 		super(source, target);
 
-		this.type = type;
+		this.tag = tag;
 
-		setTooltipText(type.getTag());
+		setTooltipText(tag);
 
-		EdgeType et = getType(type.getTag());
+		EdgeType et = getType(tag);
 
 		setColor(et.color);
 
-		if (et.intType.isDirected())
+		if (et.directed)
 		{
 			setArrow("Target");
 		}
@@ -48,22 +43,22 @@ public class SIFEdge extends BioPAXEdge
 			setStyle("Dashed");
 		}
 
-		breadthEdge = !getType(type.getTag()).noDistance;
+		breadthEdge = !getType(tag).noDistance;
 	}
 
-	public BinaryInteractionType getType()
+	public String getTag()
 	{
-		return type;
+		return tag;
 	}
 
 	public int getSign()
 	{
-		return getType(type.getTag()).sign;
+		return getType(tag).sign;
 	}
 
 	public boolean isDirected()
 	{
-		return type.isDirected();
+		return getType(tag).directed;
 	}
 
 	public boolean isBreadthEdge()
@@ -74,15 +69,17 @@ public class SIFEdge extends BioPAXEdge
 	public List<String[]> getInspectable()
 	{
 		List<String[]> list = super.getInspectable();
-		list.add(new String[]{"Type", type.getTag()});
+		list.add(new String[]{"Type", tag});
 		return list;
 	}
 
 	public static class EdgeType
 	{
 		BinaryInteractionType intType;
+		String tag;
 		Color color;
 		boolean solid;
+		boolean directed;
 		int sign;
 		boolean noDistance;
 
@@ -90,10 +87,33 @@ public class SIFEdge extends BioPAXEdge
 			boolean noDistance)
 		{
 			this.intType = intType;
+			this.tag = intType.getTag();
+			this.directed = intType.isDirected();
 			this.color = color;
 			this.solid = solid;
 			this.sign = sign;
 			this.noDistance = noDistance;
+		}
+
+		private EdgeType(String tag, boolean directed, Color color, boolean solid, int sign,
+			boolean noDistance)
+		{
+			this.tag = tag;
+			this.directed = directed;
+			this.color = color;
+			this.solid = solid;
+			this.sign = sign;
+			this.noDistance = noDistance;
+		}
+
+		public String getTag()
+		{
+			return tag;
+		}
+
+		public boolean isDirected()
+		{
+			return directed;
 		}
 
 		public BinaryInteractionType getIntType()
@@ -124,24 +144,23 @@ public class SIFEdge extends BioPAXEdge
 
 	private static void addType(EdgeType type)
 	{
-		typeMap.put(type.intType.getTag(), type);
+		typeMap.put(type.tag, type);
 	}
 
-	private static EdgeType getType(String typeName)
+	public static EdgeType getType(String tag)
 	{
-		return typeMap.get(typeName);
+		return typeMap.get(tag);
 	}
 	
-	public static boolean isDirected(String typeName)
+	public static boolean isDirected(String tag)
 	{
-		return getType(typeName).intType.isDirected();
+		return getType(tag).intType.isDirected();
 	}
 
 	public String getIDHash()
 	{
 		return ((IBioPAXL2Node) getSourceNode()).getIDHash() +
-			((IBioPAXL2Node) getTargetNode()).getIDHash() +
-			type.getTag();
+			((IBioPAXL2Node) getTargetNode()).getIDHash() + tag;
 	}
 
 	private static final boolean SOLID = true;
@@ -160,7 +179,7 @@ public class SIFEdge extends BioPAXEdge
 		addType(new EdgeType(BinaryInteractionType.COMPONENT_OF,
 			new Color(null, 100, 100, 100), DASHED, POSITIVE, true));
 		addType(new EdgeType(BinaryInteractionType.STATE_CHANGE,
-			new Color(null, 0, 150, 150), SOLID, NO_SIGN, false));
+			new Color(null, 0, 50, 150), SOLID, NO_SIGN, false));
 		addType(new EdgeType(BinaryInteractionType.METABOLIC_CATALYSIS,
 			new Color(null, 250, 0, 250), SOLID, NO_SIGN, false));
 		addType(new EdgeType(BinaryInteractionType.SEQUENTIAL_CATALYSIS,
@@ -173,6 +192,14 @@ public class SIFEdge extends BioPAXEdge
 			new Color(null, 200, 100, 0), SOLID, NEGATIVE, false));
 		addType(new EdgeType(BinaryInteractionType.GENERIC_OF,
 			new Color(null, 150, 150, 0), SOLID, POSITIVE, true));
-	}
 
+		// Non-Paxtools SIF edges
+
+		addType(new EdgeType("TRANSCRIPTION", true,
+			new Color(null, 150, 150, 0), DASHED, NO_SIGN, false));
+		addType(new EdgeType("DEGRADATION", true,
+			new Color(null, 150, 0, 150), SOLID, NO_SIGN, false));
+		addType(new EdgeType("BINDS_TO", false,
+			new Color(null, 100, 100, 100), SOLID, NO_SIGN, true));
+	}
 }

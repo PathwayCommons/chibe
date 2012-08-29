@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class BasicSIFEdge extends BioPAXEdge
 {
-	private SIFEdge.EdgeType type;
+	protected SIFEdge.EdgeType type;
 
 	public BasicSIFEdge(BasicSIFNode source, BasicSIFNode target, String tag)
 	{
@@ -25,11 +25,11 @@ public class BasicSIFEdge extends BioPAXEdge
 
 		this.type = SIFEdge.typeMap.get(tag);
 
-		setTooltipText(type.getIntType().getTag());
+		setTooltipText(tag);
 
 		setColor(type.getColor());
 
-		if (type.getIntType().isDirected())
+		if (type.isDirected())
 		{
 			setArrow("Target");
 		}

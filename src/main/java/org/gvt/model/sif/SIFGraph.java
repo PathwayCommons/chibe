@@ -73,7 +73,7 @@ public class SIFGraph extends BioPAXGraph
 				continue;
 			}
 
-			new SIFEdge(sourceNode, targetNode, simpleInt.getType());
+			new SIFEdge(sourceNode, targetNode, simpleInt.getType().getTag());
 
 			encountered.add(id);
 
@@ -159,7 +159,7 @@ public class SIFGraph extends BioPAXGraph
 				SIFNode target = (SIFNode) edge.getTarget();
 
 				writer.write(source.getText() + "\t");
-				writer.write(edge.getType().getTag() + "\t");
+				writer.write(edge.getTag() + "\t");
 				writer.write(target.getText() + "\n");
 			}
 
