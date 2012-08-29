@@ -75,10 +75,16 @@ public class PopupManager extends MenuManager
 			manager.add(localQueryMenu);
 
 			MenuManager pcQueryMenu = new MenuManager("&Pathway Commons Query");
-			pcQueryMenu.add(new QueryPCNeighborsAction(main, true));
+			MenuManager neighMenu = new MenuManager("&Neighborhood");
+			neighMenu.add(new QueryPCNeighborsAction(main, false, true));
+			neighMenu.add(new QueryPCNeighborsAction(main, true, false));
+			neighMenu.add(new QueryPCNeighborsAction(main, true, true));
+			pcQueryMenu.add(neighMenu);
 			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true));
-			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true, true));
-			pcQueryMenu.add(new QueryPCCommonStreamAction(main, true, false));
+			MenuManager commStreamMenu = new MenuManager("&Common Stream");
+			commStreamMenu.add(new QueryPCCommonStreamAction(main, true));
+			commStreamMenu.add(new QueryPCCommonStreamAction(main, false));
+			pcQueryMenu.add(commStreamMenu);
 			manager.add(pcQueryMenu);
 
             CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;

@@ -73,8 +73,9 @@ public abstract class QueryPCAction extends Action
                         {
                             MergeAction merge = new MergeAction(main, model);
                             merge.setOpenPathways(true);
-                            merge.setCreateNewPathway(true);
-                            if (!modelHasNonEmptyPathway(model)) merge.setNewPathwayName(getText());
+							boolean hasNonEmptyPathway = modelHasNonEmptyPathway(model);
+                            merge.setCreateNewPathway(!hasNonEmptyPathway);
+                            if (!hasNonEmptyPathway) merge.setNewPathwayName(getText());
                             merge.run();
                         }
                         else

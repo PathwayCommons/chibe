@@ -66,7 +66,7 @@ public class DeletePathwayAction extends Action
 			{
 				BioPAXGraph graph = (BioPAXGraph) root;
 
-				if (graph.getPathway().hasEdge())
+				if (graph.getPathway() != null && graph.getPathway().hasEdge())
 				{
 					MessageDialog.openError(main.getShell(), "Cannot delete pathway",
 						"Pathway is either a participant of an interaction,\nor controller of, " +

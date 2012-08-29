@@ -16,9 +16,27 @@ import java.util.List;
  */
 public class QueryPCNeighborsAction extends QueryPCAction
 {
-	public QueryPCNeighborsAction(ChisioMain main, boolean useSelected)
+	/**
+	 * If you use this constructor, then useSelected is true. This means no dialog appears.
+	 *
+	 * @param main
+	 * @param upstream
+	 * @param downstream
+	 */
+	public QueryPCNeighborsAction(ChisioMain main, boolean upstream, boolean downstream)
 	{
-		super(main, "Neighborhood ...", useSelected);
+		super(main, upstream && downstream ? "Bothstream" : upstream ? "Upstream" : "Downstream", 
+			true);
+
+		assert upstream || downstream;
+
+		options.setUpstream(upstream);
+		options.setDownstream(downstream);
+	}
+
+	public QueryPCNeighborsAction(ChisioMain main)
+	{
+		super(main, "Neighborhood ...", false);
 	}
 
 	public void run()

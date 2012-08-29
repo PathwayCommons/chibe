@@ -84,7 +84,7 @@ public class SIFReader
 
 			if (duplicatesExist)
 			{
-				root.write(new FileOutputStream(sifFile));
+//				root.write(new FileOutputStream(sifFile));
 			}
 		}
 		catch (Exception e)
@@ -120,7 +120,8 @@ public class SIFReader
 			{
 				String second = st.nextToken();
 
-				if (types == null || types.contains(relation))
+				// commented out because we want to display non-paxtools sifs
+//				if (types == null || types.contains(relation))
 				{
 					createUnit(first, relation, second);
 				}
@@ -141,7 +142,7 @@ public class SIFReader
 		String revStr = second + "\t" + relation + "\t" + first;
 
 		if (relationsSet.contains(relStr) ||
-			(SIFEdge.typeMap.get(relation).getSign() == SIFEdge.NO_SIGN &&
+			(!SIFEdge.typeMap.get(relation).isDirected() &&
 				relationsSet.contains(revStr)))
 		{
 			duplicatesExist = true;
