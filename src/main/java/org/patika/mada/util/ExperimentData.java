@@ -237,11 +237,11 @@ public abstract class ExperimentData implements Representable
 	public static List<String> getDataTypes()
 	{
 		return Arrays.asList(
-            ALTERATION_DATA,
-			EXPRESSION_DATA,
+            EXPRESSION_DATA,
 			MASS_SPEC_DATA, 
 			COPY_NUMBER_VARIATION,
-			MUTATION_DATA);
+			MUTATION_DATA,
+            ALTERATION_DATA);
 	}
 
 	// Experiment data type constants

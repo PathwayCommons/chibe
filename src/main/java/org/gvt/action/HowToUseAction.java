@@ -23,6 +23,6 @@ public class HowToUseAction extends Action
 	public void run()
 	{
 		SystemBrowserDisplay.openURL(
-			"http://www.bilkent.edu.tr/~bcbi/chibe/ChiBE-1.1.UG.pdf");
+			"http://www.cs.bilkent.edu.tr/~ivis/chibe/ChiBE-2.0.UG.pdf");
 	}
 }
