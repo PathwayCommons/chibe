@@ -192,26 +192,69 @@ public class CBioPortalSettingsDialog extends Dialog {
 
         saveButton.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent selectionEvent) {
-                try {
-                    options.put(CBioPortalOptions.PORTAL_OPTIONS.EXP_UPPER_THRESHOLD,
-                            Double.parseDouble(upperExpLimit.getText()));
-                    options.put(CBioPortalOptions.PORTAL_OPTIONS.EXP_LOWER_THRESHOLD,
-                            Double.parseDouble(lowerExpLimit.getText()));
-                    options.put(CBioPortalOptions.PORTAL_OPTIONS.CNA_UPPER_THRESHOLD,
-                            Double.parseDouble(cnaUpperLimit.getText()));
-                    options.put(CBioPortalOptions.PORTAL_OPTIONS.CNA_LOWER_THRESHOLD,
-                            Double.parseDouble(cnaLowerLimit.getText()));
-                    options.put(CBioPortalOptions.PORTAL_OPTIONS.RPPA_UPPER_THRESHOLD,
-                            Double.parseDouble(upperRppaLimit.getText()));
-                    options.put(CBioPortalOptions.PORTAL_OPTIONS.RPPA_LOWER_THRESHOLD,
-                            Double.parseDouble(lowerRppaLimit.getText()));
+                try
+                {
+                    int closeCount = 0;
+                    
+                    if(Double.parseDouble(upperExpLimit.getText()) > Double.parseDouble(lowerExpLimit.getText()))
+                    {
+                        options.put(CBioPortalOptions.PORTAL_OPTIONS.EXP_UPPER_THRESHOLD,
+                                Double.parseDouble(upperExpLimit.getText()));
+                        options.put(CBioPortalOptions.PORTAL_OPTIONS.EXP_LOWER_THRESHOLD,
+                                Double.parseDouble(lowerExpLimit.getText()));
+                        closeCount++;
+                    }
+                    else
+                    {
+                        upperExpLimit.setText(options.get(CBioPortalOptions.PORTAL_OPTIONS.EXP_UPPER_THRESHOLD).toString());
+                        lowerExpLimit.setText(options.get(CBioPortalOptions.PORTAL_OPTIONS.EXP_LOWER_THRESHOLD).toString());
+                    }
+
+                    if (Double.parseDouble(cnaUpperLimit.getText()) > Double.parseDouble(cnaLowerLimit.getText()))
+                    {
+                        options.put(CBioPortalOptions.PORTAL_OPTIONS.CNA_UPPER_THRESHOLD,
+                                Double.parseDouble(cnaUpperLimit.getText()));
+                        options.put(CBioPortalOptions.PORTAL_OPTIONS.CNA_LOWER_THRESHOLD,
+                                Double.parseDouble(cnaLowerLimit.getText()));
+                        closeCount++;
+                    }
+                    else
+                    {
+                        cnaUpperLimit.setText(options.get(CBioPortalOptions.PORTAL_OPTIONS.CNA_UPPER_THRESHOLD).toString());
+                        cnaLowerLimit.setText(options.get(CBioPortalOptions.PORTAL_OPTIONS.CNA_LOWER_THRESHOLD).toString());
+                    }
+
+                    if (Double.parseDouble(upperRppaLimit.getText()) > Double.parseDouble(lowerRppaLimit.getText()))
+                    {
+                        options.put(CBioPortalOptions.PORTAL_OPTIONS.RPPA_UPPER_THRESHOLD,
+                                Double.parseDouble(upperRppaLimit.getText()));
+                        options.put(CBioPortalOptions.PORTAL_OPTIONS.RPPA_LOWER_THRESHOLD,
+                                Double.parseDouble(lowerRppaLimit.getText()));
+                        closeCount++;
+                    }
+                    else
+                    {
+                        upperRppaLimit.setText(options.get(CBioPortalOptions.PORTAL_OPTIONS.RPPA_UPPER_THRESHOLD).toString());
+                        lowerRppaLimit.setText(options.get(CBioPortalOptions.PORTAL_OPTIONS.RPPA_LOWER_THRESHOLD).toString());
+                    }
+
                     options.put(CBioPortalOptions.PORTAL_OPTIONS.METHYLATION_THRESHOLD,
                             Double.parseDouble(upperMethLimit.getText()));
-                } catch (NumberFormatException e) {
+
+                    if (closeCount == 3)
+                    {
+                        shell.close();
+                    }
+                    else
+                    {
+                        MessageDialog.openWarning(main.getShell(),"Invalid values!",
+                            "Upper thresholds must be greater than lower thresholds.");
+                    }
+                }
+                catch (NumberFormatException e)
+                {
                     MessageDialog.openError(main.getShell(), "Error",
                             "An error occurred while parsing the threshold values:\n" + e.getMessage());
-                } finally {
-                    shell.close();
                 }
             }
         });
