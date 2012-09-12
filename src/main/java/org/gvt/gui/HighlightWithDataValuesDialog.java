@@ -146,43 +146,50 @@ public class HighlightWithDataValuesDialog extends Dialog
         {
             public void keyPressed(KeyEvent event)
             {
-                int code = event.keyCode;
-
-                // enter pressed
-                if (code == SWT.CR)
+                try
                 {
-                    String text = ((Text)event.widget).getText();
-                    if (!text.isEmpty())
+                    int code = event.keyCode;
+
+                    // enter pressed
+                    if (code == SWT.CR)
                     {
-                        Double textDouble = Double.parseDouble(text);
-                        // Convert double value obtained from text to integer value that is compatible with Scale
-                        int value = double2Scale(textDouble);
+                        String text = ((Text)event.widget).getText();
+                        if (!text.isEmpty())
+                        {
+                            Double textDouble = Double.parseDouble(text);
+                            // Convert double value obtained from text to integer value that is compatible with Scale
+                            int value = double2Scale(textDouble);
 
-                        /**
-                         * If a value greater/smaller than maximum/minimum bound is given, the text is set to
-                         * maximum/minimum bound. Scale is set to maximum/minimum value by default.
-                         */
-                        if (textDouble < minBound)
-                        {
-                            textMin.setText(minBound + "");
-                        }
-                        if (textDouble > maxBound)
-                        {
-                            textMin.setText(maxBound + "");
-                        }
+                            /**
+                             * If a value greater/smaller than maximum/minimum bound is given, the text is set to
+                             * maximum/minimum bound. Scale is set to maximum/minimum value by default.
+                             */
+                            if (textDouble < minBound)
+                            {
+                                textMin.setText(minBound + "");
+                            }
+                            if (textDouble > maxBound)
+                            {
+                                textMin.setText(maxBound + "");
+                            }
 
-                        // If value given is greater than upper bound value, it is set to the upper bound value rather
-                        // than the specified value.
-                        if (value > scaleMax.getSelection() && buttonMax.getSelection())
-                        {
-                            scaleMin.setSelection(scaleMax.getSelection());
-                            textMin.setText(textMax.getText());
-                        }
-                        else
-                        {
-                            scaleMin.setSelection(value);
+                            // If value given is greater than upper bound value, it is set to the upper bound value rather
+                            // than the specified value.
+                            if (value > scaleMax.getSelection() && buttonMax.getSelection())
+                            {
+                                scaleMin.setSelection(scaleMax.getSelection());
+                                textMin.setText(textMax.getText());
+                            }
+                            else
+                            {
+                                scaleMin.setSelection(value);
+                            }
                         }
                     }
+                }
+                catch(NumberFormatException e)
+                {
+                    MessageDialog.openError(shell, "Invalid input!", "Please enter a valid number.");
                 }
             }
         });
@@ -241,43 +248,50 @@ public class HighlightWithDataValuesDialog extends Dialog
         {
             public void keyPressed(KeyEvent event)
             {
-                int code = event.keyCode;
-
-                // enter pressed
-                if (code == SWT.CR)
+                try
                 {
-                    String text = ((Text)event.widget).getText();
-                    if (!text.isEmpty())
+                    int code = event.keyCode;
+
+                    // enter pressed
+                    if (code == SWT.CR)
                     {
-                        Double textDouble = Double.parseDouble(text);
-                        // Convert double value obtained from text to integer value that is compatible with Scale
-                        int value = double2Scale(textDouble);
+                        String text = ((Text)event.widget).getText();
+                        if (!text.isEmpty())
+                        {
+                            Double textDouble = Double.parseDouble(text);
+                            // Convert double value obtained from text to integer value that is compatible with Scale
+                            int value = double2Scale(textDouble);
 
-                        /**
-                         * If a value greater/smaller than maximum/minimum bound is given, the text is set to
-                         * maximum/minimum bound. Scale is set to maximum/minimum value by default.
-                         */
-                        if (textDouble < minBound)
-                        {
-                            textMax.setText(minBound+"");
-                        }
-                        if (textDouble > maxBound)
-                        {
-                            textMax.setText(maxBound+"");
-                        }
+                            /**
+                             * If a value greater/smaller than maximum/minimum bound is given, the text is set to
+                             * maximum/minimum bound. Scale is set to maximum/minimum value by default.
+                             */
+                            if (textDouble < minBound)
+                            {
+                                textMax.setText(minBound+"");
+                            }
+                            if (textDouble > maxBound)
+                            {
+                                textMax.setText(maxBound+"");
+                            }
 
-                        // If value given is smaller than lower bound value, it is set to the lower bound value rather
-                        // than the specified value.
-                        if (value < scaleMin.getSelection() && buttonMin.getSelection())
-                        {
-                            scaleMax.setSelection(scaleMin.getSelection());
-                            textMax.setText(textMin.getText());
-                        }
-                        else
-                        {
-                            scaleMax.setSelection(value);
+                            // If value given is smaller than lower bound value, it is set to the lower bound value rather
+                            // than the specified value.
+                            if (value < scaleMin.getSelection() && buttonMin.getSelection())
+                            {
+                                scaleMax.setSelection(scaleMin.getSelection());
+                                textMax.setText(textMin.getText());
+                            }
+                            else
+                            {
+                                scaleMax.setSelection(value);
+                            }
                         }
                     }
+                }
+                catch (NumberFormatException e)
+                {
+                    MessageDialog.openError(shell, "Invalid input!", "Please enter a valid number.");
                 }
             }
         });

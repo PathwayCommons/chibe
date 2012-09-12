@@ -56,7 +56,7 @@ public class AboutDialog extends Dialog
 	protected void createContents()
 	{
 		shell = new Shell(getParent(), SWT.CLOSE);
-		shell.setSize(340, 360);
+		shell.setSize(355, 360);
 		shell.setLayout(new GridLayout());
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
@@ -73,7 +73,8 @@ public class AboutDialog extends Dialog
 		shell.setLocation(size.x/2 + loc.x - s.x/2, size.y/2 + loc.y -s.y/2);
 
 		ImageDescriptor bcbiLogo =
-			ImageDescriptor.createFromFile(ChisioMain.class, "icon/BCBI-logo-small.gif");
+			ImageDescriptor.createFromFile(ChisioMain.class,
+                    "icon/ivis-logo.png");
 
 		ImageDescriptor cbioLogo =
 			ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbio.png");
@@ -112,7 +113,7 @@ public class AboutDialog extends Dialog
 			"Paxtools, version 1.0, and\n" +
 			"PATIKAmad, version 2.1\n" +
 			"\n" +
-			" Bilkent Center for Bioinformatics, 2007 - present\n" +
+			" Information Visualization Research Group, 2007 - present\n" +
 			"\n" +
 			"Bilkent University,\n" +
 			"Ankara 06800, TURKEY\n" +
@@ -126,7 +127,7 @@ public class AboutDialog extends Dialog
 			new Font(null, "Verdana", 8, SWT.BOLD));
 		mail.setBackground(ColorConstants.white);
 		mail.setAlignment(SWT.CENTER);
-		mail.setText("bcbi@cs.bilkent.edu.tr\n" +
+		mail.setText("ivis@cs.bilkent.edu.tr\n" +
 			"http://www.bilkent.edu.tr/~bcbi/chibe.html");
 	}
 }
