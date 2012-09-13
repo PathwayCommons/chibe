@@ -15,7 +15,7 @@ public class LegendAction extends Action
 
     public LegendAction(ChisioMain main)
     {
-        super("Legends");
+        super("Legend");
 
         this.main = main;
     }

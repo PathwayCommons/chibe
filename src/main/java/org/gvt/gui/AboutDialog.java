@@ -108,7 +108,7 @@ public class AboutDialog extends Dialog
 		compoundOrHierarchicalLabel.setBackground(ColorConstants.white);
 		compoundOrHierarchicalLabel.setAlignment(SWT.CENTER);
 		compoundOrHierarchicalLabel.setText(
-			"based on Chisio, version 1.0,\n" +
+			"based on Chisio, version 2.0,\n" +
 			"using Eclipse Graph Editing Framework, version 3.1,\n" +
 			"Paxtools, version 1.0, and\n" +
 			"PATIKAmad, version 2.1\n" +

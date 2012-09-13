@@ -52,7 +52,7 @@ public class LegendDialog extends Dialog
     public void createContents()
     {
         shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-        shell.setText("Visual Legend");
+        shell.setText("Legend");
 
         ImageDescriptor id = ImageDescriptor.createFromFile(
             ChisioMain.class, "icon/cbe-icon.png");
