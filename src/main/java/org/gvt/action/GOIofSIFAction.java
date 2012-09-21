@@ -65,7 +65,7 @@ public class GOIofSIFAction extends Action
 	public void run()
 	{
 		GOIofSIFParameterDialog dialog = new GOIofSIFParameterDialog(main.getShell(),
-			SIFGraph.getPossibleRuleTypes(BioPAXLevel.L2),
+			SIFGraph.getPossibleRuleTypes(BioPAXLevel.L3),
 			selectedRuleTypes,
 			siffile,
 			genesfile,
