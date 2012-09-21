@@ -192,8 +192,13 @@ public class SIFEdge extends BioPAXEdge
 			new Color(null, 200, 100, 0), SOLID, NEGATIVE, false));
 		addType(new EdgeType(BinaryInteractionType.GENERIC_OF,
 			new Color(null, 150, 150, 0), SOLID, POSITIVE, true));
+        addType(new EdgeType(BinaryInteractionType.DOWNREGULATE_EXPRESSION,
+                new Color(null, 250, 50, 50), SOLID, NEGATIVE, false));
+        addType(new EdgeType(BinaryInteractionType.UPREGULATE_EXPRESSION,
+                new Color(null, 50, 50, 200), SOLID, POSITIVE, false));
 
-		// Non-Paxtools SIF edges
+
+        // Non-Paxtools SIF edges
 
 		addType(new EdgeType("TRANSCRIPTION", true,
 			new Color(null, 150, 150, 0), DASHED, NO_SIGN, false));
