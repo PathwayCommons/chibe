@@ -5,6 +5,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
@@ -121,9 +122,14 @@ public class GOIofSIFParameterDialog extends Dialog
 	private void createContents()
 	{
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		shell.setText("Find GoI on SIF File");
+		shell.setText("Paths Between Query on SIF File");
         shell.setImage(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png").createImage());
 		shell.setLayout(new GridLayout());
+
+        Label infoLabel = new Label(shell, SWT.NONE);
+        infoLabel.setText("Find all paths of specified length limit " + "\n" +
+                "between any two entities of the specified set");
+        infoLabel.setLayoutData(new GridData(GridData.FILL, GridData.FILL, false, false, 1,8));
 
 		ButtonAdapter adapter = new ButtonAdapter();
 

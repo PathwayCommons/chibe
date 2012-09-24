@@ -40,8 +40,8 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 	protected void createContents(final QueryOptionsPack opt)
 	{
         super.createContents(opt);
-        shell.setText("PoI Query Properties");
-        infoLabel.setText("Find all paths from a set of source entities to a set of target entities");
+        shell.setText("Paths From To Query Properties");
+        infoLabel.setText("Find all paths of specified length limit from a set of source entities to a set of target entities");
 
 		//Set Image
 		ImageDescriptor id = ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png");

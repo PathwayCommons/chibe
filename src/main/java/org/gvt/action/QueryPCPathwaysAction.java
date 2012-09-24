@@ -35,7 +35,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
         {
             try
             {
-                StringInputDialog dialog = new StringInputDialog(main.getShell(), "Search Pathways",
+                StringInputDialog dialog = new StringInputDialog(main.getShell(), "Query Pathways",
                     "Enter a keyword for pathway name", keyword,
                     "Find pathways related to the specified keyword");
 

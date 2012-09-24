@@ -98,5 +98,6 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 		setInitialValues(opt);
 	}
 
-    public static String info = "Find molecules that are affecting or affected by a specific set of molecules in common";
+    public static String info = "Find molecules within the specified distance that are affecting or affected " +
+        "by a specific set of molecules in common";
 }
