@@ -1109,7 +1109,7 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
         try
         {
             InputStream resourceAsStream = ExperimentDataConvertionWizard.class
-                    .getClassLoader().getResourceAsStream("../../../gvt/util/references.txt");
+                    .getClassLoader().getResourceAsStream("org/gvt/util/references.txt");
             InputStreamReader fileReader = new InputStreamReader(resourceAsStream);
             BufferedReader reader = new BufferedReader(fileReader);
 
