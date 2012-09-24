@@ -19,6 +19,8 @@ import org.gvt.util.HGNCUtil;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
+import org.patika.mada.util.ExperimentData;
+import org.patika.mada.util.ExperimentDataManager;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -379,7 +381,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return false;
 	}
 
-    public List<String[]> getDataInspectable() {
+    public List<String[]> getDataInspectable(ChisioMain main) {
         List<String[]> list = new ArrayList<String[]>();
         String geneName = null;
 
@@ -422,7 +424,14 @@ public class Actor extends BioPAXNode implements EntityAssociated
             double activating, inhibiting, inactive, noChange, noData;
             activating = inhibiting = inactive = noChange = noData = 0;
 
+            List<Integer> expIndices
+                    = main.getExperimentDataManager(ExperimentData.ALTERATION_DATA).getFirstExpIndices();
+
+            int i = 0;
             for (Change change : changes) {
+                if(!expIndices.contains(i++))
+                    continue;
+
                 switch (change) {
                     case INHIBITING:
                         inhibiting++;
@@ -453,7 +462,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
             n.setMaximumFractionDigits(1);
 
             DecimalFormat decimalFormat = new DecimalFormat("#");
-            list.add(new String[]{"Number of samples",  decimalFormat.format(sampleSize)});
+            list.add(new String[]{"Number of samples", expIndices.size() + ""});
             list.add(new String[]{"Alteration frequency", n.format(inhibiting + inactive + activating)});
             list.add(new String[]{" - Activating", n.format(activating)});
             list.add(new String[]{" - Inhibiting", n.format(inhibiting)});

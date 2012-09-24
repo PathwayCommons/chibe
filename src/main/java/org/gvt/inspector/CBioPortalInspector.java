@@ -15,7 +15,7 @@ public class CBioPortalInspector extends Inspector {
     private void prepareForGraphObject() {
         org.patika.mada.graph.GraphObject go = (org.patika.mada.graph.GraphObject) model;
         if(go instanceof Actor) {
-            for (String[] property : ((Actor) go).getDataInspectable()) {
+            for (String[] property : ((Actor) go).getDataInspectable(main)) {
                 addRow(table, property[0]).setText(1, property[1]);
             }
             table.getColumn(1).pack();
