@@ -75,7 +75,8 @@ public class HighlightByNameAction extends Action
 					(node.getTooltipText() != null &&
 						node.getTooltipText().toLowerCase().indexOf(name) >= 0))
 				{
-					node.setHighlight(true);
+					node.setHighlightColor(ChisioMain.higlightColor);
+                    node.setHighlight(true);
 				}
 			}
 		}

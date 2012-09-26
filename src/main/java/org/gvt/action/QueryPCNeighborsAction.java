@@ -25,7 +25,7 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	 */
 	public QueryPCNeighborsAction(ChisioMain main, boolean upstream, boolean downstream)
 	{
-		super(main, upstream && downstream ? "Bothstream" : upstream ? "Upstream" : "Downstream", 
+		super(main, upstream && downstream ? "Both Streams" : upstream ? "Upstream" : "Downstream",
 			true);
 
 		assert upstream || downstream;
