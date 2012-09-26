@@ -425,7 +425,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
             activating = inhibiting = inactive = noChange = noData = 0;
 
             List<Integer> expIndices
-                    = main.getExperimentDataManager(ExperimentData.ALTERATION_DATA).getFirstExpIndices();
+                    = main.getExperimentDataManager(ExperimentData.CBIOPORTAL_ALTERATION_DATA).getFirstExpIndices();
 
             int i = 0;
             for (Change change : changes) {

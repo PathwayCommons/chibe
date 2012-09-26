@@ -251,8 +251,10 @@ public abstract class ExperimentData implements Representable
 	public static final String COPY_NUMBER_VARIATION = "Copy Number Variation Data";
 	public static final String MUTATION_DATA = "Mutation Data";
     public static final String ALTERATION_DATA = "Alteration Data";
+    public static final String CBIOPORTAL_ALTERATION_DATA = "cBio Portal Alteration Data";
 
-	// Presence - absence constants
+
+    // Presence - absence constants
 
 	public static final int PRESENT = 1;
 	public static final int ABSENT = -1;

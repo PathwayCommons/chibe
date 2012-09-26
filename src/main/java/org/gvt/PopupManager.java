@@ -8,6 +8,8 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.gvt.action.*;
 import org.gvt.editpart.ChsEdgeEditPart;
+import org.gvt.model.biopaxl3.Actor;
+import org.patika.mada.util.ExperimentData;
 
 /**
  * This class maintains Popup Menus creation.
@@ -85,10 +87,16 @@ public class PopupManager extends MenuManager
 			commStreamMenu.add(new QueryPCCommonStreamAction(main, true));
 			commStreamMenu.add(new QueryPCCommonStreamAction(main, false));
 			pcQueryMenu.add(commStreamMenu);
-			manager.add(pcQueryMenu);
 
+            NodeEditPart nep = (NodeEditPart) ep;
+            Object model = nep.getModel();
             CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
-            if( portalAccessor != null && !portalAccessor.getCurrentGeneticProfiles().isEmpty() ) {
+
+            if( model instanceof Actor
+                    && main.hasExperimentData(ExperimentData.CBIOPORTAL_ALTERATION_DATA)
+                    && portalAccessor != null
+                    && !portalAccessor.getCurrentGeneticProfiles().isEmpty() )
+            {
                 manager.add(new Separator());
                 manager.add(new CBioPortalDataStatisticsAction(main));
             }
