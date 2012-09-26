@@ -238,7 +238,9 @@ public class QueryPathwaysAction extends Action
                     else if (!refs.isEmpty())
                     {
                         MessageDialog.openInformation(main.getShell(), "Not found!",
-                            "No pathway found.");
+                            "No pathway found. Make sure that the input is either a UniProt ID " +
+								"or an Entrez Gene ID. Gene Symbols and arbitrary keywords do not" +
+								" work here.");
                     }
                 }
                 catch (Exception e)
