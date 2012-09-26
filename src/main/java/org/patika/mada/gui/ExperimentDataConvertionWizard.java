@@ -1155,6 +1155,8 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
                 userRefList.put(userRefValues, userRefName);
             }
 
+			reader.close();
+
             // In case there are overlapping reference values between refList and userRefList maps, entry in userRefList
             // overrides the entry in refList.
 

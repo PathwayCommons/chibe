@@ -203,7 +203,8 @@ public class QueryNeighborsAction extends Action
                         else
                         {
                             MessageDialog.openInformation(main.getShell(), "Not found!",
-                                "Nothing found!");
+                                "Nothing found. Make sure that the input is either a UniProt ID " +
+									"or an Entrez Gene ID. Gene Symbols do not work here.");
                         }
                     }
 
