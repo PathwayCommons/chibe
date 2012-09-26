@@ -7,6 +7,7 @@ import org.eclipse.draw2d.TextUtilities;
 import org.gvt.command.CreateCommand;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.HGNCUtil;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -263,20 +264,41 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	{
 		String sym = null;
 
-		for (Xref ref : ent.getXref())
+		if (ent instanceof SimplePhysicalEntity)
 		{
-			String db = ref.getDb();
-
-			if (db == null) continue;
-			
-			if (db.equalsIgnoreCase("GENE_SYMBOL") ||
-				db.equalsIgnoreCase("GENESYMBOL") ||
-				db.equalsIgnoreCase("GENE SYMBOL") ||
-				db.equalsIgnoreCase("GENE-SYMBOL") ||
-				db.equalsIgnoreCase("SYMBOL"))
+			if (((SimplePhysicalEntity) ent).getEntityReference() != null)
 			{
-				sym = ref.getId();
-				break;
+				for (Xref xref : ((SimplePhysicalEntity) ent).getEntityReference().getXref())
+				{
+					if (xref.getDb().equals("HGNC"))
+					{
+						String id = xref.getId();
+						if (id.contains(":")) id = id.substring(id.indexOf(":") + 1);
+
+						sym = HGNCUtil.getSymbol(Integer.parseInt(id));
+						if (sym != null) break;
+					}
+				}
+			}
+		}
+
+		if (sym == null)
+		{
+			for (Xref ref : ent.getXref())
+			{
+				String db = ref.getDb();
+	
+				if (db == null) continue;
+				
+				if (db.equalsIgnoreCase("GENE_SYMBOL") ||
+					db.equalsIgnoreCase("GENESYMBOL") ||
+					db.equalsIgnoreCase("GENE SYMBOL") ||
+					db.equalsIgnoreCase("GENE-SYMBOL") ||
+					db.equalsIgnoreCase("SYMBOL"))
+				{
+					sym = ref.getId();
+					break;
+				}
 			}
 		}
 		return sym;

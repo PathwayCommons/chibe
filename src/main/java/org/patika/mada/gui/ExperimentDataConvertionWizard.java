@@ -12,6 +12,7 @@ import javax.xml.bind.Marshaller;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
 
@@ -65,6 +66,8 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 	 */
 	List<String> supportedReferenceTypes;
 
+	static Map<List<String>,String> knownReferenceSetsMap;
+	
 	/**
 	 * Last used directory for remembering
 	 */
@@ -1103,7 +1106,9 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 	 */
 	public static Map<List<String>,String> getKnownReferenceSetsMap()
 	{
-        Map<List<String>,String> refList = new HashMap<List<String>,String>();
+		if (knownReferenceSetsMap != null) return knownReferenceSetsMap;
+
+        knownReferenceSetsMap = new HashMap<List<String>,String>();
         Map<List<String>,String> userRefList = new HashMap<List<String>,String>();
 
         try
@@ -1128,7 +1133,7 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
                     String token = tokenizer.nextToken();
                     refValues.add(token);
                 }
-                refList.put(refValues, refName);
+				knownReferenceSetsMap.put(refValues, refName);
             }
 
             // discard the first line which contains note to user
@@ -1159,7 +1164,7 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
             {
                 for (Map.Entry<List<String>, String> userEntry : userRefList.entrySet())
                 {
-                    for (Map.Entry<List<String>, String> entry : refList.entrySet())
+                    for (Map.Entry<List<String>, String> entry : knownReferenceSetsMap.entrySet())
                     {
                         if(entry.getValue().equals(userEntry.getValue()))
                         {
@@ -1171,17 +1176,17 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 
             for (List<String> list : removeList)
             {
-                refList.remove(list);
+				knownReferenceSetsMap.remove(list);
             }
 
-            refList.putAll(userRefList);
+			knownReferenceSetsMap.putAll(userRefList);
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
 
-		return refList;
+		return knownReferenceSetsMap;
 	}
 
 	/**
