@@ -99,7 +99,8 @@ public class QueryNeighborsAction extends Action
             if (refs.isEmpty() && !useSelectedNodes)
             {
                 StringInputDialog dialog = new StringInputDialog(main.getShell(), "Query Neighborhood",
-                    "Enter UniProt or Entrez Gene ID", null, NeighborhoodQueryParamWithEntitiesDialog.info);
+                    "Enter UniProt or Entrez Gene ID", null,
+                    "Find 1-level neighborhood of the specified molecule");
 
                 String ids = dialog.open();
 

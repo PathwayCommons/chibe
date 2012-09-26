@@ -56,7 +56,7 @@ public class AboutDialog extends Dialog
 	protected void createContents()
 	{
 		shell = new Shell(getParent(), SWT.CLOSE);
-		shell.setSize(355, 360);
+		shell.setSize(355, 370);
 		shell.setLayout(new GridLayout());
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
@@ -86,7 +86,7 @@ public class AboutDialog extends Dialog
 		bcbiLabel.setImage(bcbiLogo.createImage());
 
 		Label cbioLabel = new Label(shell, SWT.CENTER);
-		gridData = new GridData(SWT.CENTER, SWT.CENTER, false, false);
+		gridData = new GridData(SWT.CENTER, SWT.BEGINNING, false, false, 1, 10);
 		cbioLabel.setLayoutData(gridData);
 		cbioLabel.setBackground(ColorConstants.white);
 		cbioLabel.setImage(cbioLogo.createImage());
@@ -94,7 +94,6 @@ public class AboutDialog extends Dialog
 		Label chisioLabel = new Label(shell, SWT.CENTER);
 		chisioLabel.setLayoutData(
 			new GridData(SWT.CENTER, SWT.CENTER, false, false));
-		chisioLabel.setForeground(new Color(null, 255, 156, 82));
 		chisioLabel.setBackground(ColorConstants.white);
 		chisioLabel.setFont(
 			new Font(null, "Verdana", 16, SWT.BOLD | SWT.ITALIC));
@@ -120,7 +119,6 @@ public class AboutDialog extends Dialog
 			"\n");
 
 		Label mail = new Label(shell, SWT.NONE);
-		mail.setForeground(new Color(null, 115, 156, 222));
 		mail.setLayoutData(
 			new GridData(SWT.CENTER, SWT.CENTER, false, false));
 		mail.setFont(
