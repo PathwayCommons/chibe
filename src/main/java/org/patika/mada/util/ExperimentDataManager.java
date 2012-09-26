@@ -837,6 +837,10 @@ public class ExperimentDataManager
         {
             return new AlterationData(v);
         }
+        else if (type.equals(ExperimentData.CBIOPORTAL_ALTERATION_DATA))
+        {
+            return new CBioPortalAlterationData(v);
+        }
 		else
 		{
 			throw new RuntimeException("Invalid data type: " + type);
@@ -863,6 +867,10 @@ public class ExperimentDataManager
 		}
         else if (type.equals(ExperimentData.ALTERATION_DATA)) {
             return new AlterationData(v1, v2);
+        }
+        else if (type.equals(ExperimentData.CBIOPORTAL_ALTERATION_DATA))
+        {
+            return new CBioPortalAlterationData(v1, v2);
         }
 		else
 		{

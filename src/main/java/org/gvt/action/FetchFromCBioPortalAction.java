@@ -10,36 +10,20 @@ import org.biopax.paxtools.causality.model.Change;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.RelationshipXref;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.gui.FetchFromCBioPortalDialog;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.util.Conf;
 import org.gvt.util.HGNCUtil;
 import org.patika.mada.dataXML.*;
-import org.patika.mada.gui.ExperimentDataConvertionWizard;
-import org.patika.mada.gui.FetchFromGEODialog;
-import org.patika.mada.util.AlterationData;
+import org.patika.mada.util.CBioPortalAlterationData;
 import org.patika.mada.util.ExperimentData;
 import org.patika.mada.util.ExperimentDataManager;
 
-import javax.swing.*;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.MarshalException;
-import javax.xml.bind.Marshaller;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -123,7 +107,7 @@ public class FetchFromCBioPortalAction extends Action {
             return;
         }
 
-        String alterationDataType = ExperimentData.ALTERATION_DATA;
+        String alterationDataType = ExperimentData.CBIOPORTAL_ALTERATION_DATA;
 
         experimentData.setExperimentType(alterationDataType);
         String experimentInfo = cancerStudy.getName() + " | "
@@ -165,8 +149,8 @@ public class FetchFromCBioPortalAction extends Action {
                     // TODO: Special value for NO_DATA?
                     double expValue =
                             (change.isAbsent() || !change.isAltered())
-                                    ? AlterationData.VALUES.NOT_ALTERED.toDouble()
-                                    : AlterationData.VALUES.ALTERED.toDouble();
+                                    ? CBioPortalAlterationData.VALUES.NOT_ALTERED.toDouble()
+                                    : CBioPortalAlterationData.VALUES.ALTERED.toDouble();
 
                     ValueTuple tuple = expFactory.createValueTuple();
                     tuple.setNo(count++);
