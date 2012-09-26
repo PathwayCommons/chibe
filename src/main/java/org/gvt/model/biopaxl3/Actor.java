@@ -16,6 +16,7 @@ import org.gvt.model.EntityAssociated;
 import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.HGNCUtil;
+import org.ivis.layout.Cluster;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -312,10 +313,48 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		EntityHolder ent = getEntity();
 		if (ent.l3er != null) return super.getStringSpecificColor(ent.l3er.getRDFId()+"X");
-		else if (ent.l3pe != null) return super.getStringSpecificColor(ent.l3pe.getRDFId());
+		else if (ent.l3pe != null) 
+		{
+			List<String> memErs = getMemberEntityIDs(ent.l3pe, new ArrayList<String>());
+			
+			if (!memErs.isEmpty())
+			{
+				Collections.sort(memErs);
+
+				String s = "";
+				for (String memEr : memErs)
+				{
+					s += memEr;
+				}
+				return super.getStringSpecificColor(s);
+			}
+			else return super.getStringSpecificColor(ent.l3pe.getRDFId());
+		}
 		else return null;
 	}
 
+	protected List<String> getMemberEntityIDs(PhysicalEntity pe, List<String> list)
+	{
+		for (PhysicalEntity mem : pe.getMemberPhysicalEntity())
+		{
+			if (mem instanceof SimplePhysicalEntity)
+			{
+				SimplePhysicalEntity spe = (SimplePhysicalEntity) mem;
+				EntityReference er = spe.getEntityReference();
+				
+				if (er != null)
+				{
+					if (list.contains(er.getRDFId())) list.add(er.getRDFId());
+				}
+				else 
+				{
+					getMemberEntityIDs(spe, list);
+				}
+			}
+		}
+		return list;
+	}
+	
 	public boolean isEvent()
 	{
 		return false;

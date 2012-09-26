@@ -4,6 +4,7 @@ import cpath.client.PathwayCommonsIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.util.BioPaxIOException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -167,7 +168,12 @@ public class QueryNeighborsAction extends Action
                         }
 
                         System.out.println("Querying neighbors for " + ref);
-                        Model resultModel = ioHandler.getNeighbors(ref.getRef());
+                        Model resultModel = null;
+						try
+						{
+							resultModel = ioHandler.getNeighbors(ref.getRef());
+						}
+						catch (BioPaxIOException e){}
 
                         main.unlock();
 
