@@ -87,6 +87,7 @@ public class PopupManager extends MenuManager
 			commStreamMenu.add(new QueryPCCommonStreamAction(main, true));
 			commStreamMenu.add(new QueryPCCommonStreamAction(main, false));
 			pcQueryMenu.add(commStreamMenu);
+            manager.add(pcQueryMenu);
 
             NodeEditPart nep = (NodeEditPart) ep;
             Object model = nep.getModel();
