@@ -179,7 +179,7 @@ public class SingleDataFileLoadPage extends PatikaWizardPage implements ActionLi
 
 				JOptionPane.showMessageDialog(this.mdcw,
 										    dataFile.getName()+" is not "
-											+ "recognized by CBE because "
+											+ "recognized by ChiBE because "
 											+ "\n it contains non-ASCII characters." ,
 											"Illegal Reference File",
 											JOptionPane.ERROR_MESSAGE);

@@ -211,5 +211,5 @@ public class LoadExperimentDataAction extends Action
 
 	public static final String[] FILTER_EXTENSIONS = new String[]{"*.ced"};
 
-	public static final String[] FILTER_NAMES = new String[]{"CBE Experiment Data (*.ced)"};
+	public static final String[] FILTER_NAMES = new String[]{"ChiBE Experiment Data (*.ced)"};
 }

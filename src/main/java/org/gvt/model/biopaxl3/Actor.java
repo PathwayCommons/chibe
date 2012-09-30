@@ -344,7 +344,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				
 				if (er != null)
 				{
-					if (list.contains(er.getRDFId())) list.add(er.getRDFId());
+					if (!list.contains(er.getRDFId())) list.add(er.getRDFId());
 				}
 				else 
 				{

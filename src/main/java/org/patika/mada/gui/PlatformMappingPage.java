@@ -183,7 +183,7 @@ public class PlatformMappingPage extends PatikaWizardPage implements ActionListe
 			{
 
 				JOptionPane.showMessageDialog(this.mdcw,
-					platformFile.getName() + " is not recognized by CBE because \n " +
+					platformFile.getName() + " is not recognized by ChiBE because \n " +
 						"it contains non-ASCII characters." ,
 					"Illegal Reference File",
 					JOptionPane.ERROR_MESSAGE);
