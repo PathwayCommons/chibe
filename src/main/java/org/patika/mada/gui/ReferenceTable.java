@@ -318,7 +318,7 @@ public class ReferenceTable extends JTable
 		 */
 		private void mapSupportedReferences()
 		{
-			String massage = "CBE performed the below reference mapping:\n\n";
+			String massage = "ChiBE performed the below reference mapping:\n\n";
 			int numberOfMappedColumns = 0;
 			for (int i = 0; i < data.length; i++)
 			{
