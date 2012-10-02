@@ -183,7 +183,7 @@ public class MergeAction extends Action
                 {
                     List<String> intids = getInteractionIDs(model);
                     newPathwayName = graph.createPathway(
-                        newPathwayName == null ? "Neighborhood" : newPathwayName, intids);
+                        newPathwayName == null ? "No name" : newPathwayName, intids);
                     main.getAllPathwayNames().add(newPathwayName);
                 }
 

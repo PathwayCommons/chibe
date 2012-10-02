@@ -124,8 +124,10 @@ public class OpenPathwaysAction extends Action
                     return;
                 }
             }
+		}
 
-
+		if (pathways != null)
+		{
 			for (String name : new ArrayList<String>(main.getOpenTabNames()))
 			{
 				// Close pathways that user deselect
