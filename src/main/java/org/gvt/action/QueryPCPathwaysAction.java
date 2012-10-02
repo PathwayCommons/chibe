@@ -79,6 +79,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
             {
                 main.unlock();
                 pathwayID = null;
+                keyword = null;
             }
         }
         else
