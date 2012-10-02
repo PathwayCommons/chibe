@@ -49,6 +49,7 @@ import org.gvt.figure.HighlightLayer;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.GraphObject;
+import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.biopaxl2.Actor;
 import org.gvt.model.biopaxl2.BioPAXL2Graph;
 import org.gvt.model.biopaxl2.Complex;
@@ -416,6 +417,20 @@ public class ChisioMain extends ApplicationWindow
 		assert nameToTabMap.containsKey(tabName) : "Tab name not known: " + tabName;
 
 		CTabItem tab = nameToTabMap.get(tabName);
+		closeTab(tab, remmeberLayout);
+	}
+
+	public void closeTabIfNotBasicSIF(String tabName, boolean remmeberLayout)
+	{
+		assert openTabNames.contains(tabName) : "Tab close request with an unknown name:" + tabName;
+		assert nameToTabMap.containsKey(tabName) : "Tab name not known: " + tabName;
+
+		CTabItem tab = nameToTabMap.get(tabName);
+
+		ScrollingGraphicalViewer viewer = tabToViewerMap.get(tab);
+		CompoundModel root = (CompoundModel) viewer.getContents().getModel();
+		if (root instanceof BasicSIFGraph) return;
+		
 		closeTab(tab, remmeberLayout);
 	}
 

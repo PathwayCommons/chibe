@@ -108,6 +108,10 @@ public class PathwayHolder
 		else if (l3p != null)
 		{
 			model.remove(l3p);
+			for (Pathway p : l3p.getPathwayComponentOf())
+			{
+				p.removePathwayComponent(l3p);
+			}
 		}
 	}
 

@@ -196,7 +196,7 @@ public class SIFReader
 
 			BasicSIFNode node = new BasicSIFNode(root, id, name);
 
-			node.addReference(new XRef("NAME:"+node.getName()));
+			node.addReference(new XRef("name" + XRef.SEPARATOR + node.getName()));
 
 			if (terms.length > 1)
 			{

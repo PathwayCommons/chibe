@@ -105,7 +105,7 @@ public class GOIofSIFAction extends Action
 					}
 					for (String ref : line.split(" "))
 					{
-						refs.add(new XRef(ref));
+						refs.add(new XRef("name" + XRef.SEPARATOR + ref));
 					}
 				}
 
@@ -160,7 +160,7 @@ public class GOIofSIFAction extends Action
 			}
 
 			BasicSIFGraph goi = (BasicSIFGraph) graph.excise(graphObjects, true);
-			goi.setName("GOI");
+			goi.setName("Paths between nodes in SIF");
 
 			System.out.println("GOI has " + goi.getNodes().size() + " nodes and " +
 				goi.getEdges().size() + " edges.");
