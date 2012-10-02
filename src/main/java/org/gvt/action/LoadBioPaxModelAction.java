@@ -111,7 +111,7 @@ public class LoadBioPaxModelAction extends Action
 	 */
 	public static boolean saveChangesBeforeDiscard(ChisioMain main)
 	{
-		if (main.isDirty())
+		if (main.isDirty() && main.getOwlModel() != null)
 		{
 			MessageBox messageBox = new MessageBox(
 				main.getShell(),
@@ -232,7 +232,7 @@ public class LoadBioPaxModelAction extends Action
 						main.getAllPathwayNames().add(pathwayName);
 					}
 
-					main.closeAllTabs(false);
+					if (main.getOwlModel() != null) main.closeAllTabs(false);
 					main.setRootGraph(root);
 					main.setOwlFileName(filename);
 

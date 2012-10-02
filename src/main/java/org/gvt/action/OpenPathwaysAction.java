@@ -131,7 +131,7 @@ public class OpenPathwaysAction extends Action
 				// Close pathways that user deselect
 				if (!pathways.contains(name))
 				{
-					main.closeTab(name, true);
+					main.closeTabIfNotBasicSIF(name, true);
 				}
 				// Remove names of already open pathways from selection
 				else

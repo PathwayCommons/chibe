@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.biopaxl2.BioPAXNode;
 import org.gvt.model.biopaxl2.Actor;
+import org.patika.mada.util.XRef;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +28,7 @@ public class BasicSIFNode extends BioPAXNode
 
 		if (name == null) name = rdfid;
 		setText(name);
+		addReference(new XRef("name" + XRef.SEPARATOR + name));
 
 		setShape("RoundRect");
 		configFromModel();
