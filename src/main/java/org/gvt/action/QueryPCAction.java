@@ -76,6 +76,7 @@ public abstract class QueryPCAction extends Action
 							boolean hasNonEmptyPathway = modelHasNonEmptyPathway(model);
                             merge.setCreateNewPathway(!hasNonEmptyPathway);
                             if (!hasNonEmptyPathway) merge.setNewPathwayName(getText());
+							merge.updatePathways = false;
                             merge.run();
                         }
                         else
