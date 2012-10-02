@@ -41,6 +41,7 @@ public class QueryPCGetAction extends QueryPCAction
             }
 
             execute();
+            id = null;
         }
         else
         {

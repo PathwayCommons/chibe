@@ -85,22 +85,21 @@ public class SaveAsImageAction extends Action
 //		tmpfilename = tmpfilename.substring(0, ind);
 
 		
-		/* UK: Added support for saving images as PNG or GIF, as the libraries support these formats */
+		/* UK: Added support for saving images as PNG, as the libraries support these formats */
 		fileChooser.setFileName(tmpfilename + ".jpg");
-		fileChooser.setFilterExtensions(new String[]{"*.jpg", "*.bmp", "*.gif", "*.png"});
+		fileChooser.setFilterExtensions(new String[]{"*.jpg", "*.bmp", "*.png"});
 		fileChooser.setFilterNames(
-			new String[]{"JPEG (*.jpg)", "BMP (*.bmp)", "GIF (*.gif)", "PNG (*.png)"});
+			new String[]{"JPEG (*.jpg)", "BMP (*.bmp)", "PNG (*.png)"});
 		String filename = fileChooser.open();
 
 		if (filename == null)
 		{
 			return;
 		}
-		else if (!filename.endsWith(".jpg") && !filename.endsWith(".bmp") 
-				&& !filename.endsWith(".png") && !filename.endsWith(".gif"))
+		else if (!filename.endsWith(".jpg") && !filename.endsWith(".bmp") && !filename.endsWith(".png"))
 		{
 			MessageDialog.openError(main.getShell(), "Invalid filename",
-				"ChiBE supports JPEG, PNG, GIF and Bitmap file formats only.\n" +
+				"ChiBE supports JPEG, PNG and Bitmap file formats only.\n" +
 					"Please provide a filename with an appropriate extension.");
 			return;
 		}
@@ -133,10 +132,6 @@ public class SaveAsImageAction extends Action
 		else if (filename.endsWith(".jpg"))
 		{
 			loader.save(filename, SWT.IMAGE_JPEG);
-		}
-        else if (filename.endsWith(".gif"))
-		{
-			loader.save(filename, SWT.IMAGE_GIF);
 		}
         else if (filename.endsWith(".png"))
 		{

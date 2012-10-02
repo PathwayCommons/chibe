@@ -84,6 +84,13 @@ public class SaveAsBioPAXFileAction extends Action
 			}
 			else
 			{
+                // Ensure that file extension is .owl
+                if (!fileName.endsWith(".owl"))
+                {
+                    fileName = fileName.substring(0, fileName.lastIndexOf("."));
+                    fileName += ".owl";
+                }
+                
 				// User has selected a file; see if it already exists
 				File file = new File(fileName);
 
