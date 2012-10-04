@@ -112,6 +112,10 @@ public class PathwayHolder
 			{
 				p.removePathwayComponent(l3p);
 			}
+			for (Process process : l3p.getPathwayComponent())
+			{
+				l3p.removePathwayComponent(process);
+			}
 		}
 	}
 
