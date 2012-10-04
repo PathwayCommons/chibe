@@ -56,7 +56,7 @@ public class AboutDialog extends Dialog
 	protected void createContents()
 	{
 		shell = new Shell(getParent(), SWT.CLOSE);
-		shell.setSize(355, 370);
+		shell.setSize(355, 365);
 		shell.setLayout(new GridLayout());
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
@@ -74,8 +74,7 @@ public class AboutDialog extends Dialog
 
 		ImageDescriptor bcbiLogo =
 			ImageDescriptor.createFromFile(ChisioMain.class,
-                    "icon/ivis-logo.png");
-
+                    "icon/i-vis.png");
 		ImageDescriptor cbioLogo =
 			ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbio.png");
 

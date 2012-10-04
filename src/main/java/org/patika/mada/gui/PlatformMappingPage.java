@@ -245,6 +245,12 @@ public class PlatformMappingPage extends PatikaWizardPage implements ActionListe
 						scrollPane = new JScrollPane(mapTable);
 						scrollPane.setPreferredSize(mapTable.getSize());
 						mappingPanel.add(scrollPane);
+                        
+                        if (mapTable.canNext(this.mdcw.hasPlatformFile()))
+                        {
+                            this.mdcw.nextButton.setEnabled(true);
+                        }
+
 						mappingPanel.validate();
 						this.validate();
 					}
