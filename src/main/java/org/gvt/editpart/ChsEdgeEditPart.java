@@ -54,10 +54,8 @@ public class ChsEdgeEditPart extends AbstractConnectionEditPart
 		{
 			public void route(Connection conn)
 			{
-				if (!LayoutOptionsPack.getInstance().getGeneral().
-					isAnimationDuringLayout()
-					|| LayoutOptionsPack.getInstance().getGeneral().
-					isAnimationOnLayout())
+				if (!LayoutOptionsPack.getInstance().getGeneral().animationDuringLayout
+					|| LayoutOptionsPack.getInstance().getGeneral().animationOnLayout)
 				{
 					GraphAnimation.recordInitialState(conn);
 

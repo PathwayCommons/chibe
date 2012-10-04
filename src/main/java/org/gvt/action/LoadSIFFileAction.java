@@ -6,6 +6,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.gvt.model.CompoundModel;
+import org.gvt.model.custom.CustomEdge;
+import org.gvt.util.CustomReader;
 import org.gvt.util.SIFReader;
 
 import java.io.File;
@@ -117,11 +119,20 @@ public class LoadSIFFileAction extends Action
 				main.getHighlightLayer().highlighted.clear();
 			}
 
-			File xmlfile = new File(filename);
+			File file = new File(filename);
 
-			SIFReader reader = new SIFReader();
+			CompoundModel root;
 
-			CompoundModel root = reader.readXMLFile(xmlfile);
+			if (file.getName().endsWith(".cus"))
+			{
+				CustomReader reader = new CustomReader();
+				root = reader.readFile(file);
+			}
+			else
+			{
+				SIFReader reader = new SIFReader();
+				root = reader.readXMLFile(file);
+			}
 
 			if (root != null)
 			{
@@ -162,6 +173,6 @@ public class LoadSIFFileAction extends Action
 		return false;
 	}
 
-	public static final String[] FILTER_EXTENSIONS = new String[]{"*.sif"};
-	public static final String[] FILTER_NAMES = new String[]{"Simple Interaction Format (*.sif)"};
+	public static final String[] FILTER_EXTENSIONS = new String[]{"*.sif", "*.cus"};
+	public static final String[] FILTER_NAMES = new String[]{"Simple Interaction Format (*.sif)", "Custom Graph (*.cus)"};
 }
