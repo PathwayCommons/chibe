@@ -18,10 +18,8 @@ public class ChsXYLayout extends XYLayout
 {
 	public void layout(IFigure container)
 	{
-		if(!LayoutOptionsPack.getInstance().getGeneral().
-			isAnimationDuringLayout() ||
-			LayoutOptionsPack.getInstance().getGeneral().
-				isAnimationOnLayout())
+		if(!LayoutOptionsPack.getInstance().getGeneral().animationDuringLayout ||
+			LayoutOptionsPack.getInstance().getGeneral().animationOnLayout)
 		{
 			GraphAnimation.recordInitialState(container);
 			if (GraphAnimation.playbackState(container))

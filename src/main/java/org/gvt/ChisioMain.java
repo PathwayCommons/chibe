@@ -319,7 +319,8 @@ public class ChisioMain extends ApplicationWindow
 		}
 		else
 		{
-			name = adviceTabName(null);
+			String nameCand = root.getText();
+			name = adviceTabName(nameCand.trim().length() > 0 ? nameCand : null);
 		}
 
 		if (openTabNames.contains(name))
@@ -367,15 +368,6 @@ public class ChisioMain extends ApplicationWindow
 
 		this.openTabNames.add(name);
 		this.nameToTabMap.put(name, tab);
-
-		// Temporary solution to a very annoying bug. We start to be able to see the graph after
-		// resizing the window. And just redrawing the contents does not solve it.
-		// Update: Bug looks gone! So I commented out below fix.
-//		Rectangle bounds = getShell().getBounds();
-//		bounds.width -= 1;
-//		getShell().setBounds(bounds);
-//		bounds.width += 1;
-//		getShell().setBounds(bounds);
 
 		return tab;
 	}

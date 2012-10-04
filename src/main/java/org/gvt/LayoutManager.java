@@ -249,8 +249,7 @@ public class LayoutManager
 		// if animation during layout is selected then animate,
 		// otherwise do nothing
 
-		if (LayoutOptionsPack.getInstance().
-			getGeneral().isAnimationDuringLayout())
+		if (LayoutOptionsPack.getInstance().getGeneral().animationDuringLayout)
 		{
 			Runnable inRun = new DuringRun(this.main);
 			this.main.getShell().getDisplay().syncExec(inRun);
@@ -325,7 +324,7 @@ public class LayoutManager
 
 		public void run()
 		{
-			if (LayoutOptionsPack.getInstance().getGeneral().isAnimationOnLayout())
+			if (LayoutOptionsPack.getInstance().getGeneral().animationOnLayout)
 			{
 				GraphAnimation.run(this.main.getViewer());
 			}
