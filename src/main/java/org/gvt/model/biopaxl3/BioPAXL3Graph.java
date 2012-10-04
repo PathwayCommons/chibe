@@ -100,6 +100,10 @@ public class BioPAXL3Graph extends BioPAXGraph
 			{
 				inter = ((ChbControl) node).getControl();
 			}
+			else if (node instanceof ChbTempReac)
+			{
+				inter = ((ChbTempReac) node).getTemplateReaction();
+			}
 			else if (node instanceof Hub)
 			{
 				inter = ((Hub) node).getInteraction();
@@ -291,6 +295,10 @@ public class BioPAXL3Graph extends BioPAXGraph
 			else if (o instanceof ChbControl)
 			{
 				pathway.addPathwayComponent(((ChbControl) o).getControl());
+			}
+			else if (o instanceof ChbTempReac)
+			{
+				pathway.addPathwayComponent(((ChbTempReac) o).getTemplateReaction());
 			}
 			else if (o instanceof Hub)
 			{
