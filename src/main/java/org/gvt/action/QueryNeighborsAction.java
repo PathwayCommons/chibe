@@ -186,6 +186,7 @@ public class QueryNeighborsAction extends Action
                                 MergeAction merge = new MergeAction(main, resultModel);
                                 merge.setOpenPathways(false);
                                 merge.setCreateNewPathway(true);
+								merge.setUpdatePathways(false);
                                 merge.setNewPathwayName(pname);
                                 merge.run();
                                 ref2pname.put(ref, merge.getNewPathwayName());
@@ -217,6 +218,7 @@ public class QueryNeighborsAction extends Action
                     {
                         ArrayList<String> nms = new ArrayList<String>();
                         nms.add(ref2pname.get(ref));
+						nms.addAll(main.getOpenTabNames());
                         OpenPathwaysAction opa = new OpenPathwaysAction(main, nms);
                         List<XRef> refL = new ArrayList<XRef>();
                         refL.add(ref);
