@@ -14,8 +14,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.List;
 import org.gvt.ChisioMain;
+import org.gvt.util.HGNCUtil;
 import org.gvt.util.QueryOptionsPack;
 import org.gvt.util.EntityHolder;
+
+import javax.tools.JavaCompiler;
 
 /**
  * This class is abstract class for Local Query Dialogs
@@ -281,7 +284,21 @@ public abstract class AbstractQueryParamDialog extends Dialog
 					return;
 				}
 
-                //store values in dialog to optionsPack
+				// Check for unknown gene symbols
+				java.util.List<String> unkwn = getUnknownSymbols();
+				if (!unkwn.isEmpty())
+				{
+					String s = "";
+					for (String us : unkwn) s += " " + us;
+
+					MessageDialog.openError(main.getShell(), "Error!",
+						"Unknown symbol" + (unkwn.size() > 1 ? "s" : "") + ": " + s);
+
+					return;
+				}
+
+
+				//store values in dialog to optionsPack
                 storeValuesToOptionsPack(opt);
 
                 //execute is selected
@@ -592,6 +609,27 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		return opt;
 	}
 
+	protected java.util.List<String> getUnknownSymbols()
+	{
+		java.util.List<String> list = new ArrayList<String>();
+
+		collectUnknownSymbols(sourceST, list);
+		collectUnknownSymbols(targetST, list);
+		
+		return list;
+	}
+
+	private void collectUnknownSymbols(SymbolText st, java.util.List<String> unkwn)
+	{
+		if (st != null)
+		{
+			for (String s : st.getSymbols())
+			{
+				if (!HGNCUtil.isKnown(s) && !unkwn.contains(s)) unkwn.add(s);
+			}
+		}
+	}
+
 	class EntityListGroup extends Composite
 	{
 		protected List entityList;
@@ -743,7 +781,12 @@ public abstract class AbstractQueryParamDialog extends Dialog
 			String text = symbolText.getText();
 			for (String s : text.replaceAll(",", " ").split("\\s+"))
 			{
-				if (s != null && s.length() > 1 && !list.contains(s)) list.add(s);
+				if (s != null)
+				{
+					s = s.trim();
+
+					if (s.length() > 0 && !list.contains(s)) list.add(s);
+				}
 			}
 			return list;
 		}
