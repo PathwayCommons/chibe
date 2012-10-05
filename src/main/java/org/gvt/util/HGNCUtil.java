@@ -34,6 +34,16 @@ public class HGNCUtil
    		return id2sym.get(hgncID);
    	}
 	
+	public static boolean isKnown(String symbol)
+	{
+		return sym2id.containsKey(symbol);
+	}
+	
+	public static boolean isKnown(Integer id)
+	{
+		return id2sym.containsKey(id);
+	}
+
 	static
 	{
 		try
