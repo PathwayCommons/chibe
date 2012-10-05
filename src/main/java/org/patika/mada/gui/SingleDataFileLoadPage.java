@@ -181,7 +181,7 @@ public class SingleDataFileLoadPage extends PatikaWizardPage implements ActionLi
 										    dataFile.getName()+" is not "
 											+ "recognized by ChiBE because "
 											+ "\n it contains non-ASCII characters." ,
-											"Illegal Reference File",
+											"Illegal Data File",
 											JOptionPane.ERROR_MESSAGE);
 			}
 			else
@@ -273,11 +273,18 @@ public class SingleDataFileLoadPage extends PatikaWizardPage implements ActionLi
 				try
 				{
 					line = br.readLine();
+
+					if (line != null &&
+						(line.startsWith("!") || line.startsWith("#") || line.startsWith("^")))
+						continue;
+
 					for(int i=0;line!=null && i<line.length();i++)
 					{
 						if(line.charAt(i)>127)
 						{
-							throw new IOException();
+							System.out.println("line = " + line);
+							System.out.println("line.charAt("+i+") = " + ((int) line.charAt(i)) + " -- " + line.charAt(i));
+							return false;
 						}
 					}
 				}
