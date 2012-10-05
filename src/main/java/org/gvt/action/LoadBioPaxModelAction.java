@@ -269,7 +269,6 @@ public class LoadBioPaxModelAction extends Action
 			{
 				filename = null;
 				model = null;
-				pathwayName = null;
 				main.unlock();
 			}
 		}
