@@ -439,55 +439,43 @@ public class LayoutInspector extends Dialog
 		LayoutOptionsPack lop = LayoutOptionsPack.getInstance();
 
 		//General
-		lop.getGeneral().setAnimationPeriod(animationPeriod.getSelection());
-		lop.getGeneral().setAnimationOnLayout(
-			animateOnLayoutButton.getSelection());
-		lop.getGeneral().setAnimationDuringLayout(
-			animateDuringLayoutButton.getSelection());
+		lop.getGeneral().animationPeriod = animationPeriod.getSelection();
+		lop.getGeneral().animationOnLayout = animateOnLayoutButton.getSelection();
+		lop.getGeneral().animationDuringLayout = animateDuringLayoutButton.getSelection();
 
 		if (proofButton.getSelection())
 		{
-			lop.getGeneral().setLayoutQuality(LayoutConstants.PROOF_QUALITY);
+			lop.getGeneral().layoutQuality = LayoutConstants.PROOF_QUALITY;
 		}
 		else if (draftButton.getSelection())
 		{
-			lop.getGeneral().setLayoutQuality(LayoutConstants.DRAFT_QUALITY);
+			lop.getGeneral().layoutQuality = LayoutConstants.DRAFT_QUALITY;
 		}
 		else
 		{
-			lop.getGeneral().setLayoutQuality(LayoutConstants.DEFAULT_QUALITY);
+			lop.getGeneral().layoutQuality = LayoutConstants.DEFAULT_QUALITY;
 		}
 
-		lop.getGeneral().setIncremental(incremental.getSelection());
-		lop.getGeneral().setCreateBendsAsNeeded(
-			createBendsAsButton.getSelection());
-		lop.getGeneral().setUniformLeafNodeSizes(
-			uniformLeafNodeSizesButton.getSelection());
+		lop.getGeneral().incremental = incremental.getSelection();
+		lop.getGeneral().createBendsAsNeeded = createBendsAsButton.getSelection();
+		lop.getGeneral().uniformLeafNodeSizes = uniformLeafNodeSizesButton.getSelection();
 
 		//CoSE
-		lop.getCoSE().setIdealEdgeLength(
-			Integer.parseInt(desiredEdgeLengthCoSE.getText()));
-		lop.getCoSE().setSmartEdgeLengthCalc(
-			smartEdgeLengthCalc.getSelection());
-		lop.getCoSE().setMultiLevelScaling(
-			multiLevelScaling.getSelection());
-		lop.getCoSE().setSmartRepulsionRangeCalc(
-			smartRepulsionRangeCalc.getSelection());
-		lop.getCoSE().setCompoundGravityStrength(
-			compoundGravityStrength.getSelection());
-		lop.getCoSE().setCompoundGravityRange(
-			compoundGravityRange.getSelection());
-		lop.getCoSE().setGravityStrength(gravityStrength.getSelection());
-		lop.getCoSE().setGravityRange(gravityRange.getSelection());
-		lop.getCoSE().setRepulsionStrength(repulsionStrength.getSelection());
-		lop.getCoSE().setSpringStrength(springStrength.getSelection());
+		lop.getCoSE().idealEdgeLength = Integer.parseInt(desiredEdgeLengthCoSE.getText());
+		lop.getCoSE().smartEdgeLengthCalc = smartEdgeLengthCalc.getSelection();
+		lop.getCoSE().multiLevelScaling = multiLevelScaling.getSelection();
+		lop.getCoSE().smartRepulsionRangeCalc = smartRepulsionRangeCalc.getSelection();
+		lop.getCoSE().compoundGravityStrength = compoundGravityStrength.getSelection();
+		lop.getCoSE().compoundGravityRange = compoundGravityRange.getSelection();
+		lop.getCoSE().gravityStrength = gravityStrength.getSelection();
+		lop.getCoSE().gravityRange = gravityRange.getSelection();
+		lop.getCoSE().repulsionStrength = repulsionStrength.getSelection();
+		lop.getCoSE().springStrength = springStrength.getSelection();
 
 		//Spring
-		lop.getSpring().setNodeDistanceRestLength(
-			Integer.parseInt(nodeDistanceRestLength.getText()));
-		lop.getSpring().setDisconnectedNodeDistanceSpringRestLength(
-			Integer.parseInt(
-				disconnectedNodeDistanceSpringRestLength.getText()));
+		lop.getSpring().nodeDistanceRestLength = Integer.parseInt(nodeDistanceRestLength.getText());
+		lop.getSpring().disconnectedNodeDistanceSpringRestLength =
+			Integer.parseInt(disconnectedNodeDistanceSpringRestLength.getText());
 	}
 
 	public void setInitialValues()
@@ -495,18 +483,15 @@ public class LayoutInspector extends Dialog
 		LayoutOptionsPack lop = LayoutOptionsPack.getInstance();
 
 		//General
-		animationPeriod.setSelection(lop.getGeneral().getAnimationPeriod());
-		animateDuringLayoutButton.setSelection(
-			lop.getGeneral().isAnimationDuringLayout());
-		animateOnLayoutButton.setSelection(
-			lop.getGeneral().isAnimationOnLayout());
+		animationPeriod.setSelection(lop.getGeneral().animationPeriod);
+		animateDuringLayoutButton.setSelection(lop.getGeneral().animationDuringLayout);
+		animateOnLayoutButton.setSelection(lop.getGeneral().animationOnLayout);
 
-		if (lop.getGeneral().getLayoutQuality() == LayoutConstants.PROOF_QUALITY)
+		if (lop.getGeneral().layoutQuality == LayoutConstants.PROOF_QUALITY)
 		{
 			proofButton.setSelection(true);
 		}
-		else if (lop.getGeneral().getLayoutQuality() ==
-			LayoutConstants.DRAFT_QUALITY)
+		else if (lop.getGeneral().layoutQuality == LayoutConstants.DRAFT_QUALITY)
 		{
 			draftButton.setSelection(true);
 		}
@@ -515,35 +500,26 @@ public class LayoutInspector extends Dialog
 			defaultButton.setSelection(true);
 		}
 
-		incremental.setSelection(lop.getGeneral().isIncremental());
-		createBendsAsButton.setSelection(
-			lop.getGeneral().isCreateBendsAsNeeded());
-		uniformLeafNodeSizesButton.setSelection(
-			lop.getGeneral().isUniformLeafNodeSizes());
+		incremental.setSelection(lop.getGeneral().incremental);
+		createBendsAsButton.setSelection(lop.getGeneral().createBendsAsNeeded);
+		uniformLeafNodeSizesButton.setSelection(lop.getGeneral().uniformLeafNodeSizes);
 
 		//CoSE
-		desiredEdgeLengthCoSE.setText(
-			String.valueOf(lop.getCoSE().getIdealEdgeLength()));
-		smartEdgeLengthCalc.setSelection(
-			lop.getCoSE().isSmartEdgeLengthCalc());
-		multiLevelScaling.setSelection(
-			lop.getCoSE().isMultiLevelScaling());
-		smartRepulsionRangeCalc.setSelection(
-			lop.getCoSE().isSmartRepulsionRangeCalc());
-		gravityStrength.setSelection(lop.getCoSE().getGravityStrength());
-		gravityRange.setSelection(lop.getCoSE().getGravityRange());
-		compoundGravityStrength.setSelection(
-			lop.getCoSE().getCompoundGravityStrength());
-		compoundGravityRange.setSelection(
-			lop.getCoSE().getCompoundGravityRange());
-		repulsionStrength.setSelection(lop.getCoSE().getRepulsionStrength());
-		springStrength.setSelection(lop.getCoSE().getSpringStrength());
+		desiredEdgeLengthCoSE.setText(String.valueOf(lop.getCoSE().idealEdgeLength));
+		smartEdgeLengthCalc.setSelection(lop.getCoSE().smartEdgeLengthCalc);
+		multiLevelScaling.setSelection(lop.getCoSE().multiLevelScaling);
+		smartRepulsionRangeCalc.setSelection(lop.getCoSE().smartRepulsionRangeCalc);
+		gravityStrength.setSelection(lop.getCoSE().gravityStrength);
+		gravityRange.setSelection(lop.getCoSE().gravityRange);
+		compoundGravityStrength.setSelection(lop.getCoSE().compoundGravityStrength);
+		compoundGravityRange.setSelection(lop.getCoSE().compoundGravityRange);
+		repulsionStrength.setSelection(lop.getCoSE().repulsionStrength);
+		springStrength.setSelection(lop.getCoSE().springStrength);
 
 		//Spring
-		nodeDistanceRestLength.setText(
-			String.valueOf(lop.getSpring().getNodeDistanceRestLength()));
+		nodeDistanceRestLength.setText(String.valueOf(lop.getSpring().nodeDistanceRestLength));
 		disconnectedNodeDistanceSpringRestLength.setText(String.valueOf(
-			lop.getSpring().getDisconnectedNodeDistanceSpringRestLength()));
+			lop.getSpring().disconnectedNodeDistanceSpringRestLength));
 	}
 
 	public void setDefaultLayoutProperties(int select)
