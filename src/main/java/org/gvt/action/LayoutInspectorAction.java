@@ -4,6 +4,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
 import org.gvt.gui.LayoutInspector;
+import org.ivis.layout.LayoutOptionsPack;
 
 /**
  * This class creates the action for opening layout properties window.
@@ -15,6 +16,7 @@ import org.gvt.gui.LayoutInspector;
 public class LayoutInspectorAction extends Action
 {
 	ChisioMain main;
+	private static LayoutInspector layoutInspector = null;
 
 	/**
 	 * Constructor
@@ -27,8 +29,25 @@ public class LayoutInspectorAction extends Action
 		this.main = main;
 	}
 
+	public LayoutInspector getLayoutInspector()
+	{
+		if (LayoutInspectorAction.layoutInspector == null)
+		{
+			LayoutInspectorAction.layoutInspector = new LayoutInspector(this.main);
+
+			// Make any changes to default layout options here
+			LayoutOptionsPack layoutOptionsPack = LayoutOptionsPack.getInstance();
+
+			// CoSE
+			layoutOptionsPack.getCoSE().idealEdgeLength = 30;
+			layoutOptionsPack.getCoSE().defaultIdealEdgeLength = 30;
+		}
+
+		return LayoutInspectorAction.layoutInspector;
+	}
+
 	public void run()
 	{
-		new LayoutInspector(main).open();
+		this.getLayoutInspector().open();
 	}
 }
