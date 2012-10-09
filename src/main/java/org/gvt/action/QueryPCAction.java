@@ -3,9 +3,11 @@ package org.gvt.action;
 import cpath.client.CPath2Client;
 import cpath.client.util.CPathException;
 import cpath.client.util.NoResultsFoundException;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Pathway;
+import org.biopax.paxtools.model.level3.Xref;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
@@ -18,6 +20,8 @@ import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
+import org.patika.mada.graph.Node;
+import org.patika.mada.util.XRef;
 
 import java.util.*;
 
@@ -87,6 +91,24 @@ public abstract class QueryPCAction extends Action
                             if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getText());
                             load.run();
                         }
+						
+						// Highlight source and target
+						
+						Set<String> st = new HashSet<String>();
+						if (options.getSourceList() != null) 
+							st.addAll(options.getSourceList());
+						if (options.getTargetList() != null) 
+							st.addAll(options.getTargetList());
+
+						Set<XRef> refSet = new HashSet<XRef>();
+						for (String name : st)
+						{
+							refSet.add(new XRef("Name", name));
+						}
+
+						HighlightWithRefAction hac =
+							new HighlightWithRefAction(main, main.getPathwayGraph(), refSet);
+						hac.run();
                     }
                     else
                     {

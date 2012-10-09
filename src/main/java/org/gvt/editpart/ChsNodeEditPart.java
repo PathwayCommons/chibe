@@ -21,6 +21,7 @@ import org.gvt.figure.NodeFigure;
 import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.Actor;
+import org.gvt.model.custom.CustomNode;
 import org.gvt.util.EntityHolder;
 
 import java.beans.PropertyChangeEvent;
@@ -69,6 +70,13 @@ public class ChsNodeEditPart extends EditPartWithListener
 				{
 					nFigure.setDrawCloneMarker(true);
 				}
+			}
+		}
+		else if (model instanceof CustomNode)
+		{
+			if (((CustomNode) model).isDuplicate())
+			{
+				nFigure.setDrawCloneMarker(true);
 			}
 		}
 		

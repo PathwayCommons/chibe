@@ -42,6 +42,10 @@ public class HighlightWithRefAction extends Action
 					{
 						node.setHighlight(true);
 					}
+					else if (node.getSecondaryReferences().contains(ref))
+					{
+						node.setHighlight(true);
+					}
 				}
 			}
 		}

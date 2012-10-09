@@ -181,6 +181,11 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 				{
 					this.addSecondaryReference(new XRef(xr));
 				}
+
+				for (String name : er.getName())
+				{
+					this.addSecondaryReference(new XRef("Name", name));
+				}
 			}
 		}
 
