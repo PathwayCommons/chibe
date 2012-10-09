@@ -10,6 +10,7 @@ import org.patika.mada.util.ExpressionData;
 import org.patika.mada.util.XRef;
 
 import javax.swing.table.AbstractTableModel;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -227,7 +228,7 @@ public class ExperimentValuesTableModel extends AbstractTableModel
 
 			if (val.getNo() == expNos[expIndex])
 			{
-				return "" + val.getValue();
+                return new DecimalFormat("#.####").format(val.getValue());
 			}
 		}
 
@@ -250,7 +251,7 @@ public class ExperimentValuesTableModel extends AbstractTableModel
 		}
 		else
 		{
-			return mean(v);
+            return Double.parseDouble(new DecimalFormat("#.####").format(mean(v)));
 		}
 	}
 
@@ -276,7 +277,7 @@ public class ExperimentValuesTableModel extends AbstractTableModel
 		if (!v1.isEmpty() && !v2.isEmpty())
 		{
 			ExpressionData info = new ExpressionData(mean(v1), mean(v2));
-			return info.getValue();
+            return Double.parseDouble(new DecimalFormat("#.####").format(info.getValue()));
 		}
 		else
 		{
