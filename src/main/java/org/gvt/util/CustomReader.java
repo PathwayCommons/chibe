@@ -1,6 +1,7 @@
 package org.gvt.util;
 
 import org.gvt.model.CompoundModel;
+import org.gvt.model.NodeModel;
 import org.gvt.model.custom.*;
 
 import java.io.BufferedReader;
@@ -19,13 +20,13 @@ import static org.gvt.model.custom.CustomGraph.*;
  */
 public class CustomReader
 {
-	protected Map<String, CustomNode> nodeMap;
+	protected Map<String, NodeModel> nodeMap;
 	protected Map<String, CustomEdge> edgeMap;
 	protected Map<String, CustomGroup> compoundMap;
 
 	public CustomReader()
 	{
-		nodeMap = new HashMap<String, CustomNode>();
+		nodeMap = new HashMap<String, NodeModel>();
 		edgeMap = new HashMap<String, CustomEdge>();
 	}
 
@@ -63,7 +64,9 @@ public class CustomReader
 		if (map.containsKey(COMPOUND))
 		for (Map<String, String> compoundProps : map.get(COMPOUND))
 		{
-
+			assert compoundProps.containsKey(ID);
+			CustomGroup group = new CustomGroup(graph, compoundProps, nodeMap);
+			nodeMap.put(compoundProps.get(ID), group);
 		}
 		
 		return graph;
