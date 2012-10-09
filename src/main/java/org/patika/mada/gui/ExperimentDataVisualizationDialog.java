@@ -287,9 +287,7 @@ public class ExperimentDataVisualizationDialog extends Dialog implements Selecti
 		model = new ExperimentValuesTableModel(man);
 		tableScroll.setExpandHorizontal(true);
 		tableScroll.setExpandVertical(true);
-		data = new GridData();
-		data.grabExcessHorizontalSpace = true;
-		data.grabExcessVerticalSpace = true;
+        data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		data.horizontalSpan = 2;
 		tableScroll.setLayoutData(data);
 		tableScroll.setLayout(new GridLayout(1, true));
@@ -598,9 +596,9 @@ public class ExperimentDataVisualizationDialog extends Dialog implements Selecti
 
 		for (int i = 0; i < model.getColumnCount(); i++)
 		{
-			TableColumn column = new TableColumn(table, i == 0 ? SWT.LEFT : SWT.CENTER, i);
+            TableColumn column = new TableColumn(table, SWT.LEFT, i);
 			column.setText(columnNames[i]);
-			column.setWidth(i == 0 ? 150 : 50);
+			column.setWidth(i == 0 ? 150 : 55);
 		}
 	}
 	private void createViewer()
