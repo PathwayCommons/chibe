@@ -100,15 +100,26 @@ public abstract class QueryPCAction extends Action
 						if (options.getTargetList() != null) 
 							st.addAll(options.getTargetList());
 
-						Set<XRef> refSet = new HashSet<XRef>();
-						for (String name : st)
+						if (options.isUseID())
 						{
-							refSet.add(new XRef("Name", name));
-						}
+							HighlightWithEntityIDAction hac = new HighlightWithEntityIDAction(
+								main, main.getPathwayGraph(), st);
 
-						HighlightWithRefAction hac =
-							new HighlightWithRefAction(main, main.getPathwayGraph(), refSet);
-						hac.run();
+							hac.run();
+						}
+						else
+						{
+							Set<XRef> refSet = new HashSet<XRef>();
+							for (String name : st)
+							{
+								refSet.add(new XRef("Name", name));
+							}
+
+							HighlightWithRefAction hac = new HighlightWithRefAction(
+								main, main.getPathwayGraph(), refSet);
+
+							hac.run();
+						}
                     }
                     else
                     {
