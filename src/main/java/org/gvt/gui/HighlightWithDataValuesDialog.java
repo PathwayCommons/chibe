@@ -34,6 +34,9 @@ public class HighlightWithDataValuesDialog extends Dialog
     private Scale scaleMin;
     private Scale scaleMax;
 
+    private Button withinButton;
+    private Button outsideButton;
+
     private Button okButton;
     private Button cancelButton;
 
@@ -50,6 +53,9 @@ public class HighlightWithDataValuesDialog extends Dialog
     // First element stores minResult and second element stores maxResult
     private double[] resultArray;
 
+    // true for within, false for outside
+    private boolean rangeType;
+
     private boolean okPressed;
 
     public HighlightWithDataValuesDialog(Shell parent, double maxBound, double minBound)
@@ -65,6 +71,8 @@ public class HighlightWithDataValuesDialog extends Dialog
         maxResult = Double.MAX_VALUE;
 
         resultArray = new double[] {minResult, maxResult};
+
+        rangeType = true;
 
         okPressed = false;
     }
@@ -106,17 +114,23 @@ public class HighlightWithDataValuesDialog extends Dialog
         shell.setImage(id.createImage());
 
         GridLayout gridLayout = new GridLayout();
-        gridLayout.numColumns = 3;
+        gridLayout.numColumns = 4;
         shell.setLayout(gridLayout);
 
         infoLabel = new Label(shell,SWT.NONE);
         GridData gridData = new GridData(SWT.FILL, SWT.FILL, false, false);
         gridData.horizontalSpan = 3;
-        gridData.verticalSpan = 6;
+        gridData.verticalSpan = 5;
         infoLabel.setLayoutData(gridData);
         infoLabel.setText("Choose range of interest for data values");
 
-        buttonMin = new Button(shell, SWT.CHECK | SWT.WRAP);
+        Group scaleGroup = new Group(shell, SWT.NONE);
+        gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
+        gridData.horizontalSpan = 3;
+        scaleGroup.setLayoutData(gridData);
+        scaleGroup.setLayout(new GridLayout(3, false));
+
+        buttonMin = new Button(scaleGroup, SWT.CHECK | SWT.WRAP);
         gridData = new GridData(SWT.CENTER, SWT.CENTER, false, false);
         buttonMin.setLayoutData(gridData);
         buttonMin.setSelection(true);
@@ -135,10 +149,26 @@ public class HighlightWithDataValuesDialog extends Dialog
                     scaleMin.setSelection(scaleMax.getSelection());
                     textMin.setText(textMax.getText());
                 }
+
+                // Range selection is only offered when both min and max are selected and for other cases rangeType is
+                // always true to ensure that only min and only max selections are working properly.
+
+                if (!buttonMax.getSelection() || !buttonMin.getSelection())
+                {
+                    outsideButton.setEnabled(false);
+                    withinButton.setEnabled(false);
+                    rangeType = true;
+                }
+                else
+                {
+                    outsideButton.setEnabled(true);
+                    withinButton.setEnabled(true);
+                    rangeType = withinButton.getSelection();
+                }
             }
         });
 
-        textMin = new Text(shell, SWT.BORDER | SWT.SINGLE);
+        textMin = new Text(scaleGroup, SWT.BORDER | SWT.SINGLE);
         gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
         gridData.widthHint = 60;
         textMin.setLayoutData(gridData);
@@ -194,7 +224,7 @@ public class HighlightWithDataValuesDialog extends Dialog
             }
         });
 
-        scaleMin = new Scale(shell, SWT.HORIZONTAL);
+        scaleMin = new Scale(scaleGroup, SWT.HORIZONTAL);
         gridData = new GridData(SWT.CENTER,SWT.CENTER,false,false);
         gridData.widthHint = 200;
         scaleMin.setLayoutData(gridData);
@@ -218,7 +248,7 @@ public class HighlightWithDataValuesDialog extends Dialog
         scaleMin.setIncrement(1);
         scaleMin.setPageIncrement(100);
 
-        buttonMax = new Button(shell, SWT.CHECK | SWT.WRAP);
+        buttonMax = new Button(scaleGroup, SWT.CHECK | SWT.WRAP);
         gridData = new GridData(SWT.CENTER,SWT.CENTER,false,false);
         buttonMax.setLayoutData(gridData);
         buttonMax.setSelection(true);
@@ -237,10 +267,26 @@ public class HighlightWithDataValuesDialog extends Dialog
                     scaleMax.setSelection(scaleMin.getSelection());
                     textMax.setText(textMin.getText());
                 }
+
+                // Range selection is only offered when both min and max are selected and for other cases rangeType is
+                // always true to ensure that only min and only max selections are working properly.
+
+                if (!buttonMax.getSelection() || !buttonMin.getSelection())
+                {
+                    outsideButton.setEnabled(false);
+                    withinButton.setEnabled(false);
+                    rangeType = true;
+                }
+                else
+                {
+                    outsideButton.setEnabled(true);
+                    withinButton.setEnabled(true);
+                    rangeType = withinButton.getSelection();
+                }
             }
         });
 
-        textMax = new Text(shell, SWT.BORDER | SWT.SINGLE);
+        textMax = new Text(scaleGroup, SWT.BORDER | SWT.SINGLE);
         gridData = new GridData(SWT.BEGINNING,SWT.CENTER,false,false);
         gridData.widthHint = 60;
         textMax.setLayoutData(gridData);
@@ -296,7 +342,7 @@ public class HighlightWithDataValuesDialog extends Dialog
             }
         });
 
-        scaleMax = new Scale(shell, SWT.HORIZONTAL);
+        scaleMax = new Scale(scaleGroup, SWT.HORIZONTAL);
         gridData = new GridData(SWT.CENTER,SWT.CENTER,false,false);
         gridData.widthHint = 200;
         scaleMax.setLayoutData(gridData);
@@ -320,9 +366,33 @@ public class HighlightWithDataValuesDialog extends Dialog
         scaleMax.setIncrement(1);
         scaleMax.setPageIncrement(100);
 
+        Group rangeGroup = new Group(shell, SWT.NONE);
+        gridData = new GridData(SWT.END, SWT.BEGINNING, false, false);
+        gridData.horizontalSpan = 1;
+        rangeGroup.setLayoutData(gridData);
+        rangeGroup.setLayout(new GridLayout(1,true));
+
+        withinButton = new Button(rangeGroup, SWT.RADIO);
+        gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
+        withinButton.setLayoutData(gridData);
+        withinButton.setSelection(true);        
+        withinButton.setText("Within the specified range");
+        withinButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent event)
+            {
+                rangeType = withinButton.getSelection();
+            }
+        });
+
+        outsideButton = new Button(rangeGroup, SWT.RADIO);
+        gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
+        outsideButton.setLayoutData(gridData);
+        outsideButton.setText("Outside the specified range");
+
         Group okCancelGroup = new Group(shell,SWT.NONE);
         gridData = new GridData(SWT.FILL, SWT.BEGINNING, false, false);
-        gridData.horizontalSpan = 3;
+        gridData.horizontalSpan = 4;
         okCancelGroup.setLayoutData(gridData);
         okCancelGroup.setLayout(new GridLayout(2,true));
 
@@ -413,5 +483,10 @@ public class HighlightWithDataValuesDialog extends Dialog
     public double[] getResultArray()
     {
         return resultArray;
+    }
+
+    public boolean getRangeType()
+    {
+        return rangeType;
     }
 }
