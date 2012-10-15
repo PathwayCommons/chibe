@@ -100,7 +100,13 @@ public class HighlightWithDataValuesAction extends Action
         // Highlight the nodes falling within the specified range
         for (BioPAXNode node : valueMap.keySet())
         {
-            if (valueMap.get(node) >= results[0] && valueMap.get(node) <= results[1])
+            // Within selected
+            if(dialog.getRangeType() && (valueMap.get(node) >= results[0] && valueMap.get(node) <= results[1]))
+            {
+                node.setHighlight(true);
+            }
+            // Outside selected
+            else if(!dialog.getRangeType() && (valueMap.get(node) < results[0] || valueMap.get(node) > results[1]))
             {
                 node.setHighlight(true);
             }
