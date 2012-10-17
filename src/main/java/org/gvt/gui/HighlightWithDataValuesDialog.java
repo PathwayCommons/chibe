@@ -376,7 +376,7 @@ public class HighlightWithDataValuesDialog extends Dialog
         gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
         withinButton.setLayoutData(gridData);
         withinButton.setSelection(true);        
-        withinButton.setText("Within the specified range");
+        withinButton.setText("Within specified range");
         withinButton.addSelectionListener(new SelectionAdapter()
         {
             public void widgetSelected(SelectionEvent event)
@@ -388,7 +388,7 @@ public class HighlightWithDataValuesDialog extends Dialog
         outsideButton = new Button(rangeGroup, SWT.RADIO);
         gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
         outsideButton.setLayoutData(gridData);
-        outsideButton.setText("Outside the specified range");
+        outsideButton.setText("Outside specified range");
 
         Group okCancelGroup = new Group(shell,SWT.NONE);
         gridData = new GridData(SWT.FILL, SWT.BEGINNING, false, false);

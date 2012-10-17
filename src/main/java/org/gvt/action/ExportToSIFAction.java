@@ -44,6 +44,8 @@ public class ExportToSIFAction extends Action
 
 		if (model == null)
 		{
+            MessageDialog.openError(main.getShell(), "Error!",
+                "No BioPAX model.");
 			return;
 		}
 
