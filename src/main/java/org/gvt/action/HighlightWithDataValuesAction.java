@@ -5,7 +5,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.HighlightWithDataValuesDialog;
 import org.gvt.model.BioPAXGraph;
-import org.gvt.model.biopaxl3.BioPAXNode;
+import org.gvt.model.IBioPAXNode;
 import org.patika.mada.util.Representable;
 
 import java.util.*;
@@ -58,13 +58,13 @@ public class HighlightWithDataValuesAction extends Action
         rha.run();
 
         // Mapping between a node and its data value stored in tooltip text
-        Map<BioPAXNode, Double> valueMap = new HashMap<BioPAXNode, Double>();
+        Map<IBioPAXNode, Double> valueMap = new HashMap<IBioPAXNode, Double>();
 
         for (Object obj : graph.getNodes())
         {
-            if (obj instanceof BioPAXNode)
+            if (obj instanceof IBioPAXNode)
             {
-                BioPAXNode node = (BioPAXNode) obj;
+                IBioPAXNode node = (IBioPAXNode) obj;
 
                 Representable data = node.getRepresentableData(type);
 
@@ -79,6 +79,13 @@ public class HighlightWithDataValuesAction extends Action
                     }
                 }
             }
+        }
+
+        if (valueMap.isEmpty())
+        {
+            MessageDialog.openWarning(main.getShell(), "No Data!",
+                "There is not any node associated with experiment data. \nPlease load another data.");
+            return;
         }
 
         // Find minimum and maximum of data values to determine the boundaries in the dialog
@@ -98,7 +105,7 @@ public class HighlightWithDataValuesAction extends Action
         double[] results = dialog.getResultArray();
 
         // Highlight the nodes falling within the specified range
-        for (BioPAXNode node : valueMap.keySet())
+        for (IBioPAXNode node : valueMap.keySet())
         {
             // Within selected
             if(dialog.getRangeType() && (valueMap.get(node) >= results[0] && valueMap.get(node) <= results[1]))

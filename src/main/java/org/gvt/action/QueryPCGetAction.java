@@ -20,7 +20,7 @@ public class QueryPCGetAction extends QueryPCAction
 
 	public QueryPCGetAction(ChisioMain main, boolean useSelected)
 	{
-		super(main, "Object With RDF ID ...", useSelected);
+		super(main, "Object With Database ID ...", useSelected);
 	}
 
 	public void run()
@@ -30,7 +30,7 @@ public class QueryPCGetAction extends QueryPCAction
             if (!useSelected)
             {
                 StringInputDialog dialog = new StringInputDialog(main.getShell(), "Get Objects",
-                    "Enter RDF ID of database object", id,"Find the specified object");
+                    "Enter Pathway Commons ID of database object", id,"Find the specified object");
 
                 id = dialog.open();
                 if (id != null)
