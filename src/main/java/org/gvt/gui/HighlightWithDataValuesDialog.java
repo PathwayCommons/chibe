@@ -58,12 +58,21 @@ public class HighlightWithDataValuesDialog extends Dialog
 
     private boolean okPressed;
 
-    public HighlightWithDataValuesDialog(Shell parent, double maxBound, double minBound)
+    private boolean newData;
+
+    // Arrays to remember selections of the user
+    static boolean[] currentBoolean = new boolean[3];       //button selections
+    static int[] currentInt = new int[2];       //values of scales
+    static String[] currentString = new String[2];      //values in text fields
+
+    public HighlightWithDataValuesDialog(Shell parent, double maxBound, double minBound, boolean newData)
     {
         super(parent, SWT.NONE);
 
         this.minBound = minBound;
         this.maxBound = maxBound;
+
+        this.newData = newData;
 
         // Initialized to lowest value possible
         minResult = -Double.MAX_VALUE;
@@ -133,7 +142,6 @@ public class HighlightWithDataValuesDialog extends Dialog
         buttonMin = new Button(scaleGroup, SWT.CHECK | SWT.WRAP);
         gridData = new GridData(SWT.CENTER, SWT.CENTER, false, false);
         buttonMin.setLayoutData(gridData);
-        buttonMin.setSelection(true);
         buttonMin.setText("Min");
         buttonMin.addSelectionListener(new SelectionAdapter()
         {
@@ -251,7 +259,6 @@ public class HighlightWithDataValuesDialog extends Dialog
         buttonMax = new Button(scaleGroup, SWT.CHECK | SWT.WRAP);
         gridData = new GridData(SWT.CENTER,SWT.CENTER,false,false);
         buttonMax.setLayoutData(gridData);
-        buttonMax.setSelection(true);
         buttonMax.setText("Max");
         buttonMax.addSelectionListener(new SelectionAdapter()
         {
@@ -375,7 +382,6 @@ public class HighlightWithDataValuesDialog extends Dialog
         withinButton = new Button(rangeGroup, SWT.RADIO);
         gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
         withinButton.setLayoutData(gridData);
-        withinButton.setSelection(true);        
         withinButton.setText("Within specified range");
         withinButton.addSelectionListener(new SelectionAdapter()
         {
@@ -425,6 +431,8 @@ public class HighlightWithDataValuesDialog extends Dialog
 
                 okPressed = true;
 
+                storeSelections();
+                
                 shell.close();
             }
         });
@@ -442,13 +450,69 @@ public class HighlightWithDataValuesDialog extends Dialog
             }
         });
 
-        // Initial values
+        // If new data is loaded, start from scratch. Otherwise, use previous selections for initialization.
+        if(newData)
+        {
+            setInitialValues();
+        }
+        else
+        {
+            useCurrentSelections();
+        }
+    }
+
+    // Initial values for the new dialog
+    private void setInitialValues()
+    {
+        buttonMin.setSelection(true);
+        buttonMax.setSelection(true);
+        withinButton.setSelection(true);
 
         scaleMin.setSelection(scaleMin.getMinimum());
         scaleMax.setSelection(scaleMax.getMaximum());
 
         textMin.setText(minBound + "");
         textMax.setText(maxBound + "");
+    }
+
+    // Store user's particular selections in order to be used later
+    private void storeSelections()
+    {
+        currentBoolean[0] = buttonMin.getSelection();
+        currentBoolean[1] = buttonMax.getSelection();
+        currentBoolean[2] = withinButton.getSelection();
+
+        currentInt[0] = scaleMin.getSelection();
+        currentInt[1] = scaleMax.getSelection();
+
+        currentString[0] = textMin.getText();
+        currentString[1] = textMax.getText();
+    }
+
+    // Initialize the dialog exactly same as the previous one
+    private void useCurrentSelections()
+    {
+        buttonMin.setSelection(currentBoolean[0]);
+        buttonMax.setSelection(currentBoolean[1]);
+
+        withinButton.setSelection(currentBoolean[2]);
+        outsideButton.setSelection(!currentBoolean[2]);
+        // Enable if only both min and max are selected        
+        withinButton.setEnabled(currentBoolean[0] && currentBoolean[1]);
+        outsideButton.setEnabled(currentBoolean[0] && currentBoolean[1]);
+
+        // Ensure rangeType is properly set according to enabled state of min/max buttons and withinButton selection
+        rangeType = (!currentBoolean[0] || !currentBoolean[1]) ? true : currentBoolean[2];
+
+        scaleMin.setSelection(currentInt[0]);
+        scaleMin.setEnabled(currentBoolean[0]);
+        scaleMax.setSelection(currentInt[1]);
+        scaleMax.setEnabled(currentBoolean[1]);
+
+        textMin.setText(currentString[0]);
+        textMin.setEnabled(currentBoolean[0]);
+        textMax.setText(currentString[1]);
+        textMax.setEnabled(currentBoolean[1]);
     }
 
     /**

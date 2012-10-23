@@ -24,6 +24,9 @@ public class HighlightWithDataValuesAction extends Action
 
     private BioPAXGraph graph;
 
+    private double preMin = -Double.MAX_VALUE;
+    private double preMax = Double.MAX_VALUE;
+
     public HighlightWithDataValuesAction(ChisioMain main)
     {
         super("Highlight With Data Values ...");
@@ -88,12 +91,20 @@ public class HighlightWithDataValuesAction extends Action
             return;
         }
 
+        // Boolean to control whether the loaded data is different from the previous one
+        boolean newData = true;
+
         // Find minimum and maximum of data values to determine the boundaries in the dialog
         double maxValue = Collections.max(valueMap.values());
         double minValue = Collections.min(valueMap.values());
 
+        if (maxValue == preMax && minValue == preMin)
+        {
+            newData = false;
+        }
+
         // Open dialog
-        HighlightWithDataValuesDialog dialog = new HighlightWithDataValuesDialog(main.getShell(), maxValue, minValue);
+        HighlightWithDataValuesDialog dialog = new HighlightWithDataValuesDialog(main.getShell(), maxValue, minValue, newData);
         boolean okPressed = dialog.open();
 
         if (!okPressed)
@@ -118,5 +129,9 @@ public class HighlightWithDataValuesAction extends Action
                 node.setHighlight(true);
             }
         }
+
+        // Store current minimum and maximum values to be compared with the upcoming ones.
+        preMin = minValue;
+        preMax = maxValue;
     }
 }
