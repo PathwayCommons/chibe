@@ -396,9 +396,10 @@ public class HighlightWithDataValuesDialog extends Dialog
         outsideButton.setLayoutData(gridData);
         outsideButton.setText("Outside specified range");
 
-        Group okCancelGroup = new Group(shell,SWT.NONE);
-        gridData = new GridData(SWT.FILL, SWT.BEGINNING, false, false);
+        Composite okCancelGroup = new Composite(shell,SWT.NONE);
+        gridData = new GridData(SWT.FILL, SWT.END, false, false);
         gridData.horizontalSpan = 4;
+        gridData.verticalSpan = 9;
         okCancelGroup.setLayoutData(gridData);
         okCancelGroup.setLayout(new GridLayout(2,true));
 
