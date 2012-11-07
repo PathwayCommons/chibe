@@ -241,7 +241,8 @@ public abstract class ExperimentData implements Representable
 			MASS_SPEC_DATA, 
 			COPY_NUMBER_VARIATION,
 			MUTATION_DATA,
-            ALTERATION_DATA);
+            ALTERATION_DATA,
+            CBIOPORTAL_ALTERATION_DATA);
 	}
 
 	// Experiment data type constants
