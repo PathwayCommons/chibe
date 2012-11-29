@@ -93,32 +93,35 @@ public abstract class QueryPCAction extends Action
                         }
 						
 						// Highlight source and target
-						
-						Set<String> st = new HashSet<String>();
-						if (options.getSourceList() != null) 
-							st.addAll(options.getSourceList());
-						if (options.getTargetList() != null) 
-							st.addAll(options.getTargetList());
 
-						if (options.isUseID())
+						if (main.getPathwayGraph() != null)
 						{
-							HighlightWithEntityIDAction hac = new HighlightWithEntityIDAction(
-								main, main.getPathwayGraph(), st);
+							Set<String> st = new HashSet<String>();
+							if (options.getSourceList() != null)
+								st.addAll(options.getSourceList());
+							if (options.getTargetList() != null)
+								st.addAll(options.getTargetList());
 
-							hac.run();
-						}
-						else
-						{
-							Set<XRef> refSet = new HashSet<XRef>();
-							for (String name : st)
+							if (options.isUseID())
 							{
-								refSet.add(new XRef("Name", name));
+								HighlightWithEntityIDAction hac = new HighlightWithEntityIDAction(
+									main, main.getPathwayGraph(), st);
+
+								hac.run();
 							}
+							else
+							{
+								Set<XRef> refSet = new HashSet<XRef>();
+								for (String name : st)
+								{
+									refSet.add(new XRef("Name", name));
+								}
 
-							HighlightWithRefAction hac = new HighlightWithRefAction(
-								main, main.getPathwayGraph(), refSet);
+								HighlightWithRefAction hac = new HighlightWithRefAction(
+									main, main.getPathwayGraph(), refSet);
 
-							hac.run();
+								hac.run();
+							}
 						}
                     }
                     else

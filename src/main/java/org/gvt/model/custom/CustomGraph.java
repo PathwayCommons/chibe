@@ -51,7 +51,8 @@ public class CustomGraph extends CompoundModel
 	public static final String PROPERTY_SEPARATOR = ":";
 	public static final String ELEMENT_SEPARATOR = "\t";
 	public static final String COMMENT_INDICATOR = "#";
-	
+	public static final String ENDOFFILE = "ENDOFFILE";
+
 	public static final Color COLOR_WHITE = new Color(null, 255, 255, 255);
 	public static final Color COLOR_BLACK = new Color(null, 0, 0, 0);
 
