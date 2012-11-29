@@ -67,7 +67,13 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
         //if action is called from PopupMenu
         if (useSelection)
         {
-            //open dialog
+			if (main.getPathwayGraph() == null)
+			{
+				MessageDialog.openError(main.getShell(), "Error!",
+					"This feature works only for BioPAX graphs");
+			}
+
+			//open dialog
             GoIQueryParamDialog dialog = new GoIQueryParamDialog(this.main);
             options = dialog.open(options);
 

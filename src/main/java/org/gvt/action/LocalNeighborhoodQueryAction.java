@@ -72,6 +72,12 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 		//if action is called from PopupMenu
 		if (useSelection)
 		{
+			if (main.getPathwayGraph() == null)
+			{
+				MessageDialog.openError(main.getShell(), "Error!",
+					"This feature works only for BioPAX graphs");
+			}
+
 			//open dialog
 			NeighborhoodQueryParamDialog dialog =
 				new NeighborhoodQueryParamDialog(this.main);

@@ -73,6 +73,12 @@ public class LocalCommonStreamQueryAction extends AbstractLocalQueryAction
 		//if action is called from PopupMenu
 		if (useSelection)
 		{
+			if (main.getPathwayGraph() == null)
+			{
+				MessageDialog.openError(main.getShell(), "Error!",
+					"This feature works only for BioPAX graphs");
+			}
+
 			//open dialog
 			CommonStreamQueryParamDialog dialog = 
 				new CommonStreamQueryParamDialog(this.main);

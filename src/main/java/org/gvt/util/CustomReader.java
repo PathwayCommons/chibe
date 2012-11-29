@@ -84,6 +84,7 @@ public class CustomReader
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
 			{
 				line = line.trim();
+				if (line.equals(ENDOFFILE)) break;
 				if (line.length() == 0) continue;
 				if (line.startsWith(COMMENT_INDICATOR)) continue;
 				
