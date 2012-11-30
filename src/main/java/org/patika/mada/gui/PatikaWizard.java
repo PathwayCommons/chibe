@@ -94,7 +94,8 @@ public abstract class PatikaWizard extends JDialog
 
 	public PatikaWizard(String title, Object target, LinkedList predefinedMembers)
 	{
-		super((Frame) null, title, true);
+		setTitle(title);
+		setModal(true);
 		this.predefinedMembers = predefinedMembers;
 
 	    this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -137,7 +138,6 @@ public abstract class PatikaWizard extends JDialog
 					} catch (Throwable e)
 					{
 					}
-
 			}
 		};
 
