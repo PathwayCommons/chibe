@@ -98,8 +98,8 @@ public abstract class PatikaWizard extends JDialog
 
 		// If not running on Mac, make the dialog modal. Mac cannot handle this code and application
 		// freezes.
-		if (!(System.getProperty("on.name") != null &&
-			System.getProperty("on.name").toLowerCase().contains("os")))
+		if (!(System.getProperty("os.name") != null &&
+			System.getProperty("os.name").toLowerCase().contains("os")))
 			setModal(true);
 
 		this.predefinedMembers = predefinedMembers;
