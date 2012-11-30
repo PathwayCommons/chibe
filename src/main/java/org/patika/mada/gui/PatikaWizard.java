@@ -95,7 +95,13 @@ public abstract class PatikaWizard extends JDialog
 	public PatikaWizard(String title, Object target, LinkedList predefinedMembers)
 	{
 		setTitle(title);
-		setModal(true);
+
+		// If not running on Mac, make the dialog modal. Mac cannot handle this code and application
+		// freezes.
+		if (!(System.getProperty("on.name") != null &&
+			System.getProperty("on.name").toLowerCase().contains("os")))
+			setModal(true);
+
 		this.predefinedMembers = predefinedMembers;
 
 	    this.setDefaultCloseOperation(HIDE_ON_CLOSE);
