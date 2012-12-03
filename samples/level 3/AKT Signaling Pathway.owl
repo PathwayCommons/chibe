@@ -1,0 +1,1351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+ xmlns:owl="http://www.w3.org/2002/07/owl#"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:bp="http://www.biopax.org/release/biopax-level3.owl#"
+ xml:base="http://pathwaycommons.org/biopax/">
+<owl:Ontology rdf:about="">
+ <owl:imports rdf:resource="http://www.biopax.org/release/biopax-level3.owl#" />
+</owl:Ontology>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_31506">
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_572" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_108250">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FOXO1A</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_2308" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FKHR</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_108252">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">MLLT7</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_4303" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AFX</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108255">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108252" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">MLLT7</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108255@Layout@http://pid.nci.nih.gov/biopaxpid_108233@811@236</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AFX</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AFX</bp:displayName>
+</bp:Protein>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108254">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108250" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FOXO1A</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108254@Layout@http://pid.nci.nih.gov/biopaxpid_108233@984@245</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FKHR</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FKHR</bp:displayName>
+</bp:Protein>
+
+<bp:ModificationFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_108257">
+ <bp:modificationType rdf:resource="http://pid.nci.nih.gov/biopaxpid_174" />
+</bp:ModificationFeature>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108256">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108249" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108255" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_74047" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108254" />
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_108257" />
+ <bp:cellularLocation rdf:resource="http://identifiers.org/obo.go/GO:0005737" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108256@Layout@http://pid.nci.nih.gov/biopaxpid_108233@670@314</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:displayName>
+</bp:Protein>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_1620">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_1615" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_1594" />
+</bp:Catalysis>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_108247">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108259" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108258" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_108248" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108247true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@604@384</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_108256" />
+</bp:BiochemicalReaction>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108248">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108249" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108255" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_74047" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108254" />
+ <bp:cellularLocation rdf:resource="http://identifiers.org/obo.go/GO:0005737" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108248@Layout@http://pid.nci.nih.gov/biopaxpid_108233@752@368</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:displayName>
+</bp:Protein>
+
+<bp:SequenceInterval rdf:about="http://pid.nci.nih.gov/biopaxpid_1562">
+</bp:SequenceInterval>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_108249">
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:displayName>
+ <bp:memberEntityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108250" />
+ <bp:memberEntityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108252" />
+ <bp:memberEntityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_16801" />
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:CellularLocationVocabulary rdf:about="http://identifiers.org/obo.go/GO:0005634">
+ <bp:term rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">nucleus</bp:term>
+ <bp:xref rdf:resource="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0005634" />
+</bp:CellularLocationVocabulary>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1560">
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">p50</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_842">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">842</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:FragmentFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_1561">
+ <bp:featureLocation rdf:resource="http://pid.nci.nih.gov/biopaxpid_1562" />
+</bp:FragmentFeature>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_5970">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">5970</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_108260">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_108247" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+</bp:Catalysis>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108264">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108249" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108255" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_74047" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108254" />
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_108257" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108264http://pid.nci.nih.gov/biopaxpid_108263@Layout@http://pid.nci.nih.gov/biopaxpid_108233@739@73</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:displayName>
+</bp:Protein>
+
+<bp:Complex rdf:about="http://pid.nci.nih.gov/biopaxpid_108263">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108266" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108265" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_6986" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_108264" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">14-3-3/Forkhead Transcription Factors</bp:displayName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">14-3-3/Forkhead Transcription Factors</bp:standardName>
+</bp:Complex>
+
+<bp:Control rdf:about="http://pid.nci.nih.gov/biopaxpid_108262">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_10409" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_108263" />
+</bp:Control>
+
+<bp:Control rdf:about="http://pid.nci.nih.gov/biopaxpid_108261">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_10409" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_6487" />
+</bp:Control>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108268">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_108267">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108269" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108268" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108267true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@293@371</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_1033" />
+</bp:BiochemicalReaction>
+
+<bp:Provenance rdf:about="urn:biopax:Provenance:pid_20120816">
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">pid</bp:displayName>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCI_Nature</bp:standardName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Source type: BIOPAX; version: 20120816, NCI_Nature Curated Human Pathways from PID; 2012/08/16 (XML errors fixed: lines containing &lt;gene&gt;, &lt;/gene&gt; were removed); http://pid.nci.nih.gov/</bp:comment>
+</bp:Provenance>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108266">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_6986" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108265">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108264" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108258">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108248" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:UnificationXref rdf:about="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0006915">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GO:0006915</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Gene Ontology</bp:db>
+</bp:UnificationXref>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108259">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108256" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:ModificationFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_29576">
+ <bp:modificationType rdf:resource="http://pid.nci.nih.gov/biopaxpid_174" />
+</bp:ModificationFeature>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_29575">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1347" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK-alpha</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CHUK</bp:name>
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_29576" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_29575@Layout@http://pid.nci.nih.gov/biopaxpid_108233@133@447</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK</bp:displayName>
+</bp:Protein>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_28772">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_28773" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Caspase 9</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_28772@Layout@http://pid.nci.nih.gov/biopaxpid_108233@119@387</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP9</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP9</bp:displayName>
+</bp:Protein>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_28773">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Caspase 9</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_842" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP9</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_1577">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1580" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1579" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_1578" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1577true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@201@237</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_1550" />
+</bp:BiochemicalReaction>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1578">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1551" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDK-1</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1578@Layout@http://pid.nci.nih.gov/biopaxpid_108233@102@218</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDPK1</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDPK1</bp:displayName>
+</bp:Protein>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1579">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1578" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_48172">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH1</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_2688" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_48171">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_48172" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH1</bp:name>
+ <bp:cellularLocation rdf:resource="http://identifiers.org/obo.go/GO:0005576" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_48171http://pid.nci.nih.gov/biopaxpid_54617@Layout@http://pid.nci.nih.gov/biopaxpid_108233@334@197</bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_48171@Layout@http://pid.nci.nih.gov/biopaxpid_108233@507@266</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH</bp:displayName>
+</bp:Protein>
+
+<bp:Pathway rdf:about="http://pid.nci.nih.gov/biopaxpid_108233">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">aktpathway</bp:name>
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108277" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108288" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108262" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_1615" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108286" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108295" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108287" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108299" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108247" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108270" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_1546" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108303" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_1577" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108234" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108261" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108298" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108283" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108282" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108245" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108274" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108271" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108244" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108246" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_1620" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108239" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108260" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_1581" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108267" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108235" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_108272" />
+ <bp:pathwayComponent rdf:resource="http://pid.nci.nih.gov/biopaxpid_1549" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">akt signaling pathway</bp:displayName>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">akt signaling pathway</bp:standardName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:Pathway>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_16844">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_16845" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">TNFSF6</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Fas-L</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FASLG</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_16844@Layout@http://pid.nci.nih.gov/biopaxpid_108233@1112@196</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FAS L</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FAS L</bp:displayName>
+</bp:Protein>
+
+<bp:ComplexAssembly rdf:about="http://pid.nci.nih.gov/biopaxpid_108235">
+ <bp:spontaneous rdf:datatype = "http://www.w3.org/2001/XMLSchema#boolean">true</bp:spontaneous>
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108238" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108236" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108237" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_48171" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_48168" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108235true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@490@204</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_54617" />
+</bp:ComplexAssembly>
+
+<bp:Control rdf:about="http://pid.nci.nih.gov/biopaxpid_108234">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_1543" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_29575" />
+</bp:Control>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1590">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K regulatory subunit polypeptide 1</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_5295" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIK3R1</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:SmallMolecule rdf:about="http://pid.nci.nih.gov/biopaxpid_1582">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1583" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1582@Layout@http://pid.nci.nih.gov/biopaxpid_108233@172@170</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP3</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP3</bp:displayName>
+</bp:SmallMolecule>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1034">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT1</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_207" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:SmallMoleculeReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1583">
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP3</bp:displayName>
+</bp:SmallMoleculeReference>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108301">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108256" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1580">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1550" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108300">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_6986" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_1581">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_1577" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_1582" />
+</bp:Catalysis>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1586">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1587" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">type i phosphoinositide 3-kinase</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphatidylinositol-4,5-bisphosphate 3-kinase</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K catalytic alpha polypeptide</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1586http://pid.nci.nih.gov/biopaxpid_1585@Layout@http://pid.nci.nih.gov/biopaxpid_108233@315@20</bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1586http://pid.nci.nih.gov/biopaxpid_1594@Layout@http://pid.nci.nih.gov/biopaxpid_108233@216@82</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIK3CA</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIK3CA</bp:displayName>
+</bp:Protein>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1587">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">type i phosphoinositide 3-kinase</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphatidylinositol-4,5-bisphosphate 3-kinase</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K catalytic alpha polypeptide</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_5290" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIK3CA</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1033">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1034" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT1</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1033@Layout@http://pid.nci.nih.gov/biopaxpid_108233@175@411</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT</bp:displayName>
+</bp:Protein>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_16845">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">TNFSF6</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Fas-L</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FASLG</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_356" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FAS L</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Complex rdf:about="http://pid.nci.nih.gov/biopaxpid_1585">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1592" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1593" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_1586" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_1589" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K</bp:displayName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K</bp:standardName>
+</bp:Complex>
+
+<bp:ModificationFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_1360">
+ <bp:modificationType rdf:resource="http://pid.nci.nih.gov/biopaxpid_174" />
+</bp:ModificationFeature>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1589">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1590" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K regulatory subunit polypeptide 1</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1589http://pid.nci.nih.gov/biopaxpid_1585@Layout@http://pid.nci.nih.gov/biopaxpid_108233@360@20</bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1589http://pid.nci.nih.gov/biopaxpid_1594@Layout@http://pid.nci.nih.gov/biopaxpid_108233@171@82</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIK3R1</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIK3R1</bp:displayName>
+</bp:Protein>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_207">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">207</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:SmallMolecule rdf:about="http://pid.nci.nih.gov/biopaxpid_1616">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1617" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1616@Layout@http://pid.nci.nih.gov/biopaxpid_108233@28@148</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP2</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP2</bp:displayName>
+</bp:SmallMolecule>
+
+<bp:SmallMoleculeReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1617">
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP2</bp:displayName>
+</bp:SmallMoleculeReference>
+
+<bp:CellularLocationVocabulary rdf:about="http://identifiers.org/obo.go/GO:0005576">
+ <bp:term rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">extracellular region</bp:term>
+ <bp:xref rdf:resource="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0005576" />
+</bp:CellularLocationVocabulary>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_1615">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1618" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1619" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_1616" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1615true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@106@156</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_1582" />
+</bp:BiochemicalReaction>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_982">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HSP90</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_3320" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HSPCA</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_981">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_982" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HSP90</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_981http://pid.nci.nih.gov/biopaxpid_108289@Layout@http://pid.nci.nih.gov/biopaxpid_108233@65@291</bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_981@Layout@http://pid.nci.nih.gov/biopaxpid_108233@139@268</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HSPCA</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HSPCA</bp:displayName>
+</bp:Protein>
+
+<bp:Control rdf:about="http://pid.nci.nih.gov/biopaxpid_108246">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_15760" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_28772" />
+</bp:Control>
+
+<bp:Control rdf:about="http://pid.nci.nih.gov/biopaxpid_108245">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_15760" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_31559" />
+</bp:Control>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_48169">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH R</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_2690" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GHR</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_108244">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_108239" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+</bp:Catalysis>
+
+<bp:Provenance rdf:about="http://pid.nci.nih.gov/biopaxpid_152">
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Pathway Interaction Database NCI-Nature Curated Data</bp:displayName>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Pathway Interaction Database NCI-Nature Curated Data</bp:standardName>
+</bp:Provenance>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108243">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108240" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108242">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_28772" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:ModificationFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_108241">
+ <bp:modificationType rdf:resource="http://pid.nci.nih.gov/biopaxpid_276" />
+</bp:ModificationFeature>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108240">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_28773" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Caspase 9</bp:name>
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_108241" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108240@Layout@http://pid.nci.nih.gov/biopaxpid_108233@137@340</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP9</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP9</bp:displayName>
+</bp:Protein>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_48168">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_48169" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH R</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_48168http://pid.nci.nih.gov/biopaxpid_54617@Layout@http://pid.nci.nih.gov/biopaxpid_108233@379@197</bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_48168@Layout@http://pid.nci.nih.gov/biopaxpid_108233@582@150</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GHR</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GHR</bp:displayName>
+</bp:Protein>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_105131">
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_5515" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PPP2CA</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_105130">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_105131" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_105130@Layout@http://pid.nci.nih.gov/biopaxpid_108233@354@330</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PPP2CA</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PPP2CA</bp:displayName>
+</bp:Protein>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1592">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1586" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1593">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1589" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Complex rdf:about="http://pid.nci.nih.gov/biopaxpid_1594">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1595" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1596" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_1586" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_1589" />
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_1597" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K</bp:displayName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K</bp:standardName>
+</bp:Complex>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1595">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1586" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108238">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_54617" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_108239">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108242" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108243" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_28772" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108239true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@213@377</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_108240" />
+</bp:BiochemicalReaction>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1596">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1589" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_5170">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">5170</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:ModificationFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_1597">
+ <bp:modificationType rdf:resource="http://pid.nci.nih.gov/biopaxpid_174" />
+</bp:ModificationFeature>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108236">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_48171" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108237">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_48168" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_4303">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">4303</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:Provenance rdf:about="http://pid.nci.nih.gov/biopaxpid_886">
+</bp:Provenance>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1619">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1582" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1618">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1616" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108294">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108289" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1352">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1347" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK-alpha</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CHUK</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1352@Layout@http://pid.nci.nih.gov/biopaxpid_108233@192@497</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK</bp:displayName>
+</bp:Protein>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_108295">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108296" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108297" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_1352" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108295true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@272@464</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_29575" />
+</bp:BiochemicalReaction>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108296">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1352" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108297">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_29575" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_108298">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_108295" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+</bp:Catalysis>
+
+<bp:ComplexAssembly rdf:about="http://pid.nci.nih.gov/biopaxpid_108299">
+ <bp:spontaneous rdf:datatype = "http://www.w3.org/2001/XMLSchema#boolean">true</bp:spontaneous>
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108302" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108300" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108301" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_6986" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_108256" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108299true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@695@198</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_108263" />
+</bp:ComplexAssembly>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1359">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1034" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT1</bp:name>
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_1360" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1359http://pid.nci.nih.gov/biopaxpid_108289@Layout@http://pid.nci.nih.gov/biopaxpid_108233@20@285</bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1359@Layout@http://pid.nci.nih.gov/biopaxpid_108233@419@378</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT</bp:displayName>
+</bp:Protein>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108290">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108291">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_981" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108292">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_981" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108293">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Pathway rdf:about="http://pid.nci.nih.gov/biopaxpid_10409">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_152" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cell survival</bp:displayName>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cell survival</bp:standardName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_152 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">organism ADDED by a reasoner: http://identifiers.org/taxonomy/9606 </bp:comment>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:Pathway>
+
+<bp:SequenceModificationVocabulary rdf:about="http://pid.nci.nih.gov/biopaxpid_276">
+ <bp:term rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue modification, inactive</bp:term>
+</bp:SequenceModificationVocabulary>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_2690">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2690</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:RelationshipTypeVocabulary rdf:about="urn:biopax:RelationshipTypeVocabulary:GENE">
+ <bp:term rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE</bp:term>
+</bp:RelationshipTypeVocabulary>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_5295">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">5295</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_74047">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_16801" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FOXO3A</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_74047@Layout@http://pid.nci.nih.gov/biopaxpid_108233@883@231</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FKHRL1</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FKHRL1</bp:displayName>
+</bp:Protein>
+
+<bp:Control rdf:about="http://pid.nci.nih.gov/biopaxpid_108303">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_10409" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_108240" />
+</bp:Control>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108302">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108263" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:SequenceModificationVocabulary rdf:about="http://pid.nci.nih.gov/biopaxpid_174">
+ <bp:term rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue modification, active</bp:term>
+</bp:SequenceModificationVocabulary>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1347">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK-alpha</bp:name>
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CHUK</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_1147" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_572">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">572</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_7533">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">7533</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_5290">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">5290</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_5515">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">5515</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:BioSource rdf:about="http://identifiers.org/taxonomy/9606">
+ <bp:xref rdf:resource="urn:biopax:UnificationXref:TAXONOMY_9606" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:displayName>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:standardName>
+</bp:BioSource>
+
+<bp:Complex rdf:about="http://pid.nci.nih.gov/biopaxpid_54617">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_54619" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_54618" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_48171" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_48168" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH/GH R</bp:displayName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GH/GH R</bp:standardName>
+</bp:Complex>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_54619">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_48168" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_54618">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_48171" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:UnificationXref rdf:about="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0016567">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GO:0016567</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Gene Ontology</bp:db>
+</bp:UnificationXref>
+
+<bp:UnificationXref rdf:about="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0005576">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GO:0005576</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Gene Ontology</bp:db>
+</bp:UnificationXref>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108276">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108273" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_108277">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108281" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108280" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_31559" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108277true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@364@465</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_108278" />
+</bp:BiochemicalReaction>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108278">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_31506" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_108279" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108278@Layout@http://pid.nci.nih.gov/biopaxpid_108233@438@504</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD</bp:displayName>
+</bp:Protein>
+
+<bp:ModificationFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_108279">
+ <bp:modificationType rdf:resource="http://pid.nci.nih.gov/biopaxpid_174" />
+</bp:ModificationFeature>
+
+<bp:TemplateReactionRegulation rdf:about="http://pid.nci.nih.gov/biopaxpid_108272">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_108271" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_108273" />
+</bp:TemplateReactionRegulation>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_108273">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_108249" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108255" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_74047" />
+ <bp:memberPhysicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108254" />
+ <bp:cellularLocation rdf:resource="http://identifiers.org/obo.go/GO:0005634" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108273@Layout@http://pid.nci.nih.gov/biopaxpid_108233@937@339</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Forkhead Transcription Factors</bp:displayName>
+</bp:Protein>
+
+<bp:Transport rdf:about="http://pid.nci.nih.gov/biopaxpid_108274">
+ <bp:spontaneous rdf:datatype = "http://www.w3.org/2001/XMLSchema#boolean">true</bp:spontaneous>
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108276" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108275" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_108248" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108274true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@917@409</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_108273" />
+</bp:Transport>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108275">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108248" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_6986">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_6987" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">14-3-3</bp:name>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_6986@Layout@http://pid.nci.nih.gov/biopaxpid_108233@641@117</bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_6986http://pid.nci.nih.gov/biopaxpid_108263@Layout@http://pid.nci.nih.gov/biopaxpid_108233@739@104</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">YWHAH</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">YWHAH</bp:displayName>
+</bp:Protein>
+
+<bp:UnificationXref rdf:about="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0005634">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GO:0005634</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Gene Ontology</bp:db>
+</bp:UnificationXref>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_108270">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_108267" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_105130" />
+</bp:Catalysis>
+
+<bp:TemplateReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_108271">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:product rdf:resource="http://pid.nci.nih.gov/biopaxpid_16844" />
+ <bp:participant rdf:resource="http://pid.nci.nih.gov/biopaxpid_16844" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108271@Layout@http://pid.nci.nih.gov/biopaxpid_108233@1120@332</bp:comment>
+</bp:TemplateReaction>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_6987">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">14-3-3</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_7533" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">YWHAH</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_16801">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FOXO3A</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_2309" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FKHRL1</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1547">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1033" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_1546">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1548" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_1547" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_1033" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1546true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@279@417</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+</bp:BiochemicalReaction>
+
+<bp:Pathway rdf:about="http://pid.nci.nih.gov/biopaxpid_15760">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_152" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:xref rdf:resource="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0006915" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">apoptosis</bp:displayName>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">apoptosis</bp:standardName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_152 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">organism ADDED by a reasoner: http://identifiers.org/taxonomy/9606 </bp:comment>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:Pathway>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_1549">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_1546" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_1550" />
+</bp:Catalysis>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_1548">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:UnificationXref rdf:about="urn:biopax:UnificationXref:TAXONOMY_9606">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">taxonomy</bp:db>
+</bp:UnificationXref>
+
+<bp:UnificationXref rdf:about="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0005737">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GO:0005737</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Gene Ontology</bp:db>
+</bp:UnificationXref>
+
+<bp:Pathway rdf:about="http://pid.nci.nih.gov/biopaxpid_1543">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_152" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:xref rdf:resource="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0016567" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">protein ubiquitination</bp:displayName>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">protein ubiquitination</bp:standardName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_152 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">organism ADDED by a reasoner: http://identifiers.org/taxonomy/9606 </bp:comment>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:Pathway>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108269">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1033" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Complex rdf:about="http://pid.nci.nih.gov/biopaxpid_108289">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108290" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108291" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_981" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HSP90/AKT</bp:displayName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HSP90/AKT</bp:standardName>
+</bp:Complex>
+
+<bp:Control rdf:about="http://pid.nci.nih.gov/biopaxpid_108287">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_10409" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_108278" />
+</bp:Control>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_356">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">356</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:ComplexAssembly rdf:about="http://pid.nci.nih.gov/biopaxpid_108288">
+ <bp:spontaneous rdf:datatype = "http://www.w3.org/2001/XMLSchema#boolean">true</bp:spontaneous>
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108294" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108293" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108292" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_981" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108288true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@211@329</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_108289" />
+</bp:ComplexAssembly>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108285">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1594" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:CellularLocationVocabulary rdf:about="http://identifiers.org/obo.go/GO:0005737">
+ <bp:term rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytoplasm</bp:term>
+ <bp:xref rdf:resource="urn:biopax:UnificationXref:GENE+ONTOLOGY_GO%3A0005737" />
+</bp:CellularLocationVocabulary>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_108286">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_108283" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_54617" />
+</bp:Catalysis>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_2308">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2308</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_3320">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">3320</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_2309">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2309</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:BiochemicalReaction rdf:about="http://pid.nci.nih.gov/biopaxpid_108283">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108285" />
+ <bp:participantStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_108284" />
+ <bp:left rdf:resource="http://pid.nci.nih.gov/biopaxpid_1585" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_108283true@Layout@http://pid.nci.nih.gov/biopaxpid_108233@319@122</bp:comment>
+ <bp:right rdf:resource="http://pid.nci.nih.gov/biopaxpid_1594" />
+</bp:BiochemicalReaction>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108284">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1585" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_1147">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1147</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI Gene</bp:db>
+</bp:RelationshipXref>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108281">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_108278" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Catalysis rdf:about="http://pid.nci.nih.gov/biopaxpid_108282">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:catalysisDirection rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LEFT_TO_RIGHT</bp:catalysisDirection>
+ <bp:controlled rdf:resource="http://pid.nci.nih.gov/biopaxpid_108277" />
+ <bp:controlType rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:controlType>
+ <bp:controller rdf:resource="http://pid.nci.nih.gov/biopaxpid_1359" />
+</bp:Catalysis>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_108280">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_31559" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:RelationshipXref rdf:about="urn:biopax:RelationshipXref:NCBI+GENE_2688">
+ <bp:id rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2688</bp:id>
+ <bp:db rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Entrez Gene</bp:db>
+ <bp:relationshipType rdf:resource="urn:biopax:RelationshipTypeVocabulary:GENE" />
+</bp:RelationshipXref>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1556">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1557" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">RELA</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">RELA</bp:displayName>
+</bp:Protein>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_6488">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1556" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:Stoichiometry rdf:about="http://pid.nci.nih.gov/biopaxpid_6489">
+ <bp:physicalEntity rdf:resource="http://pid.nci.nih.gov/biopaxpid_1559" />
+ <bp:stoichiometricCoefficient rdf:datatype = "http://www.w3.org/2001/XMLSchema#float">1.0</bp:stoichiometricCoefficient>
+</bp:Stoichiometry>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1557">
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_5970" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">RELA</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:Complex rdf:about="http://pid.nci.nih.gov/biopaxpid_6487">
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_6489" />
+ <bp:componentStoichiometry rdf:resource="http://pid.nci.nih.gov/biopaxpid_6488" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_1559" />
+ <bp:component rdf:resource="http://pid.nci.nih.gov/biopaxpid_1556" />
+ <bp:cellularLocation rdf:resource="http://identifiers.org/obo.go/GO:0005634" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NF-kappa-B</bp:displayName>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NF-kappa-B</bp:standardName>
+</bp:Complex>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1559">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1560" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_1561" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">p50</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">p50</bp:displayName>
+</bp:Protein>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_1550">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_1551" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDK-1</bp:name>
+ <bp:feature rdf:resource="http://pid.nci.nih.gov/biopaxpid_1553" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_1550@Layout@http://pid.nci.nih.gov/biopaxpid_108233@247@288</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDPK1</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDPK1</bp:displayName>
+</bp:Protein>
+
+<bp:Protein rdf:about="http://pid.nci.nih.gov/biopaxpid_31559">
+ <bp:entityReference rdf:resource="http://pid.nci.nih.gov/biopaxpid_31506" />
+ <bp:dataSource rdf:resource="urn:biopax:Provenance:pid_20120816" />
+ <bp:dataSource rdf:resource="http://pid.nci.nih.gov/biopaxpid_886" />
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">dataSource ADDED by a reasoner: http://pid.nci.nih.gov/biopaxpid_886 </bp:comment>
+ <bp:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://pid.nci.nih.gov/biopaxpid_31559@Layout@http://pid.nci.nih.gov/biopaxpid_108233@310@526</bp:comment>
+ <bp:standardName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD</bp:standardName>
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD</bp:displayName>
+</bp:Protein>
+
+<bp:ProteinReference rdf:about="http://pid.nci.nih.gov/biopaxpid_1551">
+ <bp:name rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDK-1</bp:name>
+ <bp:xref rdf:resource="urn:biopax:RelationshipXref:NCBI+GENE_5170" />
+ <bp:displayName rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDPK1</bp:displayName>
+ <bp:organism rdf:resource="http://identifiers.org/taxonomy/9606" />
+</bp:ProteinReference>
+
+<bp:ModificationFeature rdf:about="http://pid.nci.nih.gov/biopaxpid_1553">
+ <bp:modificationType rdf:resource="http://pid.nci.nih.gov/biopaxpid_174" />
+</bp:ModificationFeature>
+</rdf:RDF>
