@@ -40,15 +40,15 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-57748" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NFKB1_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: NF-kappa-B is a pleiotropic transcription factor which is present in almost all cell types and is involved in many biological processed such as inflammation, immunity, differentiation, cell growth, tumorigenesis and apoptosis. NF- kappa-B is a homo- or heterodimeric complex formed by the Rel-like domain-containing proteins RELA/p65, RELB, NFKB1/p105, NFKB1/p50, REL and NFKB2/p52 and the heterodimeric p65-p50 complex appears to be most abundant one. The dimers bind at kappa-B sites in the DNA of their target genes and the individual dimers have distinct preferences for different kappa-B sites that they can bind with distinguishable affinity and specificity. Different dimer combinations act as transcriptional activators or repressors, respectively. NF-kappa-B is controlled by various mechanisms of post-translational modification and subcellular compartmentalization as well as by interactions with other cofactors or corepressors. NF-kappa-B complexes are held in the cytoplasm in an inactive state complexed with members of the NF- kappa-B inhibitor (I-kappa-B) family. In a conventional activation pathway, I-kappa-B is phosphorylated by I-kappa-B kinases (IKKs) in response to different activators, subsequently degraded thus liberating the active NF-kappa-B complex which translocates to the nucleus. NF-kappa-B heterodimeric p65-p50 and RelB-p50 complexes are transcriptional activators. The NF-kappa-B p50-p50 homodimer is a transcriptional repressor, but can act as a transcriptional activator when associated with BCL3. NFKB1 appears to have dual functions such as cytoplasmic retention of attached NF-kappa-B proteins by p105 and generation of p50 by a cotranslational processing. The proteasome-mediated process ensures the production of both p50 and p105 and preserves their independent function, although processing of NFKB1/p105 also appears to occur post- translationally. p50 binds to the kappa-B consensus sequence 5&apos;- GGRNNYYCC-3&apos;, located in the enhancer region of genes involved in immune response and acute phase reactions. In a complex with MAP3K8, NFKB1/p105 represses MAP3K8-induced MAPK signaling; active MAP3K8 is released by proteasome-dependent degradation of NFKB1/p105. SUBUNIT: Component of the NF-kappa-B p65-p50 complex. Component of the NF-kappa-B p65-p50 complex. Homodimer; component of the NF- kappa-B p50-p50 complex. Component of the NF-kappa-B p105-p50 complex. Component of the NF-kappa-B p50-c-Rel complex. Component of a complex consisting of the NF-kappa-B p50-p50 homodimer and BCL3. Also interacts with MAP3K8. NF-kappa-B p50 subunit interacts with NCOA3 coactivator, which may coactivate NF-kappa-B dependent expression via its histone acetyltransferase activity. Interacts with DSIPI; this interaction prevents nuclear translocation and DNA-binding. Interacts with SPAG9 and UNC5CL. NFKB1/p105 interacts with CFLAR; the interaction inhibits p105 processing into p50. NFKB1/p105 forms a ternary complex with MAP3K8 and TNIP2. Interacts with GSK3B; the interaction prevents processing of p105 to p50. NFKB1/p50 interacts with NFKBIE. NFKB1/p50 interacts with NFKBIZ. Nuclear factor NF-kappa-B p50 subunit interacts with NFKBID (By similarity). SUBCELLULAR LOCATION: Nucleus. Cytoplasm. Note=Nuclear, but also found in the cytoplasm in an inactive form complexed to an inhibitor (I-kappa-B). ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=2; Name=1; IsoId=P19838-1; Sequence=Displayed; Name=2; IsoId=P19838-2; Sequence=VSP_021025; INDUCTION: By phorbol ester and TNF-alpha. DOMAIN: The C-terminus of p105 might be involved in cytoplasmic retention, inhibition of DNA-binding, and transcription activation. DOMAIN: Glycine-rich region (GRR) appears to be a critical element in the generation of p50. PTM: While translation occurs, the particular unfolded structure after the GRR repeat promotes the generation of p50 making it an acceptable substrate for the proteasome. This process is known as cotranslational processing. The processed form is active and the unprocessed form acts as an inhibitor (I kappa B-like), being able to form cytosolic complexes with NF-kappa B, trapping it in the cytoplasm. Complete folding of the region downstream of the GRR repeat precludes processing. PTM: Phosphorylation at &apos;Ser-903&apos; and &apos;Ser-907&apos; primes p105 for proteolytic processing in response to TNF-alpha stimulation. Phosphorylation at &apos;Ser-927&apos; and &apos;Ser-932&apos; are required for BTRC/BTRCP-mediated proteolysis. PTM: Polyubiquitination seems to allow p105 processing. PTM: S-nitrosylation of Cys-61 affects DNA binding. SIMILARITY: Contains 7 ANK repeats. SIMILARITY: Contains 1 death domain. SIMILARITY: Contains 1 RHD (Rel-like) domain. WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/NFKB1ID323.html&quot;; WEB RESOURCE: Name=NIEHS-SNPs; URL=&quot;http://egp.gs.washington.edu/data/nfkb1/&quot;; COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-57755" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-57751" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-57756" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-57750" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-57757" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-57754" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-57756" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-64744" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-57753" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-57752" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-57757" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-57750" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-57755" />
 </bp:protein>
 
 <bp:relationshipXref rdf:ID="CPATH-LOCAL-88249">
@@ -148,12 +148,12 @@
 </bp:sequenceSite>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7688498">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-9838-723925853@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@681@108</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-9838http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688498@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@155@943</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-9838" />
 </bp:sequenceParticipant>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7688497">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615250865839942@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@647@119</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615250http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688497@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@257@965</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615250" />
 </bp:physicalEntityParticipant>
 
@@ -216,13 +216,13 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7688481">
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688488" />
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688492" />
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688484" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688482" />
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688494" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688490" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-1839739232@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@639@304</bp:COMMENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688492" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688488" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688494" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7688484" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688481@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@273@717</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7688478" />
 </bp:sequenceParticipant>
@@ -233,9 +233,9 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7688480">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951106427866@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@641@417</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@283@440</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@328@446</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203013_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521106427841@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@596@411</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616629" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7688478" />
 </bp:physicalEntityParticipant>
@@ -296,9 +296,9 @@
 </bp:sequenceFeature>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7688477">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-336815312@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@289</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-336815311@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@479@314</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-336815315@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@308</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750826http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@213@552</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750825http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@527</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750822http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@546</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-618021" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7688478" />
 </bp:physicalEntityParticipant>
@@ -313,7 +313,7 @@
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7698348" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7757961" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7698349" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610521true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1958@385</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610521true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1392@2066</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7698346" />
 </bp:biochemicalReaction>
 
@@ -372,7 +372,7 @@
 </bp:relationshipXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7729498">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657-546836912@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1217@435</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657http://cbio.mskcc.org/cpath#CPATH-LOCAL-7729498http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698876@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1088@246</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-69657" />
 </bp:sequenceParticipant>
 
@@ -467,7 +467,7 @@
 </bp:bioSource>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7729499">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-546836911@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1262@435</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7729499http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698876@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1043@246</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -481,24 +481,24 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-534629" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">LCK_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Tyrosine kinase that plays an essential role for the selection and maturation of developing T-cell in the thymus and in mature T-cell function. Is constitutively associated with the cytoplasmic portions of the CD4 and CD8 surface receptors and plays a key role in T-cell antigen receptor(TCR)-linked signal transduction pathways. Association of the TCR with a peptide antigen-bound MHC complex facilitates the interaction of CD4 and CD8 with MHC class II and class I molecules, respectively, and thereby recruits the associated LCK to the vicinity of the TCR/CD3 complex. LCK then phosphorylates tyrosines residues within the immunoreceptor tyrosines-based activation motifs (ITAMs) in the cytoplasmic tails of the TCRgamma chains and CD3 subunits, initiating the TCR/CD3 signaling pathway. In addition, contributes to signaling by other receptor molecules. Associates directly with the cytoplasmic tail of CD2, and upon engagement of the CD2 molecule, LCK undergoes hyperphosphorylation and activation. Also plays a role in the IL2 receptor-linked signaling pathway that controls T-cell proliferative response. Binding of IL2 to its receptor results in increased activity of LCK. Is expressed at all stages of thymocyte development and is required for the regulation of maturation events that are governed by both pre-TCR and mature alpha beta TCR. CATALYTIC ACTIVITY: ATP + a [protein]-L-tyrosine = ADP + a [protein]-L-tyrosine phosphate. ENZYME REGULATION: Inhibited by tyrosine phosphorylation. SUBUNIT: Binds to the cytoplasmic domain of cell surface receptors, such as CD2, CD4, CD5, CD8, CD44, CD45 and CD122. Also binds to effector molecules, such as PI4K, VAV1, RASA1, FYB and to other protein kinases including CDC2, RAF1, ZAP70 and SYK. Binds to phosphatidylinositol 3&apos;-kinase (PI3K) from T-lymphocytes through its SH3 domain and to the tyrosine phosphorylated form of KHDRBS1/p70 through its SH2 domain. Binds to HIV-1 Nef through its SH3 domain. This interaction inhibits its tyrosine-kinase activity. Interacts with SQSTM1. Interacts with phosphorylated LIME1. Interacts with CBLB and PTPRH. SUBCELLULAR LOCATION: Cytoplasm. Cell membrane; Lipid-anchor; Cytoplasmic side. Note=Present in lipid rafts in an unactive form. ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=3; Name=Long; IsoId=P06239-1; Sequence=Displayed; Name=Short; IsoId=P06239-2; Sequence=VSP_005000, VSP_005001; Note=No experimental confirmation available; Name=3; IsoId=P06239-3; Sequence=VSP_016049; Note=No experimental confirmation available; TISSUE SPECIFICITY: Expressed specifically in lymphoid cells. DOMAIN: The SH2 domain mediates interaction with SQSTM1. Interaction is regulated by Ser-59 phosphorylation. PTM: Phosphorylated on Tyr-394, which increases enzymatic activity (By similarity). Phosphorylated on Tyr-505, which decreases activity. MASS SPECTROMETRY: Mass=57869.42; Method=MALDI; Range=2-509; Source=PubMed:11840567; DISEASE: A chromosomal aberration involving LCK is found in leukemias. Translocation t(1;7)(p34;q34) with TCRB. SIMILARITY: Belongs to the protein kinase superfamily. Tyr protein kinase family. SRC subfamily. SIMILARITY: Contains 1 protein kinase domain. SIMILARITY: Contains 1 SH2 domain. SIMILARITY: Contains 1 SH3 domain. WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/LCKID14ch1p34.html&quot;; WEB RESOURCE: Name=Wikipedia; Note=Lck entry; URL=&quot;http://en.wikipedia.org/wiki/Lck&quot;; COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-534640" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-534641" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-534643" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-534642" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-539673" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-534639" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-534638" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-534635" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-539673" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-534634" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-534640" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-534633" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-534636" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-534639" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-534637" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-534642" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-534643" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-534631" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-534632" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-534633" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-534634" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-534637" />
 </bp:protein>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7747241">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-263751143565794@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@45@228</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-26375http://cbio.mskcc.org/cpath#CPATH-LOCAL-7747241http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660238@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@131@29</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-26375" />
 </bp:sequenceParticipant>
 
@@ -522,9 +522,9 @@
 </bp:sequenceFeature>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7715466">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-336815312@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@289</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-336815311@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@479@314</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-336815315@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@308</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750826http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@213@552</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750825http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@527</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750822http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@546</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-618021" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7715467" />
 </bp:physicalEntityParticipant>
@@ -545,10 +545,10 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7715469">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521270064494@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@532@539</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1290281270064497@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@484@545</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-688481270064499@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@484@564</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951270064498@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@529@570</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732817http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@399@579</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732818http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@447@579</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732814http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@399@598</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732819http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@444@598</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615449" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7715467" />
 </bp:physicalEntityParticipant>
@@ -583,9 +583,9 @@
 </bp:sequenceFeature>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7715461">
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7715462" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7715465" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848407376301@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@597@127</bp:COMMENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7715462" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7708120@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@124@904</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-68848" />
 </bp:sequenceParticipant>
 
@@ -603,7 +603,7 @@
 </bp:evidence>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7747242">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-219381143565795@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@92@228</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-21938http://cbio.mskcc.org/cpath#CPATH-LOCAL-7747242http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660238@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@178@29</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-21938" />
 </bp:sequenceParticipant>
 
@@ -613,7 +613,7 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7750822">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7750823" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-336815315@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@308</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750822http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@546</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -623,7 +623,7 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7750825">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-336815312@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@289</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750825http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@527</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
 </bp:sequenceParticipant>
 
@@ -644,7 +644,7 @@
 </bp:complex>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7750826">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-336815311@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@479@314</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750826http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@213@552</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
@@ -717,7 +717,7 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7720896">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7720897" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028764653197@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@199@588</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7720896http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660241@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@247@234</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
 </bp:sequenceParticipant>
 
@@ -742,7 +742,7 @@
  <bp:XREF rdf:resource="#CPATH-LOCAL-7708118" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7759153" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7708120" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-611713true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@665@65</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-611713true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@107@1039</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7708113" />
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7708110" />
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7708116" />
@@ -751,10 +751,10 @@
 <bp:control rdf:ID="CPATH-611714">
  <bp:CONTROL-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:CONTROL-TYPE>
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">response to UV</bp:NAME>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-611714@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@668@9</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-611714@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@62@1053</bp:COMMENT>
  <bp:CONTROLLED rdf:resource="#CPATH-611713" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7708125" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7759154" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7708125" />
 </bp:control>
 
 <bp:publicationXref rdf:ID="CPATH-LOCAL-7698869">
@@ -819,7 +819,7 @@
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7655714" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7752541" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7655717" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605101true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1001@287</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605101true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1302@720</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7655712" />
 </bp:biochemicalReaction>
 
@@ -854,8 +854,8 @@
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NF kappa B1 p105/RelA</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7749736" />
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7749734" />
- <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7749737" />
  <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7749738" />
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7749737" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7762873" />
 </bp:complex>
 
@@ -895,12 +895,12 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7735034">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-116791-799286410@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1559@424</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-116791http://cbio.mskcc.org/cpath#CPATH-LOCAL-7735034http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661697@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@948@974</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-116791" />
 </bp:sequenceParticipant>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7735035">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615786-799286409@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1559@399</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615786http://cbio.mskcc.org/cpath#CPATH-LOCAL-7735035http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661697@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@948@949</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615786" />
 </bp:sequenceParticipant>
 
@@ -930,8 +930,8 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7698876">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-546836911@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1262@435</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657-546836912@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1217@435</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7729499http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698876@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1043@246</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657http://cbio.mskcc.org/cpath#CPATH-LOCAL-7729498http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698876@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1088@246</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-614919" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7698873" />
 </bp:physicalEntityParticipant>
@@ -942,15 +942,15 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-278610" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ARRB2_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Regulates beta-adrenergic receptor function. Beta- arrestins seem to bind phosphorylated beta-adrenergic receptors, thereby causing a significant impairment of their capacity to activate G(S) proteins. SUBCELLULAR LOCATION: Cytoplasm (By similarity). Nucleus (By similarity). ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=3; Name=1; IsoId=P32121-1; Sequence=Displayed; Name=2; IsoId=P32121-3; Sequence=VSP_008195; Name=3; IsoId=P32121-2; Sequence=VSP_008194, VSP_008195; Note=No experimental confirmation available; SIMILARITY: Belongs to the arrestin family. WEB RESOURCE: Name=Wikipedia; Note=Arrestin entry; URL=&quot;http://en.wikipedia.org/wiki/Arrestin&quot;; GENE SYNONYMS: ARB2 ARR2. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-278603" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-278605" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-278602" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-278607" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-278601" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-278608" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-278609" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-278600" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-278604" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-278602" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-278608" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-278609" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-278603" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-278601" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-278607" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-278605" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-282951" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-278606" />
 </bp:protein>
@@ -966,30 +966,30 @@
 </bp:openControlledVocabulary>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7698872">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-696572002427916@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1343@77</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668602@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@982@446</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-69657" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7698873" />
 </bp:sequenceParticipant>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7698875">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-586348287@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1194@347</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678297http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698875@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1079@457</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7698873" />
 </bp:physicalEntityParticipant>
 
 <bp:complexAssembly rdf:ID="CPATH-605701">
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7660242" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7660241" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7660243" />
- <bp:RIGHT rdf:resource="#CPATH-LOCAL-7660242" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7660226" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605701true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@344@342</bp:COMMENT>
- <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7660230" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605701true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@201@346</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7660227" />
- <bp:LEFT rdf:resource="#CPATH-LOCAL-7660235" />
+ <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7660230" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7660238" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7660234" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7753141" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7660235" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7660233" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7753141" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7660234" />
 </bp:complexAssembly>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-7698874">
@@ -1043,10 +1043,10 @@
 <bp:complexAssembly rdf:ID="CPATH-612628">
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7715469" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7715458" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-612628true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@559@361</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-612628true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@299@619</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7715459" />
- <bp:LEFT rdf:resource="#CPATH-LOCAL-7715466" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7715461" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7715466" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7760068" />
 </bp:complexAssembly>
 
@@ -1064,20 +1064,20 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-39572" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">MK14_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Responds to activation by environmental stress, pro- inflammatory cytokines and lipopolysaccharide (LPS) by phosphorylating a number of transcription factors, such as ELK1 and ATF2 and several downstream kinases, such as MAPKAPK2 and MAPKAPK5. Plays a critical role in the production of some cytokines, for example IL-6. May play a role in stabilization of EPO mRNA during hypoxic stress. Isoform Mxi2 activation is stimulated by mitogens and oxidative stress and only poorly phosphorylates ELK1 and ATF2. Isoform Exip may play a role in the early onset of apoptosis. CATALYTIC ACTIVITY: ATP + a protein = ADP + a phosphoprotein. COFACTOR: Magnesium. ENZYME REGULATION: Activated by threonine and tyrosine phosphorylation by either of two dual specificity kinases, MAP2K3 or MAP2K6, and potentially also MAP2K4. Inhibited by dual specificity phosphatases, such as DUSP1. Specifically inhibited by the binding of pyridinyl-imidazole compounds, which are cytokine- suppressive anti-inflammatory drugs (CSAID). Isoform Mxi2 is 100- fold less sensitive to these agents than the other isoforms and is not inhibited by DUSP1. Isoform Exip is not activated by MAP2K6. SUBUNIT: Binds to a kinase interaction motif within the protein tyrosine phosphatase, PTPRR. This interaction retains MAPK14 in the cytoplasm and prevents nuclear accumulation. Interacts with SPAG9 (By similarity). Interacts with NP60 and FAM48A. SUBCELLULAR LOCATION: Cytoplasm (By similarity). Nucleus (By similarity). ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=4; Name=CSBP2; IsoId=Q16539-1; Sequence=Displayed; Name=CSBP1; IsoId=Q16539-2; Sequence=VSP_004842; Name=Mxi2; IsoId=Q16539-3; Sequence=VSP_004844; Name=Exip; Synonyms=Exon skip; IsoId=Q16539-4; Sequence=VSP_004843, VSP_004845; TISSUE SPECIFICITY: Brain, heart, placenta, pancreas and skeletal muscle. Expressed to a lesser extent in lung, liver and kidney. DOMAIN: The TXY motif contains the threonine and tyrosine residues whose phosphorylation activates the MAP kinases. PTM: Dually phosphorylated on Thr-180 and Tyr-182, which activates the enzyme. PTM: Phosphorylated upon DNA damage, probably by ATM or ATR. SIMILARITY: Belongs to the protein kinase superfamily. CMGC Ser/Thr protein kinase family. MAP kinase subfamily. SIMILARITY: Contains 1 protein kinase domain. WEB RESOURCE: Name=Wikipedia; Note=P38 mitogen-activated protein kinases entry; URL=&quot;http://en.wikipedia.org/wiki/P38_mitogen-activated_protein_kinases&quot;; GENE SYNONYMS: CSBP CSBP1 CSBP2 CSPB1 MXI2. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-41116" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39559" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39570" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39565" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-39567" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-39566" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39563" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39571" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-39561" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39564" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39565" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39560" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39569" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-39568" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-41116" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39570" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-39562" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39560" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39563" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39569" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39559" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39571" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39564" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-39568" />
 </bp:protein>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-7761407">
@@ -1096,7 +1096,7 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7732502">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657-329943610@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1336@338</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732502http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668606@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@865@574</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-69657" />
 </bp:sequenceParticipant>
 
@@ -1106,7 +1106,7 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7732503">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-329943609@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1381@338</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732503http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668606@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@820@574</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
@@ -1160,10 +1160,10 @@
 <bp:interaction rdf:ID="CPATH-610840">
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cell death</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7700925" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610840@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@116@729</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610840@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@483@918</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7700927" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7700926" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7758280" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7700926" />
 </bp:interaction>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-538054">
@@ -1188,14 +1188,14 @@
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7698348">
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203074_0X27 ; bp:FEATURE-TYPE inactive</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-802879069@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1817@438</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-32695-802879068@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1772@438</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7719941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698348@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1453@2154</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-32695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7719942http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698348@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1408@2154</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-613216" />
 </bp:physicalEntityParticipant>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7698349">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-797730317@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@2078@220</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698349http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1313@1911</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
 </bp:physicalEntityParticipant>
 
@@ -1265,15 +1265,15 @@
 <bp:complexAssembly rdf:ID="CPATH-610594">
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7698876" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7698862" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610594true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1306@294</bp:COMMENT>
- <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7698863" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610594true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1067@348</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7698866" />
+ <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7698863" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7698872" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7698875" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7758034" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7698869" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7698870" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7758034" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7698871" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7698869" />
 </bp:complexAssembly>
 
 <bp:bioSource rdf:ID="CPATH-LOCAL-182505">
@@ -1363,9 +1363,9 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-511282" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKBA_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Inhibits the activity of dimeric NF-kappa-B/REL complexes by trapping REL dimers in the cytoplasm through masking of their nuclear localization signals. On cellular stimulation by immune and proinflammatory responses, becomes phosphorylated promoting ubiquitination and degradation, enabling the dimeric RELA to tranlocate to the nucleus and activate transcription. SUBUNIT: Interacts with RELA; the interaction requires the nuclear import signal. Interacts with NKIRAS1 and NKIRAS2. Part of a 70-90 kDa complex at least consisting of CHUK, IKBKB, NFKBIA, RELA, IKBKAP and MAP3K14. Interacts with HBV protein X. Interacts with RWDD3; the interaction enhances sumoylation. SUBCELLULAR LOCATION: Cytoplasm. Nucleus. Note=Shuttles between the nucleus and the cytoplasm by a nuclear localization signal (NLS) and a CRM1-dependent nuclear export (By similarity). INDUCTION: Induced in adherent monocytes. PTM: Phosphorylated; disables inhibition of NF-kappa-B DNA-binding activity. PTM: Ubiquitinated; subsequent to stimulus-dependent phosphorylation on serines. PTM: Sumoylated; sumoylation requires the presence of the nuclear import signal. DISEASE: Defects in NFKBIA are the cause of ectodermal dysplasia anhidrotic with T-cell immunodeficiency autosomal dominant (ADEDAID) [MIM:612132]. Ectodermal dysplasia defines a heterogeneous group of disorders due to abnormal development of two or more ectodermal structures. ADEDAID is an ectodermal dysplasia associated with decreased production of pro-inflammatory cytokines and certain interferons, rendering patients susceptible to infection. SIMILARITY: Belongs to the NF-kappa-B inhibitor family. SIMILARITY: Contains 5 ANK repeats. WEB RESOURCE: Name=NFKBIAbase; Note=NFKBIA mutation db; URL=&quot;http://bioinf.uta.fi/NFKBIAbase/&quot;; WEB RESOURCE: Name=SeattleSNPs; URL=&quot;http://pga.gs.washington.edu/data/nfkbia/&quot;; GENE SYNONYMS: IKBA MAD3 NFKBI. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-511280" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-511281" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-516061" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-511281" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-511280" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-511278" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-511279" />
 </bp:protein>
@@ -1439,13 +1439,13 @@
 </bp:sequenceFeature>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7696183">
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696198" />
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696192" />
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696184" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696196" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696188" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696192" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696198" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696194" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-1839739232@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@639@304</bp:COMMENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7696184" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688481@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@273@717</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7696186" />
 </bp:sequenceParticipant>
@@ -1481,10 +1481,10 @@
 <bp:complexAssembly rdf:ID="CPATH-609890">
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7693453" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7693448" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-609890true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1687@131</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-609890true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1134@1268</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7693449" />
- <bp:LEFT rdf:resource="#CPATH-LOCAL-7693451" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7693452" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7693451" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7757330" />
 </bp:complexAssembly>
 
@@ -1504,8 +1504,8 @@
 </bp:relationshipXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7678294">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7678295" />
 </bp:physicalEntityParticipant>
@@ -1516,7 +1516,7 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7678297">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-586348287@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1194@347</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678297http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698875@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1079@457</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7678298" />
 </bp:physicalEntityParticipant>
@@ -1547,9 +1547,9 @@
 </bp:relationshipXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7671378">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951106427866@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@641@417</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@283@440</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@328@446</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203013_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521106427841@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@596@411</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616629" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7671371" />
 </bp:physicalEntityParticipant>
@@ -1602,7 +1602,7 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7671373">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7671374" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-104752791@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@370@339</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671373@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@260@349</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7671371" />
 </bp:sequenceParticipant>
@@ -1612,9 +1612,9 @@
 </bp:sequenceFeature>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7671370">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-336815312@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@289</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-336815311@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@479@314</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-336815315@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@308</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750826http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@213@552</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750825http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@527</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750822http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@546</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-618021" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7671371" />
 </bp:physicalEntityParticipant>
@@ -1648,13 +1648,13 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-182505" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">SRC_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CATALYTIC ACTIVITY: ATP + a [protein]-L-tyrosine = ADP + a [protein]-L-tyrosine phosphate. SUBUNIT: Interacts with DDEF1/ASAP1; via the SH3 domain. Interacts with CCPG1 (By similarity). Interacts with CDCP1, PELP1, TGFB1I1 and TOM1L2. Interacts with the cytoplasmic domain of MUC1, phosphorylates it and increases binding of MUC1 with beta-catenin. Interacts with RALGPS1; via the SH3 domain. Interacts with HEV ORF3 protein; via the SH3 domain. ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=2; Name=1; IsoId=P12931-1; Sequence=Displayed; Name=2; IsoId=P12931-2; Sequence=VSP_012134; PTM: Phosphorylated on Tyr-530 by c-Src kinase (CSK). The phosphorylated form is termed pp60c-src. The phosphorylated tail interacts with the SH2 domain thereby repressing kinase activity. SIMILARITY: Belongs to the protein kinase superfamily. Tyr protein kinase family. SRC subfamily. SIMILARITY: Contains 1 protein kinase domain. SIMILARITY: Contains 1 SH2 domain. SIMILARITY: Contains 1 SH3 domain. GENE SYNONYMS: SRC1. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-182499" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-187143" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-182500" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-182501" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-182504" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-182502" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-182498" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-182499" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-182502" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-182504" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-182501" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-182500" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-187143" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-182503" />
 </bp:protein>
 
@@ -1676,8 +1676,8 @@
 </bp:sequenceFeature>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7732818">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951270064498@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@529@570</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951346190074@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1174@632</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732818http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@447@579</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732818http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@615@639</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
@@ -1687,8 +1687,8 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7732817">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1290281270064497@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@484@545</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1290281346190073@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1174@607</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732817http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@399@579</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732817http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@615@614</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
 </bp:sequenceParticipant>
 
@@ -1700,8 +1700,8 @@
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7732819">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7732823" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7732820" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-688481346190075@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1222@601</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-688481270064499@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@484@564</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732819http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@660@633</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732819http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@444@598</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-68848" />
 </bp:sequenceParticipant>
 
@@ -1720,7 +1720,7 @@
 </bp:complex>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7651914">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X27 ; bp:FEATURE-TYPE inactive</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7651915" />
@@ -1797,9 +1797,9 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7671380">
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7671383" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7671385" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-44955-358486830@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@63@592</bp:COMMENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7671383" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-44955http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671380@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@445@167</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-44955" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7671381" />
 </bp:sequenceParticipant>
@@ -1812,10 +1812,10 @@
 <bp:complexAssembly rdf:ID="CPATH-606756">
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7668606" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7668599" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-606756true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1416@195</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-606756true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@956@515</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7668600" />
- <bp:LEFT rdf:resource="#CPATH-LOCAL-7668602" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7668605" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7668602" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7754196" />
 </bp:complexAssembly>
 
@@ -1841,8 +1841,8 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7732814">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7732815" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521270064494@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@532@539</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521346190070@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@626</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732814http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@663@608</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732814http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@399@598</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -1857,8 +1857,8 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7661697">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-116791-799286410@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1559@424</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615786-799286409@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1559@399</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615786http://cbio.mskcc.org/cpath#CPATH-LOCAL-7735035http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661697@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@948@949</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-116791http://cbio.mskcc.org/cpath#CPATH-LOCAL-7735034http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661697@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@948@974</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615784" />
 </bp:physicalEntityParticipant>
 
@@ -1868,7 +1868,7 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7661694">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X27 ; bp:FEATURE-TYPE inactive</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7661695" />
@@ -1890,9 +1890,9 @@
 </bp:sequenceSite>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7679382">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-336815312@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@289</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-336815311@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@479@314</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-336815315@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@308</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750826http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@213@552</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750825http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@527</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750822http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@546</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-618021" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7679383" />
 </bp:physicalEntityParticipant>
@@ -1913,7 +1913,7 @@
 </bp:publicationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7719941">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-802879069@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1817@438</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7719941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698348@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1453@2154</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -1928,7 +1928,7 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7719942">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-32695-802879068@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1772@438</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-32695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7719942http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698348@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1408@2154</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-32695" />
 </bp:sequenceParticipant>
 
@@ -1944,11 +1944,11 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-538053" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">KSYK_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Positive effector of BCR-stimulated responses. Couples the B-cell antigen receptor (BCR) to the mobilization of calcium ion either through a phosphoinositide 3-kinase-dependent pathway, when not phosphorylated on tyrosines of the linker region, or through a phospholipase C-gamma-dependent pathway, when phosphorylated on Tyr-348 and Tyr-352. Thus the differential phosphorylation of Syk can determine the pathway by which BCR is coupled to the regulation of intracellular calcium ion (By similarity). CATALYTIC ACTIVITY: ATP + a [protein]-L-tyrosine = ADP + a [protein]-L-tyrosine phosphate. SUBUNIT: Interacts with CBL and SLA when it is phosphorylated. The interaction with SLA may link it to CBL, leading to its destruction. Interacts with phosphorylated NFAM1 (By similarity). Interacts with Epstein-Barr virus LMP2A. Interacts through its SH2 domains with the phosphorylated ITAM domain of CD79A which stimulates SYK autophosphorylation and activation. Interacts with FCRL3. ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=2; Name=Long; IsoId=P43405-1; Sequence=Displayed; Name=Short; IsoId=P43405-2; Sequence=VSP_005010; PTM: Autophosphorylated. PTM: Phosphorylation on Tyr-323 creates a binding site for c-Cbl, an adapter protein that serves as a negative regulator of BCR- stimulated calcium ion signaling (By similarity). PTM: Phosphorylation on Tyr-348 and Tyr-352 enhances the phosphorylation and activation of phospholipase C-gamma and the early phase of calcium ion mobilization via a phosphoinositide 3- kinase-independent pathway (By similarity). PTM: Ubiquitinated by CBLB after BCR activation; which promotes proteasomal degradation (By similarity). SIMILARITY: Belongs to the protein kinase superfamily. Tyr protein kinase family. SYK/ZAP-70 subfamily. SIMILARITY: Contains 1 protein kinase domain. SIMILARITY: Contains 2 SH2 domains. WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/SYKID394.html&quot;; COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-540091" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-538055" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-538058" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-538056" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-538057" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-540091" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-538058" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-538055" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-538056" />
 </bp:protein>
 
 <bp:evidence rdf:ID="CPATH-LOCAL-7679378">
@@ -2005,8 +2005,8 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7740986">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7740987" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521255099863@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1338@552</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521106427841@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@596@411</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7662145http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653944@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@655@477</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@283@440</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -2050,7 +2050,7 @@
 <bp:interaction rdf:ID="CPATH-604622">
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">degradation</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7651911" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-604622@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1084@840</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-604622@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1185@922</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7651912" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7752062" />
 </bp:interaction>
@@ -2062,9 +2062,9 @@
 </bp:relationshipXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7679390">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951106427866@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@641@417</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@283@440</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@328@446</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203013_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521106427841@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@596@411</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616629" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7679383" />
 </bp:physicalEntityParticipant>
@@ -2074,9 +2074,9 @@
 </bp:sequenceFeature>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7679392">
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7679393" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7679395" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1349031085584865@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@404@163</bp:COMMENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7679393" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-134903http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679392@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@29@424</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-134903" />
 </bp:sequenceParticipant>
 
@@ -2086,11 +2086,11 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-282142" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BCL3_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Could be a transcriptional activating factor. Functions as a form of I-kappa-B specific for NF-kappa-B p50 subunit inhibiting its translocation to the nucleus. SUBUNIT: Component of a complex consisting of the NF-kappa-B p52- p52 homodimer and BCL3. Component of a complex consisting of the NF-kappa-B p50-p50 homodimer and BCL3. Interacts with N4BP2 and COPS5. SUBCELLULAR LOCATION: Nucleus. PTM: Activated by phosphorylation. DISEASE: A chromosomal aberration involving BCL3 may be a cause of B-cell chronic lymphocytic leukemia (B-CLL). Translocation t(14;19)(q32;q13.1) with immunoglobulin gene regions. SIMILARITY: Contains 7 ANK repeats. GENE SYNONYMS: BCL4 D19S37. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-282138" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-282139" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-283354" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-282141" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-282140" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-282141" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-283354" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-282139" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-282138" />
 </bp:protein>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-7755704">
@@ -2135,7 +2135,7 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7679385">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7679386" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-104752791@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@370@339</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671373@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@260@349</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7679383" />
 </bp:sequenceParticipant>
@@ -2191,17 +2191,17 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-131906" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REL_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Proto-oncogene that may play a role in differentiation and lymphopoiesis. NF-kappa-B is a pleiotropic transcription factor which is present in almost all cell types and is involved in many biological processed such as inflammation, immunity, differentiation, cell growth, tumorigenesis and apoptosis. NF- kappa-B is a homo- or heterodimeric complex formed by the Rel-like domain-containing proteins RELA/p65, RELB, NFKB1/p105, NFKB1/p50, REL and NFKB2/p52. The dimers bind at kappa-B sites in the DNA of their target genes and the individual dimers have distinct preferences for different kappa-B sites that they can bind with distinguishable affinity and specificity. Different dimer combinations act as transcriptional activators or repressors, respectively. NF-kappa-B is controlled by various mechanisms of post-translational modification and subcellular compartmentalization as well as by interactions with other cofactors or corepressors. NF-kappa-B complexes are held in the cytoplasm in an inactive state complexed with members of the NF- kappa-B inhibitor (I-kappa-B) family. In a conventional activation pathway, I-kappa-B is phosphorylated by I-kappa-B kinases (IKKs) in response to different activators, subsequently degraded thus liberating the active NF-kappa-B complex which translocates to the nucleus. The NF-kappa-B heterodimer RELA/p65-c-Rel is a transcriptional activator. SUBUNIT: Component of the NF-kappa-B p65-c-Rel complex. Component of the NF-kappa-B p50-c-Rel complex. Component of the NF-kappa-B p52-c-Rel complex. Homodimer; component of the NF-kappa-B c-Rel-c- Rel complex (By similarity). Interacts with NKIRAS1. Interacts with NFKBIB (By similarity). Interacts with NFKBIE. SUBCELLULAR LOCATION: Nucleus (By similarity). SIMILARITY: Contains 1 RHD (Rel-like) domain. WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/RELID322.html&quot;; COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-137712" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-131912" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-131913" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-131909" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-131908" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-131910" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-131911" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-131910" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-131909" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-131913" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-131908" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-137712" />
 </bp:protein>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7749738">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-796481247@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1814@65</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7749738http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693453http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674253@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1153@1512</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
@@ -2211,14 +2211,14 @@
 </bp:dataSource>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7749737">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-796481248@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1769@65</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7749737http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693453http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674253@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1198@1512</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
 <bp:control rdf:ID="CPATH-609286">
  <bp:CONTROL-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:CONTROL-TYPE>
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">response to UV</bp:NAME>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-609286@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@612@372</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-609286@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@215@666</bp:COMMENT>
  <bp:CONTROLLED rdf:resource="#CPATH-609285" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7756726" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7688496" />
@@ -2238,17 +2238,17 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-462045" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FBW1B_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Substrate recognition component of a SCF (SKP1-CUL1-F- box protein) E3 ubiquitin-protein ligase complex which mediates the ubiquitination and subsequent proteasomal degradation of target proteins. Probably recognizes and binds to phosphorylated target proteins. SCF(FBXW11) mediates the ubiquitination of CTNNB1 and participates in Wnt signaling. SCF(FBXW11) mediates the ubiquitination of NFKBIA, the degradation frees the associated NFKB1 to translocate into the nucleus and to activate transcription. SCF(FBXW11) mediates the ubiquitination of IFNAR1. SUBUNIT: Self-associates. Component of the SCF(FBXW11) complex formed of CUL1, SKP1A, RBX1 and a FBXW11 dimer. Interacts with BTRC. Interacts with phosphorylated ubiquitination substrates CTNNB1, NFKBIA, IFNAR1; the interaction requires the phosphorylation of the two serine residues in the destruction motif D-S-G-X(2,3)-S. SUBCELLULAR LOCATION: Cytoplasm (Potential). ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=3; Name=C; IsoId=Q9UKB1-1; Sequence=Displayed; Name=A; IsoId=Q9UKB1-2; Sequence=VSP_006765; Name=B; IsoId=Q9UKB1-3; Sequence=VSP_006766; SIMILARITY: Contains 1 F-box domain. SIMILARITY: Contains 7 WD repeats. GENE SYNONYMS: BTRCP2 FBW1B FBXW1B KIAA0696. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-462035" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-462043" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-462044" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-462039" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-462041" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-462036" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-462037" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-462038" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-462042" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-467802" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-462040" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462038" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462043" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462035" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462044" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462041" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-467802" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462037" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462042" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-462039" />
 </bp:protein>
 
 <bp:control rdf:ID="CPATH-609287">
@@ -2297,7 +2297,7 @@
 <bp:transport rdf:ID="CPATH-610139">
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7695299" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7695293" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610139true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@382@506</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610139true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@526@630</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7695294" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7695296" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7757579" />
@@ -2314,17 +2314,17 @@
 </bp:unificationXref>
 
 <bp:complexAssembly rdf:ID="CPATH-609285">
- <bp:RIGHT rdf:resource="#CPATH-LOCAL-7688481" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7688480" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7688481" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7688469" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-609285true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@583@318</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-609285true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@263@652</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7688470" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7688477" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7688475" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7756725" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7688475" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7688474" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7688473" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7688476" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7688474" />
 </bp:complexAssembly>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-534641">
@@ -2402,9 +2402,9 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7662145">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951255099888@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1383@558</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7662145http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653944@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@655@477</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7662145http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653944@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@610@483</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203013_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521255099863@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1338@552</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616629" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7662146" />
 </bp:physicalEntityParticipant>
@@ -2458,7 +2458,7 @@
 <bp:control rdf:ID="CPATH-607100">
  <bp:CONTROL-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:CONTROL-TYPE>
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">response to oxidative stress</bp:NAME>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607100@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@377@466</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607100@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@360@285</bp:COMMENT>
  <bp:CONTROLLED rdf:resource="#CPATH-607099" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7671379" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7754540" />
@@ -2467,7 +2467,7 @@
 <bp:transport rdf:ID="CPATH-604888">
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7653944" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7653938" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-604888true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@652@514</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-604888true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@444@407</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7653939" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7653941" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7752328" />
@@ -2479,14 +2479,14 @@
  <bp:XREF rdf:resource="#CPATH-LOCAL-7681250" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7755807" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7681254" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608367true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1023@592</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608367true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1281@601</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7681248" />
 </bp:biochemicalReaction>
 
 <bp:interaction rdf:ID="CPATH-610251">
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">degradation</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7696180" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610251@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@746@147</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-610251@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@363@919</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7696181" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7757691" />
 </bp:interaction>
@@ -2512,12 +2512,12 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-509582" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKKB_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Acts as part of the IKK complex in the conventional pathway of NF-kappa-B activation and phosphorylates inhibitors of NF-kappa-B thus leading to the dissociation of the inhibitor/NF- kappa-B complex and ultimately the degradation of the inhibitor. Also phosphorylates NCOA3. CATALYTIC ACTIVITY: ATP + [I-kappa-B protein] = ADP + [I-kappa-B phosphoprotein]. SUBUNIT: Component of the I-kappa-B-kinase (IKK) core complex consisting of CHUK, IKBKB and IKBKG; probably four alpha/CHUK- beta/IKBKB dimers are associated with four gamma/IKBKG subunits. The IKK core complex seems to associate with regulatory or adapter proteins to form a IKK-signalosome holo-complex. Part of a complex composed of NCOA2, NCOA3, CHUK/IKKA, IKBKB, IKBKG and CREBBP. Part of a 70-90 kDa complex at least consisting of CHUK/IKKA, IKBKB, NFKBIA, RELA, IKBKAP and MAP3K14. Interacts with SQSTM1 through PRKCZ or PRKCI. Forms an NGF-induced complex with IKBKB, PRKCI and TRAF6. May interact with MAVS/IPS1. Interacts with NALP2. Interacts with TICAM1. Interacts with Yersinia yopJ. Interacts with FAF1; the interaction disrupts the IKK complex formation. Interacts with ATM. Part of a ternary complex consisting of TANK, IKBKB and IKBKG. Interacts with NIBP; the interaction is direct. SUBCELLULAR LOCATION: Cytoplasm. TISSUE SPECIFICITY: Highly expressed in heart, placenta, skeletal muscle, kidney, pancreas, spleen, thymus, prostate, testis and peripheral blood. PTM: Upon cytokine stimulation, phosphorylated on Ser-177 and Ser- 181 by MEKK1 and/or MAP3K14/NIK; which enhances activity. Once activated, autophosphorylates on the C-terminal serine cluster; which decreases activity and prevents prolonged activation of the inflammatory response. PTM: Yersinia yopJ may acetylate Ser/Thr residues, preventing phosphorylation and activation, which blocks the I-kappa-B signaling pathway. PTM: Ubiquitination on &apos;Ser-163&apos; modulates phosphorylation on C- terminal serine residues. SIMILARITY: Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. I-kappa-B kinase subfamily. SIMILARITY: Contains 1 protein kinase domain. WEB RESOURCE: Name=SeattleSNPs; URL=&quot;http://pga.gs.washington.edu/data/ikbkb/&quot;; GENE SYNONYMS: IKKB. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-509579" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-509577" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-509578" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-515859" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-509580" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-509578" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-509579" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-509581" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-509577" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-509580" />
 </bp:protein>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-57749">
@@ -2531,10 +2531,10 @@
 </bp:bioSource>
 
 <bp:complexAssembly rdf:ID="CPATH-608264">
- <bp:RIGHT rdf:resource="#CPATH-LOCAL-7680534" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7680529" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7680534" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7680521" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608264true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@423@396</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608264true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@224@401</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7680522" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7680526" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7755704" />
@@ -2551,10 +2551,10 @@
 <bp:control rdf:ID="CPATH-608265">
  <bp:CONTROL-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:CONTROL-TYPE>
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">response to oxidative stress</bp:NAME>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608265@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@421@449</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608265@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@248@329</bp:COMMENT>
  <bp:CONTROLLED rdf:resource="#CPATH-608264" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7755705" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7680535" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7755705" />
 </bp:control>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-64744">
@@ -2583,10 +2583,10 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7695299">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-688481346190075@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1222@601</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1290281346190073@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1174@607</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521346190070@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@626</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951346190074@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1174@632</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732814http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@663@608</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732819http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@660@633</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732818http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@615@639</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732817http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@615@614</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615449" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7695300" />
 </bp:physicalEntityParticipant>
@@ -2605,10 +2605,10 @@
 </bp:openControlledVocabulary>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7695296">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521270064494@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@532@539</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1290281270064497@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@484@545</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-688481270064499@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@484@564</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951270064498@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@529@570</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732817http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@399@579</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732818http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@447@579</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732814http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@399@598</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732819http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695296http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715469@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@444@598</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615449" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7695297" />
 </bp:physicalEntityParticipant>
@@ -2636,10 +2636,10 @@
 </bp:sequenceFeature>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7661685">
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7661686" />
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7661688" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7661692" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-875566918@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1514@259</bp:COMMENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7661688" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7661686" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661685@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1070@1058</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -2727,10 +2727,10 @@
 </bp:dataSource>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7712116">
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7712117" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7712123" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7712119" />
- <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7712117" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-875566918@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1514@259</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661685@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1070@1058</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -2763,17 +2763,17 @@
 </bp:openControlledVocabulary>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7712115">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-372559769@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1645@195</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693451@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1196@1164</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
 <bp:complexAssembly rdf:ID="CPATH-608120">
- <bp:RIGHT rdf:resource="#CPATH-LOCAL-7679390" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7679385" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7679390" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7679374" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608120true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@403@386</bp:COMMENT>
- <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7679378" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608120true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@208@424</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7679375" />
+ <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7679378" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7679382" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7679381" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7755560" />
@@ -2792,27 +2792,27 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-88239" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P85A_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Binds to activated (phosphorylated) protein-Tyr kinases, through its SH2 domain, and acts as an adapter, mediating the association of the p110 catalytic unit to the plasma membrane. Necessary for the insulin-stimulated increase in glucose uptake and glycogen synthesis in insulin-sensitive tissues. SUBUNIT: Heterodimer of a p110 (catalytic) and a p85 (regulatory) subunits. Interacts with phosphorylated TOM1L1. Interacts with phosphorylated LIME1 upon TCR and/or BCR activation. Interacts with SOCS7. Interacts with RUFY3 (By similarity). Interacts with phosphorylated LAT, LAX1 and TRAT1 upon TCR activation. Interacts with CBLB. Interacts with HIV-1 Nef to activate the Nef associated p21-activated kinase (PAK). This interaction depends on the C- terminus of both proteins and leads to increased production of HIV. Interacts with HCV NS5A. The SH2 domains interact with the YTHM motif of phosphorylated INSR in vitro. Also interacts with tyrosine-phosphorylated IGF1R in vitro. Interacts with CD28 and CD3Z upon T-cell activation. Interacts with IRS1 and phosphorylated IRS4, as well as with NISCH and HCST. ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=4; Name=1; IsoId=P27986-1; Sequence=Displayed; Name=2; Synonyms=AS53; IsoId=P27986-2; Sequence=VSP_021842, VSP_021843; Name=3; Synonyms=p46; IsoId=P27986-3; Sequence=VSP_021841, VSP_021844; Name=4; Synonyms=p85I; IsoId=P27986-4; Sequence=VSP_021845; TISSUE SPECIFICITY: Isoform 2 is expressed in skeletal muscle and brain, and at lower levels in kidney and cardiac muscle. Isoform 2 and isoform 4 are present in skeletal muscle (at protein level). DOMAIN: The SH3 domain mediates the binding to CBLB, and to HIV-1 Nef. PTM: Polyubiquitinated in T-cells by CBLB; which does not promote proteasomal degradation but impairs association with CD28 and CD3Z upon T-cell activation. DISEASE: Defects in PIK3R1 are a cause of severe insulin resistance. SIMILARITY: Belongs to the PI3K p85 subunit family. SIMILARITY: Contains 1 Rho-GAP domain. SIMILARITY: Contains 2 SH2 domains. SIMILARITY: Contains 1 SH3 domain. GENE SYNONYMS: GRB1. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-88241" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-88243" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-88245" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-88248" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-88251" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-88246" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-88250" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-88243" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-88241" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-88247" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-89259" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-88244" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-88250" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-88242" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-88251" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-88244" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-88249" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-88245" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-88246" />
 </bp:protein>
 
 <bp:control rdf:ID="CPATH-608121">
  <bp:CONTROL-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:CONTROL-TYPE>
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">response to oxidative stress</bp:NAME>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608121@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@394@440</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-608121@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@172@471</bp:COMMENT>
  <bp:CONTROLLED rdf:resource="#CPATH-608120" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7755561" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7679391" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7755561" />
 </bp:control>
 
 <bp:evidence rdf:ID="CPATH-LOCAL-7712113">
@@ -2826,47 +2826,47 @@
 
 <bp:pathway rdf:ID="CPATH-604442">
  <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-611714" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610840" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607979" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605942" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610251" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-612233" />
  <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610252" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605942" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-612628" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609286" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605102" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610594" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605943" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608265" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608264" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609287" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-604888" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607979" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610841" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610521" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609285" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-604622" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-611715" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-606756" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-611716" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607100" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608121" />
  <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608122" />
  <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610139" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-612628" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607099" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607467" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605943" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609890" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605102" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608265" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-604622" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-604623" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610521" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-612232" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605701" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610841" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607100" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609287" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608120" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608266" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610251" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608121" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608367" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-612233" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607101" />
  <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605101" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-611716" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605884" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609286" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-606756" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609285" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-611715" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-604888" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-611713" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608120" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607467" />
  <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609288" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608264" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608367" />
  <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605883" />
- <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610594" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605701" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607101" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-609890" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-610840" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-611713" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-604623" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-612232" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-607099" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-608266" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-605884" />
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Atypical NF-kappaB pathway</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7650835" />
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7650833" />
@@ -2880,7 +2880,7 @@
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7678294" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7755419" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7678297" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607979true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1053@494</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607979true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1180@597</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7678292" />
 </bp:biochemicalReaction>
 
@@ -2894,7 +2894,7 @@
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7674253" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7754907" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7674254" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607467true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1929@173</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607467true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1257@1745</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7674251" />
 </bp:biochemicalReaction>
 
@@ -2905,8 +2905,8 @@
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7660238">
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_202909_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-263751143565794@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@45@228</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-219381143565795@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@92@228</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-26375http://cbio.mskcc.org/cpath#CPATH-LOCAL-7747241http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660238@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@131@29</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-21938http://cbio.mskcc.org/cpath#CPATH-LOCAL-7747242http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660238@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@178@29</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-617534" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7660239" />
 </bp:physicalEntityParticipant>
@@ -2932,7 +2932,7 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7734190">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7734191" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452767497154@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@200@362</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7734190http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660242@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@128@239</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
@@ -2987,19 +2987,19 @@
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7712115" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7759672" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7712116" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-612232true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1535@192</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-612232true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1153@1078</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7712113" />
 </bp:biochemicalReaction>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7712125">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1286241421402480@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1058@257</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-128624http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655718@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1256@814</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-128624" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7712126" />
 </bp:sequenceParticipant>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7734194">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7734195" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695767497158@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@245@362</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7734194http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660242@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@173@239</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
@@ -3028,9 +3028,9 @@
 </bp:dataSource>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7653941">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951106427866@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@641@417</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@283@440</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@328@446</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203013_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521106427841@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@596@411</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616629" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7653942" />
 </bp:physicalEntityParticipant>
@@ -3041,9 +3041,9 @@
 </bp:bioSource>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7653944">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951255099888@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1383@558</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7662145http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653944@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@655@477</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7662145http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653944@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@610@483</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203013_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521255099863@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1338@552</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616629" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7653945" />
 </bp:physicalEntityParticipant>
@@ -3132,9 +3132,9 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7660235">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-336815312@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@289</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-336815311@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@479@314</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-336815315@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@308</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750826http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@213@552</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750825http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@527</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750822http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@546</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-618021" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7660236" />
 </bp:physicalEntityParticipant>
@@ -3164,9 +3164,9 @@
 </bp:dataSource>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7674253">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-796481248@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1769@65</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203073_0X27 ; bp:FEATURE-TYPE inactive</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-796481247@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1814@65</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7749738http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693453http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674253@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1153@1512</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7749737http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693453http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674253@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1198@1512</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-617884" />
 </bp:physicalEntityParticipant>
 
@@ -3180,14 +3180,14 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-205914" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">TF65_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: NF-kappa-B is a pleiotropic transcription factor which is present in almost all cell types and is involved in many biological processed such as inflammation, immunity, differentiation, cell growth, tumorigenesis and apoptosis. NF- kappa-B is a homo- or heterodimeric complex formed by the Rel-like domain-containing proteins RELA/p65, RELB, NFKB1/p105, NFKB1/p50, REL and NFKB2/p52 and the heterodimeric p65-p50 complex appears to be most abundant one. The dimers bind at kappa-B sites in the DNA of their target genes and the individual dimers have distinct preferences for different kappa-B sites that they can bind with distinguishable affinity and specificity. Different dimer combinations act as transcriptional activators or repressors, respectively. NF-kappa-B is controlled by various mechanisms of post-translational modification and subcellular compartmentalization as well as by interactions with other cofactors or corepressors. NF-kappa-B complexes are held in the cytoplasm in an inactive state complexed with members of the NF- kappa-B inhibitor (I-kappa-B) family. In a conventional activation pathway, I-kappa-B is phosphorylated by I-kappa-B kinases (IKKs) in response to different activators, subsequently degraded thus liberating the active NF-kappa-B complex which translocates to the nucleus. NF-kappa-B heterodimeric p65-p50 and p65-c-Rel complexes are transcriptional activators. The NF-kappa-B p65-p65 complex appears to be involved in invasin-mediated activation of IL-8 expression. The inhibitory effect of I-kappa-B upon NF-kappa-B the cytoplasm is exerted primarily through the interaction with p65. p65 shows a weak DNA-binding site which could contribute directly to DNA binding in the NF-kappa-B complex. SUBUNIT: Component of the NF-kappa-B p65-p50 complex. Component of the NF-kappa-B p65-c-Rel complex. Homodimer; component of the NF- kappa-B p65-p65 complex. Component of the NF-kappa-B p65-p52 complex. May interact with ETHE1. Binds AES and TLE1. Interacts with TP53BP2. Binds to and is phosphorylated by the activated form of either RPS6KA4 or RPS6KA5. Interacts with ING4 and this interaction may be indirect. Interacts with CARM1, USP48 and UNC5CL. Interacts with IRAK1BP1 (By similarity).Interacts with NFKBID (By similarity). Interacts with NFKBIA. Interacts with GSK3B. Interacts with NFKBIB (By similarity). Interacts with NFKBIE. Interacts with NFKBIZ (By similarity). Part of a 70-90 kDa complex at least consisting of CHUK, IKBKB, NFKBIA, RELA, IKBKAP and MAP3K14. Interacts with HDAC3; HDAC3 mediates the deacetylation of RELA. Interacts with HDAC1; the interaction requires non-phosphorylated RELA. Interacts with CBP; the interaction requires phosphorylated RELA. Interacts (phosphorylated at &apos;Thr-254&apos;) with PIN1; the interaction inhibits p65 binding to NFKBIA. Interacts with SOCS1. Interacts with UXT. Interacts with MTDH. Interacts with human respiratory syncytial virus (HRSV) protein M2-1. SUBCELLULAR LOCATION: Nucleus. Cytoplasm. Note=Nuclear, but also found in the cytoplasm in an inactive form complexed to an inhibitor (I-kappa-B). ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=4; Name=1; Synonyms=p65; IsoId=Q04206-1; Sequence=Displayed; Name=2; Synonyms=p65 delta 2; IsoId=Q04206-2; Sequence=VSP_005587, VSP_005588; Name=3; Synonyms=p65 delta; IsoId=Q04206-3; Sequence=VSP_012031; Name=4; IsoId=Q04206-4; Sequence=VSP_031245; Note=No experimental confirmation available; PTM: Ubiquitinated, leading to its proteosomal degradation. Degradation is required for termination of NF-kappa-B response. PTM: Phosphorylation on &apos;Ser-536&apos; stimulates acetylation on &apos;Lys- 310&apos; and interaction with CBP; the phosphorylated and acetylated forms show enhanced transcriptional activity. PTM: Reversibly acetylated; the acetylation seems to be mediated by CBP, the deacetylation by HDAC3. Acetylation at &apos;Lys-122&apos; enhances DNA binding and impairs association with NFKBIA. Acetylation at &apos;Lys-310&apos; is required for full transcriptional activity in the absence of effects on DNA binding and NFKBIA association. Acetylation can also lower DNA-binding and results in nuclear export. SIMILARITY: Contains 1 RHD (Rel-like) domain. WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/RELAID325.html&quot;; WEB RESOURCE: Name=SeattleSNPs; URL=&quot;http://pga.gs.washington.edu/data/rela/&quot;; GENE SYNONYMS: NFKB3. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-205918" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-205922" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-205920" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-205921" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-211362" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-205917" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-205916" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-211362" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-205919" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-205920" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-205922" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-205918" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-205916" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-205921" />
 </bp:protein>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-516061">
@@ -3198,10 +3198,10 @@
 <bp:interaction rdf:ID="CPATH-605942">
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">positive regulation of anti-apoptosis</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7662141" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605942@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@692@862</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605942@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@505@523</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7662143" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7662142" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7753382" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7662142" />
 </bp:interaction>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-7680532">
@@ -3215,9 +3215,9 @@
 </bp:bioSource>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7693453">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-796481248@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1769@65</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203073_0X27 ; bp:FEATURE-TYPE inactive</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-796481247@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1814@65</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7749738http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693453http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674253@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1153@1512</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7749737http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693453http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674253@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1198@1512</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-617884" />
 </bp:physicalEntityParticipant>
 
@@ -3249,9 +3249,9 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7680534">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951106427866@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@641@417</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740986http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@283@440</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@328@446</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203013_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521106427841@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@596@411</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616629" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7680527" />
 </bp:physicalEntityParticipant>
@@ -3269,7 +3269,7 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7680536">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7680537" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1357401014523251@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@471@178</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-135740http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680536@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@33@373</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-135740" />
 </bp:sequenceParticipant>
 
@@ -3278,8 +3278,8 @@
 </bp:sequenceFeature>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7674254">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-797730317@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@2078@220</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698349http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1313@1911</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
 </bp:physicalEntityParticipant>
 
@@ -3297,19 +3297,19 @@
 </bp:relationshipXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7740080">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-797730317@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@2078@220</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-586348287@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1194@347</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678297http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698875@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1079@457</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7698349http://cbio.mskcc.org/cpath#CPATH-LOCAL-7674254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1313@1911</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7693451">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-372559769@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1645@195</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7693451@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1196@1164</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-14452" />
 </bp:sequenceParticipant>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7693452">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951390885948@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1520@125</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668605@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@833@1004</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
@@ -3329,7 +3329,7 @@
 </bp:relationshipXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7720901">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-21938764653874@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@247@594</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-21938http://cbio.mskcc.org/cpath#CPATH-LOCAL-7720901http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660241@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@295@240</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-21938" />
 </bp:sequenceParticipant>
 
@@ -3378,8 +3378,8 @@
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7750821" />
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7750819" />
  <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7750826" />
- <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7750822" />
  <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7750825" />
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7750822" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7762956" />
 </bp:complex>
 
@@ -3395,7 +3395,7 @@
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7680529">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7680530" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-104752791@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@370@339</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671373@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@260@349</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-129028" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7680527" />
 </bp:sequenceParticipant>
@@ -3455,9 +3455,9 @@
 </bp:publicationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7680526">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028-336815312@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@289</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-336815311@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@479@314</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452-336815315@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@434@308</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750826http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@213@552</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750825http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@527</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7750822http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671370http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688477http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679382http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680526http://cbio.mskcc.org/cpath#CPATH-LOCAL-7715466http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660235@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@168@546</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-618021" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7680527" />
 </bp:physicalEntityParticipant>
@@ -3504,13 +3504,13 @@
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-105676" />
  <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PK3CA_HUMAN</bp:SHORT-NAME>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Phosphorylates PtdIns, PtdIns4P and PtdIns(4,5)P2 with a preference for PtdIns(4,5)P2. CATALYTIC ACTIVITY: ATP + 1-phosphatidyl-1D-myo-inositol 4,5- bisphosphate = ADP + 1-phosphatidyl-1D-myo-inositol 3,4,5- trisphosphate. SUBUNIT: Heterodimer of a p110 (catalytic) and a p85 (regulatory) subunit. Binds to IRS1 in nuclear extracts. Interacts with RUFY3 (By similarity). DISEASE: Defects in PIK3CA are associated with colorectal cancer (CRC) [MIM:114500]. DISEASE: Defects in PIK3CA are associated with breast cancer [MIM:114480]. DISEASE: Defects in PIK3CA are associated with ovarian cancer [MIM:167000]. Ovarian cancer is the leading cause of death from gynecologic malignancy. It is characterized by advanced presentation with loco-regional dissemination in the peritoneal cavity and the rare incidence of visceral metastases. These typical features relate to the biology of the disease, which is a principal determinant of outcome. DISEASE: Defects in PIK3CA may underlie hepatocellular carcinoma (HCC) [MIM:114550]. DISEASE: PI3KCA mutations affecting exons 9 and 20 display gender- and tissue-specific patterns, thus suggesting that the different amino acid changes could exert distinct functional effects on the oncogenic properties of this enzyme. Furthermore, sexual dimorphisms and tissue specific factors might directly or indirectly influence the occurrence of PI3KCA cancer alleles. SIMILARITY: Belongs to the PI3/PI4-kinase family. SIMILARITY: Contains 1 C2 domain. SIMILARITY: Contains 1 PI3K/PI4K domain. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
- <bp:XREF rdf:resource="#CPATH-LOCAL-105678" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-105680" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-105679" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-105683" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-112825" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-105679" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-105682" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-105678" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-105681" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-105680" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-112825" />
 </bp:protein>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-131913">
@@ -3519,7 +3519,7 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7668602">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-696572002427916@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1343@77</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668602@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@982@446</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-69657" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7668603" />
 </bp:sequenceParticipant>
@@ -3539,8 +3539,8 @@
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7668606">
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203072_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695-329943609@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1381@338</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657-329943610@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1336@338</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-69657http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732502http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668606@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@865@574</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732503http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668606@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@820@574</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615398" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7668603" />
 </bp:physicalEntityParticipant>
@@ -3551,7 +3551,7 @@
 </bp:unificationXref>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7668605">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951390885948@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1520@125</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7668605@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@833@1004</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
@@ -3590,8 +3590,8 @@
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BCL3/RelA</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7732501" />
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7732499" />
- <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7732503" />
  <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7732502" />
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7732503" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7761484" />
 </bp:complex>
 
@@ -3671,8 +3671,8 @@
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BCL3/NF kappa B1 p50</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7729497" />
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7729495" />
- <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7729498" />
  <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7729499" />
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7729498" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7761256" />
 </bp:complex>
 
@@ -3681,7 +3681,7 @@
 </bp:sequenceFeature>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7655718">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1286241421402480@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1058@257</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-128624http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655718@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1256@814</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-128624" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7655719" />
 </bp:sequenceParticipant>
@@ -3690,12 +3690,12 @@
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7671378" />
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7671373" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7671362" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607099true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@385@407</bp:COMMENT>
- <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7671366" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-607099true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@332@353</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7671363" />
+ <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7671366" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7671370" />
- <bp:XREF rdf:resource="#CPATH-LOCAL-7671369" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7754539" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7671369" />
 </bp:complexAssembly>
 
 <bp:unificationXref rdf:ID="CPATH-LOCAL-7708123">
@@ -3704,8 +3704,8 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7655717">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7655715" />
 </bp:physicalEntityParticipant>
@@ -3727,14 +3727,14 @@
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7708120">
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7708124" />
  <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7708121" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848407376301@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@597@127</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7708120@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@124@904</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-68848" />
 </bp:sequenceParticipant>
 
 <bp:complexAssembly rdf:ID="CPATH-605883">
  <bp:RIGHT rdf:resource="#CPATH-LOCAL-7661694" />
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7661682" />
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605883true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1512@356</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-605883true@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1086@977</bp:COMMENT>
  <bp:EVIDENCE rdf:resource="#CPATH-LOCAL-7661683" />
  <bp:LEFT rdf:resource="#CPATH-LOCAL-7661685" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7753323" />
@@ -3766,15 +3766,15 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7660242">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452767497154@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@200@362</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203069_0X36 ; bp:FEATURE-TYPE active1</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695767497158@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@245@362</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7734194http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660242@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@173@239</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7734190http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660242@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@128@239</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615657" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7660236" />
 </bp:physicalEntityParticipant>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7660243">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-26375111668282@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@329@137</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-26375http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660243@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@38@324</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-26375" />
 </bp:sequenceParticipant>
 
@@ -3784,8 +3784,8 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7660241">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028764653197@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@199@588</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-21938764653874@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@247@594</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7720896http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660241@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@247@234</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-21938http://cbio.mskcc.org/cpath#CPATH-LOCAL-7720901http://cbio.mskcc.org/cpath#CPATH-LOCAL-7660241@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@295@240</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-613393" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7660236" />
 </bp:physicalEntityParticipant>
@@ -3796,7 +3796,7 @@
 </bp:dataSource>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7708119">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-688481964550115@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@698@9</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7708119@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@79@1131</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-68848" />
 </bp:sequenceParticipant>
 
@@ -3810,7 +3810,7 @@
 </bp:complex>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7655714">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X27 ; bp:FEATURE-TYPE inactive</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7655715" />
@@ -3824,8 +3824,8 @@
  <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI3K</bp:NAME>
  <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7747240" />
  <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7747238" />
- <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7747241" />
  <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7747242" />
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7747241" />
  <bp:XREF rdf:resource="#CPATH-LOCAL-7762666" />
 </bp:complex>
 
@@ -3869,16 +3869,16 @@
 </bp:dataSource>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7740990">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951106427866@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@641@417</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951255099888@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1383@558</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688480http://cbio.mskcc.org/cpath#CPATH-LOCAL-7679390http://cbio.mskcc.org/cpath#CPATH-LOCAL-7680534http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653941http://cbio.mskcc.org/cpath#CPATH-LOCAL-7671378@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@328@446</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740990http://cbio.mskcc.org/cpath#CPATH-LOCAL-7662145http://cbio.mskcc.org/cpath#CPATH-LOCAL-7653944@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@610@483</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-50695" />
 </bp:sequenceParticipant>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7700929">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-688481346190075@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1222@601</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-1290281346190073@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1174@607</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-144521346190070@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@626</bp:COMMENT>
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-506951346190074@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1174@632</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732814http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@663@608</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-68848http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732819http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@660@633</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-50695http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732818http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@615@639</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-129028http://cbio.mskcc.org/cpath#CPATH-LOCAL-7732817http://cbio.mskcc.org/cpath#CPATH-LOCAL-7695299http://cbio.mskcc.org/cpath#CPATH-LOCAL-7700929@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@615@614</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615449" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7700930" />
 </bp:physicalEntityParticipant>
@@ -3893,8 +3893,8 @@
 </bp:unificationXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7681254">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X26 ; bp:FEATURE-TYPE active</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7681252" />
 </bp:physicalEntityParticipant>
@@ -3910,19 +3910,19 @@
 </bp:relationshipXref>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7708126">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615250865839942@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@647@119</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-615250http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688497@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@257@965</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-615250" />
 </bp:physicalEntityParticipant>
 
 <bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7681251">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452554593969@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@779@394</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-14452http://cbio.mskcc.org/cpath#CPATH-LOCAL-7740080http://cbio.mskcc.org/cpath#CPATH-LOCAL-7661694http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681251http://cbio.mskcc.org/cpath#CPATH-LOCAL-7678294http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655714http://cbio.mskcc.org/cpath#CPATH-LOCAL-7655717http://cbio.mskcc.org/cpath#CPATH-LOCAL-7651914http://cbio.mskcc.org/cpath#CPATH-LOCAL-7681254@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@1219@674</bp:COMMENT>
  <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">bp:SEQUENCE-FEATURE-LIST pid_f_203070_0X27 ; bp:FEATURE-TYPE inactive</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-616499" />
  <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7681252" />
 </bp:physicalEntityParticipant>
 
 <bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7708127">
- <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-9838-723925853@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@681@108</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpath#CPATH-9838http://cbio.mskcc.org/cpath#CPATH-LOCAL-7688498@Layout@http://cbio.mskcc.org/cpath#CPATH-604442@155@943</bp:COMMENT>
  <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-9838" />
 </bp:sequenceParticipant>
 

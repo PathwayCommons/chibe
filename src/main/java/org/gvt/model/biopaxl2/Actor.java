@@ -327,19 +327,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public String getIDHash()
 	{
-		return entity.getRDFId() + (isUbique() ? edgeHash() : stateCode());
-	}
-
-	public int stateCode()
-	{
-		if (participants.isEmpty())
-		{
-			return 0;
-		}
-		else
-		{
-			return participants.iterator().next().stateCode();
-		}
+		return entity.getRDFId() + edgeHash();
 	}
 
 	public String edgeHash()
@@ -350,7 +338,12 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		}
 		else
 		{
-			return participants.iterator().next().getRDFId();
+			String hash = null;
+			for (physicalEntityParticipant p : participants)
+			{
+				if (hash == null || p.getRDFId().compareTo(hash) < 0) hash = p.getRDFId(); 
+			}
+			return hash;
 		}
 	}
 

@@ -1,9 +1,10 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.model.level3.EntityReference;
-import org.biopax.paxtools.model.level3.SimplePhysicalEntity;
-import org.biopax.paxtools.model.level3.UnificationXref;
-import org.biopax.paxtools.model.level3.Xref;
+import org.biopax.paxtools.io.SimpleIOHandler;
+import org.biopax.paxtools.model.BioPAXElement;
+import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.model.level2.Level2Element;
+import org.biopax.paxtools.model.level3.*;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -17,6 +18,10 @@ import org.gvt.model.biopaxl3.ChbComplex;
 import org.gvt.model.biopaxl3.ChbConversion;
 import org.gvt.model.biopaxl3.NonModulatedEffector;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.*;
 
 /**
@@ -46,7 +51,14 @@ public class DebugButtonAction extends Action
 
 	public void run()
 	{
-		workOnSelected();
+		try
+		{
+			workOnSelected();
+		}
+		catch (Throwable e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void workOnSelected()
@@ -113,7 +125,47 @@ public class DebugButtonAction extends Action
 			{
 				e.printStackTrace();
 			}
+		}
+	}
 
+	private void clearLayoutInFiles() throws FileNotFoundException
+	{
+		SimpleIOHandler h = new SimpleIOHandler();
+		File dir = new File("/home/ozgun/Projects/chibe/samples/level 2/");
+
+		for (File file : dir.listFiles())
+		{
+			if (file.getName().endsWith(".owl"));
+			{
+				Model model = h.convertFromOWL(new FileInputStream(file));
+				for (BioPAXElement ele : model.getObjects())
+				{
+					Set<String> remove = new HashSet<String>();
+					if (ele instanceof Level2Element)
+					{
+						for (String com : ((Level2Element) ele).getCOMMENT())
+						{
+							if (com.contains("@Layout@")) remove.add(com);
+						}
+						for (String rem : remove)
+						{
+							((Level2Element) ele).removeCOMMENT(rem);
+						}
+					}
+					else if (ele instanceof Level3Element)
+					{
+						for (String com : ((Level3Element) ele).getComment())
+						{
+							if (com.contains("@Layout@")) remove.add(com);
+						}
+						for (String rem : remove)
+						{
+							((Level3Element) ele).removeComment(rem);
+						}
+					}
+				}
+				h.convertToOWL(model, new FileOutputStream(file));
+			}
 		}
 	}
 }
