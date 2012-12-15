@@ -56,7 +56,7 @@ public class AboutDialog extends Dialog
 	protected void createContents()
 	{
 		shell = new Shell(getParent(), SWT.CLOSE);
-		shell.setSize(355, 365);
+		shell.setSize(355, 400);
 		shell.setLayout(new GridLayout());
 
 		ImageDescriptor id = ImageDescriptor.createFromFile(
@@ -114,7 +114,10 @@ public class AboutDialog extends Dialog
 			" Information Visualization Research Group, 2007 - present\n" +
 			"\n" +
 			"Bilkent University,\n" +
-			"Ankara 06800, TURKEY\n" +
+			"Ankara, TURKEY\n" +
+			"\n" +
+			"Memorial Sloan-Kettering Cancer Center,\n" +
+			"New York, USA\n" +
 			"\n");
 
 		Label mail = new Label(shell, SWT.NONE);

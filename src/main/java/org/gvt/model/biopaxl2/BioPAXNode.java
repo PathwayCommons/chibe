@@ -301,6 +301,8 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL2Node
 	 * A node is assumed to map unique biopax model element by default and id hash is not used. This
 	 * method must be overwritten in children when mapping clashes occur, e.g. when drawing two
 	 * conversions for in chisio for representing a reversible conversion in biopax.
+	 *
+	 * This method should not depend on Java's hashing Strings.
 	 */
 	public String getIDHash()
 	{

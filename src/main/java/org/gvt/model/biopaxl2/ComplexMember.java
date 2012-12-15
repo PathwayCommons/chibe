@@ -83,18 +83,10 @@ public class ComplexMember extends Actor
 
 	public String getIDHash()
 	{
-		int hash = 0;
+		String hash = "";
 		for (physicalEntityParticipant pep : participants)
 		{
-			if (pep.isPARTICIPANTSof().isEmpty())
-			{
-				hash += pep.getRDFId().hashCode();
-			}
-			else
-			{
-				hash += pep.stateCode();
-				break;
-			}
+			hash += pep.getRDFId();
 		}
 		return entity.getRDFId() + hash;
 	}
