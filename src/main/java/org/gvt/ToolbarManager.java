@@ -47,8 +47,8 @@ public class ToolbarManager extends ToolBarManager
 		add(new LayoutInspectorAction(main));
 		add(new Separator());
 		add(new QueryPathwaysAction(main, false));
-//		add(new Separator());
-//		add(new DebugButtonAction(main));
+		add(new Separator());
+		add(new DebugButtonAction(main));
 
 		update(true);
 	}

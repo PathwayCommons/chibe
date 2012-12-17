@@ -12,10 +12,7 @@ import org.gvt.util.EntityHolder;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.Node;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Corresponds to inferred states in BioPAX file.
@@ -63,6 +60,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 		this.entity = entity;
 		this.participants = participants;
+		sortParticipants();
 		configFromModel();
 	}
 
@@ -71,8 +69,21 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		super(excised, root);
 		this.entity = excised.getEntity().l2pe;
 		this.participants = excised.getParticipants();
+		sortParticipants();
 		getReferences().clear();
 		configFromModel();
+	}
+
+	protected void sortParticipants()
+	{
+		Collections.sort(participants, new Comparator<physicalEntityParticipant>()
+		{
+			@Override
+			public int compare(physicalEntityParticipant p1, physicalEntityParticipant p2)
+			{
+				return p1.getRDFId().compareTo(p2.getRDFId());
+			}
+		});
 	}
 
 	public void configFromModel()
