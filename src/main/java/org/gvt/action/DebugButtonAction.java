@@ -53,7 +53,7 @@ public class DebugButtonAction extends Action
 	{
 		try
 		{
-			workOnSelected();
+			clearLayoutInFiles();
 		}
 		catch (Throwable e)
 		{
@@ -131,11 +131,11 @@ public class DebugButtonAction extends Action
 	private void clearLayoutInFiles() throws FileNotFoundException
 	{
 		SimpleIOHandler h = new SimpleIOHandler();
-		File dir = new File("/home/ozgun/Projects/chibe/samples/level 2/");
+		File dir = new File("C:/Projects/chibe/samples/level 2/");
 
 		for (File file : dir.listFiles())
 		{
-			if (file.getName().endsWith(".owl"));
+			if (file.getName().endsWith("ins.owl"));
 			{
 				Model model = h.convertFromOWL(new FileInputStream(file));
 				for (BioPAXElement ele : model.getObjects())
