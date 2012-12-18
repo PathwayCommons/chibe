@@ -215,6 +215,7 @@ public class InfoFigure extends Figure
 		final Color INACTIVE_FORE = WHITE;
 		final Color METHYL_FORE = new Color(null, 20, 20, 200);
 		final Color GLYCOSYL_FORE = new Color(null, 20, 20, 100);
+		final Color FUCOSYL_FORE = new Color(null, 20, 20, 100);
 		final Color UBIQUITIN_FORE = new Color(null, 100, 20, 20);
 
 		put("phosphorylation", PHOSPHO_BG, PHOSPHO_FORE, null);
@@ -242,7 +243,8 @@ public class InfoFigure extends Figure
 		put("n4-glycosyl-l-asparagine", null, GLYCOSYL_FORE, "g");
 		put("o-glycosyl-l-threonine", null, GLYCOSYL_FORE, "g");
 		put("o-glucosyl-l-serine", null, GLYCOSYL_FORE, "g");
-		put("o-fucosyl-l-threonine", null, GLYCOSYL_FORE, "f");
+		put("o-fucosyl-l-threonine", null, FUCOSYL_FORE, "f");
+		put("o-fucosyl-l-serine", null, FUCOSYL_FORE, "f");
 	}
 
 	protected static final int OVAL = 0;
