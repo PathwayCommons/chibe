@@ -1,0 +1,2204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+ xmlns="http://cbio.mskcc.org/cpath#"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+ xmlns:owl="http://www.w3.org/2002/07/owl#"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:bp="http://www.biopax.org/release/biopax-level2.owl#"
+ xml:base="http://cbio.mskcc.org/cpath">
+<owl:Ontology rdf:about="">
+ <owl:imports rdf:resource="http://www.biopax.org/release/biopax-level2.owl#" />
+</owl:Ontology>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-508150">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CHUK</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_SYMBOL</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-508154">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">O14666</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-508153">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q92467</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-508152">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q5W0I4</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-508151">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">O15111</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-508157">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-508156">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-508157" />
+</bp:bioSource>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-508155">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1147</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492208">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7585148">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">590250</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492216">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Inoki, K</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Guan, KL</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Wu, J</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Zhu, T</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Li, Y</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Nat Cell Biol 4:648-57</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">12172553</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">2002</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling</bp:TITLE>
+</bp:publicationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553851">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q6FI05</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492215">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12532.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12532</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553852">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P46527</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492218">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492219" />
+</bp:openControlledVocabulary>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7553853">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492217">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 165165</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-526828http://cbio.mskcc.org/cpathCPATH-LOCAL-7492217@Layout@http://cbio.mskcc.org/cpathCPATH-579749@199@337</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-526828" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492218" />
+</bp:sequenceParticipant>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553854">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1027</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492351">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Kovacina, KS</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Park, GY</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Schaefer, E</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Birnbaum, MJ</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Guzzetta, AW</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Roth, RA</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bae, SS</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">J Biol Chem 278:10189-94</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">12524439</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">2003</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Identification of a proline-rich Akt substrate as a 14-3-3 binding partner</bp:TITLE>
+</bp:publicationXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492350">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">183</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492353">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 200155</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-3056http://cbio.mskcc.org/cpathCPATH-LOCAL-7492353@Layout@http://cbio.mskcc.org/cpathCPATH-579749@284@492</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-3056" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492342" />
+</bp:sequenceParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7553850">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492352">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">2.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492352@Layout@http://cbio.mskcc.org/cpathCPATH-579749@381@416</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492342" />
+</bp:physicalEntityParticipant>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553859">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P46527</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553855">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1026</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-7553856">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-7553857" />
+</bp:bioSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7553857">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553858">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q6FI05</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:protein rdf:ID="CPATH-27625">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">3-phosphoinositide-dependent protein kinase 1</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11.1</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">hPDK1</bp:SYNONYMS>
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-111221" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDPK1_HUMAN</bp:SHORT-NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Phosphorylates and activates not only PKB/AKT, but also PKA, PKC-zeta, RPS6KA1 and RPS6KB1. May play a general role in signaling processes and in development (By similarity). Isoform 3 is catalytically inactive. CATALYTIC ACTIVITY: ATP + a protein = ADP + a phosphoprotein. SUBUNIT: Interacts with TUSC4. SUBCELLULAR LOCATION: Cytoplasm. Membrane; Peripheral membrane protein. Note=Membrane-associated after cell stimulation leading to its translocation. Tyrosine phosphorylation seems to occur only at the plasma membrane. ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=3; Name=1; IsoId=O15530-1; Sequence=Displayed; Name=2; IsoId=O15530-2; Sequence=VSP_004894; Name=3; IsoId=O15530-3; Sequence=VSP_004895; TISSUE SPECIFICITY: Appears to be expressed ubiquitously. PTM: Phosphorylated on tyrosine and serine/threonine. Phosphorylation on Ser-241 in the activation loop is required for full activity. PDK1 itself can autophosphorylate Ser-241, leading to its own activation. SIMILARITY: Belongs to the protein kinase superfamily. AGC Ser/Thr protein kinase family. PDK1 subfamily. SIMILARITY: Contains 1 PH domain. SIMILARITY: Contains 1 protein kinase domain. GENE SYNONYMS: PDK1. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-111223" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-111225" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-111227" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-113450" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-111228" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-111226" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-111224" />
+</bp:protein>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7525335">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:pathway rdf:ID="CPATH-579749">
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438892" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438885" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438889" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438891" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438890" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438896" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438893" />
+ <bp:PATHWAY-COMPONENTS rdf:resource="#CPATH-LOCAL-7438897" />
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates targets in the cytosol</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7438895" />
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7438886" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates targets in the cytosol</bp:SHORT-NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Following activation, AKT can phosphorylate an array of target proteins in the cytoplasm, many of which are involved in cell survival control. Phosphorylation of TSC2 feeds positively to the TOR kinase, which, in turn, contributes to AKT activation (positive feedback loop).</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7577125" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7438894" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7438888" />
+</bp:pathway>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-508149">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q13132</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-508148">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_001269</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492219">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7553864">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">plasma membrane</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553865" />
+</bp:openControlledVocabulary>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492229">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492229@Layout@http://cbio.mskcc.org/cpathCPATH-579749@129@362</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492218" />
+</bp:physicalEntityParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7553865">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005886</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492228">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Manning, BD</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Logsdon, MN</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Cantley, LC</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Tee, AR</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Blenis, J</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Mol Cell 10:151-62</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">12150915</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">2002</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Identification of the tuberous sclerosis complex-2 tumor suppressor gene product tuberin as a target of the phosphoinositide 3-kinase/akt pathway</bp:TITLE>
+</bp:publicationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492227">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492227@Layout@http://cbio.mskcc.org/cpathCPATH-579749@172@265</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492218" />
+</bp:physicalEntityParticipant>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553862">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1026</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7553863">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-27625http://cbio.mskcc.org/cpathCPATH-LOCAL-7492205http://cbio.mskcc.org/cpathCPATH-LOCAL-7553863@Layout@http://cbio.mskcc.org/cpathCPATH-579749@786@274</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 61459</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-27625" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7553864" />
+</bp:sequenceParticipant>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492226">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">1462</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492225">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on L-Threonine [ChEBI:6308] 1462 of UniProt:P49815-1 Tuberin (Tuberous sclerosis 2 protein)</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue: L-Threonine [ChEBI:6308]</bp:COMMENT>
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492226" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492222" />
+</bp:sequenceFeature>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7553860">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7525334">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">16761</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-113450">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">27625</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492224">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">939</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553861">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1027</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492223">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">35780</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492222">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492223" />
+</bp:openControlledVocabulary>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492221">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on L-Serine [ChEBI:6301] 939 of UniProt:P49815-1 Tuberin (Tuberous sclerosis 2 protein)</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue: L-Serine [ChEBI:6301]</bp:COMMENT>
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492224" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492222" />
+</bp:sequenceFeature>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492220">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492225" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492221" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-526828http://cbio.mskcc.org/cpathCPATH-LOCAL-7492220@Layout@http://cbio.mskcc.org/cpathCPATH-579749@66@288</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 199484</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-526828" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492218" />
+</bp:sequenceParticipant>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7553868">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 179838</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-587044http://cbio.mskcc.org/cpathCPATH-LOCAL-7492205http://cbio.mskcc.org/cpathCPATH-LOCAL-7553868@Layout@http://cbio.mskcc.org/cpathCPATH-579749@786@224</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-587044" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7553864" />
+</bp:physicalEntityParticipant>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-7553869">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-7553870" />
+</bp:bioSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7553866">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198338</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198338</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7553867">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7585128">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">590209</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582762">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates caspase-9</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492387" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates caspase-9</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492386" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492388" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492383" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580138" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492384" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492385" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492371" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492393" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582762true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@321@256</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT can phosphorylate the apoptotic protease caspase-9, inhibiting it.</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:smallMolecule rdf:ID="CPATH-585419">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ATP [ChEBI:15422]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Adenosine 5&apos;-triphosphate</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7524963" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ATP</bp:SHORT-NAME>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7524962" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7582740" />
+</bp:smallMolecule>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-16324">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">3056</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582760">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates PRAS40</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492340" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates PRAS40</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492341" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492353" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492338" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492337" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492339" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580136" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492351" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492336" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492352" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492344" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582760true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@351@458</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PRAS40 (proline-rich Akt/PKB substrate 40 kDa) is a substrate of AKT, the phosphorylation of which leads to the binding of this protein to 14-3-3. PRAS40 binds to mTOR complexes, mediating AKT signals to mTOR. Interaction of PRAS40 with the mTOR kinase domain is induced under conditions that inhibit mTOR signalling, such as growth factor deprivation. Binding of PRAS40 inhibits mTOR. PRAS40 phosphorylation by AKT and association with the cytosolic anchor protein 14-3-3, lead to mTOR stimulation (Vander Haar E, et al, 2007). Although it was originally identified in the context of insulin signalling, it was later shown that PRAS40 may also play a role in nerve growth factor-mediated neuroprotection (Saito A, et al, 2004).</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32146">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q13298</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32147">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_006870</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32148">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q71TW9</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32149">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_006869</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32143">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">4193</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7553870">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32142">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q13301</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7553871">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_13230.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_13230</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32145">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_001138808</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7553872">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 202074</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-590209http://cbio.mskcc.org/cpathCPATH-LOCAL-7492205http://cbio.mskcc.org/cpathCPATH-LOCAL-7553872@Layout@http://cbio.mskcc.org/cpathCPATH-579749@786@249</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-590209" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7553873" />
+</bp:sequenceParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32144">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q13226</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7553873">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553874" />
+</bp:openControlledVocabulary>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492238">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-8140http://cbio.mskcc.org/cpathCPATH-LOCAL-7492238@Layout@http://cbio.mskcc.org/cpathCPATH-579749@174@442</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198644</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-8140" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492239" />
+</bp:sequenceParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7553874">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553875">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P49841-1</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32141">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q13299</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553876">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P49840</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492239">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492240" />
+</bp:openControlledVocabulary>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32140">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">A8K2S6</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7553877">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492337">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Hayashi, T</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Narasimhan, P</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Ferrand-Drake, M</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Chan, PH</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Okuno, S</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Saito, A</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">J Neurosci 24:1584-93</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">14973226</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">2004</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Neuroprotective role of a proline-rich Akt substrate in apoptotic neuronal cell death after stroke: relationships with nerve growth factor</bp:TITLE>
+</bp:publicationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553878">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2932</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492336">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12383.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12383</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7553879">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2931</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492339">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Griffin, TJ</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Vander Haar, E</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Kim, DH</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bandhakavi, S</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Lee, SI</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Nat Cell Biol 9:316-23</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">17277771</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">2007</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Insulin signalling to mTOR mediated by the Akt/PKB substrate PRAS40</bp:TITLE>
+</bp:publicationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492338">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=200143</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">200143</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492230">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492231">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198609</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198609</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-11548">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-11547">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-11548" />
+</bp:bioSource>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-11546">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_115751</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:protein rdf:ID="CPATH-69276">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bcl2 antagonist of cell death</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bcl-XL/Bcl-2-associated death promoter</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bcl-2-like protein 8</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bcl2-L-8</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bcl-2-binding component 6</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD</bp:SYNONYMS>
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-280546" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD_HUMAN</bp:SHORT-NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Promotes cell death. Successfully competes for the binding to Bcl-X(L), Bcl-2 and Bcl-W, thereby affecting the level of heterodimerization of these proteins with BAX. Can reverse the death repressor activity of Bcl-X(L), but not that of Bcl-2 (By similarity). Appears to act as a link between growth factor receptor signaling and the apoptotic pathways. SUBUNIT: Forms heterodimers with the anti-apoptotic proteins, Bcl- X(L), Bcl-2 and Bcl-W. Also binds protein S100A10 (By similarity). The Ser-75/Ser-99 phosphorylated form binds 14-3-3 proteins (By similarity). SUBCELLULAR LOCATION: Mitochondrion outer membrane. Cytoplasm. Note=Upon phosphorylation, locates to the cytoplasm. TISSUE SPECIFICITY: Expressed in a wide variety of tissues. DOMAIN: Intact BH3 motif is required by BIK, BID, BAK, BAD and BAX for their pro-apoptotic activity and for their interaction with anti-apoptotic members of the Bcl-2 family. PTM: Phosphorylated on one or more of Ser-75, Ser-99, Ser-118 and Ser-134 in response to survival stimuli, which blocks its pro- apoptotic activity. Phosphorylation on Ser-99 or Ser-75 promotes heterodimerization with 14-3-3 proteins. This interaction then facilitates the phosphorylation at Ser-118, a site within the BH3 motif, leading to the release of Bcl-X(L) and the promotion of cell survival. Ser-99 is the major site of AKT/PKB phosphorylation, Ser-118 the major site of protein kinase A (CAPK) phosphorylation (By similarity). SIMILARITY: Belongs to the Bcl-2 family. SEQUENCE CAUTION: Sequence=AAB36516.1; Type=Frameshift; Positions=64, 91; WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/BADID130ch11q13.html&quot;; WEB RESOURCE: Name=Wikipedia; Note=Bcl 2-associated death promoter entry; URL=&quot;http://en.wikipedia.org/wiki/Bcl-2-associated_death_promoter&quot;; GENE SYNONYMS: BBC6 BCL2L8. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-280543" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-280545" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-280540" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-280541" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-283164" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-280544" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-280542" />
+</bp:protein>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-40267">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">8140</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-11545">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q96IK7</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:catalysis rdf:ID="CPATH-582752">
+ <bp:DIRECTION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PHYSIOL_LEFT_TO_RIGHT</bp:DIRECTION>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492208" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580128" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492204" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492203" />
+ <bp:CONTROLLER rdf:resource="#CPATH-LOCAL-7492205" />
+ <bp:CONTROL-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ACTIVATION</bp:CONTROL-TYPE>
+ <bp:CONTROLLED rdf:resource="#CPATH-582751" />
+</bp:catalysis>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-11544">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q96B36</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582751">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates p21Cip1 and p27Kip1</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492197" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates p21Cip1 and p27Kip1</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492194" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492201" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580127" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492199" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492193" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492202" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492200" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492198" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582751true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@515@239</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phosphorylation of p27Kip1 at T157 and of p21Cip1 at T145 by AKT leads to their retention in the cytoplasm, segregating these cyclin-dependent kinase (CDK) inhibitors from cyclin-CDK complexes.</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-11543">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_001092103</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582754">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates MDM2</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492245" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates MDM2</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492250" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492238" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492246" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492248" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580130" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492249" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492241" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492247" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582754true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@130@477</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT-mediated phosphorylation of ubiquitin-protein ligase E3 MDM2 promotes nuclear localization and inhibits interaction between MDM2 and p19ARF, thereby decreasing p53 stability. This leads to a decreased expression of p53 target genes, such as BAX, that promote apoptosis.</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582753">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates TSC2, inhibiting it</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492230" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates TSC2, inhibiting it</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492229" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492217" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492215" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492231" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492216" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492228" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580129" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492227" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492220" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates and inhibit TSC2 (tuberin), a suppressor of the TOR kinase pathway, which senses nutrient levels in the environment. TSC2 forms a TSC1-TSC2 protein complex that is a GAP (GTPase activating protein) for the RHEB G-protein. RHEB, in turn, activates the TOR kinase. Thus an active AKT1 activates the TOR kinase, both of which are positive signals for cell growth (an increase in cell mass) and division.&lt;br&gt;The TOR kinase regulates two major processes: translation of selected mRNAs in the cell and autophagy. In the presence of high nutrient levels TOR is active and phosphorylates the 4EBP protein releasing the eukaryotic initiation factor 4E (eIF4E), which is essential for cap-dependent initiation of translation and promoting growth of the cell (PMID: 15314020). TOR also phosphorylates the S6 kinase, which is implicated in ribosome biogenesis as well as in the modification of the S6 ribosomal protein. AKT can also activate mTOR by another mechanism, involving phosphorylation of PRAS40, an inhibitor of mTOR activity.</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582753true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@151@314</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582756">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates BAD</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492277" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates BAD</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492278" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492266" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492276" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492269" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492275" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580132" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492284" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492270" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582756true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@373@91</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates the BCL-2 family member BAD at serine 136, blocking the BAD-induced death (of neurons).</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32139">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_001138811</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582755">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates GSK3</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492259" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates GSK3</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492258" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492251" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492254" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492255" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580131" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492257" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492256" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582755true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@130@151</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GSK3 (glycogen synthase kinase-3) participates in the Wnt signaling pathway. It is implicated in the hormonal control of several regulatory proteins including glycogen synthase, and the transcription factors MYB and JUN. GSK3 phosphorylates JUN at sites proximal to its DNA-binding domain, thereby reducing its affinity for DNA. GSK3 is inhibited when phosphorylated by AKT1.</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32137">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q8WYJ2</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:biochemicalReaction rdf:ID="CPATH-582757">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates IKKalpha</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7492301" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT phosphorylates IKKalpha</bp:SHORT-NAME>
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492302" />
+ <bp:LEFT rdf:resource="#CPATH-LOCAL-7492304" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492303" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492300" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7580133" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492294" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492291" />
+ <bp:RIGHT rdf:resource="#CPATH-LOCAL-7492295" />
+ <bp:EC-NUMBER rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11</bp:EC-NUMBER>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT mediates IKKalpha (Inhibitor of nuclear factor kappa B kinase subunit alpha) phosphorylation at threonine 23, which is required for NF-kB activation. NF-kB promoted gene transcription enhances neuronal survival.</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Authored: Nasi, S, Annibali, D, 2006-10-10 09:07:07</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-582757true@Layout@http://cbio.mskcc.org/cpathCPATH-579749@502@417</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reviewed: Greene, LA, 2007-11-08 15:39:37</bp:COMMENT>
+</bp:biochemicalReaction>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32138">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q00987</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32136">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q53XW0</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492247">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492247@Layout@http://cbio.mskcc.org/cpathCPATH-579749@168@512</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492239" />
+</bp:physicalEntityParticipant>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492342">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492343" />
+</bp:openControlledVocabulary>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492246">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Spohn, B</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Xia, W</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Zou, Y</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Zhou, BP</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Liao, Y</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Hung, MC</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Nat Cell Biol 3:973-82</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">11715018</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">2001</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">HER-2/neu induces p53 ubiquitination via Akt-mediated MDM2 phosphorylation</bp:TITLE>
+</bp:publicationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492341">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">2.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492341@Layout@http://cbio.mskcc.org/cpathCPATH-579749@392@491</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492342" />
+</bp:physicalEntityParticipant>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492245">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492340">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492244">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">35780</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492249">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198599</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198599</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492248">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12537.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12537</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-11541">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">84335</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492349">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on L-Serine [ChEBI:6301] 183 of UniProt:Q96B36-1 Proline-rich AKT1 substrate 1 (40 kDa proline-rich AKT substrate)</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue: L-Serine [ChEBI:6301]</bp:COMMENT>
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492350" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492346" />
+</bp:sequenceFeature>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-11542">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q96NG2</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492348">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">246</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492347">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">35780</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-11540">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q9BWR5</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492243">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492244" />
+</bp:openControlledVocabulary>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492346">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492347" />
+</bp:openControlledVocabulary>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492242">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on unknown residue of UniProt:Q00987 Ubiquitin-protein ligase E3 Mdm2 (EC 6.3.2.-) (p53-binding protein Mdm2) (Oncoprotein Mdm2) (Double minute 2 protein) (Hdm2)</bp:NAME>
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492243" />
+</bp:sequenceFeature>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492345">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on L-Threonine [ChEBI:6308] 246 of UniProt:Q96B36-1 Proline-rich AKT1 substrate 1</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue: L-Threonine [ChEBI:6308]</bp:COMMENT>
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492348" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492346" />
+</bp:sequenceFeature>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492241">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492242" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-8140http://cbio.mskcc.org/cpathCPATH-LOCAL-7492241@Layout@http://cbio.mskcc.org/cpathCPATH-579749@58@512</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198638</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-8140" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492239" />
+</bp:sequenceParticipant>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492344">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492345" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492349" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 200163</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-3056http://cbio.mskcc.org/cpathCPATH-LOCAL-7492344@Layout@http://cbio.mskcc.org/cpathCPATH-579749@278@402</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-3056" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492342" />
+</bp:sequenceParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492240">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492343">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7524963">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-11537">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_001092102</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-11538">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKT1S1</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_SYMBOL</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7524962">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">15422</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-11539">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q96BI4</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:protein rdf:ID="CPATH-3056">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Proline-rich AKT1 substrate 1</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">40 kDa proline-rich AKT substrate</bp:SYNONYMS>
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-11547" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">AKTS1_HUMAN</bp:SHORT-NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: May play an important role in phosphatidylinositol 3- kinase (PI3K)-AKT1 survival signaling. Substrate for AKT1 phosphorylation, but can also be activated by AKT1-independent mechanisms. Its role in survival signaling pathways may be modulated by oxidative stress. May also play a role in nerve growth factor-mediated neuroprotection. SUBUNIT: The phosphorylated form interacts with 14-3-3. SUBCELLULAR LOCATION: Cytoplasm, cytosol (By similarity). Note=Found in the cytosolic fraction of the brain (By similarity). ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=2; Name=1; IsoId=Q96B36-1; Sequence=Displayed; Name=2; IsoId=Q96B36-2; Sequence=VSP_052182; Note=No experimental confirmation available; TISSUE SPECIFICITY: Widely expressed with highest levels of expression in liver and heart. Expressed at higher levels in cancer cell lines (e.g. A549 and HeLa) than in normal cell lines (e.g. HEK293). GENE SYNONYMS: PRAS40. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11545" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11539" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11537" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11543" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11546" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11542" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11538" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11540" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-16324" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11544" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-11541" />
+</bp:protein>
+
+<bp:protein rdf:ID="CPATH-8140">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">E3 ubiquitin-protein ligase Mdm2</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Hdm2</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Double minute 2 protein</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">p53-binding protein Mdm2</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Oncoprotein Mdm2</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">6.3.2.-</bp:SYNONYMS>
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-32159" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">MDM2_HUMAN</bp:SHORT-NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Inhibits TP53/p53- and TP73/p73-mediated cell cycle arrest and apoptosis by binding its transcriptional activation domain. Functions as a ubiquitin ligase E3, in the presence of E1 and E2, toward p53 and itself. Permits the nuclear export of p53 and targets it for proteasome-mediated proteolysis. SUBUNIT: Binds p53, p73, ARF(P14), ribosomal protein L5 and specifically to RNA. Can interact also with retinoblastoma protein (RB), E1A-associated protein EP300 and the E2F1 transcription factor. Forms a ternary complex with TP53/p53 and WWOX. Interacts with CDKN2AIP, MTBP, TBRG1, USP7, PYHIN1 and UBXN6. Isoform Mdm2-F does not interact with TP53/p53. Interacts with and ubiquitinates HIV-1 Tat. SUBCELLULAR LOCATION: Nucleus, nucleoplasm. Cytoplasm. Nucleus, nucleolus. Note=Expressed predominantly in the nucleoplasm. Interaction with ARF(P14) results in the localization of both proteins to the nucleolus. The nucleolar localization signals in both ARF(P14) and MDM2 may be necessary to allow efficient nucleolar localization of both proteins. ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=10; Name=Mdm2; IsoId=Q00987-1; Sequence=Displayed; Name=Mdm2-A; IsoId=Q00987-2; Sequence=VSP_003208; Name=Mdm2-A1; IsoId=Q00987-3; Sequence=VSP_003208, VSP_003214; Name=Mdm2-B; IsoId=Q00987-4; Sequence=VSP_003209; Name=Mdm2-C; IsoId=Q00987-5; Sequence=VSP_003211; Name=Mdm2-D; IsoId=Q00987-6; Sequence=VSP_003210; Name=Mdm2-E; IsoId=Q00987-7; Sequence=VSP_003212, VSP_003213; Name=Mdm2-alpha; IsoId=Q00987-8; Sequence=VSP_003207; Name=Mdm2-F; IsoId=Q00987-9; Sequence=VSP_022578; Name=Mdm2-G; IsoId=Q00987-10; Sequence=VSP_022579; TISSUE SPECIFICITY: Ubiquitous. Isoform Mdm2-A, isoform Mdm2-B, isoform Mdm2-C, isoform Mdm2-D, isoform Mdm2-E, isoform Mdm2-F and isoform Mdm2-G are observed in a range of cancers but absent in normal tissues. INDUCTION: By DNA damage. DOMAIN: Region I is sufficient for binding p53 and inhibiting its G1 arrest and apoptosis functions. It also binds p73 and E2F1. Region II contains most of a central acidic region required for interaction with ribosomal protein L5 and a putative C4-type zinc finger. The RING finger domain which coordinates two molecules of zinc interacts specifically with RNA whether or not zinc is present and mediates the heterooligomerization with MDM4. It is also essential for its ubiquitin ligase E3 activity toward p53 and itself. PTM: Phosphorylated in response to ionizing radiation in an ATM- dependent manner. PTM: Auto-ubiquitinated; which leads to proteasomal degradation. DISEASE: Seems to be amplified in certain tumors (including soft tissue sarcomas, osteosarcomas and gliomas). A higher frequency of splice variants lacking p53 binding domain sequences was found in late-stage and high-grade ovarian and bladder carcinomas. Four of the splice variants show loss of p53 binding. MISCELLANEOUS: MDM2 RING finger mutations that failed to ubiquitinate p53 in vitro did not target p53 for degradation when expressed in cells. SIMILARITY: Belongs to the MDM2/MDM4 family. SIMILARITY: Contains 1 RanBP2-type zinc finger. SIMILARITY: Contains 1 RING-type zinc finger. SIMILARITY: Contains 1 SWIB domain. WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/MDM2ID115ch12q15.html&quot;; WEB RESOURCE: Name=NIEHS-SNPs; URL=&quot;http://egp.gs.washington.edu/data/mdm2/&quot;; WEB RESOURCE: Name=Wikipedia; Note=Mdm2 entry; URL=&quot;http://en.wikipedia.org/wiki/Mdm2&quot;; COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32158" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32152" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32143" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32146" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32140" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32148" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32151" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32154" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32150" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32145" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32149" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32155" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32153" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32136" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32138" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32156" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32147" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32157" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32142" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-40267" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32139" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32144" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32137" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-32141" />
+</bp:protein>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7550815">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7550814">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P49840</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7550813">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P49841-1</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7550599">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7582740">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">585419</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-7550596">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-7550597" />
+</bp:bioSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7550597">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7550598">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P31749</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:relationshipXref>
+
+<bp:protein rdf:ID="CPATH-526828">
+ <bp:SEQUENCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">MAKPTSKDSGLKEKFKILLGLGTPRPNPRSAEGKQTEFIITAEILRELSMECGLNNRIRMIGQICEVAKTKKFEEHAVEALWKAVADLLQPERTLEARHAVLALLKAIVQGQGERLGVLRALFFKVIKDYPSNEDLHERLEVFKALTDNGRHITYLEEELADFVLQWMDVGLSSEFLLVLVNLVKFNSCYLDEYIARMVQMICLLCVRTASSVDIEVSLQVLDAVVCYNCLPAESLPLFIVTLCRTINVKELCEPCWKLMRNLLGTHLGHSAIYNMCHLMEDRAYMEDAPLLRGAVFFVGMALWGAHRLYSLRNSPTSVFPSFYQAMACPNEVVSYEIVLSITRLIKKYRKELQVVAWDILLNIIERLLQQLQTLDSPELRTIVHDLLTTVEELCDQNEFHGSQERYFELVERCADQRPESSLLNLISYRAQSIHPAKDGWIQNLQALMERFFRSESRGAVRIKVLDVLSFVLLINRQFYEEELINSVVISQLSHIPEDKDHQVRKLATQLLVDLAEGCHTHHFNSLLDIIEKVMARSLSPPPELEERDVAAYSASLEDVKTAVLGLLVILQTKLYTLPASHATRVYEMLVSHIQLHYKHSYTLPIASSIRLQAFDFLFLLRADSLHRLGLPNKDGVVRFSPYCVCDYMEPERGSEKKTSGPLSPPTGPPGPAPAGPAVRLGSVPYSLLFRVLLQCLKQESDWKVLKLVLGRLPESLRYKVLIFTSPCSVDQLCSALCSMLSGPKTLERLRGAPEGFSRTDLHLAVVPVLTALISYHNYLDKTKQREMVYCLEQGLIHRCARQCVVALSICSVEMPDIIIKALPVLVVKLTHISATASMAVPLLEFLSTLARLPHLYRNFAAEQYASVFAISLPYTNPSKFNQYIVCLAHHVIAMWFIRCRLPFRKDFVPFITKGLRSNVLLSFDDTPEKDSFRARSTSLNERPKSLRIARPPKQGLNNSPPVKEFKESSAAEAFRCRSISVSEHVVRSRIQTSLTSASLGSADENSVAQADDSLKNLHLELTETCLDMMARYVFSNFTAVPKRSPVGEFLLAGGRTKTWLVGNKLVTVTTSVGTGTRSLLGLDSGELQSGPESSSSPGVHVRQTKEAPAKLESQAGQQVSRGARDRVRSMSGGHGLRVGALDVPASQFLGSATSPGPRTAPAAKPEKASAGTRVPVQEKTNLAAYVPLLTQGWAEILVRRPTGNTSWLMSLENPLSPFSSDINNMPLQELSNALMAAERFKEHRDTALYKSLSVPAASTAKPPPLPRSNTVASFSSLYQSSCQGQLHRSVSWADSAVVMEEGSPGEVPVLVEPPGLEDVEAALGMDRRTDAYSRSSSVSSQEEKSLHAEELVGRGIPIERVVSSEGGRPSVDLSFQPSQPLSKSSSSPELQTLQDILGDPGDKADVGRLSPEVKARSQSGTLDGESAAWSASGEDSRGQPEGPLPSSSPRSPSGLRPRGYTISDSAPSRRGKRVERDALKSRATASNAEKVPGINPSFVFLQLYHSPFFGDESNKPILLPNESQSFERSVQLLDQIPSYDTHKIAVLYVGEGQSNSELAILSNEHGSYRYTEFLTGLGRLIELKDCQPDKVYLGGLDVCGEDGQFTYCWHDDIMQAVFHIATLMPTKDVDKHRCDKKRHLGNDFVSIVYNDSGEDFKLGTIKGQFNFVHVIVTPLDYECNLVSLQCRKDMEGLVDTSVAKIVSDRNLPFVARQMALHANMASQVHHSRSNPTDIYPSKWIARLRHIKRLRQRICEEAAYSNPSLPLVHPPSHSKAPAQTPAEPTPGYEVGQRKRLISSVEDFTEFV</bp:SEQUENCE>
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Tuberin</bp:NAME>
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-6912961" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-6912963" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-6912959" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-6920382" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-6912960" />
+</bp:protein>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-369769">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q92852</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-369764">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_127463</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-515692">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">128290</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-369768">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P55211</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-369767">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q9UEQ3</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-369766">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP9</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_SYMBOL</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-369765">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">O95348</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-369770">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_001220</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-369771">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q9BQ62</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:protein rdf:ID="CPATH-93494">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Caspase-9</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">APAF-3</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Apoptotic protease-activating factor 3</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ICE-LAP6</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Caspase-9 subunit p10</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP-9</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Caspase-9 subunit p35</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ICE-like apoptotic protease 6</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Apoptotic protease Mch-6</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">3.4.22.62</bp:SYNONYMS>
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-369774" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CASP9_HUMAN</bp:SHORT-NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Involved in the activation cascade of caspases responsible for apoptosis execution. Binding of caspase-9 to Apaf- 1 leads to activation of the protease which then cleaves and activates caspase-3. Proteolytically cleaves poly(ADP-ribose) polymerase (PARP). FUNCTION: Isoform 2 lacks activity is an dominant-negative inhibitor of caspase-9. CATALYTIC ACTIVITY: Strict requirement for an Asp residue at position P1 and with a marked preference for His at position P2. It has a preferred cleavage sequence of Leu-Gly-His-Asp-|-Xaa. SUBUNIT: Heterotetramer that consists of two anti-parallel arranged heterodimers, each one formed by a 35 kDa (p35) and a 10 kDa (p10) subunit. Caspase-9 and APAF1 bind to each other via their respective NH2-terminal CED-3 homologous domains in the presence of cytochrome C and ATP. Interacts with the inhibitors BIRC2, BIRC4, BIRC5 and BIRC7. ALTERNATIVE PRODUCTS: Event=Alternative splicing; Named isoforms=2; Name=1; Synonyms=9L, Alpha; IsoId=P55211-1; Sequence=Displayed; Name=2; Synonyms=9S, Beta; IsoId=P55211-2; Sequence=VSP_000818; TISSUE SPECIFICITY: Ubiquitous, with highest expression in the heart, moderate expression in liver, skeletal muscle, and pancreas. Low levels in all other tissues. PTM: Cleavages at Asp-315 by granzyme B and at Asp-330 by caspase- 3 generate the two active subunits. Caspase-8 and -10 can also be involved in these processing events. SIMILARITY: Belongs to the peptidase C14A family. SIMILARITY: Contains 1 CARD domain. WEB RESOURCE: Name=Atlas of Genetics and Cytogenetics in Oncology and Haematology; URL=&quot;http://atlasgeneticsoncology.org/Genes/CASP9ID423ch1p36.html&quot;; WEB RESOURCE: Name=NIEHS-SNPs; URL=&quot;http://egp.gs.washington.edu/data/casp9/&quot;; WEB RESOURCE: Name=Wikipedia; Note=Caspase-9 entry; URL=&quot;http://en.wikipedia.org/wiki/Caspase-9&quot;; GENE SYNONYMS: MCH6. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369769" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369770" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369767" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369765" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-373367" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369766" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369764" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369773" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369772" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369771" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-369768" />
+</bp:protein>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-6920382">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">526828</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:protein rdf:ID="CPATH-128290">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Inhibitor of nuclear factor kappa-B kinase subunit alpha</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NFKBIKA</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Conserved helix-loop-helix ubiquitous kinase</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2.7.11.10</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IkappaB kinase</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK1</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Nuclear factor NF-kappa-B inhibitor kinase alpha</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK-alpha</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">I-kappa-B kinase 1</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">I kappa-B kinase alpha</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IkBKA</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKK-A</bp:SYNONYMS>
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-508156" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">IKKA_HUMAN</bp:SHORT-NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">FUNCTION: Acts as part of the IKK complex in the conventional pathway of NF-kappa-B activation and phosphorylates inhibitors of NF-kappa-B thus leading to the dissociation of the inhibitor/NF- kappa-B complex and ultimately the degradation of the inhibitor. As part of the non-canonical pathway of NF-kappa-B activation, the MAP3K14-activated CHUK/IKKA homodimer phosphorylates NFKB2/p100 associated with RelB, inducing its proteolytic processing to NFKB2/p52 and the formation of NF-kappa-B RelB-p52 complexes. Also phosphorylates NCOA3. Phosphorylates &apos;Ser-10&apos; of histone H3 at NF- kappa-B-regulated promoters during inflammatory responses triggered by cytokines. CATALYTIC ACTIVITY: ATP + [I-kappa-B protein] = ADP + [I-kappa-B phosphoprotein]. ENZYME REGULATION: Activated when phosphorylated and inactivated when dephosphorylated. SUBUNIT: Component of the I-kappa-B-kinase (IKK) core complex consisting of CHUK, IKBKB and IKBKG; probably four alpha/CHUK- beta/IKBKB dimers are associated with four gamma/IKBKG subunits. The IKK core complex seems to associate with regulatory or adapter proteins to form a IKK-signalosome holo-complex. Part of a complex composed of NCOA2, NCOA3, CHUK/IKKA, IKBKB, IKBKG and CREBBP. Part of a 70-90 kDa complex at least consisting of CHUK/IKKA, IKBKB, NFKBIA, RELA, IKBKAP and MAP3K14. Directly interacts with IKK- gamma/NEMO and TRPC4AP (By similarity). May interact with TRAF2. Interacts with NALP2. May interact with MAVS/IPS1. SUBCELLULAR LOCATION: Cytoplasm. Nucleus. Note=Shuttles between the cytoplasm and the nucleus. TISSUE SPECIFICITY: Widely expressed. PTM: Phosphorylated by MAP3K14/NIK, AKT and to a lesser extent by MEKK1, and dephosphorylated by PP2A. Autophosphorylated. SIMILARITY: Belongs to the protein kinase superfamily. Ser/Thr protein kinase family. I-kappa-B kinase subfamily. SIMILARITY: Contains 1 protein kinase domain. WEB RESOURCE: Name=SeattleSNPs; URL=&quot;http://pga.gs.washington.edu/data/chuk/&quot;; GENE SYNONYMS: IKKA TCF16. COPYRIGHT: Protein annotation is derived from the UniProt Consortium (http://www.uniprot.org/). Distributed under the Creative Commons Attribution-NoDerivs License.</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508153" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508152" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508154" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508151" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508149" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-515692" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508150" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508155" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-508148" />
+</bp:protein>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-369773">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">842</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-369772">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q9UIJ8</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-369775">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-369774">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-369775" />
+</bp:bioSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492303">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198611</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198611</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492304">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 168104</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-128290http://cbio.mskcc.org/cpathCPATH-LOCAL-7492304@Layout@http://cbio.mskcc.org/cpathCPATH-579749@432@371</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-128290" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492292" />
+</bp:sequenceParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-283164">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">69276</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492301">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492302">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492302@Layout@http://cbio.mskcc.org/cpathCPATH-579749@510@360</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492292" />
+</bp:physicalEntityParticipant>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-7553849">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-7553850" />
+</bp:bioSource>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492300">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Donner, DB</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Pfeffer, SR</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Gustin, JA</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Pfeffer, LM</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Ozes, ON</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Mayo, LD</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Nature 401:82-5</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">10485710</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">1999</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NF-kappaB activation by tumour necrosis factor requires the Akt serine-threonine kinase</bp:TITLE>
+</bp:publicationXref>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492202">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Motti, ML</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bruni, P</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Melillo, RM</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Califano, D</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Viglietto, G</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">D&apos;Alessio, A</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Tsichlis, P</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Bellacosa, A</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Chiappetta, G</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Santoro, M</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Vinci, F</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Fusco, A</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Nat Med 8:1136-44</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">12244303</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">2002</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Cytoplasmic relocalization and inhibition of the cyclin-dependent kinase inhibitor p27(Kip1) by PKB/Akt-mediated phosphorylation in breast cancer</bp:TITLE>
+</bp:publicationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7492203">
+ <bp:RELATIONSHIP-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GO molecular function</bp:RELATIONSHIP-TYPE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0004674</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:relationshipXref>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492200">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-590764http://cbio.mskcc.org/cpathCPATH-LOCAL-7492200@Layout@http://cbio.mskcc.org/cpathCPATH-579749@532@268</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198605</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-590764" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492195" />
+</bp:sequenceParticipant>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492201">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198625</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-590766http://cbio.mskcc.org/cpathCPATH-LOCAL-7492201@Layout@http://cbio.mskcc.org/cpathCPATH-579749@521@194</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-590766" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492195" />
+</bp:sequenceParticipant>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492206">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">plasma membrane</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492207" />
+</bp:openControlledVocabulary>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492207">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005886</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492204">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198368</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198368</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492205">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-27625http://cbio.mskcc.org/cpathCPATH-LOCAL-7492205http://cbio.mskcc.org/cpathCPATH-LOCAL-7553863@Layout@http://cbio.mskcc.org/cpathCPATH-579749@786@274</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-590209http://cbio.mskcc.org/cpathCPATH-LOCAL-7492205http://cbio.mskcc.org/cpathCPATH-LOCAL-7553872@Layout@http://cbio.mskcc.org/cpathCPATH-579749@786@249</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198338</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-587044http://cbio.mskcc.org/cpathCPATH-LOCAL-7492205http://cbio.mskcc.org/cpathCPATH-LOCAL-7553868@Layout@http://cbio.mskcc.org/cpathCPATH-579749@786@224</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-590767" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492206" />
+</bp:physicalEntityParticipant>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492299">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">23</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492298">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">35780</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-7438886">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-7438887" />
+</bp:bioSource>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492297">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492298" />
+</bp:openControlledVocabulary>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7438887">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492296">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on L-Threonine [ChEBI:6308] 23 of UniProt:O15111 Inhibitor of nuclear factor kappa-B kinase alpha subunit (EC 2.7.1.-) (I kappa-B kinase alpha) (IkBKA) (IKK-alpha) (IKK-A) (IkappaB kinase) (I-kappa-B kinase 1) (IKK1) (Conserved helix-loop-helix ubiquitous kinase) (Nuclear factor NFkappaB inhibitor kinase alpha) (NFKBIKA)</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue: L-Threonine [ChEBI:6308]</bp:COMMENT>
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492299" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492297" />
+</bp:sequenceFeature>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7438888">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12564.2</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12564</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492295">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492296" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198615</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-128290http://cbio.mskcc.org/cpathCPATH-LOCAL-7492295@Layout@http://cbio.mskcc.org/cpathCPATH-579749@507@461</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-128290" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492292" />
+</bp:sequenceParticipant>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438889">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582756" />
+</bp:pathwayStep>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492294">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12461.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12461</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492293">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492292">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492293" />
+</bp:openControlledVocabulary>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492291">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492291@Layout@http://cbio.mskcc.org/cpathCPATH-579749@550@411</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492292" />
+</bp:physicalEntityParticipant>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438885">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582760" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+</bp:pathwayStep>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-6912963">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">7249</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-6912962">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-6912961">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-6912962" />
+</bp:bioSource>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-6912960">
+ <bp:RELATIONSHIP-TYPE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">isoform-parent</bp:RELATIONSHIP-TYPE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">MINT-250244</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">INTACT</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7583436">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">587044</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-6912959">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P49815-1</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:physicalEntity rdf:ID="CPATH-590769">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phospho-GSK3 [cytosol]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phospho-GSK3B_1 [cytosol]</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phospho-GSK3-alpha [cytosol]</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7553877" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome. Each synonym is a name of a PhysicalEntity, and each XREF points to one PhysicalEntity</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7585409" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553879" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553878" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553876" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553875" />
+</bp:physicalEntity>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7550817">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2931</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7550816">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">2932</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580128">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582752</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580127">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582751</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580129">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582753</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:smallMolecule rdf:ID="CPATH-587044">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP3 and PI(3,4)P2 [plasma membrane]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PI(3,4)P2 [plasma membrane]</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phosphatidylinositol-3,4,5-trisphosphate [plasma membrane]</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7532778" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome. Each synonym is a name of a PhysicalEntity, and each XREF points to one PhysicalEntity</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7583436" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7532777" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7532776" />
+</bp:smallMolecule>
+
+<bp:protein rdf:ID="CPATH-590766">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CDK inhibitor [cytosol]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">p27Kip1 [cytosol]</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">P21 Cip1 [cytosol]</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7553860" />
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7553856" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome. Each synonym is a name of a PhysicalEntity, and each XREF points to one PhysicalEntity</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553862" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553859" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7585407" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553861" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553858" />
+</bp:protein>
+
+<bp:complex rdf:ID="CPATH-590767">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP3:PDK1:active AKT [plasma membrane]</bp:NAME>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7553867" />
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7553869" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PIP3:PDK1:active AKT</bp:SHORT-NAME>
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7553868" />
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7553863" />
+ <bp:COMPONENTS rdf:resource="#CPATH-LOCAL-7553872" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553866" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7585408" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553871" />
+</bp:complex>
+
+<bp:protein rdf:ID="CPATH-590764">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phospho-CDK inhibitor [cytosol]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phospho-P21 Cip1 [cytosol]</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phospho-p27Kip1 [cytosol]</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7553853" />
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7553849" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome. Each synonym is a name of a PhysicalEntity, and each XREF points to one PhysicalEntity</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7585406" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553851" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553854" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553855" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7553852" />
+</bp:protein>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-111222">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-111221">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-111222" />
+</bp:bioSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7582766">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">585488</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-111224">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q6FI20</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-111223">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">5170</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-111226">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_112558</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-111225">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PDPK1</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_SYMBOL</bp:DB>
+</bp:relationshipXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-111228">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">O15530</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-111227">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_002604</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7550600">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">207</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:physicalEntity rdf:ID="CPATH-590250">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GSK3 [cytosol]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GSK3B_1 [cytosol]</bp:SYNONYMS>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Glycogen synthase kinase-3 alpha [cytosol]</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7550815" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome. Each synonym is a name of a PhysicalEntity, and each XREF points to one PhysicalEntity</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7550814" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7550817" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7550816" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7550813" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7585148" />
+</bp:physicalEntity>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438897">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582753" />
+</bp:pathwayStep>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438896">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582754" />
+</bp:pathwayStep>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7438895">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7438894">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198323</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198323</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438893">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582762" />
+</bp:pathwayStep>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580138">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582762</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438892">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582757" />
+</bp:pathwayStep>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438891">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582751" />
+</bp:pathwayStep>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580136">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582760</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:pathwayStep rdf:ID="CPATH-LOCAL-7438890">
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582752" />
+ <bp:STEP-INTERACTIONS rdf:resource="#CPATH-582755" />
+</bp:pathwayStep>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580133">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582757</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580132">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582756</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580131">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582755</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7580130">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">582754</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7532778">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7532777">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">16618</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:relationshipXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-7532776">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">16152</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:relationshipXref>
+
+<bp:smallMolecule rdf:ID="CPATH-585488">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ADP [ChEBI:16761]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Adenosine 5&apos;-diphosphate</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7525335" />
+ <bp:SHORT-NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ADP</bp:SHORT-NAME>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7582766" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7525334" />
+</bp:smallMolecule>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492253">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492254">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12549.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12549</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492251">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-590250http://cbio.mskcc.org/cpathCPATH-LOCAL-7492251@Layout@http://cbio.mskcc.org/cpathCPATH-579749@30@182</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198358</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-590250" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492252" />
+</bp:physicalEntityParticipant>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492252">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492253" />
+</bp:openControlledVocabulary>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492250">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492250@Layout@http://cbio.mskcc.org/cpathCPATH-579749@84@434</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492239" />
+</bp:physicalEntityParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32153">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q8WYJ1</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492392">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">1</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32154">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q13297</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492393">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492393@Layout@http://cbio.mskcc.org/cpathCPATH-579749@361@220</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492381" />
+</bp:physicalEntityParticipant>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492259">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32155">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q13300</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceInterval rdf:ID="CPATH-LOCAL-7492390">
+ <bp:SEQUENCE-INTERVAL-BEGIN rdf:resource="#CPATH-LOCAL-7492392" />
+ <bp:SEQUENCE-INTERVAL-END rdf:resource="#CPATH-LOCAL-7492391" />
+</bp:sequenceInterval>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32156">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_002383</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492391">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">416</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492257">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198373</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-590769http://cbio.mskcc.org/cpathCPATH-LOCAL-7492257@Layout@http://cbio.mskcc.org/cpathCPATH-579749@34@106</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-590769" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492252" />
+</bp:physicalEntityParticipant>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492258">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492258@Layout@http://cbio.mskcc.org/cpathCPATH-579749@179@119</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492252" />
+</bp:physicalEntityParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32150">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q9UMT8</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492255">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198371</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198371</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32151">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_006873</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492256">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492256@Layout@http://cbio.mskcc.org/cpathCPATH-579749@171@188</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492252" />
+</bp:physicalEntityParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32152">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q9UGI3</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492195">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492196" />
+</bp:openControlledVocabulary>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7577125">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">579749</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492194">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492194@Layout@http://cbio.mskcc.org/cpathCPATH-579749@460@276</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492195" />
+</bp:physicalEntityParticipant>
+
+<bp:protein rdf:ID="CPATH-590209">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Active AKT [cytosol]</bp:NAME>
+ <bp:SYNONYMS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Phospho-AKT1 (T308, S473) [cytosol] [cytosol]</bp:SYNONYMS>
+ <bp:DATA-SOURCE rdf:resource="#CPATH-LOCAL-7550599" />
+ <bp:ORGANISM rdf:resource="#CPATH-LOCAL-7550596" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Converted from EntitySet in Reactome. Each synonym is a name of a PhysicalEntity, and each XREF points to one PhysicalEntity</bp:COMMENT>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7550600" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7550598" />
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7585128" />
+</bp:protein>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492193">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12420.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12420</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492199">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198613</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198613</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32158">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_006872</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492198">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492198@Layout@http://cbio.mskcc.org/cpathCPATH-579749@454@204</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492195" />
+</bp:physicalEntityParticipant>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-32157">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">MDM2</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_SYMBOL</bp:DB>
+</bp:relationshipXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492197">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492196">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-32159">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-32160" />
+</bp:bioSource>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492266">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492266@Layout@http://cbio.mskcc.org/cpathCPATH-579749@325@127</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492267" />
+</bp:physicalEntityParticipant>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492267">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492268" />
+</bp:openControlledVocabulary>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492268">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-32160">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492269">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">del Peso, L</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Page, C</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Nunez, G</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Gonzalez-Garcia, M</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Herrera, R</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Science 278:687-9</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9381178</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">1997</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Interleukin-3-induced phosphorylation of BAD through the protein kinase Akt</bp:TITLE>
+</bp:publicationXref>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492271">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on L-Serine [ChEBI:6301] 136 of UniProt:Q92934 Bcl2-antagonist of cell death (BAD) (Bcl-2 binding component 6) (Bcl- XL/Bcl-2 associated death promoter) (Bcl-2-like 8 protein)</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue: L-Serine [ChEBI:6301]</bp:COMMENT>
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492274" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492272" />
+</bp:sequenceFeature>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7585406">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">590764</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492272">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492273" />
+</bp:openControlledVocabulary>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492270">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492271" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-69276http://cbio.mskcc.org/cpathCPATH-LOCAL-7492270@Layout@http://cbio.mskcc.org/cpathCPATH-579749@303@41</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198335</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-69276" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492267" />
+</bp:sequenceParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7585409">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">590769</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492275">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198347</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198347</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492378">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492379" />
+</bp:openControlledVocabulary>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492276">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12565.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12565</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492379">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">35780</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7585407">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">590766</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492273">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">35780</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ChEBI</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492376">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">1</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7585408">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">590767</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492274">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">136</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492377">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">phosphate group on L-Serine [ChEBI:6301] 196 of UniProt:P55211-1 Caspase-9 precursor (EC 3.4.22.-) (CASP-9) (ICE-like apoptotic protease 6) (ICE-LAP6) (Apoptotic protease Mch-6) (Apoptotic protease activating factor 3) (APAF-3)</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">residue: L-Serine [ChEBI:6301]</bp:COMMENT>
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492380" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492378" />
+</bp:sequenceFeature>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492279">
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492281" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492280" />
+</bp:sequenceFeature>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-280542">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">O14803</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:sequenceInterval rdf:ID="CPATH-LOCAL-7492374">
+ <bp:SEQUENCE-INTERVAL-BEGIN rdf:resource="#CPATH-LOCAL-7492376" />
+ <bp:SEQUENCE-INTERVAL-END rdf:resource="#CPATH-LOCAL-7492375" />
+</bp:sequenceInterval>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-280541">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">BAD</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_SYMBOL</bp:DB>
+</bp:relationshipXref>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492375">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">416</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-280544">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">572</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">ENTREZ_GENE</bp:DB>
+</bp:relationshipXref>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492277">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492372">
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492374" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492373" />
+</bp:sequenceFeature>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492278">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492279" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 50662</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-69276http://cbio.mskcc.org/cpathCPATH-LOCAL-7492278@Layout@http://cbio.mskcc.org/cpathCPATH-579749@402@30</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-69276" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492267" />
+</bp:sequenceParticipant>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-280543">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_116784</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492373">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Chain Coordinates</bp:TERM>
+</bp:openControlledVocabulary>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492371">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492372" />
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492377" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-93494http://cbio.mskcc.org/cpathCPATH-LOCAL-7492371@Layout@http://cbio.mskcc.org/cpathCPATH-579749@341@300</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 198636</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-93494" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492381" />
+</bp:sequenceParticipant>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-280540">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Q92934</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">UNIPROT</bp:DB>
+</bp:unificationXref>
+
+<bp:relationshipXref rdf:ID="CPATH-LOCAL-280545">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NP_004313</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REF_SEQ</bp:DB>
+</bp:relationshipXref>
+
+<bp:bioSource rdf:ID="CPATH-LOCAL-280546">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Homo sapiens</bp:NAME>
+ <bp:TAXON-XREF rdf:resource="#CPATH-LOCAL-280547" />
+</bp:bioSource>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-280547">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9606</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">NCBI_TAXONOMY</bp:DB>
+</bp:unificationXref>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492280">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Chain Coordinates</bp:TERM>
+</bp:openControlledVocabulary>
+
+<bp:sequenceInterval rdf:ID="CPATH-LOCAL-7492281">
+ <bp:SEQUENCE-INTERVAL-BEGIN rdf:resource="#CPATH-LOCAL-7492283" />
+ <bp:SEQUENCE-INTERVAL-END rdf:resource="#CPATH-LOCAL-7492282" />
+</bp:sequenceInterval>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492282">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">168</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492283">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">1</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492284">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585488http://cbio.mskcc.org/cpathCPATH-LOCAL-7492284@Layout@http://cbio.mskcc.org/cpathCPATH-579749@418@120</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 29370</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585488" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492267" />
+</bp:physicalEntityParticipant>
+
+<bp:dataSource rdf:ID="CPATH-LOCAL-7492387">
+ <bp:NAME rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome</bp:NAME>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://www.reactome.org</bp:COMMENT>
+</bp:dataSource>
+
+<bp:sequenceParticipant rdf:ID="CPATH-LOCAL-7492388">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:SEQUENCE-FEATURE-LIST rdf:resource="#CPATH-LOCAL-7492389" />
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 114257</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-93494http://cbio.mskcc.org/cpathCPATH-LOCAL-7492388@Layout@http://cbio.mskcc.org/cpathCPATH-579749@259@195</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-93494" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492381" />
+</bp:sequenceParticipant>
+
+<bp:sequenceFeature rdf:ID="CPATH-LOCAL-7492389">
+ <bp:FEATURE-LOCATION rdf:resource="#CPATH-LOCAL-7492390" />
+ <bp:FEATURE-TYPE rdf:resource="#CPATH-LOCAL-7492373" />
+</bp:sequenceFeature>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492383">
+ <bp:ID-VERSION rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">1</bp:ID-VERSION>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome stable identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_12395.1</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACT_12395</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492384">
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Database identifier. Use this URL to connect to the web page of this instance in Reactome: http://www.reactome.org/cgi-bin/eventbrowser?DB=gk_current&amp;ID=198621</bp:COMMENT>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">198621</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">REACTOME</bp:DB>
+</bp:unificationXref>
+
+<bp:publicationXref rdf:ID="CPATH-LOCAL-7492385">
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Salvesen, GS</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Franke, TF</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Frisch, S</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Stanbridge, E</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reed, JC</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Stennicke, HR</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Cardone, MH</bp:AUTHORS>
+ <bp:AUTHORS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Roy, N</bp:AUTHORS>
+ <bp:SOURCE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Science 282:1318-21</bp:SOURCE>
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">9812896</bp:ID>
+ <bp:YEAR rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">1998</bp:YEAR>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">PUBMED</bp:DB>
+ <bp:TITLE rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Regulation of cell death protease caspase-9 by phosphorylation</bp:TITLE>
+</bp:publicationXref>
+
+<bp:physicalEntityParticipant rdf:ID="CPATH-LOCAL-7492386">
+ <bp:STOICHIOMETRIC-COEFFICIENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#double">1.0</bp:STOICHIOMETRIC-COEFFICIENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">http://cbio.mskcc.org/cpathCPATH-585419http://cbio.mskcc.org/cpathCPATH-LOCAL-7492386@Layout@http://cbio.mskcc.org/cpathCPATH-579749@262@280</bp:COMMENT>
+ <bp:COMMENT rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">Reactome DB_ID: 113592</bp:COMMENT>
+ <bp:PHYSICAL-ENTITY rdf:resource="#CPATH-585419" />
+ <bp:CELLULAR-LOCATION rdf:resource="#CPATH-LOCAL-7492381" />
+</bp:physicalEntityParticipant>
+
+<bp:sequenceSite rdf:ID="CPATH-LOCAL-7492380">
+ <bp:POSITION-STATUS rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">EQUAL</bp:POSITION-STATUS>
+ <bp:SEQUENCE-POSITION rdf:datatype = "http://www.w3.org/2001/XMLSchema#int">196</bp:SEQUENCE-POSITION>
+</bp:sequenceSite>
+
+<bp:openControlledVocabulary rdf:ID="CPATH-LOCAL-7492381">
+ <bp:TERM rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">cytosol</bp:TERM>
+ <bp:XREF rdf:resource="#CPATH-LOCAL-7492382" />
+</bp:openControlledVocabulary>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-7492382">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">0005829</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">GENE_ONTOLOGY</bp:DB>
+</bp:unificationXref>
+
+<bp:unificationXref rdf:ID="CPATH-LOCAL-373367">
+ <bp:ID rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">93494</bp:ID>
+ <bp:DB rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">CPATH</bp:DB>
+</bp:unificationXref>
+</rdf:RDF>
