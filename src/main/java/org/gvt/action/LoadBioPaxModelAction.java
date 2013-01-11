@@ -46,7 +46,7 @@ public class LoadBioPaxModelAction extends Action
 	 */
 	private boolean openPathways;
 
-	private static String lastLocation = "samples/biopax-files/";
+	private static String lastLocation = "samples/";
 
 	/**
 	 * Constructor without filename. opens an FileChooser for filename
