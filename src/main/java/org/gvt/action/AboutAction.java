@@ -2,6 +2,7 @@ package org.gvt.action;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.ImageData;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AboutDialog;
 
@@ -18,8 +19,8 @@ public class AboutAction extends Action
 	{
 		setText("About Chisio BioPAX Editor");
 		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class, "icon/cbe-icon.png"));
+        ImageDescriptor id = ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png");
+		setImageDescriptor(ImageDescriptor.createFromImageData(id.getImageData().scaledTo(16, 16)));
 		this.main = main;
 	}
 
