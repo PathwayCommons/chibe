@@ -6,15 +6,17 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.List;
 import org.gvt.ChisioMain;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.gvt.gui.ItemSelectionDialog;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.*;
 import java.util.zip.GZIPInputStream;
-import java.util.ArrayList;
 
 
 /**
@@ -211,9 +213,10 @@ public class FetchFromGEODialog extends Dialog
 					return;
 				}
 
-				shell.close();				
-				fetchAction(selectedSeries);
-
+				if (fetchAction())
+				{
+					shell.close();
+				}
 			}
 		});
 
@@ -233,11 +236,12 @@ public class FetchFromGEODialog extends Dialog
 	/**
 	 * organizes the action for fetchButton, according to different situations.
 	 */
-	private void fetchAction(String selectedSeries)
+	private boolean fetchAction()
 	{
-		seriesDirectory = new File(directory, selectedSeries);
-		seriesDirectory.mkdir();
+		assert selectedSeries != null;
 
+		if (!createDataDirectory(selectedSeries)) return false;
+		
 		File[] fileList = seriesDirectory.listFiles();
 
 		for (File file : fileList)
@@ -248,19 +252,19 @@ public class FetchFromGEODialog extends Dialog
 				cedFile = file;
 				this.cedPresent = true;
 				this.fetchPressed = true;
-				return;
+				return true;
 			}
 		}
 
 		// assigns series matrix file if it is present in the directory,
 		// otherwise creates an empty file to be filled.
-		seriesMatrixFile = new File(seriesDirectory, selectedSeries);		
+		seriesMatrixFile = new File(seriesDirectory, selectedSeries);
 
 		// series matrix file is downloaded if it is not found in seriesDirectory
 		if(!seriesMatrixFile.exists())
 		{
 			main.lockWithMessage("Downloading series matrix file ...");
-			seriesMatrixFile = 	findSeriesMatrixFile(selectedSeries);
+			if (!findSeriesMatrixFile(selectedSeries)) return false;
 			main.unlock();
 		}
 
@@ -269,7 +273,7 @@ public class FetchFromGEODialog extends Dialog
 		if(seriesMatrixFile.exists())
 		{
 			main.lockWithMessage("Downloading platform file ...");
-			platformFile = findPlatformFile(seriesMatrixFile);
+			platformFile = findPlatformFile();
 
 			if(platformFile.exists())
 			{
@@ -277,6 +281,7 @@ public class FetchFromGEODialog extends Dialog
 			}
 			main.unlock();
 		}
+		return true;
 	}
 
 	public boolean isFetchPressed()
@@ -309,80 +314,337 @@ public class FetchFromGEODialog extends Dialog
 		return cedFile;
 	}
 
+	private boolean createDataDirectory(String selectedSeries)
+	{
+		// Check if data is already there
+		
+		File seriesDirectory = new File(directory, selectedSeries);
+		File dataFile = new File(seriesDirectory, selectedSeries);
+
+		if (dataFile.exists()) 
+		{
+			this.seriesDirectory = seriesDirectory;
+			this.selectedSeries = selectedSeries;
+			return true;
+		}
+
+		String givenPlat = null;
+
+		if (selectedSeries.contains("-"))
+		{
+			// Check if data is there as a single platform file
+			
+			String series = selectedSeries.substring(0, selectedSeries.indexOf("-"));
+			givenPlat = selectedSeries.substring(selectedSeries.indexOf("-") + 1);
+
+			seriesDirectory = new File(directory, series);
+			dataFile = new File(seriesDirectory, series);
+
+			if (dataFile.exists()) 
+			{
+				this.seriesDirectory = seriesDirectory;
+				this.selectedSeries = series;
+				return true;
+			}
+		}
+
+		java.util.List<String> plat = getMultiplePlatforms(selectedSeries);
+		
+		if (plat.size() < 2)
+		{
+			String series = selectedSeries.contains("-") ? 
+				selectedSeries.substring(0, selectedSeries.indexOf("-")) : selectedSeries;
+
+			this.seriesDirectory = new File(directory, series);
+			this.seriesDirectory.mkdir();
+
+			this.selectedSeries = series;
+			return true;
+			
+		}
+
+		String platform = selectPlatform(plat, (givenPlat != null &&
+			!plat.contains(givenPlat) ? givenPlat : null));
+
+		if (platform == null) return false;
+
+		String series = selectedSeries.contains("-") ?
+			selectedSeries.substring(0, selectedSeries.indexOf("-")) : selectedSeries;
+
+		series += "-" + platform;
+
+		this.seriesDirectory = new File(directory, series);
+		this.seriesDirectory.mkdir();
+
+		this.selectedSeries = series;
+		return true;
+	}
+	
 	/**
 	 * downloads series matrix file from GEO database
 	 */
-	private File findSeriesMatrixFile(String selectedSeries)
+	private boolean findSeriesMatrixFile(String selectedSeries)
 	{
+		String ftpPrefix = "ftp://ftp.ncbi.nih.gov/pub/geo/DATA/SeriesMatrix/";
+
+		String platName = null;
+		if (selectedSeries.contains("-"))
+		{
+			platName = selectedSeries.substring(selectedSeries.indexOf("-") + 1);
+			selectedSeries = selectedSeries.substring(0, selectedSeries.indexOf("-"));
+		}
+
+		if (platName != null) platformFile = new File(directory, platName);
+
 		try
 		{
-			String URLname = "ftp://ftp.ncbi.nih.gov/pub/geo/DATA/SeriesMatrix/"
-				+ selectedSeries + "/"+ selectedSeries + "_series_matrix.txt.gz";
-
-			URL url = new URL(URLname);
-			URLConnection con = url.openConnection();
-			GZIPInputStream in = new GZIPInputStream(con.getInputStream());
-
-			// Open the output file
-			String target = seriesMatrixFile.getPath();
-			OutputStream out = new FileOutputStream(target);
-			// Transfer bytes from the compressed file to the output file
-			byte[] buf = new byte[1024];
-			int len;
-			while ((len = in.read(buf)) > 0)
+			String url;
+			if (platName == null)
 			{
-				out.write(buf, 0, len);
+				url = ftpPrefix + selectedSeries + "/" + selectedSeries + "_series_matrix.txt.gz";
+			}
+			else
+			{
+				url = ftpPrefix + selectedSeries + "/" + selectedSeries + "-" + platName +
+					"_series_matrix.txt.gz";
 			}
 
-			// Close the file and stream
-			in.close();
-			out.close();
+			if (!downloadCompressedFile(url, seriesMatrixFile.getPath()))
+			{
+				url = url.substring(0, url.lastIndexOf("ix") + 2);
+				
+				int i = 0;
+
+				String u;
+				do
+				{
+					i++;
+					u = url + "-"  + i + ".txt.gz";
+				}
+				while(downloadCompressedFile(u, seriesMatrixFile.getPath() + "-" + i));
+
+				uniteSeriesFiles(i-1);
+			}
+			return true;
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			MessageDialog.openWarning(main.getShell(),
-				"Download failed!",
+			MessageDialog.openWarning(main.getShell(), "Download failed!",
 				"ChiBE could not download the file. Check your parameters.");
+
+			return false;
 		}
-		return seriesMatrixFile;
 	}
 
+	private void uniteSeriesFiles(int count)
+	{
+		try
+		{
+			BufferedWriter writer = new BufferedWriter(new FileWriter(seriesMatrixFile.getPath()));
+
+			BufferedReader rdr = new BufferedReader(
+				new FileReader(seriesMatrixFile.getPath() + "-1"));
+
+			for (String line = rdr.readLine(); line != null && line.startsWith("!Series"); 
+				 line = rdr.readLine())
+			{
+				writer.write(line + "\n");
+			}
+
+			rdr.close();
+
+
+			BufferedReader[] reader = new BufferedReader[count];
+
+			for (int i = 0; i < count; i++)
+			{
+				reader[i] = new BufferedReader(new FileReader(
+					seriesMatrixFile.getPath() + "-" + (i+1)));
+			}
+
+			for (String line = reader[0].readLine(); line != null; line = reader[0].readLine())
+			{
+				if (!line.contains("\t"))
+				{
+					writer.write(line + "\n");
+					for (int j = 1; j < reader.length; j++) reader[j].readLine();
+				}
+				else
+				{
+					String id = line.substring(0, line.indexOf("\t"));
+					
+					writer.write(line);
+
+					for (int j = 1; j < reader.length; j++)
+					{
+						line = reader[j].readLine();
+
+						assert id.equals(line.substring(0, line.indexOf("\t")));
+
+						writer.write(line.substring(line.indexOf("\t")));
+					}
+					writer.write("\n");
+				}
+			}
+
+			for (BufferedReader r : reader) r.close();
+			writer.close();
+
+			// Delete temporary files
+			for (int i = 0; i < count; i++)
+			{
+				new File(seriesMatrixFile.getPath() + "-" + (i+1)).delete();
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private boolean downloadCompressedFile(String address, String saveFile) throws IOException
+	{
+		try
+		{
+			URL url = new URL(address);
+			URLConnection con = url.openConnection();
+			GZIPInputStream in = new GZIPInputStream(con.getInputStream());
+	
+			// Open the output file
+			OutputStream out = new FileOutputStream(saveFile);
+			// Transfer bytes from the compressed file to the output file
+			byte[] buf = new byte[1024];
+
+			int lines = 0;
+			int len;
+			while ((len = in.read(buf)) > 0)
+			{
+				out.write(buf, 0, len);
+				lines++;
+			}
+	
+			// Close the file and stream
+			in.close();
+			out.close();
+
+			return lines > 0;
+		}
+		catch (IOException e){return false;}
+	}
+
+	private java.util.List<String> getMultiplePlatforms(String series)
+	{
+		if (series.contains("-")) series = series.substring(0, series.indexOf("-"));
+		
+		java.util.List<String> list = new ArrayList<String>();
+
+		try
+		{
+			String[] files = listFtpFiles("ftp://ftp.ncbi.nih.gov/pub/geo/DATA/SeriesMatrix/" +
+				series + "/");
+
+			if (files.length > 1)
+			{
+				for (String file : files)
+				{
+					String id = file.substring(0, file.indexOf("_s"));
+					if (file.contains("-"))
+					{
+						String pl = id.substring(id.indexOf("-") + 1);
+						if (!list.contains(pl)) list.add(pl);
+					}
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	private String selectPlatform(java.util.List<String> platforms)
+	{
+		return selectPlatform(platforms, null);
+	}
+	
+	private String selectPlatform(java.util.List<String> platforms, String wrongPlat)
+	{
+		String message = "Series contain more than one platform." + 
+			(wrongPlat == null ? "" : "\nAnd " + wrongPlat + " is not an option.") + 
+			"\nPlease select one below.";
+		
+		ItemSelectionDialog d = new ItemSelectionDialog(this.shell, 200, "Select platform",
+			message, platforms, null, false, true, null);
+
+		Object selected = d.open();
+		if (selected != null)
+		{
+			return selected.toString();
+		}
+		return null;
+	}
+	
+	private String[] listFtpFiles(String ftpDir) throws IOException
+	{
+		java.util.List<String> list = new ArrayList<String>();
+
+		URL url = new URL(ftpDir);
+		URLConnection con = url.openConnection();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		for (String line = reader.readLine(); line != null; line = reader.readLine())
+		{
+			list.add(line);
+		}
+		reader.close();
+		
+		String[] files = list.toArray(new String[list.size()]);
+		for (int i = 0; i < files.length; i++)
+		{
+			if (files[i].contains(" ")) files[i] = files[i].substring(files[i].indexOf(" ") + 1);
+		}
+		return files;
+	}
+	
 	/**
 	 * will load platform file if it is in the directory, otherwise
 	 * downloads it from GEO database
 	 */
-	public File findPlatformFile(File seriesMatrixFile)
+	public File findPlatformFile()
 	{
 		try
 		{
-			BufferedReader br = new BufferedReader(new FileReader(seriesMatrixFile));
-			
-			String currentLine = "";
-			String platformName = "";
-
-			// finding accession number of platform file
-
-			while((currentLine = br.readLine()) != null)
+			if (platformFile == null)
 			{
-				if(currentLine.contains("!Series_platform_id"))
-				{
-					platformName = currentLine.substring(currentLine.indexOf("G"),
-						currentLine.lastIndexOf("\""));
-					break;
-				}
-			}
+				BufferedReader br = new BufferedReader(new FileReader(seriesMatrixFile));
 
-			// assigns platform file if it is present in the directory,
-			// otherwise creates an empty file to be filled.
-			platformFile = new File("experiments/" + platformName);
+				String currentLine;
+				String platformName = "";
+
+				// finding accession number of platform file
+
+				while((currentLine = br.readLine()) != null)
+				{
+					if(currentLine.contains("!Series_platform_id"))
+					{
+						platformName = currentLine.substring(currentLine.indexOf("G"),
+							currentLine.lastIndexOf("\""));
+						break;
+					}
+				}
+
+				// assigns platform file if it is present in the directory,
+				// otherwise creates an empty file to be filled.
+				platformFile = new File(directory, platformName);
+			}
 
 			// if not found, download from GEO database
 
-			if (platformFile.exists() == false)
+			if (!platformFile.exists())
 			{
-				String URLname = "http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?targ=self&form=text&view=data&acc="
-					+ platformName;
+				String URLname = "http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?targ=self&" +
+					"form=text&view=data&acc=" + platformFile.getName();
 
 				URL url = new URL(URLname);
 				URLConnection con = url.openConnection();
