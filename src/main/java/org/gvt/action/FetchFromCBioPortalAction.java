@@ -1,14 +1,14 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.causality.data.CBioPortalAccessor;
-import org.biopax.paxtools.causality.data.CancerStudy;
-import org.biopax.paxtools.causality.data.CaseList;
-import org.biopax.paxtools.causality.data.GeneticProfile;
-import org.biopax.paxtools.causality.model.Alteration;
-import org.biopax.paxtools.causality.model.AlterationPack;
-import org.biopax.paxtools.causality.model.Change;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.RelationshipXref;
+import org.cbio.causality.data.CBioPortalAccessor;
+import org.cbio.causality.data.CancerStudy;
+import org.cbio.causality.data.CaseList;
+import org.cbio.causality.data.GeneticProfile;
+import org.cbio.causality.model.Alteration;
+import org.cbio.causality.model.AlterationPack;
+import org.cbio.causality.model.Change;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;

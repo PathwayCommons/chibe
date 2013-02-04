@@ -124,6 +124,7 @@ public class TopMenuBar
 		editMenu.add(new Separator());
 		editMenu.add(new DeleteAction(chisio));
 		editMenu.add(new RemoveCompoundAction(chisio));
+		editMenu.add(new HideCompartmentsAction(chisio));
 		editMenu.add(new Separator());
 		editMenu.add(new InspectorAction(chisio, false));
 

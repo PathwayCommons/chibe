@@ -14,6 +14,8 @@ import org.ivis.layout.Clustered;
 import org.ivis.util.PointD;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This is the highlight layer which draws the higlights for nodes, edges and
