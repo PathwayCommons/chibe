@@ -57,6 +57,7 @@ public class ExpressionData extends ExperimentData
 		{
 			public boolean isSignificant(ExperimentData data)
 			{
+				// This is a temporary code. Significance check should be made properly.
 				return data.getValue() >= 0.1 || data.getValue() <= -0.1;
 			}
 		};

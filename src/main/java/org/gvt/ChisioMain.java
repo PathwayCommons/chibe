@@ -1,7 +1,6 @@
 package org.gvt;
 
 import cpath.client.PathwayCommonsIOHandler;
-import org.biopax.paxtools.causality.data.CBioPortalAccessor;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.BioPAXElement;
@@ -10,6 +9,7 @@ import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level3.EntityReference;
 import org.biopax.paxtools.model.level3.PhysicalEntity;
+import org.cbio.causality.data.CBioPortalAccessor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Layer;

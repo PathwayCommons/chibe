@@ -1,10 +1,11 @@
 package org.gvt.command;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.gvt.action.RemoveHighlightFromSelectedAction;
+import org.gvt.action.RemoveHighlightsAction;
 import org.gvt.model.*;
 
 /**
@@ -29,11 +30,13 @@ public class RemoveCompoundCommand extends Command
 	{
 		List children = model.getChildren();
 
+		Set<GraphObject> highlightedSet = new HashSet<GraphObject>();
+
 		for (int size = children.size(); size > 0; size--)
 		{
 			NodeModel node = (NodeModel) children.get(0);
-			boolean highlight = node.isHighlight();
-			node.setHighlight(false);
+
+			collectHighlighted(node, highlightedSet);
 
 			OrphanChildCommand cmd = new OrphanChildCommand();
 			cmd.setParent(model);
@@ -53,9 +56,9 @@ public class RemoveCompoundCommand extends Command
 
 			add.execute();
 
-			if (highlight)
+			for (GraphObject graphObject : highlightedSet)
 			{
-				node.setHighlight(true);
+				graphObject.setHighlight(true);
 			}
 		}
 
@@ -86,5 +89,25 @@ public class RemoveCompoundCommand extends Command
 	public void setCompound(CompoundModel compoundModel)
 	{
 		model = compoundModel;
+	}
+	
+	protected void collectHighlighted(GraphObject obj, Set<GraphObject> set)
+	{
+		if (obj.isHighlight()) 
+		{
+			set.add(obj);
+			obj.setHighlight(false);
+		}
+		
+		if (obj instanceof CompoundModel)
+		{
+			for (Object o : ((CompoundModel) obj).getChildren())
+			{
+				if (o instanceof GraphObject)
+				{
+					collectHighlighted((GraphObject) o, set);
+				}
+			}
+		}
 	}
 }

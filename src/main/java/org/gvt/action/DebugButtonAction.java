@@ -53,7 +53,7 @@ public class DebugButtonAction extends Action
 	{
 		try
 		{
-			clearLayoutInFiles();
+			workOnSelected();
 		}
 		catch (Throwable e)
 		{

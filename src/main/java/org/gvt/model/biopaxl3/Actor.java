@@ -1,11 +1,11 @@
 package org.gvt.model.biopaxl3;
 
-import org.biopax.paxtools.causality.data.CBioPortalAccessor;
-import org.biopax.paxtools.causality.data.GeneticProfile;
-import org.biopax.paxtools.causality.model.Alteration;
-import org.biopax.paxtools.causality.model.AlterationPack;
-import org.biopax.paxtools.causality.model.Change;
 import org.biopax.paxtools.model.level3.*;
+import org.cbio.causality.data.CBioPortalAccessor;
+import org.cbio.causality.data.GeneticProfile;
+import org.cbio.causality.model.Alteration;
+import org.cbio.causality.model.AlterationPack;
+import org.cbio.causality.model.Change;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -31,8 +31,8 @@ import java.util.*;
  * Corresponds to inferred states in BioPAX file.
  *
  * @author Ozgun Babur
- *
- * Copyright: Bilkent Center for Bioinformatics, 2007 - present
+ *         <p/>
+ *         Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
 public class Actor extends BioPAXNode implements EntityAssociated
 {
@@ -48,9 +48,10 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	protected Entity related;
 
 	int multimerNo;
-	
+
 	/**
 	 * Constructor.
+	 *
 	 * @param root container node
 	 */
 	public Actor(CompoundModel root)
@@ -65,7 +66,8 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	/**
 	 * YAC
-	 * @param root container node
+	 *
+	 * @param root   container node
 	 * @param entity biopax physical entity that this class is based
 	 */
 	public Actor(CompoundModel root, PhysicalEntity entity, Entity related)
@@ -102,7 +104,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		return multimerNo > 1;
 	}
-	
+
 	public void configFromModel()
 	{
 		// Extract references from entity
@@ -131,16 +133,14 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				getName().startsWith("PPi") || getName().equals("Pi"))
 			{
 				setText("P");
-			}
-			else if (getName().startsWith("NTP ["))
+			} else if (getName().startsWith("NTP ["))
 			{
 				setText("NTP");
 			}
 
 			width = Math.max(suggestInitialWidth(), 15);
 			setBorderColor(UBIQUE_BORDER_COLOR);
-		}
-		else
+		} else
 		{
 			width = suggestInitialWidth();
 
@@ -157,10 +157,9 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		if (entity instanceof SmallMolecule)
 		{
 			setColor(SMALL_MOL_BG_COLOR);
-		}
-		else
+		} else
 		{
-		    setColor(getEntitySpecificColor());
+			setColor(getEntitySpecificColor());
 //			setColor(getStringSpecificColor(getText()));
 		}
 
@@ -215,7 +214,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 		while ((i = longName.indexOf("(", mark)) > 0 && longName.indexOf(")", i) > i)
 		{
-			String s = longName.substring(longName.indexOf("(", mark)+1,
+			String s = longName.substring(longName.indexOf("(", mark) + 1,
 				longName.indexOf(")", i));
 
 			mark = longName.indexOf(")", i);
@@ -239,7 +238,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	}
 
 	static boolean showFragmentFeature = Conf.getBoolean(Conf.DISPLAY_FRAGMENT_FEATURE);
-	
+
 	private void extractFeatures(List<String> list, Set<EntityFeature> feats, boolean not)
 	{
 		for (EntityFeature feat : feats)
@@ -267,10 +266,8 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 						featStr = terms.iterator().next();
 					}
-				}
-				else featStr = "?";
-			}
-			else if (showFragmentFeature && feat instanceof FragmentFeature)
+				} else featStr = "?";
+			} else if (showFragmentFeature && feat instanceof FragmentFeature)
 			{
 				featStr = "fragment";
 			}
@@ -307,16 +304,17 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	/**
 	 * Each RDF id is associated with a color.
+	 *
 	 * @return a color specific to physical entity
 	 */
 	public Color getEntitySpecificColor()
 	{
 		EntityHolder ent = getEntity();
-		if (ent.l3er != null) return super.getStringSpecificColor(ent.l3er.getRDFId()+"X");
-		else if (ent.l3pe != null) 
+		if (ent.l3er != null) return super.getStringSpecificColor(ent.l3er.getRDFId() + "X");
+		else if (ent.l3pe != null)
 		{
 			List<String> memErs = getMemberEntityIDs(ent.l3pe, new ArrayList<String>());
-			
+
 			if (!memErs.isEmpty())
 			{
 				Collections.sort(memErs);
@@ -327,10 +325,8 @@ public class Actor extends BioPAXNode implements EntityAssociated
 					s += memEr;
 				}
 				return super.getStringSpecificColor(s);
-			}
-			else return super.getStringSpecificColor(ent.l3pe.getRDFId());
-		}
-		else return null;
+			} else return super.getStringSpecificColor(ent.l3pe.getRDFId());
+		} else return null;
 	}
 
 	protected List<String> getMemberEntityIDs(PhysicalEntity pe, List<String> list)
@@ -341,12 +337,11 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			{
 				SimplePhysicalEntity spe = (SimplePhysicalEntity) mem;
 				EntityReference er = spe.getEntityReference();
-				
+
 				if (er != null)
 				{
 					if (!list.contains(er.getRDFId())) list.add(er.getRDFId());
-				}
-				else 
+				} else
 				{
 					getMemberEntityIDs(spe, list);
 				}
@@ -354,7 +349,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		}
 		return list;
 	}
-	
+
 	public boolean isEvent()
 	{
 		return false;
@@ -368,6 +363,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	/**
 	 * Actors and subclasses are breadth nodes.
+	 *
 	 * @return true
 	 */
 	public boolean isBreadthNode()
@@ -389,23 +385,23 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		return
 			name.startsWith("ATP") ||
-			name.startsWith("ADP") ||
-			name.startsWith("AMP") ||
-			name.startsWith("adenosine 5'-monophosphate") ||
-			name.startsWith("H2O") ||
-			name.startsWith("H+") ||
-			name.startsWith("Oxygen") ||
-			name.startsWith("O2") ||
-			name.startsWith("CO2") ||
-			name.startsWith("GDP") ||
-			name.startsWith("GTP") ||
-			name.startsWith("PPi") ||
-			name.equals("Pi") ||
-			name.startsWith("Phosphate") ||
-			name.startsWith("phosphate") ||
-			name.startsWith("Orthophosphate") ||
-			name.startsWith("orthophosphate") ||
-			name.startsWith("NTP");
+				name.startsWith("ADP") ||
+				name.startsWith("AMP") ||
+				name.startsWith("adenosine 5'-monophosphate") ||
+				name.startsWith("H2O") ||
+				name.startsWith("H+") ||
+				name.startsWith("Oxygen") ||
+				name.startsWith("O2") ||
+				name.startsWith("CO2") ||
+				name.startsWith("GDP") ||
+				name.startsWith("GTP") ||
+				name.startsWith("PPi") ||
+				name.equals("Pi") ||
+				name.startsWith("Phosphate") ||
+				name.startsWith("phosphate") ||
+				name.startsWith("Orthophosphate") ||
+				name.startsWith("orthophosphate") ||
+				name.startsWith("NTP");
 	}
 
 	private boolean isEffector()
@@ -420,101 +416,122 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return false;
 	}
 
-    public List<String[]> getDataInspectable(ChisioMain main) {
-        List<String[]> list = new ArrayList<String[]>();
-        String geneName = null;
+	public List<String[]> getDataInspectable(ChisioMain main)
+	{
+		List<String[]> list = new ArrayList<String[]>();
+		String geneName = null;
 
-        EntityHolder ent = getEntity();
-        if (ent.l3er != null) {
-            for (Xref xr : ent.l3er.getXref()) {
-                // Remember the latest gene name
-                if(xr instanceof RelationshipXref) {
-                    if(xr.getDb().startsWith("HGNC")) {
-                        String[] tokens = xr.getId().split(":");
-                        // Is it HGNC:GENE or HGNC:HGNC:123123
-                        geneName =
-                                (tokens.length > 1)
-                                        ? HGNCUtil.getSymbol(Integer.parseInt(tokens[1].trim()))
-                                        : tokens[0].trim();
-                    }
-                }
-            }
-        }
+		EntityHolder ent = getEntity();
+		if (ent.l3er != null)
+		{
+			for (Xref xr : ent.l3er.getXref())
+			{
+				// Remember the latest gene name
+				if (xr instanceof RelationshipXref)
+				{
+					if (xr.getDb().startsWith("HGNC"))
+					{
+						String[] tokens = xr.getId().split(":");
+						// Is it HGNC:GENE or HGNC:HGNC:123123
+						geneName =
+							(tokens.length > 1)
+								? HGNCUtil.getSymbol(Integer.parseInt(tokens[1].trim()))
+								: tokens[0].trim();
+					}
+				}
+			}
+		}
 
-        // Add the following statistics only if we got Portal data, otherwise skip it
-        CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
-        if( portalAccessor != null
-                && !portalAccessor.getCurrentGeneticProfiles().isEmpty()
-                && geneName != null ) {
+		// Add the following statistics only if we got Portal data, otherwise skip it
+		CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
+		if (portalAccessor != null
+			&& !portalAccessor.getCurrentGeneticProfiles().isEmpty()
+			&& geneName != null)
+		{
 
-            // Add data profile details
-            list.add(new String[]{"Cancer Study",  portalAccessor.getCurrentCancerStudy().getName()});
-            String profilesStr = "";
-            for (GeneticProfile geneticProfile : portalAccessor.getCurrentGeneticProfiles()) {
-                profilesStr += geneticProfile.getName() + "; ";
-            }
-            profilesStr = profilesStr.substring(0, profilesStr.length()-2);
-            list.add(new String[]{"Data profiles",  profilesStr});
-            list.add(new String[]{"Case set",  portalAccessor.getCurrentCaseList().getDescription()});
+			// Add data profile details
+			list.add(new String[]{"Cancer Study", portalAccessor.getCurrentCancerStudy().getName()});
+			String profilesStr = "";
+			for (GeneticProfile geneticProfile : portalAccessor.getCurrentGeneticProfiles())
+			{
+				profilesStr += geneticProfile.getName() + "; ";
+			}
+			profilesStr = profilesStr.substring(0, profilesStr.length() - 2);
+			list.add(new String[]{"Data profiles", profilesStr});
+			list.add(new String[]{"Case set", portalAccessor.getCurrentCaseList().getDescription()});
 
-            // This will hit the cache, so no worries on the speed or connection status
-            AlterationPack alterations = portalAccessor.getAlterations(geneName);
-            Change[] changes = alterations.get(Alteration.ANY);
-            double activating, inhibiting, inactive, noChange, noData;
-            activating = inhibiting = inactive = noChange = noData = 0;
+			// This will hit the cache, so no worries on the speed or connection status
+			AlterationPack alterations = portalAccessor.getAlterations(geneName);
 
-            List<Integer> expIndices
-                    = main.getExperimentDataManager(ExperimentData.CBIOPORTAL_ALTERATION_DATA).getFirstExpIndices();
+			int sampleSize = alterations.get(Alteration.ANY).length;
+			list.add(new String[]{"Number of samples", sampleSize + ""});
 
-            int i = 0;
-            for (Change change : changes) {
-                if(!expIndices.contains(i++))
-                    continue;
+			for (Alteration alt : Alteration.values())
+			{
+				if (alt.isSummary() && alt != Alteration.ANY) continue;
+				Change[] changes = alterations.get(alt);
+				if (changes == null) continue;
 
-                switch (change) {
-                    case INHIBITING:
-                        inhibiting++;
-                        break;
-                    case ACTIVATING:
-                        activating++;
-                        break;
-                    case NO_CHANGE:
-                        noChange++;
-                        break;
-                    case NO_DATA:
-                        noData++;
-                        break;
-                    case STAY_INACTIVE:
-                        inactive++;
-                        break;
-                }
-            }
+				int activating, inhibiting, unknownChange, stayInactive, noChange, noData;
+				activating = inhibiting = unknownChange = stayInactive = noChange = noData = 0;
 
-            double sampleSize = changes.length;
-            inhibiting /= sampleSize;
-            activating /= sampleSize;
-            inactive /= sampleSize;
-            noData /= sampleSize;
-            noChange /= sampleSize;
+				List<Integer> expIndices = main.getExperimentDataManager(
+					ExperimentData.CBIOPORTAL_ALTERATION_DATA).getFirstExpIndices();
 
-            NumberFormat n = NumberFormat.getPercentInstance();
-            n.setMaximumFractionDigits(1);
+				int i = 0;
+				for (Change change : changes)
+				{
+					if (!expIndices.contains(i++))
+						continue;
 
-            DecimalFormat decimalFormat = new DecimalFormat("#");
-            list.add(new String[]{"Number of samples", expIndices.size() + ""});
-            list.add(new String[]{"Alteration frequency", n.format(inhibiting + inactive + activating)});
-            list.add(new String[]{" - Activating", n.format(activating)});
-            list.add(new String[]{" - Inhibiting", n.format(inhibiting)});
-            // We don't have "stays inactive" in cBio Portal data. So skipping it.
-            //list.add(new String[]{" - Stays inactive", n.format(inactive)});
-            list.add(new String[]{"No data", n.format(noData)});
-            list.add(new String[]{"No change", n.format(noChange)});
-        }
+					switch (change)
+					{
+						case INHIBITING:
+							inhibiting++;
+							break;
+						case ACTIVATING:
+							activating++;
+							break;
+						case UNKNOWN_CHANGE:
+							unknownChange++;
+							break;
+						case NO_CHANGE:
+							noChange++;
+							break;
+						case NO_DATA:
+							noData++;
+							break;
+						case STAY_INACTIVE:
+							stayInactive++;
+							break;
+					}
+				}
 
-        return list;
-    }
+				int totalChange = inhibiting + activating + unknownChange;
 
-    public List<String[]> getInspectable()
+				// Skip if no alteration of current type exists
+				if (totalChange == 0) continue;
+
+				NumberFormat n = NumberFormat.getPercentInstance();
+				n.setMaximumFractionDigits(1);
+
+				list.add(new String[]{alt.getName() + " freq",
+					n.format(totalChange / (double) sampleSize)});
+				if (activating > 0) list.add(new String[]{" - Activating", activating + ""});
+				if (inhibiting > 0) list.add(new String[]{" - Inhibiting", inhibiting + ""});
+				if (unknownChange > 0)
+					list.add(new String[]{" - Unknown change", unknownChange + ""});
+				// We don't have "stays inactive" in cBio Portal data. So skipping it.
+				//list.add(new String[]{" - Stays inactive", n.format(inactive)});
+				if (noData > 0) list.add(new String[]{" - No data", noData + ""});
+//				list.add(new String[]{"No change", n.format(noChange)});
+			}
+		}
+
+		return list;
+	}
+
+	public List<String[]> getInspectable()
 	{
 		List<String[]> list = super.getInspectable();
 
@@ -536,7 +553,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		addDataSourceAndXrefAndComments(list, entity);
 
 		EntityHolder ent = getEntity();
-        if (ent.l3er != null)
+		if (ent.l3er != null)
 		{
 			addNamesAndTypeAndID(list, ent.l3er);
 

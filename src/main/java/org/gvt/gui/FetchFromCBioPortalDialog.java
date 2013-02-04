@@ -1,9 +1,9 @@
 package org.gvt.gui;
 
-import org.biopax.paxtools.causality.data.CBioPortalAccessor;
-import org.biopax.paxtools.causality.data.CancerStudy;
-import org.biopax.paxtools.causality.data.CaseList;
-import org.biopax.paxtools.causality.data.GeneticProfile;
+import org.cbio.causality.data.CBioPortalAccessor;
+import org.cbio.causality.data.CancerStudy;
+import org.cbio.causality.data.CaseList;
+import org.cbio.causality.data.GeneticProfile;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -80,14 +80,16 @@ public class FetchFromCBioPortalDialog extends Dialog {
         gridData.horizontalSpan = 2;
         cancerStudyLabel.setLayoutData(gridData);
 
-        final Combo comboDropDown = new Combo(shell, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
-        gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
+        final Combo studyCombo = new Combo(shell, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
+        gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
         gridData.horizontalSpan = 2;
-        comboDropDown.setLayoutData(gridData);
+        studyCombo.setLayoutData(gridData);
 
-        comboDropDown.removeAll();
-        for (CancerStudy cancerStudy : ChisioMain.cBioPortalAccessor.getCancerStudies()) {
-            comboDropDown.add(cancerStudy.getName());
+        studyCombo.removeAll();
+
+        for (CancerStudy cancerStudy : ChisioMain.cBioPortalAccessor.getCancerStudies())
+		{
+            studyCombo.add(cancerStudy.getName());
         }
 
         Label caseListLabel = new Label(shell, SWT.NONE);
@@ -96,10 +98,10 @@ public class FetchFromCBioPortalDialog extends Dialog {
         gridData.horizontalSpan = 2;
         caseListLabel.setLayoutData(gridData);
 
-        final Combo caseListList = new Combo(shell, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
-        gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
+        final Combo caseListCombo = new Combo(shell, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
+        gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
         gridData.horizontalSpan = 2;
-        caseListList.setLayoutData(gridData);
+        caseListCombo.setLayoutData(gridData);
 
         final ArrayList<GeneticProfile> supportedProfiles = new ArrayList<GeneticProfile>();
         Label genomicProfileLabel = new Label(shell, SWT.NONE);
@@ -118,7 +120,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
         gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
         gridData.horizontalSpan = 2;
         buttonGroup.setLayoutData(gridData);
-        buttonGroup.setLayout(new GridLayout(3, true));
+		buttonGroup.setLayout(new GridLayout(3, true));
 
         final Button loadDataButton = new Button(buttonGroup, SWT.NONE);
         loadDataButton.setText("Load data");
@@ -136,17 +138,20 @@ public class FetchFromCBioPortalDialog extends Dialog {
         gridData = new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
         settingsButton.setLayoutData(gridData);
 
-        comboDropDown.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetDefaultSelected(SelectionEvent selectionEvent) {
-                widgetSelected(selectionEvent);
-            }
+		studyCombo.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetDefaultSelected(SelectionEvent selectionEvent)
+			{
+				widgetSelected(selectionEvent);
+			}
 
-            @Override
-            public void widgetSelected(SelectionEvent selectionEvent) {
-                selectCancerStudy(comboDropDown, caseListList, genomicProfilesList, supportedProfiles);
-            }
-        });
+			@Override
+			public void widgetSelected(SelectionEvent selectionEvent)
+			{
+				selectCancerStudy(studyCombo, caseListCombo, genomicProfilesList, supportedProfiles);
+			}
+		});
 
         genomicProfilesList.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -168,7 +173,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
                 int selectionIndex;
 
                 try {
-                    selectionIndex = caseListList.getSelectionIndex();
+                    selectionIndex = caseListCombo.getSelectionIndex();
                     CaseList caseList = ChisioMain.cBioPortalAccessor.getCaseListsForCurrentStudy().get(selectionIndex);
                     ChisioMain.cBioPortalAccessor.setCurrentCaseList(caseList);
                 } catch (IOException e) {
@@ -208,10 +213,10 @@ public class FetchFromCBioPortalDialog extends Dialog {
         });
 
         // If we saved the options, then select those before the user does.
-        if(memorizeChoices[0] != -1) {
-            comboDropDown.select(memorizeChoices[0]);
-            selectCancerStudy(comboDropDown, caseListList, genomicProfilesList, supportedProfiles);
-            caseListList.select(memorizeChoices[1]);
+		if(memorizeChoices[0] != -1) {
+            studyCombo.select(memorizeChoices[0]);
+            selectCancerStudy(studyCombo, caseListCombo, genomicProfilesList, supportedProfiles);
+            caseListCombo.select(memorizeChoices[1]);
             genomicProfilesList.select(memorizeChoices[2]);
             loadDataButton.setEnabled(true);
         }
