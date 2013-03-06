@@ -44,13 +44,13 @@ public class LocalPathIterationQueryAction extends Action
 	{
 		Model owlModel = this.main.getOwlModel();
 
-        if (owlModel == null)
-        {
-            MessageDialog.openError(main.getShell(), "Error!",
-                "Load or query a BioPAX model first!");
+		if (owlModel == null)
+		{
+			MessageDialog.openError(main.getShell(), "Error!",
+				"Load or query a BioPAX model first!");
 
-            return;
-        }
+			return;
+		}
 
 		LocalPathIterationQuery lpi = new LocalPathIterationQuery(main.getRootGraph());
 
@@ -62,7 +62,7 @@ public class LocalPathIterationQueryAction extends Action
 			new LocalPathIterationQuery.NodePair[result.size()];
 		result.toArray(resultArray);
 		Arrays.sort(resultArray);
-		
+
 		// This set will store NodePairs that will be displayed in the dialog
 		List<LocalPathIterationQuery.NodePair> realResult =
 			new ArrayList<LocalPathIterationQuery.NodePair>();
@@ -85,7 +85,7 @@ public class LocalPathIterationQueryAction extends Action
 		}
 
 		int i = resultArray.length - 1;
-		while(resultArray[i].getCurrentShortestPath() == max)
+		while (resultArray[i].getCurrentShortestPath() == max)
 		{
 			realResult.add(resultArray[i]);
 			i--;
@@ -97,7 +97,7 @@ public class LocalPathIterationQueryAction extends Action
 			realResult.add(resultArray[resultArray.length - j]);
 			j++;
 		}
-	
+
 		// Store the NodePair's string types
 		ArrayList<String> stringResult = new ArrayList<String>();
 
@@ -108,10 +108,8 @@ public class LocalPathIterationQueryAction extends Action
 		// Convert NodePair into string
 		for (LocalPathIterationQuery.NodePair nodePair : realResult)
 		{
-			String key = (nodePair.getNodeA().getName() + " -- " +
-					nodePair.getCurrentShortestPath() + " -> " +
-					nodePair.getNodeB().getName());
-			if (!(previouslyAdded(key, stringResult)))
+			String key = nodePair.toString();
+			if (!stringResult.contains(key))
 			{
 				stringResult.add(key);
 				nodeToString.put(key, nodePair);
@@ -132,11 +130,11 @@ public class LocalPathIterationQueryAction extends Action
 		dialog.setDoSort(false);
 		dialog.open();
 
-		if(dialog.isCancelled())
+		if (dialog.isCancelled())
 		{
 			return;
 		}
-		
+
 		List<String> selectedString = dialog.getSelectedItems();
 
 		// Find the NodePair selected from the path selection dialog
@@ -158,11 +156,10 @@ public class LocalPathIterationQueryAction extends Action
 		Set<GraphObject> resultSet = poi.run();
 
 		if (resultSet.size() == 0)
-       	{
-           	MessageDialog.openWarning(main.getShell(),
-               	"No result!",
-               	"No path can be found with specified parameters");
-       	}
+		{
+			MessageDialog.openWarning(main.getShell(), "No result!",
+				"No path can be found with specified parameters");
+		}
 		// Result of PoI will be displayed in new niew
 		else
 		{
@@ -178,20 +175,5 @@ public class LocalPathIterationQueryAction extends Action
 				go.setHighlight(true);
 			}
 		}
-	}
-
-	private boolean previouslyAdded(String nodePair,
-        List<String> addedPair)
-	{
-		for (String addedBefore : addedPair)
-		{
-			//if node pair has been added before, return true
-			if (nodePair.equals(addedBefore))
-			{
-				return true;
-			}
-		}
-		//if node pair is not found in added List, then return false
-		return false;
 	}
 }

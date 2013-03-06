@@ -3,7 +3,6 @@ package org.gvt.action;
 import cpath.client.CPath2Client;
 import cpath.client.util.CPathException;
 import org.biopax.paxtools.model.Model;
-import org.biopax.paxtools.query.algorithm.Direction;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
@@ -51,11 +50,11 @@ public class QueryPCNeighborsAction extends QueryPCAction
 
 		CPath2Client pc2 = getPCClient();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
+		pc2.setDirection(options.isUpstream() && options.isDownstream() ?
+			CPath2Client.Direction.BOTHSTREAM: options.isUpstream() ?
+			CPath2Client.Direction.UPSTREAM : CPath2Client.Direction.DOWNSTREAM);
 
-		Direction dir = options.isUpstream() && options.isDownstream() ? Direction.BOTHSTREAM :
-			options.isUpstream() ? Direction.UPSTREAM : Direction.DOWNSTREAM;
-
-		return pc2.getNeighborhood(symbols, dir);
+		return pc2.getNeighborhood(symbols);
 	}
 
 	@Override
