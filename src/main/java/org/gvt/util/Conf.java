@@ -29,18 +29,16 @@ public class Conf
 
 	public static final String CONF_FILENAME = "chibe-conf.txt";
 
-	private static String confPath;
+	private static String[] pathCandidate;
 
 	private static Map<String, String> conf;
 	
-	private static Map<String, String> parse()
+	private static Map<String, String> parse(BufferedReader reader)
 	{
 		Map<String, String> map = new HashMap<String, String>();
 
 		try
 		{
-			BufferedReader reader = new BufferedReader(new FileReader(confPath));
-			
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
 			{
 				if (!line.contains("=")) continue;
@@ -59,28 +57,35 @@ public class Conf
 		return map;
 	}
 
-	private static boolean writeDefaultConfFile()
+	private static String getDefaultConfString()
+	{
+		String s = "";
+		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
+//		s += PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n";
+
+		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
+		s += CBIOPORTAL_USE_CACHE + " = true\n";
+
+		s += EXPERIMENT_UP_COLOR + " = 230 0 0\n";
+		s += EXPERIMENT_DOWN_COLOR + " = 0 0 230\n";
+		s += EXPERIMENT_MIDDLE_COLOR + " = 230 230 230\n";
+
+		s += EXPERIMENT_MAX_UPREGULATION + " = 2\n";
+		s += EXPERIMENT_NO_CHANGE_UPPER_BOUND + " = 1\n";
+		s += EXPERIMENT_NO_CHANGE_LOWER_BOUND + " = -1\n";
+		s += EXPERIMENT_MAX_DOWNREGULATION + " = -2\n";
+
+		s += DISPLAY_FRAGMENT_FEATURE + " = false\n";
+		return s.trim();
+	}
+
+	private static boolean writeDefaultConfFile(String file)
 	{
 		try
 		{
-			BufferedWriter writer = new BufferedWriter(new FileWriter(confPath));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-			writer.write(PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n");
-//			writer.write(PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n");
-
-            writer.write(CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n");
-            writer.write(CBIOPORTAL_USE_CACHE + " = true\n");
-
-            writer.write(EXPERIMENT_UP_COLOR + " = 230 0 0\n");
-			writer.write(EXPERIMENT_DOWN_COLOR + " = 0 0 230\n");
-			writer.write(EXPERIMENT_MIDDLE_COLOR + " = 230 230 230\n");
-
-			writer.write(EXPERIMENT_MAX_UPREGULATION + " = 2\n");
-			writer.write(EXPERIMENT_NO_CHANGE_UPPER_BOUND + " = 1\n");
-			writer.write(EXPERIMENT_NO_CHANGE_LOWER_BOUND + " = -1\n");
-			writer.write(EXPERIMENT_MAX_DOWNREGULATION + " = -2\n");
-
-			writer.write(DISPLAY_FRAGMENT_FEATURE + " = false\n");
+			writer.write(getDefaultConfString());
 
 			writer.close();
 			return true;
@@ -145,21 +150,50 @@ public class Conf
         String val = get(key).toLowerCase();
         return val.equals("true");
     }
-	
-	static
+
+	private static File searchForConfFile()
 	{
-		confPath = Conf.class.getResource("").getFile() + File.separator + CONF_FILENAME;
-		File confFile = new File(confPath);
-		
-		if (!confFile.exists())
+		for (String path : pathCandidate)
 		{
-			if (!writeDefaultConfFile())
-			{
-				confPath = CONF_FILENAME;
-				writeDefaultConfFile();
-			}
+			String confPath = path + CONF_FILENAME;
+			File confFile = new File(confPath);
+
+			if (confFile.exists()) return confFile;
 		}
 
-		conf = parse();
+		return null;
+	}
+
+	static
+	{
+		pathCandidate = new String[]{Conf.class.getResource("").getFile() + File.separator,
+			"", System.getProperty("user.dir") + File.separator,
+			System.getProperty("user.home") + File.separator};
+
+		File confFile = searchForConfFile();
+
+		if (confFile == null)
+		{
+			int i = 0;
+			String file;
+			do {
+				file = pathCandidate[i++] + CONF_FILENAME;
+			} while (!writeDefaultConfFile(file));
+
+			confFile = searchForConfFile();
+		}
+
+		if (confFile != null)
+		{
+			try
+			{
+				conf = parse(new BufferedReader(new FileReader(confFile)));
+			} catch (FileNotFoundException e){e.printStackTrace();}
+		}
+		else
+		{
+			conf = parse(new BufferedReader(new InputStreamReader(
+				new ByteArrayInputStream(getDefaultConfString().getBytes()))));
+		}
 	}
 }

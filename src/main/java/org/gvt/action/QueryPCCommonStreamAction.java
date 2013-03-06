@@ -44,10 +44,10 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 
 		CPath2Client pc2 = getPCClient();
 		pc2.setGraphQueryLimit(options.getLengthLimit());
+		pc2.setDirection(options.isDownstream() ?
+			CPath2Client.Direction.DOWNSTREAM : CPath2Client.Direction.UPSTREAM);
 
-		Direction direction = options.isDownstream() ? Direction.DOWNSTREAM : Direction.UPSTREAM;
-
-		return pc2.getCommonStream(sourceSymbols, direction);
+		return pc2.getCommonStream(sourceSymbols);
 	}
 
 	@Override
