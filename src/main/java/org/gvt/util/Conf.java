@@ -1,10 +1,12 @@
 package org.gvt.util;
 
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author Ozgun Babur
@@ -32,6 +34,8 @@ public class Conf
 	private static String[] pathCandidate;
 
 	private static Map<String, String> conf;
+
+	private static String baseDir;
 	
 	private static Map<String, String> parse(BufferedReader reader)
 	{
@@ -164,11 +168,17 @@ public class Conf
 		return null;
 	}
 
+	/**
+	 * Decides the base directory for ChiBE file operations, and loads the configuration from the
+	 * resource file.
+	 */
 	static
 	{
+		decideBaseDir();
+
 		pathCandidate = new String[]{Conf.class.getResource("").getFile() + File.separator,
-			"", System.getProperty("user.dir") + File.separator,
-			System.getProperty("user.home") + File.separator};
+			System.getProperty("user.dir") + File.separator,
+			System.getProperty("user.home") + File.separator + ".chibe" + File.separator, ""};
 
 		File confFile = searchForConfFile();
 
@@ -195,5 +205,70 @@ public class Conf
 			conf = parse(new BufferedReader(new InputStreamReader(
 				new ByteArrayInputStream(getDefaultConfString().getBytes()))));
 		}
+	}
+
+	/**
+	 * Decides the base directory for file operations based on writiblity.
+	 */
+	private static void decideBaseDir()
+	{
+		String dir = System.getProperty("user.dir");
+		if (isWritable(dir))
+		{
+			baseDir = dir + File.separator;
+		}
+		else
+		{
+			dir = System.getProperty("user.home") + File.separator + ".chibe";
+			File f = new File(dir);
+			f.mkdir();
+
+			if (isWritable(dir))
+			{
+				baseDir = dir + File.separator;
+			}
+			else
+			{
+				throw new RuntimeException("Neither \"user.dir\" nor \"user.home\" are writable.");
+			}
+		}
+	}
+
+	/**
+	 * Checks if the directory is writable by creating and a temp file.
+	 * @param loc location to check
+	 * @return true if writable
+	 */
+	private static boolean isWritable(String loc)
+	{
+		Random r = new Random();
+		String x = loc + File.separator + "tempchibefile" + r.nextInt(10000) + ".txt";
+		try
+		{
+			BufferedWriter writer = new BufferedWriter(new FileWriter(x));
+			writer.write("test");
+			writer.close();
+
+			File f = new File(x);
+			f.delete();
+			return true;
+		}
+		catch (IOException e)
+		{
+			return false;
+		}
+		catch (SecurityException e)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Gets the directory to store downloaded experiments.
+	 * @return
+	 */
+	public static String getExperimentsDir()
+	{
+		return baseDir + "experiments" + File.separator;
 	}
 }

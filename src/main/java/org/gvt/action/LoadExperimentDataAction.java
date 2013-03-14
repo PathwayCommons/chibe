@@ -6,6 +6,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
+import org.gvt.util.Conf;
 import org.patika.mada.dataXML.ChisioExperimentData;
 import org.patika.mada.dataXML.Row;
 import org.patika.mada.dataXML.impl.ReferenceImpl;
@@ -31,7 +32,7 @@ public class LoadExperimentDataAction extends Action
 	String filename;
 	boolean local;
 
-	private static String lastLocation = "experiments/";
+	private static String lastLocation = Conf.getExperimentsDir();
 
 	public LoadExperimentDataAction(ChisioMain main, String filename)
 	{
