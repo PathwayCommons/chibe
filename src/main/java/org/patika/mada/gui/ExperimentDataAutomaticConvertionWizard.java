@@ -1,6 +1,7 @@
 package org.patika.mada.gui;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.gvt.util.Conf;
 import org.patika.mada.dataXML.ChisioExperimentData;
 
 import javax.swing.*;
@@ -271,7 +272,8 @@ public class ExperimentDataAutomaticConvertionWizard extends ExperimentDataConve
 	{
 		try
 		{
-			File fileToWrite = new File("experiments/" + selectedSeries, selectedSeries + ".ced");
+			File fileToWrite = new File(
+				Conf.getExperimentsDir() + selectedSeries, selectedSeries + ".ced");
 
 			JAXBContext jc = JAXBContext.newInstance("org.patika.mada.dataXML");
 
@@ -286,7 +288,6 @@ public class ExperimentDataAutomaticConvertionWizard extends ExperimentDataConve
 			m.marshal(pmd, writer);
 
 			writer.close();
-
 		}
 		catch (MarshalException ue)
 		{
