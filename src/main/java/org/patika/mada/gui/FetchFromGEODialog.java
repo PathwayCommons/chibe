@@ -11,6 +11,7 @@ import org.gvt.ChisioMain;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.gvt.gui.ItemSelectionDialog;
+import org.gvt.util.Conf;
 
 import java.io.*;
 import java.net.URL;
@@ -46,7 +47,7 @@ public class FetchFromGEODialog extends Dialog
 	/**
 	 * downloaded series matrix and platform files will be saved here
 	 */
-	public static File directory = new File("experiments");
+	public static File directory = new File(Conf.getExperimentsDir());
 
 	/**
 	 * subdirectory of "experiments". GSE and .ced files will be saved in here.

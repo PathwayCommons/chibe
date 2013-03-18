@@ -1,5 +1,6 @@
 package org.patika.mada.gui;
 
+import org.gvt.util.Conf;
 import org.patika.mada.dataXML.*;
 
 import javax.swing.*;
@@ -71,7 +72,7 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 	/**
 	 * Last used directory for remembering
 	 */
-	public static File recentDir = new File("experiments");
+	public static File recentDir = new File(Conf.getExperimentsDir());
 
 	public static int LINE_COUNTER = 0;
 
@@ -900,61 +901,71 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 				}
 			});
 
-			chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+			chooser.setCurrentDirectory(new File(Conf.getExperimentsDir()));
 
 			returnValue = chooser.showSaveDialog(this);
 
-			if (returnValue == JFileChooser.APPROVE_OPTION)
-			{
-				fileToWrite = chooser.getSelectedFile();
+            if (returnValue == JFileChooser.APPROVE_OPTION)
+            {
+                fileToWrite = chooser.getSelectedFile();
 
-				if (fileToWrite.exists())
-				{
-					returnValue2 = JOptionPane.showConfirmDialog(this,
-						"Confirm overwrite?");
+                if(Conf.isWritable(fileToWrite.getParent()))
+                {
+                    if (fileToWrite.exists())
+                    {
+                        returnValue2 = JOptionPane.showConfirmDialog(this,
+                                "Confirm overwrite?");
 
-					if ((returnValue2 == JOptionPane.NO_OPTION)
-						|| (returnValue2 == JOptionPane.CANCEL_OPTION))
-					{
-						willWrite = false;
-					} else
-					{
-						isOverWrite = true;
-					}
-				}
+                        if ((returnValue2 == JOptionPane.NO_OPTION)
+                                || (returnValue2 == JOptionPane.CANCEL_OPTION))
+                        {
+                            willWrite = false;
+                        } else
+                        {
+                            isOverWrite = true;
+                        }
+                    }
 
 
-				if (willWrite)
-				{
-					JAXBContext jc = JAXBContext.newInstance(
-						"org.patika.mada.dataXML");
+                    if (willWrite)
+                    {
+                        JAXBContext jc = JAXBContext.newInstance(
+                                "org.patika.mada.dataXML");
 
-					Marshaller m = jc.createMarshaller();
+                        Marshaller m = jc.createMarshaller();
 
-					if (!isOverWrite)
-					{
-						if (fileToWrite.getAbsolutePath().toLowerCase().endsWith(".ced"))
-						{
-							fileToWrite = new File(fileToWrite.getAbsolutePath());
-						}
-						else
-						{
-							fileToWrite = new File(fileToWrite.getAbsolutePath() + ".ced");
-						}
-					}
+                        if (!isOverWrite)
+                        {
+                            if (fileToWrite.getAbsolutePath().toLowerCase().endsWith(".ced"))
+                            {
+                                fileToWrite = new File(fileToWrite.getAbsolutePath());
+                            }
+                            else
+                            {
+                                fileToWrite = new File(fileToWrite.getAbsolutePath() + ".ced");
+                            }
+                        }
 
-					this.resultFileName = fileToWrite.getPath();
+                        this.resultFileName = fileToWrite.getPath();
 
-					BufferedWriter writer =
-						new BufferedWriter(new FileWriter(fileToWrite));
+                        BufferedWriter writer =
+                                new BufferedWriter(new FileWriter(fileToWrite));
 
-					m.setProperty("jaxb.formatted.output", Boolean.TRUE);
-					m.marshal(pmd, writer);
+                        m.setProperty("jaxb.formatted.output", Boolean.TRUE);
+                        m.marshal(pmd, writer);
 
-					writer.close();
-				}
-			}
-		}
+                        writer.close();
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,
+                        "You do not have permission to save in this location. \nPlease save in another folder.",
+                        "No Permission",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
 		catch (MarshalException ue)
 		{
 			ue.printStackTrace();
