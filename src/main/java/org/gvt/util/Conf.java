@@ -239,7 +239,7 @@ public class Conf
 	 * @param loc location to check
 	 * @return true if writable
 	 */
-	private static boolean isWritable(String loc)
+	public static boolean isWritable(String loc)
 	{
 		Random r = new Random();
 		String x = loc + File.separator + "tempchibefile" + r.nextInt(10000) + ".txt";
