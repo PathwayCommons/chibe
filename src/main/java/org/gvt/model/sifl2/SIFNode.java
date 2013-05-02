@@ -1,17 +1,14 @@
-package org.gvt.model.sif;
+package org.gvt.model.sifl2;
 
 import org.biopax.paxtools.model.level2.*;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
-import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
-import org.gvt.model.biopaxl2.BioPAXL2Graph;
 import org.gvt.model.biopaxl2.BioPAXNode;
 import org.gvt.model.biopaxl2.Actor;
 import org.gvt.model.EntityAssociated;
 import org.gvt.util.EntityHolder;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 

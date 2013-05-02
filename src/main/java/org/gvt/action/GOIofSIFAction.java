@@ -8,7 +8,7 @@ import org.gvt.ChisioMain;
 import org.gvt.gui.GOIofSIFParameterDialog;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.basicsif.BasicSIFNode;
-import org.gvt.model.sif.SIFGraph;
+import org.gvt.model.sifl2.SIFGraph;
 import org.gvt.util.SIFReader;
 import org.patika.mada.algorithm.AlgoRunner;
 import org.patika.mada.graph.GraphObject;

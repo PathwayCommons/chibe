@@ -1,5 +1,6 @@
 package org.gvt.model.biopaxl3;
 
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.level3.*;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -265,55 +266,61 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		return txt;
 	}
 
-	protected static String extractGeneSymbol(Entity ent)
+	protected static String extractGeneSymbol(BioPAXElement ent)
 	{
 		String sym = null;
 
-		if (ent instanceof SimplePhysicalEntity)
+		if (ent instanceof XReferrable)
 		{
-			if (((SimplePhysicalEntity) ent).getEntityReference() != null)
-			{
-				for (Xref xref : ((SimplePhysicalEntity) ent).getEntityReference().getXref())
-				{
-					if (xref.getDb().equals("HGNC"))
-					{
-						String id = xref.getId();
-						if (id.contains(":")) id = id.substring(id.indexOf(":") + 1);
+			Set<Xref> set = new HashSet<Xref>(((XReferrable) ent).getXref());
 
-						try
-						{
-							int i = Integer.parseInt(id);
-							sym = HGNCUtil.getSymbol(i);
-						}
-						catch (NumberFormatException e)
-						{
-							sym = id;
-						}
-						if (sym != null) break;
+			if (ent instanceof SimplePhysicalEntity &&
+				((SimplePhysicalEntity) ent).getEntityReference() != null)
+			{
+				set.addAll(((SimplePhysicalEntity) ent).getEntityReference().getXref());
+			}
+
+			for (Xref xref : set)
+			{
+				if (xref.getDb().equalsIgnoreCase("HGNC"))
+				{
+					String id = xref.getId();
+					if (id.contains(":")) id = id.substring(id.indexOf(":") + 1);
+
+					try
+					{
+						int i = Integer.parseInt(id);
+						sym = HGNCUtil.getSymbol(i);
+					}
+					catch (NumberFormatException e)
+					{
+						sym = id;
+					}
+					if (sym != null) break;
+				}
+			}
+			if (sym == null)
+			{
+				for (Xref ref : set)
+				{
+					String db = ref.getDb();
+
+					if (db == null) continue;
+
+					if (db.equalsIgnoreCase("GENE_SYMBOL") ||
+						db.equalsIgnoreCase("GENESYMBOL") ||
+						db.equalsIgnoreCase("GENE SYMBOL") ||
+						db.equalsIgnoreCase("HGNC SYMBOL") ||
+						db.equalsIgnoreCase("GENE-SYMBOL") ||
+						db.equalsIgnoreCase("SYMBOL"))
+					{
+						sym = ref.getId();
+						break;
 					}
 				}
 			}
 		}
 
-		if (sym == null)
-		{
-			for (Xref ref : ent.getXref())
-			{
-				String db = ref.getDb();
-	
-				if (db == null) continue;
-				
-				if (db.equalsIgnoreCase("GENE_SYMBOL") ||
-					db.equalsIgnoreCase("GENESYMBOL") ||
-					db.equalsIgnoreCase("GENE SYMBOL") ||
-					db.equalsIgnoreCase("GENE-SYMBOL") ||
-					db.equalsIgnoreCase("SYMBOL"))
-				{
-					sym = ref.getId();
-					break;
-				}
-			}
-		}
 		return sym;
 	}
 

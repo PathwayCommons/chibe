@@ -1,13 +1,11 @@
-package org.gvt.model.sif;
+package org.gvt.model.sifl3;
 
 import org.biopax.paxtools.io.sif.BinaryInteractionType;
 import org.biopax.paxtools.io.sif.InteractionRule;
 import org.biopax.paxtools.io.sif.SimpleInteraction;
 import org.biopax.paxtools.io.sif.SimpleInteractionConverter;
-import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
-import org.biopax.paxtools.model.level2.physicalEntity;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;

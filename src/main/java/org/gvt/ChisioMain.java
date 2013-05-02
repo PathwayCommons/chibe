@@ -54,7 +54,7 @@ import org.gvt.model.biopaxl2.Actor;
 import org.gvt.model.biopaxl2.BioPAXL2Graph;
 import org.gvt.model.biopaxl2.Complex;
 import org.gvt.model.biopaxl2.Conversion;
-import org.gvt.model.sif.SIFGraph;
+import org.gvt.model.sifl2.SIFGraph;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.dataXML.ChisioExperimentData;

@@ -4,7 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.gvt.model.CompoundModel;
-import org.gvt.model.sif.SIFEdge;
+import org.gvt.model.sifl2.SIFEdge;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.basicsif.BasicSIFNode;

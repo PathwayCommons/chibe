@@ -1,13 +1,13 @@
-package org.gvt.model.sif;
+package org.gvt.model.sifl3;
 
 import org.biopax.paxtools.io.sif.BinaryInteractionType;
 import org.eclipse.swt.graphics.Color;
-import org.gvt.model.biopaxl2.BioPAXEdge;
-import org.gvt.model.biopaxl2.IBioPAXL2Node;
+import org.gvt.model.biopaxl3.BioPAXEdge;
+import org.gvt.model.biopaxl3.IBioPAXL3Node;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ozgun Babur
@@ -159,8 +159,8 @@ public class SIFEdge extends BioPAXEdge
 
 	public String getIDHash()
 	{
-		return ((IBioPAXL2Node) getSourceNode()).getIDHash() +
-			((IBioPAXL2Node) getTargetNode()).getIDHash() + tag;
+		return ((IBioPAXL3Node) getSourceNode()).getIDHash() +
+			((IBioPAXL3Node) getTargetNode()).getIDHash() + tag;
 	}
 
 	private static final boolean SOLID = true;
