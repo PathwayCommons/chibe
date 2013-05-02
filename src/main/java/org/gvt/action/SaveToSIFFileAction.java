@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.basicsif.BasicSIFGraph;
-import org.gvt.model.sif.SIFGraph;
+import org.gvt.model.sifl2.SIFGraph;
 
 import java.io.File;
 import java.io.FileOutputStream;

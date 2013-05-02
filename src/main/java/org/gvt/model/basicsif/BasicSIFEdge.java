@@ -1,12 +1,10 @@
 package org.gvt.model.basicsif;
 
 import org.biopax.paxtools.io.sif.BinaryInteractionType;
-import org.eclipse.swt.graphics.Color;
 import org.gvt.model.biopaxl2.BioPAXEdge;
 import org.gvt.model.NodeModel;
-import org.gvt.model.sif.SIFEdge;
+import org.gvt.model.sifl2.SIFEdge;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 

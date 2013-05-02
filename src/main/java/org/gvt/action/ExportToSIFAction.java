@@ -1,13 +1,14 @@
 package org.gvt.action;
 
 import org.biopax.paxtools.io.sif.BinaryInteractionType;
+import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
 import org.gvt.gui.ExportToSIFDialog;
-import org.gvt.model.sif.SIFGraph;
+import org.gvt.model.BioPAXGraph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +50,17 @@ public class ExportToSIFAction extends Action
 			return;
 		}
 
-		List<BinaryInteractionType> possibleRuleTypes = SIFGraph.getPossibleRuleTypes(
-			main.getOwlModel().getLevel());
+		List<BinaryInteractionType> possibleRuleTypes =
+			org.gvt.model.sifl2.SIFGraph.getPossibleRuleTypes(main.getOwlModel().getLevel());
 
 		ExportToSIFDialog dialog = new ExportToSIFDialog(main.getShell(),
 			possibleRuleTypes, ruleTypes);
 
 		if (dialog.open() && !ruleTypes.isEmpty())
 		{
-			SIFGraph sif = new SIFGraph(model, ruleTypes);
+			BioPAXGraph sif = model.getLevel() == BioPAXLevel.L3 ?
+			new org.gvt.model.sifl3.SIFGraph(model, ruleTypes) :
+			new org.gvt.model.sifl2.SIFGraph(model, ruleTypes);
 
 			int nodenum = sif.getNodes().size();
 			int edgenum = sif.getEdges().size();
