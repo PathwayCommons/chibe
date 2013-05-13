@@ -2,10 +2,10 @@ package org.gvt.action;
 
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.RelationshipXref;
-import org.cbio.causality.data.CBioPortalAccessor;
-import org.cbio.causality.data.CancerStudy;
-import org.cbio.causality.data.CaseList;
-import org.cbio.causality.data.GeneticProfile;
+import org.cbio.causality.data.portal.CBioPortalAccessor;
+import org.cbio.causality.data.portal.CancerStudy;
+import org.cbio.causality.data.portal.CaseList;
+import org.cbio.causality.data.portal.GeneticProfile;
 import org.cbio.causality.model.Alteration;
 import org.cbio.causality.model.AlterationPack;
 import org.cbio.causality.model.Change;
@@ -61,7 +61,7 @@ public class FetchFromCBioPortalAction extends Action {
         HashMap<String, String> geneNameToXrefStr = new HashMap<String, String>();
         Model model = main.getOwlModel();
         for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
-            if (xref.getDb().startsWith("HGNC")) {
+            if (xref.getDb() != null && xref.getDb().startsWith("HGNC")) {
                 String[] tokens = xref.getId().split(":");
                 // Is ist HGNC:GENE or HGNC:HGNC:123123
                 String geneName =
@@ -137,6 +137,9 @@ public class FetchFromCBioPortalAction extends Action {
         // TODO: optimize this and grab all results with single request.
         for (String gene : geneNames) {
             AlterationPack alterations = cBioPortalAccessor.getAlterations(gene);
+
+			if (alterations == null) continue;
+
             try {
                 Row row = expFactory.createRow();
                 Reference ref = expFactory.createReference();

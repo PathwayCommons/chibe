@@ -50,7 +50,8 @@ public class ExportToSIFAction extends Action
 			return;
 		}
 
-		List<BinaryInteractionType> possibleRuleTypes =
+		List<BinaryInteractionType> possibleRuleTypes = model.getLevel() == BioPAXLevel.L3 ?
+			org.gvt.model.sifl3.SIFGraph.getPossibleRuleTypes(main.getOwlModel().getLevel()) :
 			org.gvt.model.sifl2.SIFGraph.getPossibleRuleTypes(main.getOwlModel().getLevel());
 
 		ExportToSIFDialog dialog = new ExportToSIFDialog(main.getShell(),

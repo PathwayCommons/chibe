@@ -282,9 +282,10 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 			for (Xref xref : set)
 			{
-				if (xref.getDb().equalsIgnoreCase("HGNC"))
+				if (xref.getDb() != null && xref.getDb().equalsIgnoreCase("HGNC"))
 				{
 					String id = xref.getId();
+					if (id == null) continue;
 					if (id.contains(":")) id = id.substring(id.indexOf(":") + 1);
 
 					try

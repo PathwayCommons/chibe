@@ -1,6 +1,6 @@
 package org.gvt.gui;
 
-import org.cbio.causality.data.CBioPortalOptions;
+import org.cbio.causality.data.portal.CBioPortalOptions;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;

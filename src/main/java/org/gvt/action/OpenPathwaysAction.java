@@ -12,6 +12,7 @@ import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.PathwaySelectionDialog;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
+import org.gvt.util.Conf;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.util.XRef;
 
@@ -160,6 +161,7 @@ public class OpenPathwaysAction extends Action
 		assert p != null;
 
 		BioPAXGraph graph = main.getRootGraph().excise(p);
+
 		boolean layedout = graph.fetchLayout();
 		CTabItem tab = main.createNewTab(graph);
 
@@ -172,6 +174,11 @@ public class OpenPathwaysAction extends Action
 			{
 				new HighlightWithRefAction(main, (BioPAXGraph) root, refsToHighlight).run();
 			}
+		}
+
+		if (graph.getEdges().size() > Conf.getNumber(Conf.HIDE_COMPARTMENT_EDGE_THRESHOLD))
+		{
+			new HideCompartmentsAction(main).run();
 		}
 
 		if (!layedout)

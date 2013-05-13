@@ -1,9 +1,9 @@
 package org.gvt.gui;
 
-import org.cbio.causality.data.CBioPortalAccessor;
-import org.cbio.causality.data.CancerStudy;
-import org.cbio.causality.data.CaseList;
-import org.cbio.causality.data.GeneticProfile;
+import org.cbio.causality.data.portal.CBioPortalAccessor;
+import org.cbio.causality.data.portal.CancerStudy;
+import org.cbio.causality.data.portal.CaseList;
+import org.cbio.causality.data.portal.GeneticProfile;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -34,6 +34,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
             try {
                 CBioPortalAccessor.setPortalURL(Conf.get(Conf.CBIOPORTAL_URL));
                 ChisioMain.cBioPortalAccessor = new CBioPortalAccessor();
+				CBioPortalAccessor.setCacheDir(Conf.getPortalCacheDir());
             } catch (IOException e) {
                 MessageDialog.openError(main.getShell(),
                         "Error!",

@@ -27,7 +27,6 @@ import java.util.Set;
 public class HideCompartmentsAction extends Action
 {
 	CompoundModel root;
-	ChisioMain window = null;
 	ChisioMain main;
 
 	/**
@@ -35,7 +34,7 @@ public class HideCompartmentsAction extends Action
 	 */
 	public HideCompartmentsAction(ChisioMain main)
 	{
-		super("Hide All Compartments");
+		super("Hide Compartments");
 		this.setImageDescriptor(ImageDescriptor.createFromFile(
 			ChisioMain.class, "icon/delete-comp.gif"));
 		this.setToolTipText(getText());

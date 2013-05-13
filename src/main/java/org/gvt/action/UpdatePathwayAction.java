@@ -14,6 +14,7 @@ import org.gvt.model.BioPAXGraph;
 import org.gvt.model.IBioPAXEdge;
 import org.gvt.model.IBioPAXNode;
 import org.gvt.util.BioPAXReader;
+import org.gvt.util.Conf;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.graph.GraphObject;
 
@@ -46,6 +47,8 @@ public class UpdatePathwayAction extends Action
 	 */
 	private Collection<GraphObject> withContent;
 
+	private Boolean showCompartments;
+
 	public UpdatePathwayAction(ChisioMain main, boolean allOpenPathways)
 	{
 		super(allOpenPathways ? "Update All Open Pathways" : "Update Pathway");
@@ -65,6 +68,11 @@ public class UpdatePathwayAction extends Action
 	{
 		this(main, false);
 		this.withContent = withContent;
+	}
+
+	public void setShowCompartments(boolean showCompartments)
+	{
+		this.showCompartments = showCompartments;
 	}
 
 	// Replace graph
@@ -128,6 +136,13 @@ public class UpdatePathwayAction extends Action
 
 		// Replace the graph
 		viewer.setContents(newGraph);
+
+		if (showCompartments == null &&
+			newGraph.getEdges().size() > Conf.getNumber(Conf.HIDE_COMPARTMENT_EDGE_THRESHOLD) ||
+			(showCompartments != null && !showCompartments))
+		{
+			new HideCompartmentsAction(main).run();
+		}
 
 		// Use same layout
 		boolean layedout = newGraph.fetchLayout();
