@@ -1,6 +1,6 @@
 package org.gvt;
 
-import org.cbio.causality.data.CBioPortalAccessor;
+import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.*;
 import org.eclipse.jface.action.IMenuManager;

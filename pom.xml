@@ -6,10 +6,10 @@
 
 	<groupId>chibe</groupId>
 	<artifactId>chibe</artifactId>
-	<version>2.0</version>
+	<version>2.0.1-SNAPSHOT</version>
 
 	<properties>
-		<paxtools.version>4.1.7-SNAPSHOT</paxtools.version>
+		<paxtools.version>4.2.0-SNAPSHOT</paxtools.version>
 
 		<!--Below code is used for creating platform dependent builds. If you are creating a build
 			for a different platform, comment out the "profiles" section and comment in the below
@@ -22,7 +22,6 @@
         <info.appName>ChiBE</info.appName>
         <izpack.dir.app>${basedir}/src/main/izpack</izpack.dir.app>
         <staging.dir.app>${staging.dir}/appfiles</staging.dir.app>
-
 
     </properties>
 
@@ -55,11 +54,19 @@
 			<id>biopax.snapshots</id>
 			<name>BioPAX Snapshots Repository at Sourceforge</name>
 			<url>http://biopax.sourceforge.net/m2repo/snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
 		</repository>
 		<repository>
 			<id>chibe</id>
 			<name>Ozgun's Repository</name>
 			<url>http://cbio.mskcc.org/~ozgun/m2repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
 		</repository>
 		<repository>
 			<id>chilay-repo</id>
@@ -86,7 +93,7 @@
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>2.2-beta-5</version>
 					<configuration>
-						<finalName>ChiBE</finalName>
+						<finalName>ChiBE-${project.version}}</finalName>
 						<appendAssemblyId>false</appendAssemblyId>
 						<descriptorRefs>
 							<descriptorRef>jar-with-dependencies</descriptorRef>
@@ -233,7 +240,7 @@
         <dependency>
             <groupId>org.cbio</groupId>
             <artifactId>causality</artifactId>
-            <version>0.1</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>

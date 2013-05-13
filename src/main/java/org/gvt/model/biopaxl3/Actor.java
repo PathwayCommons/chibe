@@ -1,8 +1,8 @@
 package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.level3.*;
-import org.cbio.causality.data.CBioPortalAccessor;
-import org.cbio.causality.data.GeneticProfile;
+import org.cbio.causality.data.portal.CBioPortalAccessor;
+import org.cbio.causality.data.portal.GeneticProfile;
 import org.cbio.causality.model.Alteration;
 import org.cbio.causality.model.AlterationPack;
 import org.cbio.causality.model.Change;

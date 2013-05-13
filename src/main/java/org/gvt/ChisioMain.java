@@ -9,7 +9,7 @@ import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level3.EntityReference;
 import org.biopax.paxtools.model.level3.PhysicalEntity;
-import org.cbio.causality.data.CBioPortalAccessor;
+import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Layer;
