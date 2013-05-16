@@ -2,12 +2,9 @@ package org.gvt.action;
 
 import cpath.client.CPath2Client;
 import cpath.client.util.CPathException;
-import cpath.client.util.NoResultsFoundException;
-import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Pathway;
-import org.biopax.paxtools.model.level3.Xref;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
@@ -20,7 +17,6 @@ import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
-import org.patika.mada.graph.Node;
 import org.patika.mada.util.XRef;
 
 import java.util.*;
@@ -132,8 +128,8 @@ public abstract class QueryPCAction extends Action
             }
             catch (Exception e)
             {
-                if (e instanceof NoResultsFoundException ||
-                    e.getCause() instanceof NoResultsFoundException)
+                if (e instanceof CPathException ||
+                    e.getCause() instanceof CPathException)
                 {
                     alertNoResults();
                 }
@@ -246,6 +242,7 @@ public abstract class QueryPCAction extends Action
 	{
 		CPath2Client pc2 = CPath2Client.newInstance();
 		pc2.setEndPointURL(Conf.get(Conf.PATHWAY_COMMONS_URL));
+		pc2.setMergeEquivalentInteractions(true);
 		return pc2;
 	}
 	
