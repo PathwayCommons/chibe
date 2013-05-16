@@ -1,5 +1,6 @@
 package org.gvt.action;
 
+import org.biopax.paxtools.controller.ModelUtils;
 import org.biopax.paxtools.controller.SimpleEditorMap;
 import org.biopax.paxtools.controller.SimpleMerger;
 import org.biopax.paxtools.io.BioPAXIOHandler;
@@ -175,6 +176,7 @@ public class MergeAction extends Action
 
                 SimpleMerger merger = new SimpleMerger(SimpleEditorMap.get(target.getLevel()));
                 merger.merge(target, sources.toArray(new Model[sources.size()]));
+				ModelUtils.mergeEquivalentInteractions(target);
 
                 BioPAXReader reader = new BioPAXReader(target);
                 BioPAXGraph graph = (BioPAXGraph) reader.readXMLFile(null);
