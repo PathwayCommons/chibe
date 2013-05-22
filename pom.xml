@@ -9,7 +9,7 @@
 	<version>2.0.1-SNAPSHOT</version>
 
 	<properties>
-		<paxtools.version>4.2.0-SNAPSHOT</paxtools.version>
+		<paxtools.version>4.2.1-SNAPSHOT</paxtools.version>
 
 		<!--Below code is used for creating platform dependent builds. If you are creating a build
 			for a different platform, comment out the "profiles" section and comment in the below
@@ -255,7 +255,7 @@
         <dependency>
             <groupId>pathwaycommons.cpath</groupId>
             <artifactId>cpath-client</artifactId>
-            <version>4.0.0-SNAPSHOT</version>
+            <version>4.1.0-SNAPSHOT</version>
         </dependency>
 		<dependency>
 			<groupId>org.patika.mada</groupId>

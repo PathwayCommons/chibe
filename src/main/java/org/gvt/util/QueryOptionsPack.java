@@ -188,14 +188,20 @@ public class QueryOptionsPack implements Serializable
 
 	public List<String> getConvertedSourceList()
 	{
-		if (useID) return sourceList;
-		return getConvertedSymbols(sourceList);
+		// conversion may not be needed anymore
+		// todo check
+		return sourceList;
+//		if (useID) return sourceList;
+//		return getConvertedSymbols(sourceList);
 	}
 
 	public List<String> getConvertedTargetList()
 	{
-		if (useID) return targetList;
-		return getConvertedSymbols(targetList);
+		// convertion may not be needed anymore
+		// todo check
+		return targetList;
+//		if (useID) return targetList;
+//		return getConvertedSymbols(targetList);
 	}
 
 	public String getOneStringSources()

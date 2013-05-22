@@ -67,8 +67,8 @@ public class Conf
 	private static String getDefaultConfString()
 	{
 		String s = "";
-		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
-//		s += PATHWAY_COMMONS_URL + " = http://awabi.cbio.mskcc.org/cpath2/\n";
+//		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
+		s += PATHWAY_COMMONS_URL + " = http://purl.org/pc2/current/\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
 		s += CBIOPORTAL_USE_CACHE + " = true\n";
