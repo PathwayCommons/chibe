@@ -1,0 +1,15 @@
+// Do not change this part. First columns represent the generic term for the remaining reference names in the same row. 
+GB_ACCESSION	GenBank Accession	GB_ACC	GenBank	GB_LIST
+GENE_SYMBOL	Gene Symbol	Gene symbol	GENE_SYMBOL	Symbol	SYMBOL	symbol	GeneSymbol
+GENE_ID	Locuslink	Entrez Gene	Locuslink ID	Locuslink_ID	EntrezGeneID	ENTREZ_GENE_ID	ENTREZ_GENE	Entrez_Gene_ID	Entrez	NCBI Gene
+UNIGENE	UNIGENE	Unigene	Unigene_ID	Database DB:unigene
+OMIM	OMIM	MIM
+REF_SEQ_PROT_ID	Refseq prot	REF_SEQ	refseq	RefSeq	REF_SEQ_PROT_ID
+REF_SEQ_TRANSCRIPT_ID	Refseq trans	RefSeq Transcript ID
+ENSEMBLE_COLUMN	Ensembl Gene ID	Ensemble	Database DB:ensembl	ENSEMBL
+SWISSPROT	Swissprot	SWISSPROT	SwissProt	swissprot	SP_LIST	UniProt	UNIPROT	Uniprot	uniprot
+CPATH	CPATH
+HGNC	HGNC
+Key to data file(s)	ID	Key	KEY	Key to data file(s)
+
+// You can add your own reference matchings below. Please follow the notation above.
