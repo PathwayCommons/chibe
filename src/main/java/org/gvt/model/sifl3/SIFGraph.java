@@ -50,35 +50,38 @@ public class SIFGraph extends BioPAXGraph
 
 		for (SimpleInteraction simpleInt : simpleInts)
 		{
-			EntityHolder source = new EntityHolder(simpleInt.getSource());
-			EntityHolder target = new EntityHolder(simpleInt.getTarget());
+            if(simpleInt.getType() != null)
+            {
+                EntityHolder source = new EntityHolder(simpleInt.getSource());
+                EntityHolder target = new EntityHolder(simpleInt.getTarget());
 
-			if (!map.containsKey(source))
-			{
-				map.put(source, new SIFNode(this, source));
-			}
-			if (!map.containsKey(target))
-			{
-				map.put(target, new SIFNode(this, target));
-			}
-			SIFNode sourceNode = map.get(source);
-			SIFNode targetNode = map.get(target);
+                if (!map.containsKey(source))
+                {
+                    map.put(source, new SIFNode(this, source));
+                }
+                if (!map.containsKey(target))
+                {
+                    map.put(target, new SIFNode(this, target));
+                }
+                SIFNode sourceNode = map.get(source);
+                SIFNode targetNode = map.get(target);
 
-			String id = source.getID() + " - " + target.getID();
+                String id = source.getID() + " - " + target.getID();
 
-			if (encountered.contains(id))
-			{
-				continue;
-			}
+                if (encountered.contains(id))
+                {
+                    continue;
+                }
 
-			new SIFEdge(sourceNode, targetNode, simpleInt.getType().getTag());
+                new SIFEdge(sourceNode, targetNode, simpleInt.getType().getTag());
 
-			encountered.add(id);
+                encountered.add(id);
 
-			if (!simpleInt.getType().isDirected())
-			{
-				encountered.add(target.getID() + " - " + source.getID());
-			}
+                if (!simpleInt.getType().isDirected())
+                {
+                    encountered.add(target.getID() + " - " + source.getID());
+                }
+            }
 		}
 	}
 
