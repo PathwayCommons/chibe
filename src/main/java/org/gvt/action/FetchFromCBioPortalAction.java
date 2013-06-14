@@ -61,13 +61,9 @@ public class FetchFromCBioPortalAction extends Action {
         HashMap<String, String> geneNameToXrefStr = new HashMap<String, String>();
         Model model = main.getOwlModel();
         for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
-            if (xref.getDb() != null && xref.getDb().startsWith("HGNC")) {
-                String[] tokens = xref.getId().split(":");
-                // Is ist HGNC:GENE or HGNC:HGNC:123123
-                String geneName =
-                        (tokens.length > 1)
-                                ? HGNCUtil.getSymbol(Integer.parseInt(tokens[1].trim()))
-                                : tokens[0].trim();
+            if (xref.getDb() != null && xref.getDb().startsWith("HGNC"))
+			{
+                String geneName = HGNCUtil.getSymbolByID(xref.getId());
 
                 geneNames.add(geneName);
                 geneNameToXrefStr.put(geneName, xref.getId());

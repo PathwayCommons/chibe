@@ -54,7 +54,16 @@ public class QueryPCNeighborsAction extends QueryPCAction
 			CPath2Client.Direction.BOTHSTREAM: options.isUpstream() ?
 			CPath2Client.Direction.UPSTREAM : CPath2Client.Direction.DOWNSTREAM);
 
-		return pc2.getNeighborhood(symbols);
+		try
+		{
+			return pc2.getNeighborhood(symbols);
+		}
+		catch (Exception e)
+		{
+			//todo better handle empty results
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

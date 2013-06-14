@@ -431,12 +431,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				{
 					if (xr.getDb().startsWith("HGNC"))
 					{
-						String[] tokens = xr.getId().split(":");
-						// Is it HGNC:GENE or HGNC:HGNC:123123
-						geneName =
-							(tokens.length > 1)
-								? HGNCUtil.getSymbol(Integer.parseInt(tokens[1].trim()))
-								: tokens[0].trim();
+						geneName = HGNCUtil.getSymbolByID(xr.getId());
 					}
 				}
 			}
