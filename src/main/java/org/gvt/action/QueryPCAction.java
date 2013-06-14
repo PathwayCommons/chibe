@@ -65,7 +65,7 @@ public abstract class QueryPCAction extends Action
                 Model model = doQuery();
                 main.unlock();
 
-                if (model != null )
+                if (model != null)
                 {
                     if (!model.getObjects().isEmpty())
                     {
@@ -125,6 +125,10 @@ public abstract class QueryPCAction extends Action
                         alertNoResults();
                     }
                 }
+				else
+				{
+					alertNoResults();
+				}
             }
             catch (Exception e)
             {
