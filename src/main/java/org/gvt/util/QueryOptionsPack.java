@@ -161,15 +161,15 @@ public class QueryOptionsPack implements Serializable
 
 		for (String s : symbols)
 		{
-			Integer hgncid = HGNCUtil.getHGNCID(s);
+			String official = HGNCUtil.getOfficial(s);
 
-			if (hgncid == null)
+			if (official == null)
 			{
 				unknownSymbols.add(s);
 			}
 			else
 			{
-				list.add(SYMBOL_PREFIX + hgncid);
+				list.add(official);
 			}
 		}
 		return list;
@@ -188,20 +188,14 @@ public class QueryOptionsPack implements Serializable
 
 	public List<String> getConvertedSourceList()
 	{
-		// conversion may not be needed anymore
-		// todo check
-		return sourceList;
-//		if (useID) return sourceList;
-//		return getConvertedSymbols(sourceList);
+		if (useID) return sourceList;
+		return getConvertedSymbols(sourceList);
 	}
 
 	public List<String> getConvertedTargetList()
 	{
-		// convertion may not be needed anymore
-		// todo check
-		return targetList;
-//		if (useID) return targetList;
-//		return getConvertedSymbols(targetList);
+		if (useID) return targetList;
+		return getConvertedSymbols(targetList);
 	}
 
 	public String getOneStringSources()
