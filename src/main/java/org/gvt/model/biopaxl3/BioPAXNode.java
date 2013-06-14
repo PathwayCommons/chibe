@@ -286,17 +286,9 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 				{
 					String id = xref.getId();
 					if (id == null) continue;
-					if (id.contains(":")) id = id.substring(id.indexOf(":") + 1);
 
-					try
-					{
-						int i = Integer.parseInt(id);
-						sym = HGNCUtil.getSymbol(i);
-					}
-					catch (NumberFormatException e)
-					{
-						sym = id;
-					}
+					sym = HGNCUtil.getSymbolByID(id);
+
 					if (sym != null) break;
 				}
 			}
