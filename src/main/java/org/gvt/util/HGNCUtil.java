@@ -37,10 +37,11 @@ public class HGNCUtil
    		return id2sym.get(hgncID);
    	}
 	
-	public static String getOfficial(String symbol)
+	public static String getOfficial(String symbolOrID)
 	{
-		if (sym2id.containsKey(symbol)) return symbol;
-		else if (old2new.containsKey(symbol)) return old2new.get(symbol);
+		if (id2sym.containsKey(symbolOrID)) return id2sym.get(symbolOrID);
+		else if (sym2id.containsKey(symbolOrID)) return symbolOrID;
+		else if (old2new.containsKey(symbolOrID)) return old2new.get(symbolOrID);
 		else return null;
 	}
 	
