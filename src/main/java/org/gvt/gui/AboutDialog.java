@@ -96,7 +96,7 @@ public class AboutDialog extends Dialog
 		chisioLabel.setBackground(ColorConstants.white);
 		chisioLabel.setFont(
 			new Font(null, "Verdana", 16, SWT.BOLD | SWT.ITALIC));
-		chisioLabel.setText(ChisioMain.TOOL_NAME + "\nversion 2.0");
+		chisioLabel.setText(ChisioMain.TOOL_NAME + "\nversion 2.1");
 
 		Label compoundOrHierarchicalLabel = new Label(shell, SWT.NONE);
 		compoundOrHierarchicalLabel.setLayoutData(
@@ -128,6 +128,6 @@ public class AboutDialog extends Dialog
 		mail.setBackground(ColorConstants.white);
 		mail.setAlignment(SWT.CENTER);
 		mail.setText("ivis@cs.bilkent.edu.tr\n" +
-			"http://www.bilkent.edu.tr/~bcbi/chibe.html");
+			"http://www.cs.bilkent.edu.tr/~ivis/chibe.html");
 	}
 }
