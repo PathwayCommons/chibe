@@ -241,7 +241,7 @@ public class FetchFromCBioPortalDialog extends Dialog {
             for (GeneticProfile geneticProfile : ChisioMain.cBioPortalAccessor.getGeneticProfilesForCurrentStudy()) {
                 switch(geneticProfile.getType()) {
                     case MRNA_EXPRESSION:
-                        if(!geneticProfile.getId().toLowerCase().endsWith("median_zscores")) break;
+                        if(!geneticProfile.getId().toLowerCase().endsWith("_zscores")) break;
                     case COPY_NUMBER_ALTERATION:
                     case MUTATION_EXTENDED:
                         genomicProfilesList.add(geneticProfile.getName());
