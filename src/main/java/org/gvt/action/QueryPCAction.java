@@ -244,6 +244,7 @@ public abstract class QueryPCAction extends Action
 
 	protected CPath2Client getPCClient()
 	{
+		System.setProperty("cPath2Url", Conf.get(Conf.PATHWAY_COMMONS_URL));
 		CPath2Client pc2 = CPath2Client.newInstance();
 
 		// Setting endpoint url disabled temporarily. New PC client uses the latest url

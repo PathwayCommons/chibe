@@ -54,7 +54,6 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 		LocalNeighborhood();
 	}
 
-
 	public void LocalNeighborhood()
 	{
 		Model owlModel = this.main.getOwlModel();

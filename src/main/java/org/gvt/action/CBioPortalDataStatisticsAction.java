@@ -9,6 +9,7 @@ import org.gvt.ChisioMain;
 import org.gvt.inspector.CBioPortalInspector;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.Actor;
+import org.gvt.model.biopaxl3.BioPAXNode;
 
 import java.util.*;
 
@@ -26,11 +27,19 @@ public class CBioPortalDataStatisticsAction extends Action {
         execute();
     }
 
-    public void execute() {
+    public void execute()
+	{
         Set<NodeModel> selectedNodes = getSelectedNodes();
-        for (NodeModel node : selectedNodes) {
-            if(node instanceof Actor) {
-                CBioPortalInspector.getInstance(node, ((Actor) node).getName() + ": Data Details", main);
+        for (NodeModel node : selectedNodes)
+		{
+            if(node instanceof Actor)
+			{
+				String symbol = BioPAXNode.extractGeneSymbol(((Actor) node).getEntity().l3pe);
+
+				if (symbol != null)
+				{
+					CBioPortalInspector.getInstance(node, symbol + ": Data Details", main);
+				}
             }
         }
 

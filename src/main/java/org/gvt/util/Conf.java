@@ -68,8 +68,8 @@ public class Conf
 	{
 		String s = "";
 //		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
-//		s += PATHWAY_COMMONS_URL + " = http://purl.org/pc2/current/\n";
-		s += PATHWAY_COMMONS_URL + " = http://webservice.baderlab.org:48080/\n";
+		s += PATHWAY_COMMONS_URL + " = http://purl.org/pc2/current/\n";
+//		s += PATHWAY_COMMONS_URL + " = http://webservice.baderlab.org:48080/\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
 		s += CBIOPORTAL_USE_CACHE + " = true\n";
