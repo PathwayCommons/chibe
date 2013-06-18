@@ -239,10 +239,10 @@ public class FetchFromCBioPortalDialog extends Dialog {
             genomicProfilesList.removeAll();
             supportedProfiles.clear();
             for (GeneticProfile geneticProfile : ChisioMain.cBioPortalAccessor.getGeneticProfilesForCurrentStudy()) {
-                // Currently we only support these guys
                 switch(geneticProfile.getType()) {
-                    case COPY_NUMBER_ALTERATION:
                     case MRNA_EXPRESSION:
+                        if(!geneticProfile.getId().toLowerCase().endsWith("median_zscores")) break;
+                    case COPY_NUMBER_ALTERATION:
                     case MUTATION_EXTENDED:
                         genomicProfilesList.add(geneticProfile.getName());
                         supportedProfiles.add(geneticProfile);
