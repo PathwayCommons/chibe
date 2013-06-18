@@ -266,7 +266,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		return txt;
 	}
 
-	protected static String extractGeneSymbol(BioPAXElement ent)
+	public static String extractGeneSymbol(BioPAXElement ent)
 	{
 		String sym = null;
 
@@ -282,12 +282,12 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 			for (Xref xref : set)
 			{
-				if (xref.getDb() != null && xref.getDb().equalsIgnoreCase("HGNC"))
+				if (xref.getDb() != null && xref.getDb().toLowerCase().startsWith("hgnc"))
 				{
 					String id = xref.getId();
 					if (id == null) continue;
 
-					sym = HGNCUtil.getSymbolByID(id);
+					sym = HGNCUtil.getOfficial(id);
 
 					if (sym != null) break;
 				}
