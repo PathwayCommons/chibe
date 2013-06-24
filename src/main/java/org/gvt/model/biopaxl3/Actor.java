@@ -446,7 +446,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		{
 
 			// Add data profile details
-			list.add(new String[]{"Cancer Study", portalAccessor.getCurrentCancerStudy().getName()});
+			list.add(new String[]{"Cancer study", portalAccessor.getCurrentCancerStudy().getName()});
 			String profilesStr = "";
 			for (GeneticProfile geneticProfile : portalAccessor.getCurrentGeneticProfiles())
 			{
