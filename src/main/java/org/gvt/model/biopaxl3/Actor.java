@@ -16,14 +16,11 @@ import org.gvt.model.EntityAssociated;
 import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.HGNCUtil;
-import org.ivis.layout.Cluster;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 import org.patika.mada.util.ExperimentData;
-import org.patika.mada.util.ExperimentDataManager;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -431,7 +428,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				{
 					if (xr.getDb() != null && xr.getDb().toLowerCase().startsWith("hgnc"))
 					{
-						geneName = HGNCUtil.getOfficial(xr.getId());
+						geneName = HGNCUtil.getSymbol(xr.getId());
 						if (geneName != null) break;
 					}
 				}

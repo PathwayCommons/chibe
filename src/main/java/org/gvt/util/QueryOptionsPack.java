@@ -161,7 +161,7 @@ public class QueryOptionsPack implements Serializable
 
 		for (String s : symbols)
 		{
-			String official = HGNCUtil.getOfficial(s);
+			String official = HGNCUtil.getSymbol(s);
 
 			if (official == null)
 			{

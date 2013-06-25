@@ -63,7 +63,7 @@ public class FetchFromCBioPortalAction extends Action {
         for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
             if (xref.getDb() != null && xref.getDb().startsWith("HGNC"))
 			{
-                String geneName = HGNCUtil.getOfficial(xref.getId());
+                String geneName = HGNCUtil.getSymbol(xref.getId());
 
 				if (geneName != null && !geneNames.contains(geneName))
 				{

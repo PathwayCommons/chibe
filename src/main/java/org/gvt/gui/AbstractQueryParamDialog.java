@@ -625,7 +625,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			for (String s : st.getSymbols())
 			{
-				if (!HGNCUtil.isKnown(s) && !unkwn.contains(s)) unkwn.add(s);
+				if (HGNCUtil.getSymbol(s) == null && !unkwn.contains(s)) unkwn.add(s);
 			}
 		}
 	}
