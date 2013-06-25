@@ -44,19 +44,24 @@ public class SaveToSIFFileAction extends Action
 		String fileName = null;
 		boolean done = false;
 
-		SIFGraph sifGraph = null;
+		org.gvt.model.sifl2.SIFGraph sifL2Graph = null;
+		org.gvt.model.sifl3.SIFGraph sifL3Graph = null;
 		BasicSIFGraph basicSifGraph = null;
 
-		if (main.getPathwayGraph().getGraphType().equals(BioPAXGraph.SIF))
+		if (main.getPathwayGraph().getGraphType().equals(BioPAXGraph.SIF_LEVEL2))
 		{
-			sifGraph = (SIFGraph) main.getPathwayGraph();
+			sifL2Graph = (org.gvt.model.sifl2.SIFGraph) main.getPathwayGraph();
+		}
+		if (main.getPathwayGraph().getGraphType().equals(BioPAXGraph.SIF_LEVEL3))
+		{
+			sifL3Graph = (org.gvt.model.sifl3.SIFGraph) main.getPathwayGraph();
 		}
 		else if (main.getPathwayGraph().getGraphType().equals(BioPAXGraph.BASIC_SIF))
 		{
 			basicSifGraph = (BasicSIFGraph) main.getPathwayGraph();
 		}
 
-		if (sifGraph == null && basicSifGraph == null)
+		if (sifL2Graph == null && sifL3Graph == null && basicSifGraph == null)
 		{
 			MessageDialog.openError(main.getShell(), "Not A Valid View!",
 				"Only Simple Interaction Views can be written in SIF format.");
@@ -133,9 +138,13 @@ public class SaveToSIFFileAction extends Action
 		{
 			OutputStream os = new FileOutputStream(fileName);
 
-			if (sifGraph != null)
+			if (sifL2Graph != null)
 			{
-				sifGraph.write(os);
+				sifL2Graph.write(os);
+			}
+			else if (sifL3Graph != null)
+			{
+				sifL3Graph.write(os);
 			}
 			else if (basicSifGraph != null)
 			{

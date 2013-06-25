@@ -410,7 +410,8 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 	// Graph types
 
 	public static final String PROCESS_DIAGRAM = "PROCESS_DIAGRAM";
-	public static final String SIF = "SIF";
+	public static final String SIF_LEVEL2 = "SIF_LEVEL2";
+	public static final String SIF_LEVEL3 = "SIF_LEVEL3";
 	public static final String BASIC_SIF = "BASIC_SIF";
 
 }

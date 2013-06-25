@@ -32,7 +32,7 @@ public class SIFGraph extends BioPAXGraph
 	public SIFGraph(Model biopaxModel, List<BinaryInteractionType> ruleTypes)
 	{
 		setBiopaxModel(biopaxModel);
-		setGraphType(SIF);
+		setGraphType(SIF_LEVEL3);
 		this.ruleTypes = ruleTypes;
 
 		createContents();

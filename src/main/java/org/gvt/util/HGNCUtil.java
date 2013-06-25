@@ -15,44 +15,18 @@ public class HGNCUtil
     private static Map<String, String> id2sym;
 	private static Map<String, String> old2new;
 
-	public static void main(String[] args)
-	{
-		System.out.println(getHGNCID("BAX"));
-	}
-
 	/**
-	 * Provides HGNC ID of the given approved gene symbol.
-	 * @param symbol
-	 * @return
+	 * Gets the latest approved official symbol related to the given ID or symbol. If the parameter
+	 * is ID, then it should start with "HGNC:".
+	 * @param symbolOrID HGNC ID, symbol, or a previous symbol
+	 * @return latest symbol
 	 */
-	public static String getHGNCID(String symbol)
-	{
-		symbol = getOfficial(symbol);
-		if (symbol != null) return sym2id.get(symbol);
-		return null;
-	}
-
-    public static String getSymbolByID(String hgncID)
-   	{
-   		return id2sym.get(hgncID);
-   	}
-	
-	public static String getOfficial(String symbolOrID)
+	public static String getSymbol(String symbolOrID)
 	{
 		if (id2sym.containsKey(symbolOrID)) return id2sym.get(symbolOrID);
 		else if (sym2id.containsKey(symbolOrID)) return symbolOrID;
 		else if (old2new.containsKey(symbolOrID)) return old2new.get(symbolOrID);
 		else return null;
-	}
-	
-	public static boolean idExists(String id)
-	{
-		return id2sym.containsKey(id);
-	}
-
-	public static boolean isKnown(String symbol)
-	{
-		return sym2id.containsKey(symbol) || old2new.containsKey(symbol);
 	}
 
 	static
