@@ -77,6 +77,15 @@
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>pattern-repo</id>
+			<name>Repository for pattern project</name>
+			<url>http://maven-repo.biopax-pattern.googlecode.com/hg/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<build>
@@ -246,6 +255,11 @@
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>sif-converter</artifactId>
 			<version>${paxtools.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.biopax.paxtools</groupId>
+			<artifactId>pattern</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
         <dependency>
             <groupId>org.ivis</groupId>

@@ -1,6 +1,6 @@
 package org.gvt.model.sifl3;
 
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.biopaxl3.BioPAXEdge;
 import org.gvt.model.biopaxl3.IBioPAXL3Node;
@@ -75,7 +75,7 @@ public class SIFEdge extends BioPAXEdge
 
 	public static class EdgeType
 	{
-		BinaryInteractionType intType;
+		SIFType intType;
 		String tag;
 		Color color;
 		boolean solid;
@@ -83,7 +83,7 @@ public class SIFEdge extends BioPAXEdge
 		int sign;
 		boolean noDistance;
 
-		private EdgeType(BinaryInteractionType intType, Color color, boolean solid, int sign,
+		private EdgeType(SIFType intType, Color color, boolean solid, int sign,
 			boolean noDistance)
 		{
 			this.intType = intType;
@@ -116,7 +116,7 @@ public class SIFEdge extends BioPAXEdge
 			return directed;
 		}
 
-		public BinaryInteractionType getIntType()
+		public SIFType getIntType()
 		{
 			return intType;
 		}
@@ -170,32 +170,18 @@ public class SIFEdge extends BioPAXEdge
 	{
 		typeMap = new HashMap<String, EdgeType>();
 		
-		addType(new EdgeType(BinaryInteractionType.INTERACTS_WITH,
-			new Color(null, 200, 0, 0), SOLID, NO_SIGN, false));
-		addType(new EdgeType(BinaryInteractionType.REACTS_WITH,
-			new Color(null, 0, 150, 0), SOLID, NO_SIGN, false));
-		addType(new EdgeType(BinaryInteractionType.IN_SAME_COMPONENT,
-			new Color(null, 0, 0, 250), SOLID, NO_SIGN, false));
-		addType(new EdgeType(BinaryInteractionType.COMPONENT_OF,
-			new Color(null, 100, 100, 100), DASHED, POSITIVE, true));
-		addType(new EdgeType(BinaryInteractionType.STATE_CHANGE,
-			new Color(null, 0, 50, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(BinaryInteractionType.METABOLIC_CATALYSIS,
-			new Color(null, 250, 0, 250), SOLID, NO_SIGN, false));
-		addType(new EdgeType(BinaryInteractionType.SEQUENTIAL_CATALYSIS,
+		addType(new EdgeType(SIFType.INTERACTS_WITH,
+			new Color(null, 100, 150, 100), SOLID, NO_SIGN, false));
+		addType(new EdgeType(SIFType.IN_SAME_COMPLEX,
+			new Color(null, 150, 150, 150), SOLID, NO_SIGN, false));
+		addType(new EdgeType(SIFType.CONTROLS_STATE_CHANGE,
+			new Color(null, 50, 100, 150), SOLID, NO_SIGN, false));
+		addType(new EdgeType(SIFType.CONSEQITIVE_CATALYSIS,
 			new Color(null, 150, 50, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(BinaryInteractionType.CO_CONTROL,
-			new Color(null, 100, 100, 0), SOLID, POSITIVE, false));
-		addType(new EdgeType(BinaryInteractionType.ACTIVATES,
-			new Color(null, 100, 200, 0), SOLID, POSITIVE, false));
-		addType(new EdgeType(BinaryInteractionType.INACTIVATES,
-			new Color(null, 200, 100, 0), SOLID, NEGATIVE, false));
-		addType(new EdgeType(BinaryInteractionType.GENERIC_OF,
-			new Color(null, 150, 150, 0), SOLID, POSITIVE, true));
-        addType(new EdgeType(BinaryInteractionType.DOWNREGULATE_EXPRESSION,
-                new Color(null, 250, 50, 50), SOLID, NEGATIVE, false));
-        addType(new EdgeType(BinaryInteractionType.UPREGULATE_EXPRESSION,
-                new Color(null, 50, 50, 200), SOLID, POSITIVE, false));
+        addType(new EdgeType(SIFType.CONTROLS_EXPRESSION,
+                new Color(null, 50, 150, 50), DASHED, NO_SIGN, false));
+        addType(new EdgeType(SIFType.CONTROLS_DEGRADATION,
+                new Color(null, 150, 50, 50), SOLID, NO_SIGN, false));
 
 
         // Non-Paxtools SIF edges

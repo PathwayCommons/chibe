@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class ExportToSIFDialog extends Dialog
+public class ExportToSIFL2Dialog extends Dialog
 {
 	/**
 	 * Supported rules.
@@ -55,7 +55,7 @@ public class ExportToSIFDialog extends Dialog
 	 * @param possibleRules rule types that user might to use
 	 * @param selectedRules list of checked rules, may be empty when passed, will be filled by user
 	 */
-	public ExportToSIFDialog(Shell shell,
+	public ExportToSIFL2Dialog(Shell shell,
 		List<BinaryInteractionType> possibleRules,
 		List<BinaryInteractionType> selectedRules)
 	{
