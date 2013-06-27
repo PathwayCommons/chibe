@@ -1,11 +1,11 @@
 package org.gvt.model.sifl3;
 
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
-import org.biopax.paxtools.io.sif.InteractionRule;
-import org.biopax.paxtools.io.sif.SimpleInteraction;
-import org.biopax.paxtools.io.sif.SimpleInteractionConverter;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.pattern.miner.SIFInteraction;
+import org.biopax.paxtools.pattern.miner.SIFMiner;
+import org.biopax.paxtools.pattern.miner.SIFSearcher;
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
@@ -27,9 +27,9 @@ import java.util.*;
  */
 public class SIFGraph extends BioPAXGraph
 {
-	private List<BinaryInteractionType> ruleTypes;
+	private List<SIFType> ruleTypes;
 
-	public SIFGraph(Model biopaxModel, List<BinaryInteractionType> ruleTypes)
+	public SIFGraph(Model biopaxModel, List<SIFType> ruleTypes)
 	{
 		setBiopaxModel(biopaxModel);
 		setGraphType(SIF_LEVEL3);
@@ -40,7 +40,7 @@ public class SIFGraph extends BioPAXGraph
 
 	private void createContents()
 	{
-		Set<SimpleInteraction> simpleInts = getSimpleInteractions(biopaxModel.getLevel());
+		Set<SIFInteraction> sifInts = getSimpleInteractions();
 
 		// Map to remember created nodes
 		Map<EntityHolder, SIFNode> map = new HashMap<EntityHolder, SIFNode>();
@@ -48,12 +48,12 @@ public class SIFGraph extends BioPAXGraph
 		// Encountered rules. For avoiding duplicate edges.
 		Set<String> encountered = new HashSet<String>();
 
-		for (SimpleInteraction simpleInt : simpleInts)
+		for (SIFInteraction simpleInt : sifInts)
 		{
-            if(simpleInt.getType() != null)
+            if(simpleInt.type != null)
             {
-                EntityHolder source = new EntityHolder(simpleInt.getSource());
-                EntityHolder target = new EntityHolder(simpleInt.getTarget());
+                EntityHolder source = new EntityHolder(simpleInt.source);
+                EntityHolder target = new EntityHolder(simpleInt.target);
 
                 if (!map.containsKey(source))
                 {
@@ -73,11 +73,11 @@ public class SIFGraph extends BioPAXGraph
                     continue;
                 }
 
-                new SIFEdge(sourceNode, targetNode, simpleInt.getType().getTag());
+                new SIFEdge(sourceNode, targetNode, simpleInt.type.getTag());
 
                 encountered.add(id);
 
-                if (!simpleInt.getType().isDirected())
+                if (!simpleInt.type.isDirected())
                 {
                     encountered.add(target.getID() + " - " + source.getID());
                 }
@@ -85,66 +85,19 @@ public class SIFGraph extends BioPAXGraph
 		}
 	}
 
-	private Set<SimpleInteraction> getSimpleInteractions(BioPAXLevel level)
+	private Set<SIFInteraction> getSimpleInteractions()
 	{
-		Map<BinaryInteractionType, InteractionRule> ruleMap =
-			new HashMap<BinaryInteractionType, InteractionRule>();
-
-		for (InteractionRule rule : SimpleInteractionConverter.getRules(level))
-		{
-			for (BinaryInteractionType ruleType : rule.getRuleTypes())
-			{
-				if (ruleTypes.contains(ruleType))
-				{
-					ruleMap.put(ruleType, rule);
-				}
-			}
-		}
-
-		Set<InteractionRule> ruleSet = new HashSet<InteractionRule>();
-
-		for (BinaryInteractionType ruleType : ruleTypes)
-		{
-			ruleSet.add(ruleMap.get(ruleType));
-		}
-
-		InteractionRule[] rules = ruleSet.toArray(new InteractionRule[ruleSet.size()]);
-
-		// Prepare options map
-
-		Map<BinaryInteractionType, Boolean> options = new HashMap<BinaryInteractionType, Boolean>();
-
-		for (BinaryInteractionType ruleType : getPossibleRuleTypes(biopaxModel.getLevel()))
-		{
-			options.put(ruleType, ruleTypes.contains(ruleType));
-		}
-
-		SimpleInteractionConverter converter = new SimpleInteractionConverter(options, rules);
-		return converter.inferInteractions(this.getBiopaxModel());
+		SIFSearcher searcher = new SIFSearcher(ruleTypes.toArray(new SIFType[ruleTypes.size()]));
+		return searcher.searchSIF(biopaxModel);
 	}
 
 	/**
 	 * Extracts rule types from possible rule classes.
 	 * @return possible rule types
 	 */
-	public static List<BinaryInteractionType> getPossibleRuleTypes(BioPAXLevel level)
+	public static List<SIFType> getPossibleRuleTypes()
 	{
-		List<BinaryInteractionType> rules = new ArrayList<BinaryInteractionType>();
-
-		for (InteractionRule rule : SimpleInteractionConverter.getRules(level))
-		{
-			for (BinaryInteractionType ruleType : rule.getRuleTypes())
-			{
-				rules.add(ruleType);
-			}
-		}
-
-		return rules;
-	}
-
-	public List<BinaryInteractionType> getRuleTypes()
-	{
-		return ruleTypes;
+		return Arrays.asList(SIFType.values());
 	}
 
 	public void write(OutputStream os)

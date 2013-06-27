@@ -76,17 +76,20 @@ public class SaveToSIFFileAction extends Action
 			// Do not let user to overwrite a non-graphml file by default
 
 			String currentFilename = main.getOwlFileName();
-			if (!currentFilename.endsWith(".sif"))
+			if (currentFilename != null)
 			{
-				if (currentFilename.indexOf(".") > 0)
+				if (!currentFilename.endsWith(".sif"))
 				{
-					currentFilename = currentFilename.substring(
-						0, currentFilename.lastIndexOf("."));
+					if (currentFilename.indexOf(".") > 0)
+					{
+						currentFilename = currentFilename.substring(
+							0, currentFilename.lastIndexOf("."));
+					}
+					currentFilename += ".sif";
 				}
-				currentFilename += ".sif";
-			}
 
-			fileChooser.setFileName(currentFilename);
+				fileChooser.setFileName(currentFilename);
+			}
 
 			String[] filterExtensions = new String[]{"*.sif"};
 			String[] filterNames = new String[]{"Simple Interaction Format (*.sif)"};
