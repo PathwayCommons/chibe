@@ -176,7 +176,7 @@ public class SIFEdge extends BioPAXEdge
 			new Color(null, 150, 150, 150), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFType.CONTROLS_STATE_CHANGE,
 			new Color(null, 50, 100, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.CONSEQITIVE_CATALYSIS,
+		addType(new EdgeType(SIFType.CONSECUTIVE_CATALYSIS,
 			new Color(null, 150, 50, 150), SOLID, NO_SIGN, false));
         addType(new EdgeType(SIFType.CONTROLS_EXPRESSION,
                 new Color(null, 50, 150, 50), DASHED, NO_SIGN, false));
