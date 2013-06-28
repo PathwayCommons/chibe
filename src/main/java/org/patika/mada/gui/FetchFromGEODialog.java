@@ -1,5 +1,8 @@
 package org.patika.mada.gui;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -12,6 +15,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.util.Conf;
+import sun.net.www.protocol.ftp.FtpURLConnection;
 
 import java.io.*;
 import java.net.URL;
@@ -455,7 +459,6 @@ public class FetchFromGEODialog extends Dialog
 
 			rdr.close();
 
-
 			BufferedReader[] reader = new BufferedReader[count];
 
 			for (int i = 0; i < count; i++)
@@ -506,10 +509,16 @@ public class FetchFromGEODialog extends Dialog
 
 	private boolean downloadCompressedFile(String address, String saveFile) throws IOException
 	{
+		if (address.startsWith("ftp://"))
+			return downloadCompressedFileThroughFTP(address, saveFile);
+
 		try
 		{
 			URL url = new URL(address);
 			URLConnection con = url.openConnection();
+
+//			if (con instanceof )
+
 			GZIPInputStream in = new GZIPInputStream(con.getInputStream());
 	
 			// Open the output file
@@ -531,7 +540,52 @@ public class FetchFromGEODialog extends Dialog
 
 			return lines > 0;
 		}
-		catch (IOException e){return false;}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private boolean downloadCompressedFileThroughFTP(String address, String saveFile) throws IOException
+	{
+		try
+		{
+			FTPClient fc = new FTPClient();
+
+			String host = address.substring(6, address.indexOf("/", 7));
+			String fileloc = address.substring(address.indexOf("/", 7));
+
+			fc.connect(host);
+			fc.enterLocalPassiveMode();
+			fc.setRemoteVerificationEnabled(false);
+			fc.login("anonymous", "");
+			fc.setFileType(FTP.BINARY_FILE_TYPE);
+
+			InputStream is = new GZIPInputStream(fc.retrieveFileStream(fileloc));
+			OutputStream out = new FileOutputStream(saveFile);
+
+			int length = 0;
+
+			byte[] buffer = new byte[65536];
+			int noRead;
+
+			while ((noRead = is.read(buffer)) > 0) {
+				out.write(buffer, 0, noRead);
+				length += noRead;
+			}
+
+			is.close();
+			fc.disconnect();
+			out.close();
+
+			return length > 0;
+		}
+		catch (IOException e)
+		{
+//			e.printStackTrace();
+			return false;
+		}
 	}
 
 	private java.util.List<String> getMultiplePlatforms(String series)
@@ -591,15 +645,31 @@ public class FetchFromGEODialog extends Dialog
 	{
 		java.util.List<String> list = new ArrayList<String>();
 
-		URL url = new URL(ftpDir);
-		URLConnection con = url.openConnection();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		for (String line = reader.readLine(); line != null; line = reader.readLine())
-		{
-			list.add(line);
+		FTPClient fc = new FTPClient();
+
+		String host = ftpDir.substring(6, ftpDir.indexOf("/", 7));
+
+		String dir = ftpDir.substring(ftpDir.indexOf("/", 7));
+
+		fc.connect(host);
+		fc.enterLocalPassiveMode();
+		fc.setRemoteVerificationEnabled(false);
+		fc.login("anonymous", "");
+
+//		URL url = new URL(ftpDir);
+//		URLConnection con = url.openConnection();
+//		BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//		for (String line = reader.readLine(); line != null; line = reader.readLine())
+//		{
+//			list.add(line);
+//		}
+//		reader.close();
+
+		FTPFile[] ftpFiles = fc.listFiles(dir);
+		for (FTPFile file : ftpFiles) {
+			list.add(file.getName());
 		}
-		reader.close();
-		
+
 		String[] files = list.toArray(new String[list.size()]);
 		for (int i = 0; i < files.length; i++)
 		{
@@ -650,16 +720,12 @@ public class FetchFromGEODialog extends Dialog
 				URL url = new URL(URLname);
 				URLConnection con = url.openConnection();
 
-				BufferedReader reader;
+				BufferedReader reader = new BufferedReader(
+					new InputStreamReader(con.getInputStream()));
+
 				BufferedWriter writer = new BufferedWriter(new FileWriter(platformFile));
 
-				do
-				{
-					reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				}
-				while (reader == null);
-
-				String currentRead = "";
+				String currentRead;
 
 				while((currentRead = reader.readLine()) != null)
 				{
