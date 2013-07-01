@@ -15,7 +15,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.util.Conf;
-import sun.net.www.protocol.ftp.FtpURLConnection;
 
 import java.io.*;
 import java.net.URL;

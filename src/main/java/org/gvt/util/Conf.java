@@ -67,8 +67,8 @@ public class Conf
 	private static String getDefaultConfString()
 	{
 		String s = "";
-//		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
-		s += PATHWAY_COMMONS_URL + " = http://purl.org/chibe/pc2/\n";
+		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
+//		s += PATHWAY_COMMONS_URL + " = http://purl.org/chibe/pc2/\n";
 //		s += PATHWAY_COMMONS_URL + " = http://webservice.baderlab.org:48080/\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
