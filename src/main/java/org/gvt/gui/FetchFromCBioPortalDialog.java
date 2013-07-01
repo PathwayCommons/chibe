@@ -18,11 +18,12 @@ import org.gvt.util.Conf;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FetchFromCBioPortalDialog extends Dialog {
     private ChisioMain main;
     private Shell shell;
-    private static int[] memorizeChoices = {-1, -1, -1};
+    private static int[] memorizeChoices = null;
 
     public FetchFromCBioPortalDialog(ChisioMain main) {
         super(main.getShell(), SWT.NONE);
@@ -197,10 +198,15 @@ public class FetchFromCBioPortalDialog extends Dialog {
                 }
 
                 // Remember these for the next time
+				int profileCnt = genomicProfilesList.getSelectionCount();
+				memorizeChoices = new int[profileCnt + 2];
                 memorizeChoices[0] = ChisioMain.cBioPortalAccessor.getCancerStudies()
                         .indexOf(ChisioMain.cBioPortalAccessor.getCurrentCancerStudy());
                 memorizeChoices[1] = selectionIndex;
-                memorizeChoices[2] = genomicProfilesList.getSelectionIndex();
+				for (int i = 0; i < profileCnt; i++)
+				{
+					memorizeChoices[i + 2] = genomicProfilesList.getSelectionIndices()[i];
+				}
 
                 // Load data inside action, not here; so let's close this dialog first.
                 shell.close();
@@ -214,11 +220,13 @@ public class FetchFromCBioPortalDialog extends Dialog {
         });
 
         // If we saved the options, then select those before the user does.
-		if(memorizeChoices[0] != -1) {
+		if(memorizeChoices != null) {
             studyCombo.select(memorizeChoices[0]);
             selectCancerStudy(studyCombo, caseListCombo, genomicProfilesList, supportedProfiles);
             caseListCombo.select(memorizeChoices[1]);
-            genomicProfilesList.select(memorizeChoices[2]);
+			int[] select = new int[memorizeChoices.length - 2];
+			System.arraycopy(memorizeChoices, 2, select, 0, select.length);
+            genomicProfilesList.select(select);
             loadDataButton.setEnabled(true);
         }
     }
