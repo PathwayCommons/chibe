@@ -648,6 +648,8 @@ public class ExperimentDataManager
 	 */
 	public void clearExperimentData(Graph graph)
 	{
+		assert graph != null;
+
 		for (Node node : graph.getNodes())
 		{
 			if (node.hasLabel(type))

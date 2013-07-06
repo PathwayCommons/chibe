@@ -2,7 +2,10 @@ package org.gvt.inspector;
 
 import org.gvt.ChisioMain;
 import org.gvt.model.GraphObject;
+import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.model.biopaxl3.Actor;
+import org.gvt.model.biopaxl3.BioPAXNode;
+import org.gvt.model.sifl3.SIFNode;
 
 public class CBioPortalInspector extends Inspector
 {
@@ -17,9 +20,9 @@ public class CBioPortalInspector extends Inspector
 	private void prepareForGraphObject()
 	{
 		org.patika.mada.graph.GraphObject go = (org.patika.mada.graph.GraphObject) model;
-		if (go instanceof Actor)
+		if (go instanceof Actor || go instanceof BasicSIFNode || go instanceof SIFNode)
 		{
-			for (String[] property : ((Actor) go).getDataInspectable(main))
+			for (String[] property : ((BioPAXNode) go).getCBioDataInspectable(main))
 			{
 				addRow(table, property[0]).setText(1, property[1]);
 			}

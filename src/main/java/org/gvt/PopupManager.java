@@ -8,7 +8,13 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.gvt.action.*;
 import org.gvt.editpart.ChsEdgeEditPart;
+import org.gvt.model.EdgeModel;
+import org.gvt.model.basicsif.BasicSIFEdge;
+import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.model.biopaxl3.Actor;
+import org.gvt.model.sifl3.SIFEdge;
+import org.gvt.model.sifl3.SIFNode;
+import org.gvt.util.HGNCUtil;
 import org.patika.mada.util.ExperimentData;
 
 /**
@@ -93,7 +99,7 @@ public class PopupManager extends MenuManager
             Object model = nep.getModel();
             CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
 
-            if( model instanceof Actor
+            if( (model instanceof Actor || model instanceof BasicSIFNode || model instanceof SIFNode)
                     && main.hasExperimentData(ExperimentData.CBIOPORTAL_ALTERATION_DATA)
                     && portalAccessor != null
                     && !portalAccessor.getCurrentGeneticProfiles().isEmpty() )
@@ -105,6 +111,23 @@ public class PopupManager extends MenuManager
 		else if (ep instanceof ChsEdgeEditPart)
 		{
 			// EDGE POPUP
+			Object o = ep.getModel();
+			if (o instanceof BasicSIFEdge || o instanceof SIFEdge)
+			{
+
+				EdgeModel model = (EdgeModel) o;
+				String arrow = model.getArrow();
+				boolean directed = !arrow.equals("None");
+				String source = HGNCUtil.getSymbol(model.getSource().getText());
+				String target = HGNCUtil.getSymbol(model.getTarget().getText());
+
+				if (source != null && target != null)
+				{
+					if (directed) manager.add(new QueryPCPathsFromToAction(main, source, target));
+					else manager.add(new QueryPCPathsBetweenAction(main, source, target));
+				}
+			}
+
 			manager.add(new HighlightSelectedAction(main));
 			manager.add(new RemoveHighlightFromSelectedAction(main));
 			manager.add(new DeleteAction(main));

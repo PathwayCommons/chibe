@@ -1,14 +1,14 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
 import org.biopax.paxtools.model.BioPAXLevel;
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.GOIofSIFParameterDialog;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.basicsif.BasicSIFNode;
-import org.gvt.model.sifl2.SIFGraph;
+import org.gvt.model.sifl3.SIFGraph;
 import org.gvt.util.SIFReader;
 import org.patika.mada.algorithm.AlgoRunner;
 import org.patika.mada.graph.GraphObject;
@@ -36,7 +36,7 @@ public class GOIofSIFAction extends Action
 	/**
 	 * Rule types to consider while reading SIF.
 	 */
-	private List<BinaryInteractionType> selectedRuleTypes;
+	private List<SIFType> selectedRuleTypes;
 
 	private String siffile;
 	private String genesfile;
@@ -48,13 +48,13 @@ public class GOIofSIFAction extends Action
 		super("Paths Between Query on SIF File ...");
 		setToolTipText(getText());
 		this.main = main;
-		this.selectedRuleTypes = new ArrayList<BinaryInteractionType>();
+		this.selectedRuleTypes = new ArrayList<SIFType>();
 		limit = 1;
 		directed = false;
 	}
 
 	public GOIofSIFAction(ChisioMain main, String siffile, String genesfile,
-		List<BinaryInteractionType> selectedRuleTypes)
+		List<SIFType> selectedRuleTypes)
 	{
 		this(main);
 		this.siffile = siffile;
@@ -65,7 +65,7 @@ public class GOIofSIFAction extends Action
 	public void run()
 	{
 		GOIofSIFParameterDialog dialog = new GOIofSIFParameterDialog(main.getShell(),
-			SIFGraph.getPossibleRuleTypes(BioPAXLevel.L3),
+			SIFGraph.getPossibleRuleTypes(),
 			selectedRuleTypes,
 			siffile,
 			genesfile,
