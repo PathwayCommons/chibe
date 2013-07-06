@@ -14,6 +14,10 @@ import java.util.Random;
 public class Conf
 {
 	public static final String PATHWAY_COMMONS_URL = "PATHWAY_COMMONS_URL";
+	public static final String PC_SIF_FILE = "PC_SIF_FILE";
+	public static final String PC_SIF_FILE_URL = "PC_SIF_FILE_URL";
+
+	public static final String BROAD_DATA_URL = "BROAD_DATA_URL";
 
     public static final String CBIOPORTAL_URL = "CBIOPORTAL_URL";
     public static final String CBIOPORTAL_USE_CACHE = "CBIOPORTAL_USE_CACHE";
@@ -70,6 +74,10 @@ public class Conf
 		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
 //		s += PATHWAY_COMMONS_URL + " = http://purl.org/chibe/pc2/\n";
 //		s += PATHWAY_COMMONS_URL + " = http://webservice.baderlab.org:48080/\n";
+
+		s += PC_SIF_FILE + " = " + DEFAULT + "\n";
+		s += PC_SIF_FILE_URL + " = http://chibe.googlecode.com/files/PC.sif\n";
+		s += BROAD_DATA_URL + " = http://gdac.broadinstitute.org/runs/analyses__2013_05_23/\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
 		s += CBIOPORTAL_USE_CACHE + " = true\n";
@@ -284,14 +292,20 @@ public class Conf
 	 */
 	public static String getPortalCacheDir()
 	{
+		String dir;
+
 		if (!conf.containsKey(CBIOPORTAL_CACHE_DIR) ||
 			conf.get(CBIOPORTAL_CACHE_DIR).equals(DEFAULT))
 		{
-			return baseDir + "portal-cache" + File.separator;
+			dir =  baseDir + "portal-cache" + File.separator;
 		}
 		else
 		{
-			return conf.get(CBIOPORTAL_CACHE_DIR);
+			dir = conf.get(CBIOPORTAL_CACHE_DIR);
 		}
+
+		File f = new File(dir);
+		if (!f.exists()) f.mkdirs();
+		return dir;
 	}
 }

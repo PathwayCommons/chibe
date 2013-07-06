@@ -1,7 +1,7 @@
 package org.gvt.model.basicsif;
 
 import org.gvt.model.NodeModel;
-import org.gvt.model.biopaxl2.BioPAXL2Graph;
+import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.patika.mada.graph.GraphObject;
 
 import java.io.BufferedWriter;
@@ -17,7 +17,7 @@ import java.util.HashMap;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class BasicSIFGraph extends BioPAXL2Graph
+public class BasicSIFGraph extends BioPAXL3Graph
 {
 	public BasicSIFGraph()
 	{
@@ -49,7 +49,7 @@ public class BasicSIFGraph extends BioPAXL2Graph
 		catch (IOException e){e.printStackTrace();}
 	}
 
-	public BioPAXL2Graph excise(Collection<GraphObject> objects, boolean keepHighlights)
+	public BioPAXL3Graph excise(Collection<GraphObject> objects, boolean keepHighlights)
 	{
 		BasicSIFGraph graph = new BasicSIFGraph();
 

@@ -1,9 +1,10 @@
 package org.gvt.model.basicsif;
 
 import org.biopax.paxtools.io.sif.BinaryInteractionType;
-import org.gvt.model.biopaxl2.BioPAXEdge;
+import org.biopax.paxtools.pattern.miner.SIFType;
+import org.gvt.model.biopaxl3.BioPAXEdge;
 import org.gvt.model.NodeModel;
-import org.gvt.model.sifl2.SIFEdge;
+import org.gvt.model.sifl3.SIFEdge;
 
 import java.util.Map;
 import java.util.List;
@@ -64,7 +65,7 @@ public class BasicSIFEdge extends BioPAXEdge
 		return "";
 	}
 
-	public BinaryInteractionType getType()
+	public SIFType getType()
 	{
 		return type.getIntType();
 	}

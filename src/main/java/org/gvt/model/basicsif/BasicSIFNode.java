@@ -1,10 +1,11 @@
 package org.gvt.model.basicsif;
 
-import org.biopax.paxtools.model.level2.Level2Element;
+import org.biopax.paxtools.model.level3.Level3Element;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.gvt.model.CompoundModel;
-import org.gvt.model.biopaxl2.BioPAXNode;
-import org.gvt.model.biopaxl2.Actor;
+import org.gvt.model.biopaxl3.BioPAXNode;
+import org.gvt.model.biopaxl3.Actor;
+import org.gvt.util.HGNCUtil;
 import org.patika.mada.util.XRef;
 
 import java.util.ArrayList;
@@ -48,7 +49,14 @@ public class BasicSIFNode extends BioPAXNode
 	public void configFromModel()
 	{
 		setTooltipText(getText());
-		setColor(getStringSpecificColor(getText()));		
+		setColor(getStringSpecificColor(getText()));
+
+		String symbol = HGNCUtil.getSymbol(getText());
+		if (symbol != null)
+		{
+			this.addReference(new XRef("HGNC", symbol));
+		}
+
 	}
 
 	public boolean isEvent()
@@ -56,9 +64,9 @@ public class BasicSIFNode extends BioPAXNode
 		return false;
 	}
 
-	public Collection<? extends Level2Element> getRelatedModelElements()
+	public Collection<? extends Level3Element> getRelatedModelElements()
 	{
-		return new ArrayList<Level2Element>();
+		return new ArrayList<Level3Element>();
 	}
 
 	public String getRdfid()

@@ -1,26 +1,20 @@
 package org.patika.mada.gui;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.List;
-import org.gvt.ChisioMain;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.*;
+import org.gvt.ChisioMain;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.util.Conf;
+import org.gvt.util.Download;
 
 import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.*;
-import java.util.zip.GZIPInputStream;
+import java.util.ArrayList;
 
 
 /**
@@ -413,7 +407,7 @@ public class FetchFromGEODialog extends Dialog
 					"_series_matrix.txt.gz";
 			}
 
-			if (!downloadCompressedFile(url, seriesMatrixFile.getPath()))
+			if (!Download.downloadAndUncompress(url, seriesMatrixFile.getPath()))
 			{
 				url = url.substring(0, url.lastIndexOf("ix") + 2);
 				
@@ -425,7 +419,7 @@ public class FetchFromGEODialog extends Dialog
 					i++;
 					u = url + "-"  + i + ".txt.gz";
 				}
-				while(downloadCompressedFile(u, seriesMatrixFile.getPath() + "-" + i));
+				while(Download.downloadAndUncompress(u, seriesMatrixFile.getPath() + "-" + i));
 
 				uniteSeriesFiles(i-1);
 			}
@@ -506,86 +500,6 @@ public class FetchFromGEODialog extends Dialog
 		}
 	}
 
-	private boolean downloadCompressedFile(String address, String saveFile) throws IOException
-	{
-		if (address.startsWith("ftp://"))
-			return downloadCompressedFileThroughFTP(address, saveFile);
-
-		try
-		{
-			URL url = new URL(address);
-			URLConnection con = url.openConnection();
-
-//			if (con instanceof )
-
-			GZIPInputStream in = new GZIPInputStream(con.getInputStream());
-	
-			// Open the output file
-			OutputStream out = new FileOutputStream(saveFile);
-			// Transfer bytes from the compressed file to the output file
-			byte[] buf = new byte[1024];
-
-			int lines = 0;
-			int len;
-			while ((len = in.read(buf)) > 0)
-			{
-				out.write(buf, 0, len);
-				lines++;
-			}
-	
-			// Close the file and stream
-			in.close();
-			out.close();
-
-			return lines > 0;
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	private boolean downloadCompressedFileThroughFTP(String address, String saveFile) throws IOException
-	{
-		try
-		{
-			FTPClient fc = new FTPClient();
-
-			String host = address.substring(6, address.indexOf("/", 7));
-			String fileloc = address.substring(address.indexOf("/", 7));
-
-			fc.connect(host);
-			fc.enterLocalPassiveMode();
-			fc.setRemoteVerificationEnabled(false);
-			fc.login("anonymous", "");
-			fc.setFileType(FTP.BINARY_FILE_TYPE);
-
-			InputStream is = new GZIPInputStream(fc.retrieveFileStream(fileloc));
-			OutputStream out = new FileOutputStream(saveFile);
-
-			int length = 0;
-
-			byte[] buffer = new byte[65536];
-			int noRead;
-
-			while ((noRead = is.read(buffer)) > 0) {
-				out.write(buffer, 0, noRead);
-				length += noRead;
-			}
-
-			is.close();
-			fc.disconnect();
-			out.close();
-
-			return length > 0;
-		}
-		catch (IOException e)
-		{
-//			e.printStackTrace();
-			return false;
-		}
-	}
 
 	private java.util.List<String> getMultiplePlatforms(String series)
 	{
@@ -595,8 +509,8 @@ public class FetchFromGEODialog extends Dialog
 
 		try
 		{
-			String[] files = listFtpFiles("ftp://ftp.ncbi.nih.gov/pub/geo/DATA/SeriesMatrix/" +
-				series + "/");
+			String[] files = Download.listFtpFiles(
+				"ftp://ftp.ncbi.nih.gov/pub/geo/DATA/SeriesMatrix/" + series + "/");
 
 			if (files.length > 1)
 			{
@@ -640,43 +554,7 @@ public class FetchFromGEODialog extends Dialog
 		return null;
 	}
 	
-	private String[] listFtpFiles(String ftpDir) throws IOException
-	{
-		java.util.List<String> list = new ArrayList<String>();
 
-		FTPClient fc = new FTPClient();
-
-		String host = ftpDir.substring(6, ftpDir.indexOf("/", 7));
-
-		String dir = ftpDir.substring(ftpDir.indexOf("/", 7));
-
-		fc.connect(host);
-		fc.enterLocalPassiveMode();
-		fc.setRemoteVerificationEnabled(false);
-		fc.login("anonymous", "");
-
-//		URL url = new URL(ftpDir);
-//		URLConnection con = url.openConnection();
-//		BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//		for (String line = reader.readLine(); line != null; line = reader.readLine())
-//		{
-//			list.add(line);
-//		}
-//		reader.close();
-
-		FTPFile[] ftpFiles = fc.listFiles(dir);
-		for (FTPFile file : ftpFiles) {
-			list.add(file.getName());
-		}
-
-		String[] files = list.toArray(new String[list.size()]);
-		for (int i = 0; i < files.length; i++)
-		{
-			if (files[i].contains(" ")) files[i] = files[i].substring(files[i].indexOf(" ") + 1);
-		}
-		return files;
-	}
-	
 	/**
 	 * will load platform file if it is in the directory, otherwise
 	 * downloads it from GEO database
@@ -716,23 +594,7 @@ public class FetchFromGEODialog extends Dialog
 				String URLname = "http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?targ=self&" +
 					"form=text&view=data&acc=" + platformFile.getName();
 
-				URL url = new URL(URLname);
-				URLConnection con = url.openConnection();
-
-				BufferedReader reader = new BufferedReader(
-					new InputStreamReader(con.getInputStream()));
-
-				BufferedWriter writer = new BufferedWriter(new FileWriter(platformFile));
-
-				String currentRead;
-
-				while((currentRead = reader.readLine()) != null)
-				{
-					writer.write(currentRead + "\n");
-				}
-
-				reader.close();
-				writer.close();
+				Download.downlaodTextFile(URLname, platformFile.getAbsolutePath());
 			}
 		}
 		catch (Exception e)

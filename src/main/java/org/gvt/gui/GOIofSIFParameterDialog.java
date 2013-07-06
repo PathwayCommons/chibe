@@ -1,6 +1,6 @@
 package org.gvt.gui;
 
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -28,17 +28,17 @@ public class GOIofSIFParameterDialog extends Dialog
 	/**
 	 * Supported rules.
 	 */
-	private List<BinaryInteractionType> possibleRules;
+	private List<SIFType> possibleRules;
 
 	/**
 	 * Rule types that user selected.
 	 */
-	private List<BinaryInteractionType> selectedRules;
+	private List<SIFType> selectedRules;
 
 	/**
 	 * Provides a mapping from tag of the rule to the rule type.
 	 */
-	private Map<String, BinaryInteractionType> ruleTagMap;
+	private Map<String, SIFType> ruleTagMap;
 
 	private String siffile;
 	private String genefile;
@@ -70,8 +70,8 @@ public class GOIofSIFParameterDialog extends Dialog
 	 * @param selectedRules list of checked rules, may be empty when passed, will be filled by user
 	 */
 	public GOIofSIFParameterDialog(Shell shell,
-		List<BinaryInteractionType> possibleRules,
-		List<BinaryInteractionType> selectedRules,
+		List<SIFType> possibleRules,
+		List<SIFType> selectedRules,
 		String siffile,
 		String genefile,
 		Integer limit,
@@ -85,8 +85,8 @@ public class GOIofSIFParameterDialog extends Dialog
 		this.limit = limit;
 		this.directed = directed;
 
-		this.ruleTagMap = new HashMap<String, BinaryInteractionType>();
-		for (BinaryInteractionType rule : possibleRules)
+		this.ruleTagMap = new HashMap<String, SIFType>();
+		for (SIFType rule : possibleRules)
 		{
 			ruleTagMap.put(rule.getTag(), rule);
 		}
@@ -164,8 +164,8 @@ public class GOIofSIFParameterDialog extends Dialog
 		paramsGroup.setText("Parameters");
 		new Label(paramsGroup, SWT.NONE).setText("Search distance: ");
 		limitCombo = new Combo(paramsGroup, SWT.READ_ONLY);
-		limitCombo.setItems(new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"});
-		limitCombo.select(limit != null? limit : 2);
+		limitCombo.setItems(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"});
+		limitCombo.select(limit != null? limit-1 : 0);
 		Label stub = new Label(paramsGroup, SWT.NONE);
 		stub.setLayoutData(new RowData(70, 20));
 		directedButton = new Button(paramsGroup, SWT.CHECK);
@@ -177,7 +177,7 @@ public class GOIofSIFParameterDialog extends Dialog
 		rulesGroup.setLayout(new GridLayout());
 		rulesGroup.setText("Select rules to use");
 
-		for (BinaryInteractionType rule : possibleRules)
+		for (SIFType rule : possibleRules)
 		{
 			Button ruleBox = new Button(rulesGroup, SWT.CHECK);
 			ruleBox.setText(rule.getTag());
@@ -253,21 +253,13 @@ public class GOIofSIFParameterDialog extends Dialog
 
 		if (directedButton.getSelection() == undirectedRuleSelected())
 		{
-			limit = limitCombo.getSelectionIndex();
-
 			directedButton.setSelection(!directedButton.getSelection());
-
-			limitCombo.setItems(directedButton.getSelection() ?
-				new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"} :
-				new String[]{"0", "2", "4", "6", "8"});
-
-			limitCombo.select(directedButton.getSelection() ? limit * 2 : limit / 2);
 		}
 	}
 
 	private boolean undirectedRuleSelected()
 	{
-		for (BinaryInteractionType type : selectedRules)
+		for (SIFType type : selectedRules)
 		{
 			if (!type.isDirected()) return true;
 		}
@@ -283,7 +275,7 @@ public class GOIofSIFParameterDialog extends Dialog
 			if ((button.getStyle() & SWT.CHECK) > 0)
 			{
 				String ruleTag = button.getText();
-				BinaryInteractionType rule = ruleTagMap.get(ruleTag);
+				SIFType rule = ruleTagMap.get(ruleTag);
 
 				if (button.getSelection())
 				{
@@ -302,7 +294,7 @@ public class GOIofSIFParameterDialog extends Dialog
 				if (button == okButton)
 				{
 					directed = directedButton.getSelection();
-					limit = limitCombo.getSelectionIndex();
+					limit = limitCombo.getSelectionIndex() + 1;
 
 					okPressed = true;
 					shell.dispose();

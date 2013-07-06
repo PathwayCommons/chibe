@@ -2,12 +2,20 @@ package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.level3.*;
+import org.cbio.causality.data.portal.CBioPortalAccessor;
+import org.cbio.causality.data.portal.GeneticProfile;
+import org.cbio.causality.model.Alteration;
+import org.cbio.causality.model.AlterationPack;
+import org.cbio.causality.model.Change;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.TextUtilities;
+import org.gvt.ChisioMain;
 import org.gvt.command.CreateCommand;
 import org.gvt.model.CompoundModel;
+import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
+import org.gvt.util.EntityHolder;
 import org.gvt.util.HGNCUtil;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
@@ -16,6 +24,7 @@ import org.patika.mada.util.ExperimentData;
 import org.patika.mada.util.Representable;
 import org.patika.mada.util.XRef;
 
+import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -264,6 +273,14 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		}
 
 		return txt;
+	}
+
+	public static String extractGeneSymbol(EntityHolder holder)
+	{
+		String s = null;
+		if (holder.l3er != null) s = extractGeneSymbol(holder.l3er);
+		if (s == null && holder.l3pe != null) extractGeneSymbol(holder.l3pe);
+		return s;
 	}
 
 	public static String extractGeneSymbol(BioPAXElement ent)
@@ -700,4 +717,123 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	public static final String NAME_REF = "Name";
 	public static final int PROPERTY_CHAR_LIMIT = 50;
 	public static final int MAX_INITIAL_WIDTH = 100;
+
+	public List<String[]> getCBioDataInspectable(ChisioMain main)
+	{
+		List<String[]> list = new ArrayList<String[]>();
+		String geneName = null;
+
+		if (this instanceof EntityAssociated)
+		{
+			EntityHolder ent = ((EntityAssociated) this).getEntity();
+			if (ent.l3er != null)
+			{
+				for (Xref xr : ent.l3er.getXref())
+				{
+					// Remember the latest gene name
+					if (xr instanceof RelationshipXref)
+					{
+						if (xr.getDb() != null && xr.getDb().toLowerCase().startsWith("hgnc"))
+						{
+							geneName = HGNCUtil.getSymbol(xr.getId());
+							if (geneName != null) break;
+						}
+					}
+				}
+			}
+		}
+
+		if (geneName == null)
+		{
+			geneName = HGNCUtil.getSymbol(getText());
+		}
+
+		// Add the following statistics only if we got Portal data, otherwise skip it
+		CBioPortalAccessor portalAccessor = ChisioMain.cBioPortalAccessor;
+		if (portalAccessor != null
+			&& !portalAccessor.getCurrentGeneticProfiles().isEmpty()
+			&& geneName != null)
+		{
+
+			// Add data profile details
+			list.add(new String[]{"Cancer study", portalAccessor.getCurrentCancerStudy().getName()});
+			String profilesStr = "";
+			for (GeneticProfile geneticProfile : portalAccessor.getCurrentGeneticProfiles())
+			{
+				profilesStr += geneticProfile.getName() + "; ";
+			}
+			profilesStr = profilesStr.substring(0, profilesStr.length() - 2);
+			list.add(new String[]{"Data profiles", profilesStr});
+			list.add(new String[]{"Case set", portalAccessor.getCurrentCaseList().getDescription()});
+
+			// This will hit the cache, so no worries on the speed or connection status
+			AlterationPack alterations = portalAccessor.getAlterations(geneName);
+
+			int sampleSize = alterations.get(Alteration.ANY).length;
+			list.add(new String[]{"Number of samples", sampleSize + ""});
+
+			for (Alteration alt : Alteration.values())
+			{
+				if (alt.isSummary() && alt != Alteration.ANY) continue;
+				Change[] changes = alterations.get(alt);
+				if (changes == null) continue;
+
+				int activating, inhibiting, unknownChange, stayInactive, noChange, noData;
+				activating = inhibiting = unknownChange = stayInactive = noChange = noData = 0;
+
+				List<Integer> expIndices = main.getExperimentDataManager(
+					ExperimentData.CBIOPORTAL_ALTERATION_DATA).getFirstExpIndices();
+
+				int i = 0;
+				for (Change change : changes)
+				{
+					if (!expIndices.contains(i++))
+						continue;
+
+					switch (change)
+					{
+						case INHIBITING:
+							inhibiting++;
+							break;
+						case ACTIVATING:
+							activating++;
+							break;
+						case UNKNOWN_CHANGE:
+							unknownChange++;
+							break;
+						case NO_CHANGE:
+							noChange++;
+							break;
+						case NO_DATA:
+							noData++;
+							break;
+						case STAY_INACTIVE:
+							stayInactive++;
+							break;
+					}
+				}
+
+				int totalChange = inhibiting + activating + unknownChange;
+
+				// Skip if no alteration of current type exists
+				if (totalChange == 0) continue;
+
+				NumberFormat n = NumberFormat.getPercentInstance();
+				n.setMaximumFractionDigits(1);
+
+				list.add(new String[]{alt.getName() + " freq",
+					n.format(totalChange / (double) sampleSize)});
+				if (activating > 0) list.add(new String[]{" - Activating", activating + ""});
+				if (inhibiting > 0) list.add(new String[]{" - Inhibiting", inhibiting + ""});
+				if (unknownChange > 0)
+					list.add(new String[]{" - Unknown change", unknownChange + ""});
+				// We don't have "stays inactive" in cBio Portal data. So skipping it.
+				//list.add(new String[]{" - Stays inactive", n.format(inactive)});
+				if (noData > 0) list.add(new String[]{" - No data", noData + ""});
+//				list.add(new String[]{"No change", n.format(noChange)});
+			}
+		}
+
+		return list;
+	}
 }

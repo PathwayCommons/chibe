@@ -1,16 +1,16 @@
 package org.gvt.util;
 
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.gvt.model.CompoundModel;
-import org.gvt.model.sifl2.SIFEdge;
+import org.gvt.model.sifl3.SIFEdge;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.ChisioMain;
 import org.patika.mada.util.XRef;
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
 
 import java.io.*;
 import java.util.*;
@@ -25,7 +25,7 @@ import java.util.*;
  */
 public class SIFReader
 {
-	private List<BinaryInteractionType> enumTypes;
+	private List<SIFType> enumTypes;
 	private Set<String> types;
 	private Map<String, BasicSIFNode> nodeMap;
 	private Map<String, String> idToName;
@@ -42,7 +42,7 @@ public class SIFReader
 //		prepareIdToNameMap();
 	}
 
-	public SIFReader(List<BinaryInteractionType> enumTypes)
+	public SIFReader(List<SIFType> enumTypes)
 	{
 		this();
 		this.enumTypes = enumTypes;
@@ -54,7 +54,7 @@ public class SIFReader
 		{
 			types = new HashSet<String>();
 
-			for (BinaryInteractionType enumType : enumTypes)
+			for (SIFType enumType : enumTypes)
 			{
 				types.add(enumType.getTag());
 			}
@@ -204,7 +204,7 @@ public class SIFReader
 				{
 					if (ref.length() > 0)
 					{
-						if (ref.indexOf(XRef.SEPARATOR) < 0)
+						if (!ref.contains(XRef.SEPARATOR))
 						{
 							System.out.println("defective line = " + line);
 						}
@@ -221,7 +221,7 @@ public class SIFReader
 				{
 					if (ref.length() > 0)
 					{
-						if (ref.indexOf(XRef.SEPARATOR) < 0)
+						if (!ref.contains(XRef.SEPARATOR))
 						{
 							System.out.println("defective line = " + line);
 						}

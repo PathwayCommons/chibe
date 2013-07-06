@@ -7,9 +7,12 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
 import org.gvt.inspector.CBioPortalInspector;
+import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
+import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.BioPAXNode;
+import org.gvt.util.HGNCUtil;
 
 import java.util.*;
 
@@ -30,20 +33,27 @@ public class CBioPortalDataStatisticsAction extends Action {
     public void execute()
 	{
         Set<NodeModel> selectedNodes = getSelectedNodes();
+		String symbol = null;
+
         for (NodeModel node : selectedNodes)
 		{
-            if(node instanceof Actor)
+            if(node instanceof EntityAssociated)
 			{
-				String symbol = BioPAXNode.extractGeneSymbol(((Actor) node).getEntity().l3pe);
+				symbol = BioPAXNode.extractGeneSymbol(((EntityAssociated) node).getEntity());
 
-				if (symbol != null)
-				{
-					CBioPortalInspector.getInstance(node, symbol + ": Data Details", main);
-				}
             }
-        }
+			else if (node instanceof BasicSIFNode)
+			{
+				String text = node.getText();
+				symbol = HGNCUtil.getSymbol(text);
+			}
 
-    }
+			if (symbol != null)
+			{
+				CBioPortalInspector.getInstance(node, symbol + ": Data Details", main);
+			}
+        }
+	}
 
     protected Set<NodeModel> getSelectedNodes()
     {

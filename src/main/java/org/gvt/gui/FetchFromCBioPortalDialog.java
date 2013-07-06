@@ -30,21 +30,14 @@ public class FetchFromCBioPortalDialog extends Dialog {
         this.main = main;
     }
 
-    public void open() {
-        if(ChisioMain.cBioPortalAccessor == null) {
-            try {
-                CBioPortalAccessor.setPortalURL(Conf.get(Conf.CBIOPORTAL_URL));
-                ChisioMain.cBioPortalAccessor = new CBioPortalAccessor();
-				CBioPortalAccessor.setCacheDir(Conf.getPortalCacheDir());
-            } catch (IOException e) {
-                MessageDialog.openError(main.getShell(),
-                        "Error!",
-                        "Could not access to cBio Portal.\n" + e.toString()
-                );
-
-                return;
-            }
+    public void open()
+	{
+        if(ChisioMain.cBioPortalAccessor == null)
+		{
+			System.err.println("Portal accessor is not initialized!");
+			return;
         }
+
         createContents();
 
    		shell.pack();
@@ -265,9 +258,5 @@ public class FetchFromCBioPortalDialog extends Dialog {
             );
 
         }
-    }
-
-    public CBioPortalAccessor getAccessor() {
-        return ChisioMain.cBioPortalAccessor;
     }
 }

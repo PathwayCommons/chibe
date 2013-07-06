@@ -75,7 +75,7 @@ public abstract class QueryPCAction extends Action
                             merge.setOpenPathways(true);
 							boolean hasNonEmptyPathway = modelHasNonEmptyPathway(model);
                             merge.setCreateNewPathway(!hasNonEmptyPathway);
-                            if (!hasNonEmptyPathway) merge.setNewPathwayName(getText());
+                            if (!hasNonEmptyPathway) merge.setNewPathwayName(getNewPathwayName());
 							merge.updatePathways = false;
                             merge.run();
                         }
@@ -84,7 +84,7 @@ public abstract class QueryPCAction extends Action
                             LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
                             load.setOpenPathways(true);
 
-                            if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getText());
+                            if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getNewPathwayName());
                             load.run();
                         }
 						
@@ -153,6 +153,11 @@ public abstract class QueryPCAction extends Action
         {
             MessageDialog.openError(main.getShell(), "Incompatible Levels","This query is only applicable to Level 3 models.");
         }
+	}
+
+	protected String getNewPathwayName()
+	{
+		return getText();
 	}
 
 	protected void alertNoResults()
