@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cbio.causality.idmapping.HGNC;
 import org.gvt.gui.AbstractQueryParamDialog;
 
 /**
@@ -161,7 +162,7 @@ public class QueryOptionsPack implements Serializable
 
 		for (String s : symbols)
 		{
-			String official = HGNCUtil.getSymbol(s);
+			String official = HGNC.getSymbol(s);
 
 			if (official == null)
 			{

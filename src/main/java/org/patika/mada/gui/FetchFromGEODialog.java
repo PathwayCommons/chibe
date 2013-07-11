@@ -1,5 +1,6 @@
 package org.patika.mada.gui;
 
+import org.cbio.causality.util.Download;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -11,7 +12,6 @@ import org.eclipse.swt.widgets.*;
 import org.gvt.ChisioMain;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.util.Conf;
-import org.gvt.util.Download;
 
 import java.io.*;
 import java.util.ArrayList;

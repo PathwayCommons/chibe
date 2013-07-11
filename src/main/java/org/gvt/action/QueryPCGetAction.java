@@ -10,13 +10,17 @@ import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.StringInputDialog;
 import org.gvt.util.Conf;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Ozgun Babur
  *
  */
 public class QueryPCGetAction extends QueryPCAction
 {
-	String id;
+	protected Set<String> id;
 
 	public QueryPCGetAction(ChisioMain main, boolean useSelected)
 	{
@@ -29,15 +33,29 @@ public class QueryPCGetAction extends QueryPCAction
         {
             if (!useSelected)
             {
-                StringInputDialog dialog = new StringInputDialog(main.getShell(), "Get Objects",
-                    "Enter Pathway Commons ID of database object", id,"Find the specified object");
+				String ids = null;
+				if (id != null && !id.isEmpty())
+				{
+					if (id.size() == 1) ids = id.iterator().next();
+					else
+					{
+						ids = " ";
+						for (String s : id)
+						{
+							ids += s;
+						}
+						ids = ids.trim();
+					}
+				}
 
-                id = dialog.open();
-                if (id != null)
-                {
-                    id = id.trim();
-                    if (id.length() == 0) id = null;
-                }
+                StringInputDialog dialog = new StringInputDialog(main.getShell(), "Get Objects",
+                    "Enter Pathway Commons ID of database object", ids, "Find the specified object");
+
+                ids = dialog.open();
+
+				if (id == null) id = new HashSet<String>();
+				Collections.addAll(id, ids.split("\\s+"));
+				if (id.isEmpty()) id = null;
             }
 
             execute();
@@ -49,6 +67,11 @@ public class QueryPCGetAction extends QueryPCAction
         }
     }
 
+	public void setIDs(Set<String> ids)
+	{
+		this.id = ids;
+	}
+
 	@Override
 	protected Model doQuery() throws CPathException
 	{
@@ -56,7 +79,7 @@ public class QueryPCGetAction extends QueryPCAction
 
 		if (useSelected && !options.getSourceList().isEmpty())
 		{
-			id = options.getSourceList().iterator().next();
+			id = new HashSet<String>(options.getSourceList());
 		}
 
 		return pc2.get(id);

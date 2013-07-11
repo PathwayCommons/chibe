@@ -6,6 +6,7 @@ import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.cbio.causality.data.portal.CancerStudy;
 import org.cbio.causality.data.portal.CaseList;
 import org.cbio.causality.data.portal.GeneticProfile;
+import org.cbio.causality.idmapping.HGNC;
 import org.cbio.causality.model.Alteration;
 import org.cbio.causality.model.AlterationPack;
 import org.cbio.causality.model.Change;
@@ -20,12 +21,10 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.util.Conf;
-import org.gvt.util.HGNCUtil;
 import org.patika.mada.dataXML.*;
 import org.patika.mada.util.CBioPortalAlterationData;
 import org.patika.mada.util.ExperimentData;
 import org.patika.mada.util.ExperimentDataManager;
-import sun.reflect.generics.tree.ReturnType;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -38,6 +37,8 @@ public class FetchFromCBioPortalAction extends Action
 	ChisioMain main;
 	String study;
 
+	public static final String CURRENT_STUDY = "CURRENT_STUDY";
+
    	public FetchFromCBioPortalAction (ChisioMain main)
 	{
 		this(main, null);
@@ -45,15 +46,15 @@ public class FetchFromCBioPortalAction extends Action
 
    	public FetchFromCBioPortalAction (ChisioMain main, String study)
 	{
-        super("Fetch from cBio Portal...");
+        super(study == null ? "Fetch from cBioPortal..." : "Update cBioPortal data");
         setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbio_portal.png"));
         this.main = main;
-		if (study != null) this.study = study.toLowerCase();
+		if (study != null) this.study = study;
    	}
 
     public void run() {
         // First things first
-        if(main.getRootGraph() == null && getBasicSIFGraph() == null) {
+        if(main.getRootGraph() == null && getBasicSIFGraphs() == null) {
              MessageDialog.openError(main.getShell(), "Error!",
                      "No BioPAX model loaded.");
              return;
@@ -66,9 +67,18 @@ public class FetchFromCBioPortalAction extends Action
 			FetchFromCBioPortalDialog dialog = new FetchFromCBioPortalDialog(main);
 			dialog.open();
 		}
+		else if (study.equals(CURRENT_STUDY) && ChisioMain.cBioPortalAccessor == null)
+		{
+			MessageDialog.openError(main.getShell(), "Error!",
+				"There is no current cBioPortal study loaded.");
+			return;
+		}
 		else
 		{
-			if (!prepareAccessorForStudy(study)) return;
+			if (!study.equals(CURRENT_STUDY))
+			{
+				if (!prepareAccessorForStudy(study)) return;
+			}
 		}
 
         CBioPortalAccessor acc = ChisioMain.cBioPortalAccessor;
@@ -89,7 +99,7 @@ public class FetchFromCBioPortalAction extends Action
 			for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
 				if (xref.getDb() != null && xref.getDb().startsWith("HGNC"))
 				{
-					String geneName = HGNCUtil.getSymbol(xref.getId());
+					String geneName = HGNC.getSymbol(xref.getId());
 
 					if (geneName != null && !geneNames.contains(geneName))
 					{
@@ -99,23 +109,25 @@ public class FetchFromCBioPortalAction extends Action
 				}
 			}
 		}
-		BasicSIFGraph bsgraph = getBasicSIFGraph();
-		if (bsgraph != null)
-		{
-			for (Object o : bsgraph.getNodes())
-			{
-				NodeModel node = ((NodeModel) o);
-				String text = node.getText();
-				String symbol = HGNCUtil.getSymbol(text);
 
-				if (symbol != null)
+		for (BasicSIFGraph bsgraph : getBasicSIFGraphs())
+		{
+			if (bsgraph != null)
+			{
+				for (Object o : bsgraph.getNodes())
 				{
-					geneNames.add(symbol);
-					geneNameToXrefStr.put(text, symbol);
+					NodeModel node = ((NodeModel) o);
+					String text = node.getText();
+					String symbol = HGNC.getSymbol(text);
+
+					if (symbol != null)
+					{
+						geneNames.add(symbol);
+						geneNameToXrefStr.put(text, symbol);
+					}
 				}
 			}
 		}
-
 
         // Decide on a few things
         String dataName, dataDesc, fileNameSuggestion;
@@ -250,21 +262,21 @@ public class FetchFromCBioPortalAction extends Action
         main.unlock();
     }
 
-	private BasicSIFGraph getBasicSIFGraph()
+	private List<BasicSIFGraph> getBasicSIFGraphs()
 	{
-		CTabItem tab = main.getSelectedTab();
+		List<BasicSIFGraph> list = new ArrayList<BasicSIFGraph>();
 
-		if (tab != null)
+		for (CTabItem tab : main.getTabToViewerMap().keySet())
 		{
 			CompoundModel root = (CompoundModel) main.getTabToViewerMap().get(tab).getContents().
 				getModel();
 
 			if (root instanceof BasicSIFGraph)
 			{
-				return (BasicSIFGraph) root;
+				list.add((BasicSIFGraph) root);
 			}
 		}
-		return null;
+		return list;
 	}
 
 	private boolean initPortalAccessor()
@@ -292,60 +304,6 @@ public class FetchFromCBioPortalAction extends Action
 	private boolean prepareAccessorForStudy(String study)
 	{
 		CBioPortalAccessor acc = ChisioMain.cBioPortalAccessor;
-
-		List<CancerStudy> cancerStudies = acc.getCancerStudies();
-		for (CancerStudy cancerStudy : cancerStudies)
-		{
-			if (cancerStudy.getStudyId().equals(study + "_tcga"))
-			{
-				acc.setCurrentCancerStudy(cancerStudy);
-
-				try
-				{
-					for (CaseList caseList : acc.getCaseListsForCurrentStudy())
-					{
-						if (caseList.getId().contains("cna") && caseList.getId().contains("seq"))
-						{
-							acc.setCurrentCaseList(caseList);
-						}
-					}
-
-					if (acc.getCurrentCaseList() == null)
-					{
-						System.err.println("Cannot find case list.");
-						return false;
-					}
-
-					ArrayList<GeneticProfile> plist = new ArrayList<GeneticProfile>();
-					for (GeneticProfile geneticProfile : acc.getGeneticProfilesForCurrentStudy())
-					{
-						if (geneticProfile.getId().contains("gistic") ||
-							geneticProfile.getId().contains("mutation"))
-						{
-							plist.add(geneticProfile);
-						}
-					}
-
-					if (plist.isEmpty())
-					{
-						System.err.println("Cannot find any profile");
-						return false;
-					}
-
-					acc.setCurrentGeneticProfiles(plist);
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-
-			if (acc.getCurrentCancerStudy() == null)
-			{
-				System.err.println("Cannot find the TCGA study.");
-				return false;
-			}
-		}
-		return true;
+		return acc.configureForStudy(study);
 	}
 }
