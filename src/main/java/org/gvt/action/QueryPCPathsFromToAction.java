@@ -77,6 +77,8 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 	@Override
 	protected String getNewPathwayName()
 	{
+		if (newPathwayName != null) return super.getNewPathwayName();
+
 		if (fromSymbol != null)
 		{
 			assert toSymbol != null;

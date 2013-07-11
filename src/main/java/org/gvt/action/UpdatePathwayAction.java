@@ -106,7 +106,6 @@ public class UpdatePathwayAction extends Action
 		}
 
 		// Reset highlight
-
 		HighlightLayer hLayer = (HighlightLayer)
 			((ChsScalableRootEditPart) viewer.getRootEditPart()).getLayer(
 				HighlightLayer.HIGHLIGHT_LAYER);

@@ -39,6 +39,10 @@ public abstract class QueryPCAction extends Action
 	 */
 	protected QueryOptionsPack options;
 
+	protected boolean increaseLimitIfNoResult;
+
+	protected String newPathwayName;
+
 	public QueryPCAction(ChisioMain main, String text, boolean useSelected)
 	{
 		super(text);
@@ -48,6 +52,22 @@ public abstract class QueryPCAction extends Action
 		this.main = main;
 		options = new QueryOptionsPack();
 		this.useSelected = useSelected;
+		increaseLimitIfNoResult = false;
+	}
+
+	public boolean isIncreaseLimitIfNoResult()
+	{
+		return increaseLimitIfNoResult;
+	}
+
+	public void setNewPathwayName(String newPathwayName)
+	{
+		this.newPathwayName = newPathwayName;
+	}
+
+	public void setIncreaseLimitIfNoResult(boolean increaseLimitIfNoResult)
+	{
+		this.increaseLimitIfNoResult = increaseLimitIfNoResult;
 	}
 
 	public void execute()
@@ -63,6 +83,13 @@ public abstract class QueryPCAction extends Action
 
                 main.lockWithMessage("Querying Pathway Commons ...");
                 Model model = doQuery();
+
+				if (model == null && increaseLimitIfNoResult)
+				{
+					options.setLengthLimit(options.getLengthLimit() + 1);
+					model = doQuery();
+				}
+
                 main.unlock();
 
                 if (model != null)
@@ -157,7 +184,9 @@ public abstract class QueryPCAction extends Action
 
 	protected String getNewPathwayName()
 	{
-		return getText();
+		if (newPathwayName == null)
+			return getText();
+		else return newPathwayName;
 	}
 
 	protected void alertNoResults()

@@ -80,6 +80,8 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	@Override
 	protected String getNewPathwayName()
 	{
+		if (newPathwayName != null) return super.getNewPathwayName();
+
 		if (symbols != null)
 		{
 			assert symbols.length > 1;

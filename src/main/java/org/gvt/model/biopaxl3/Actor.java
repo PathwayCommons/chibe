@@ -1,27 +1,18 @@
 package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.level3.*;
-import org.cbio.causality.data.portal.CBioPortalAccessor;
-import org.cbio.causality.data.portal.GeneticProfile;
-import org.cbio.causality.model.Alteration;
-import org.cbio.causality.model.AlterationPack;
-import org.cbio.causality.model.Change;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.gvt.ChisioMain;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
-import org.gvt.util.HGNCUtil;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
-import org.patika.mada.util.ExperimentData;
 
-import java.text.NumberFormat;
 import java.util.*;
 
 /**

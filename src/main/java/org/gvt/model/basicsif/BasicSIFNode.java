@@ -1,11 +1,11 @@
 package org.gvt.model.basicsif;
 
 import org.biopax.paxtools.model.level3.Level3Element;
+import org.cbio.causality.idmapping.HGNC;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.biopaxl3.BioPAXNode;
 import org.gvt.model.biopaxl3.Actor;
-import org.gvt.util.HGNCUtil;
 import org.patika.mada.util.XRef;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class BasicSIFNode extends BioPAXNode
 		setTooltipText(getText());
 		setColor(getStringSpecificColor(getText()));
 
-		String symbol = HGNCUtil.getSymbol(getText());
+		String symbol = HGNC.getSymbol(getText());
 		if (symbol != null)
 		{
 			this.addReference(new XRef("HGNC", symbol));

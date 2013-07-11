@@ -4,6 +4,7 @@ import org.biopax.paxtools.model.Model;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
+import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -338,6 +339,20 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 			}
 		}
 		return entities;
+	}
+
+	public void removeHighlights()
+	{
+		for (Object o : getNodes())
+		{
+			Node node = (Node) o;
+			node.setHighlight(false);
+		}
+		for (Object o : getEdges())
+		{
+			Edge edge = (Edge) o;
+			edge.setHighlight(false);
+		}
 	}
 
 	/**

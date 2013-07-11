@@ -16,6 +16,8 @@ public class Conf
 	public static final String PATHWAY_COMMONS_URL = "PATHWAY_COMMONS_URL";
 	public static final String PC_SIF_FILE = "PC_SIF_FILE";
 	public static final String PC_SIF_FILE_URL = "PC_SIF_FILE_URL";
+	public static final String REACTION_2_GENE_FILE = "REACTION_2_GENE_FILE";
+	public static final String REACTION_2_GENE_FILE_URL = "REACTION_2_GENE_FILE_URL";
 
 	public static final String BROAD_DATA_URL = "BROAD_DATA_URL";
 
@@ -77,6 +79,8 @@ public class Conf
 
 		s += PC_SIF_FILE + " = " + DEFAULT + "\n";
 		s += PC_SIF_FILE_URL + " = http://chibe.googlecode.com/files/PC.sif\n";
+		s += REACTION_2_GENE_FILE + " = " + DEFAULT + "\n";
+		s += REACTION_2_GENE_FILE_URL + " = http://chibe.googlecode.com/files/related-genes-of-interactions.txt\n";
 		s += BROAD_DATA_URL + " = http://gdac.broadinstitute.org/runs/analyses__2013_05_23/\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";

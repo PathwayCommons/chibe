@@ -1,103 +1,188 @@
 package org.gvt.action;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.io.IOUtils;
 import org.biopax.paxtools.pattern.miner.SIFType;
-import org.eclipse.jface.action.Action;
+import org.cbio.causality.data.portal.BroadAccessor;
+import org.cbio.causality.data.portal.CBioPortalAccessor;
+import org.cbio.causality.data.portal.GeneticProfile;
+import org.cbio.causality.model.AlterationPack;
+import org.cbio.causality.util.Download;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.graphics.Color;
 import org.gvt.ChisioMain;
+import org.gvt.editpart.ChsScalableRootEditPart;
+import org.gvt.figure.HighlightLayer;
 import org.gvt.gui.ItemSelectionDialog;
+import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFGraph;
-import org.gvt.model.basicsif.BasicSIFNode;
-import org.gvt.util.*;
+import org.gvt.util.Conf;
+import org.gvt.util.SIFReader;
 import org.patika.mada.algorithm.AlgoRunner;
+import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Ozgun Babur
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class LoadTCGASpecificSIFAction extends Action
+public class LoadTCGASpecificSIFAction extends TCGASIFAction
 {
 	private static final String DEFAULT_PC_FILE_NAME = "PC.sif";
-	private static final String BROAD_DIR = "broad-data/";
 
-	/**
-	 * Main application.
-	 */
-	private ChisioMain main;
-
+	protected String caseID;
+	protected String study;
+	protected boolean newView;
 
 	public LoadTCGASpecificSIFAction(ChisioMain main)
 	{
-		super("Load TCGA specific SIF ...");
-		setToolTipText(getText());
-		this.main = main;
+		this("Load TCGA specific SIF ...", main);
+	}
+
+	protected LoadTCGASpecificSIFAction(String text, ChisioMain main)
+	{
+		super(text, main);
+		this.newView = true;
+	}
+
+	public void setCaseID(String caseID)
+	{
+		this.caseID = caseID;
+	}
+
+	public void setStudy(String study)
+	{
+		this.study = study;
+	}
+
+	public void setNewView(boolean newView)
+	{
+		this.newView = newView;
 	}
 
 	public void run()
 	{
-		ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 200,
-			"Available studies", "Please select a study", getStudyCodes(),
-			null, false, true, null);
-
-		String study = (String) dialog.open();
-
-		if (study == null) return;
-
-		Set<String> genes = readGenes(study);
-
-		if (genes.isEmpty())
+		try
 		{
-			MessageDialog.openInformation(main.getShell(), "No genes of interest",
-				"Cannot find any genes of interest for the current study.");
-			return;
+			if (study == null)
+			{
+				ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 200,
+					"Available studies", "Please select a study", BroadAccessor.getStudyCodes(),
+					null, false, true, null);
+
+				study = (String) dialog.open();
+			}
+
+			if (study == null) return;
+
+			Set<String> genes = BroadAccessor.getMutsigGenes(study, 0.1);
+
+			if (genes.isEmpty())
+			{
+				MessageDialog.openInformation(main.getShell(), "No genes of interest",
+					"Cannot find any genes of interest for the current study.");
+				return;
+			}
+
+			BasicSIFGraph pcGraph = getPCGraph();
+
+			Set<Node> seed = getSeed(pcGraph, genes);
+
+			Set<String> gisticGenes = BroadAccessor.getGisticGenes(study, 0.01);
+
+			gisticGenes = getNeighborsOfFirstAlsoInTheSecondSet(genes, gisticGenes, seed);
+			keepOverValue(study, gisticGenes, genes, 0.05);
+			genes.addAll(gisticGenes);
+			seed = getSeed(pcGraph, genes);
+
+			Set<String> caseGenes = null;
+			Set<String> caseOnly = null;
+			if (caseID != null)
+			{
+				caseGenes = getAlteredGenesForTheCase(caseID);
+				caseGenes = getNeighborsOfFirstAlsoInTheSecondSet(genes, caseGenes, seed);
+				caseOnly = new HashSet<String>(caseGenes);
+				caseOnly.removeAll(genes);
+				genes.addAll(caseOnly);
+				seed = getSeed(pcGraph, genes);
+
+				System.out.println("caseOnly.size() = " + caseOnly.size());
+				System.out.println("caseGenes = " + caseGenes.size());
+			}
+
+			if (seed.isEmpty())
+			{
+				MessageDialog.openInformation(main.getShell(), "No genes of interest",
+					"Loaded genes of interest do not intersect with genes in SIF data.");
+				return;
+			}
+
+			Collection<GraphObject> graphObjects =
+				AlgoRunner.searchGraphOfInterest(pcGraph, seed, 1, true);
+
+			BasicSIFGraph goi = (BasicSIFGraph) pcGraph.excise(graphObjects, true);
+			goi.setName(study);
+			goi.setAsRoot();
+			System.out.println("GOI has " + goi.getNodes().size() + " nodes and " +
+				goi.getEdges().size() + " edges.");
+
+			if (newView) main.createNewTab(goi);
+			else
+			{
+				// Reset highlight
+				HighlightLayer hLayer = (HighlightLayer)
+					((ChsScalableRootEditPart) main.getViewer().getRootEditPart()).getLayer(
+						HighlightLayer.HIGHLIGHT_LAYER);
+
+				hLayer.removeAll();
+				hLayer.highlighted.clear();
+
+				main.getViewer().deselectAll();
+
+				main.getViewer().setContents(goi);
+			}
+
+			new CoSELayoutAction(main).run();
+
+			new FetchFromCBioPortalAction(main, study.toLowerCase() + "_tcga").run();
+
+			// Highlight case specific alterations
+
+			if (caseGenes != null && !caseGenes.isEmpty())
+			{
+				Color color = new Color(null,180, 255, 180);
+
+				for (Object o : goi.getNodes())
+				{
+					NodeModel node = (NodeModel) o;
+					if (caseGenes.contains(node.getText()))
+					{
+						if (caseOnly.contains(node.getText()))
+							node.setHighlightColor(color);
+						node.setHighlight(true);
+					}
+				}
+			}
 		}
-
-		BasicSIFGraph pcGraph = getPCGraph();
-
-		Set<Node> seed = getSeed(pcGraph, genes);
-
-		if (seed.isEmpty())
+		catch (Exception e)
 		{
-			MessageDialog.openInformation(main.getShell(), "No genes of interest",
-				"Loaded genes of interest do not intersect with genes in SIF data.");
-			return;
+			e.printStackTrace();
 		}
-
-		Collection<GraphObject> graphObjects =
-			AlgoRunner.searchGraphOfInterest(pcGraph, seed, 1, true);
-
-		BasicSIFGraph goi = (BasicSIFGraph) pcGraph.excise(graphObjects, true);
-		goi.setName(study);
-
-		System.out.println("GOI has " + goi.getNodes().size() + " nodes and " +
-			goi.getEdges().size() + " edges.");
-
-		main.createNewTab(goi);
-		new CoSELayoutAction(main).run();
-
-		new FetchFromCBioPortalAction(main, study).run();
+		finally
+		{
+			study = null;
+		}
 	}
-
-	private Set<Node> getSeed(Graph graph, Set<String> symbols)
-	{
-		Set<Node> seed = new HashSet<Node>();
-		for (Node node : graph.getNodes())
-		{
-			if (symbols.contains(node.getName())) seed.add(node);
-		}
-		return seed;
-	}
-
 
 	//--------------------- Getting PC SIF graph --------------------------------------------------|
 
@@ -135,192 +220,131 @@ public class LoadTCGASpecificSIFAction extends Action
 		return Download.downlaodTextFile(url, saveLoc);
 	}
 
-	//--------------------- Getting Mutsig and GISTIC genes ---------------------------------------|
+	//--------------------- Graph operations ------------------------------------------------------|
 
-	private List<String> getStudyCodes()
+	private Set<Node> getSeed(Graph graph, Set<String> symbols)
 	{
-		List<String> list = new ArrayList<String>(30);
+		Set<Node> seed = new HashSet<Node>();
+		for (Node node : graph.getNodes())
+		{
+			if (symbols.contains(node.getName())) seed.add(node);
+		}
+		return seed;
+	}
+
+	private Set<String> getNeighborsOfFirstAlsoInTheSecondSet(Set<String> first, Set<String> second,
+		Set<Node> nodes)
+	{
+		Set<String> neigh = new HashSet<String>();
+		for (Node node : nodes)
+		{
+			for (Edge e : node.getUpstream())
+			{
+				Node n = e.getSourceNode();
+				neigh.add(n.getName());
+			}
+			for (Edge e : node.getDownstream())
+			{
+				Node n = e.getTargetNode();
+				neigh.add(n.getName());
+			}
+		}
+		neigh.retainAll(second);
+		return neigh;
+	}
+
+	//--------------------- Portal operations -----------------------------------------------------|
+
+	private void keepOverValue(String study, Set<String> gistic, Set<String> dontTouchThis,
+		double altThr)
+	{
+		CBioPortalAccessor acc = getPortalAccessor();
+		acc.configureForStudy(study.toLowerCase() + "_tcga");
+		Set<String> keep = new HashSet<String>(dontTouchThis);
+
+		for (String s : gistic)
+		{
+			AlterationPack alts = acc.getAlterations(s);
+			if (alts != null && alts.getAlteredRatio() >= altThr) keep.add(s);
+		}
+
+		gistic.retainAll(keep);
+	}
+
+	private CBioPortalAccessor getPortalAccessor()
+	{
+		if (ChisioMain.cBioPortalAccessor == null)
+		{
+			try
+			{
+				CBioPortalAccessor.setCacheDir(Conf.getPortalCacheDir());
+				ChisioMain.cBioPortalAccessor = new CBioPortalAccessor();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return ChisioMain.cBioPortalAccessor;
+	}
+
+	private Set<String> getAlteredGenesForTheCase(String caseID)
+	{
+		CBioPortalAccessor acc = getPortalAccessor();
+		String mutID = null;
+		String cnaID = null;
+		for (GeneticProfile gp : acc.getCurrentGeneticProfiles())
+		{
+			if (gp.getId().contains("gistic")) cnaID = gp.getId();
+			else if (gp.getId().contains("mutation")) mutID = gp.getId();
+		}
+
+		Set<String> set = new HashSet<String>();
+
+			if (mutID != null)
+			{
+				String url = "http://www.cbioportal.org/public-portal/mutations.json?case_id=" +
+					caseID + "&mutation_profile=" + mutID;
+
+				harvestAlteredCaseJSON(url, set);
+			}
+			if (mutID != null)
+			{
+				String url = "http://www.cbioportal.org/public-portal/cna.json?case_id=" +
+					caseID + "&cna_profile=" + cnaID;
+
+				harvestAlteredCaseJSON(url, set);
+			}
+
+		return set;
+	}
+
+	private void harvestAlteredCaseJSON(String url, Set<String> set)
+	{
 		try
 		{
-			URL url = new URL(Conf.get(Conf.BROAD_DATA_URL) + "ingested_data.tsv");
 
-			URLConnection con = url.openConnection();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			for (String line = reader.readLine(); line != null; line = reader.readLine())
-			{
-				if (line.isEmpty() || line.startsWith("#")
-					|| line.startsWith("Tumor") || line.startsWith("Totals")) continue;
-
-				String study = line.substring(0, line.indexOf("\t"));
-				list.add(study);
-			}
-			reader.close();
+			String content = IOUtils.toString(new URL(url), "UTF-8");
+			int start = content.indexOf("\"gene\":[\"") + 9;
+			int end = content.indexOf("\"]", start);
+			content = content.substring(start, end);
+			String[] token = content.split("\",\"");
+			set.addAll(Arrays.asList(token));
+//			for (String gene : token)
+//			{
+//				String symbol = HGNC.getSymbol(gene);
+//				if (symbol != null) set.add(symbol);
+//			}
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		return list;
 	}
 
-	private String getBroadDateString()
+	static
 	{
-		String s = Conf.get(Conf.BROAD_DATA_URL);
-		s = s.substring(s.indexOf("__") + 2, s.lastIndexOf("/"));
-		s = s.replaceAll("_", "");
-		return s;
-	}
-
-	private String getBroadDataURL(String study)
-	{
-		return Conf.get(Conf.BROAD_DATA_URL) + "data/" + study + "/" + getBroadDateString() + "/";
-	}
-
-	private String getBroadCacheDir()
-	{
-		String s = Conf.getPortalCacheDir() + BROAD_DIR;
-		File f = new File(s);
-		if (!f.exists()) f.mkdirs();
-		return s;
-	}
-
-	private List<String> getBroadAnalysisFileNames(String study)
-	{
-		List<String> list = new ArrayList<String>(30);
-		try
-		{
-			URL url = new URL(getBroadDataURL(study));
-
-			URLConnection con = url.openConnection();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			for (String line = reader.readLine(); line != null; line = reader.readLine())
-			{
-				String start = "<li><a href=\"";
-				if (line.startsWith(start))
-				{
-					String file = line.substring(start.length(), line.indexOf("\">"));
-					list.add(file);
-				}
-			}
-			reader.close();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	private String getGisticFileName(List<String> list)
-	{
-		for (String s : list) if (s.contains("Gistic2.Level_4")) return s;
-		return null;
-	}
-
-	private String getMutsigFileName(List<String> list)
-	{
-		for (String s : list) if (s.contains("MutSigNozzleReportMerged.Level_4")) return s;
-		return null;
-	}
-
-	private String getCachedGisticFileName(String study)
-	{
-		return getBroadCacheDir() + study + "_gistic.tar.gz";
-	}
-
-	private String getCachedMutsigFileName(String study)
-	{
-		return getBroadCacheDir() + study + "_mutsig.tar.gz";
-	}
-
-	private boolean downloadGistic(String study, List<String> analysisFileNames)
-	{
-		String s = getGisticFileName(analysisFileNames);
-		return s != null &&
-			Download.downloadAsIs(getBroadDataURL(study) + s, getCachedGisticFileName(study));
-	}
-
-	private boolean downloadMutsig(String study, List<String> analysisFileNames)
-	{
-		String s = getMutsigFileName(analysisFileNames);
-		return s != null &&
-			Download.downloadAsIs(getBroadDataURL(study) + s, getCachedMutsigFileName(study));
-	}
-
-	private Set<String> readGenes(String study)
-	{
-		Set<String> genes = new HashSet<String>();
-		List<String> analysisFileNames = getBroadAnalysisFileNames(study);
-		String file = getCachedMutsigFileName(study);
-		if (!new File(file).exists())
-		{
-			downloadMutsig(study, analysisFileNames);
-		}
-		if (new File(file).exists())
-		{
-			genes.addAll(readGenesFromMutsig(file, 0.1));
-		}
-
-		if (genes.isEmpty())
-		{
-			file = getCachedGisticFileName(study);
-			if (!new File(file).exists())
-			{
-				downloadGistic(study, analysisFileNames);
-			}
-			if (new File(file).exists())
-			{
-				genes.addAll(readGenesFromGistic(file));
-			}
-		}
-
-		return genes;
-	}
-
-	private Set<String> readGenesFromGistic(String filename)
-	{
-		Set<String> set = new HashSet<String>();
-		String s = FileUtil.readEntryContainingNameInTARGZFile(filename, "amp_genes");
-		readGisticData(set, s);
-		System.out.println("amp set = " + set.size());
-
-		s = FileUtil.readEntryContainingNameInTARGZFile(filename, "del_genes");
-		readGisticData(set, s);
-		System.out.println("amp del set = " + set.size());
-		return set;
-	}
-
-	private Set<String> readGenesFromMutsig(String filename, double qvalThr)
-	{
-		Set<String> set = new HashSet<String>();
-		String s = FileUtil.readEntryContainingNameInTARGZFile(filename, "cosmic_sig_genes");
-		if (s == null) s = FileUtil.readEntryContainingNameInTARGZFile(filename, "sig_genes");
-
-		for (String line : s.split("\n"))
-		{
-			if (line.startsWith("rank")) continue;
-
-			String[] token = line.split("\t");
-
-			double qval = Double.parseDouble(token[token.length - 1]);
-
-			if (qval < qvalThr)
-			{
-				String symbol = HGNCUtil.getSymbol(token[1]);
-				if (symbol != null) set.add(symbol);
-			}
-		}
-
-		System.out.println("mutsig set = " + set.size());
-		return set;
-	}
-
-	private void readGisticData(Set<String> set, String s)
-	{
-		for (String token : s.split("\\s+"))
-		{
-			String symbol = HGNCUtil.getSymbol(token);
-			if (symbol != null) set.add(symbol);
-		}
+		CBioPortalAccessor.setCacheDir(Conf.getPortalCacheDir());
+		BroadAccessor.setBroadDataURL(Conf.get(Conf.BROAD_DATA_URL));
 	}
 }

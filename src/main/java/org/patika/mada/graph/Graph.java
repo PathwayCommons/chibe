@@ -21,4 +21,7 @@ public interface Graph
 	public void removeLabels(Collection labels);
 
 	public Graph excise(Collection<GraphObject> objects);
+
+	public void removeHighlights();
+
 }

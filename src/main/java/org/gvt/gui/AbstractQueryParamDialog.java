@@ -2,23 +2,20 @@ package org.gvt.gui;
 
 import java.util.*;
 
+import org.cbio.causality.idmapping.HGNC;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.List;
 import org.gvt.ChisioMain;
-import org.gvt.util.HGNCUtil;
 import org.gvt.util.QueryOptionsPack;
 import org.gvt.util.EntityHolder;
-
-import javax.tools.JavaCompiler;
 
 /**
  * This class is abstract class for Local Query Dialogs
@@ -625,7 +622,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			for (String s : st.getSymbols())
 			{
-				if (HGNCUtil.getSymbol(s) == null && !unkwn.contains(s)) unkwn.add(s);
+				if (HGNC.getSymbol(s) == null && !unkwn.contains(s)) unkwn.add(s);
 			}
 		}
 	}

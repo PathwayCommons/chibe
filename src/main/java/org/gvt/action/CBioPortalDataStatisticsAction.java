@@ -1,5 +1,6 @@
 package org.gvt.action;
 
+import org.cbio.causality.idmapping.HGNC;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
@@ -10,11 +11,11 @@ import org.gvt.inspector.CBioPortalInspector;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFNode;
-import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.BioPAXNode;
-import org.gvt.util.HGNCUtil;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class CBioPortalDataStatisticsAction extends Action {
     protected ChisioMain main;
@@ -45,7 +46,7 @@ public class CBioPortalDataStatisticsAction extends Action {
 			else if (node instanceof BasicSIFNode)
 			{
 				String text = node.getText();
-				symbol = HGNCUtil.getSymbol(text);
+				symbol = HGNC.getSymbol(text);
 			}
 
 			if (symbol != null)

@@ -4,6 +4,7 @@ import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.level3.*;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.cbio.causality.data.portal.GeneticProfile;
+import org.cbio.causality.idmapping.HGNC;
 import org.cbio.causality.model.Alteration;
 import org.cbio.causality.model.AlterationPack;
 import org.cbio.causality.model.Change;
@@ -16,7 +17,6 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
 import org.gvt.util.EntityHolder;
-import org.gvt.util.HGNCUtil;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -304,7 +304,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 					String id = xref.getId();
 					if (id == null) continue;
 
-					sym = HGNCUtil.getSymbol(id);
+					sym = HGNC.getSymbol(id);
 
 					if (sym != null) break;
 				}
@@ -735,7 +735,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 					{
 						if (xr.getDb() != null && xr.getDb().toLowerCase().startsWith("hgnc"))
 						{
-							geneName = HGNCUtil.getSymbol(xr.getId());
+							geneName = HGNC.getSymbol(xr.getId());
 							if (geneName != null) break;
 						}
 					}
@@ -745,7 +745,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 		if (geneName == null)
 		{
-			geneName = HGNCUtil.getSymbol(getText());
+			geneName = HGNC.getSymbol(getText());
 		}
 
 		// Add the following statistics only if we got Portal data, otherwise skip it
