@@ -91,22 +91,35 @@ public class LoadTCGASpecificReactionsAction extends LoadTCGASpecificSIFAction
 			}
 		});
 
+		ArrayList<String> selected = new ArrayList<String>();
+
 		ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 400, "Hot reactions",
-			"Plase select reaction to view", keys, null, false, true, null);
+			"Plase select reaction to view", keys, selected, true, true, null);
 
-		String key = (String) dialog.open();
+		dialog.open();
 
-		if (key == null) return;
+		if (dialog.isCancelled() || selected.isEmpty()) return;
 
 		Set<String> ids = new HashSet<String>();
-		for (Reaction r : rSets.get(key))
+
+		for (String key : selected)
 		{
-			ids.addAll(r.ids);
+			for (Reaction r : rSets.get(key))
+			{
+				ids.addAll(r.ids);
+			}
 		}
+
+		String title = "";
+		for (String key : selected)
+		{
+			title += " [" + key + "]";
+		}
+		title = title.trim();
 
 		QueryPCGetAction qa = new QueryPCGetAction(main, true);
 		qa.setIDs(ids);
-		qa.setNewPathwayName(key);
+		qa.setNewPathwayName(title);
 		qa.run();
 
 		FetchFromCBioPortalAction fa = new FetchFromCBioPortalAction(

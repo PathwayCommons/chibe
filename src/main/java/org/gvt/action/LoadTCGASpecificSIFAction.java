@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.cbio.causality.data.portal.BroadAccessor;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
+import org.cbio.causality.data.portal.CancerStudy;
 import org.cbio.causality.data.portal.GeneticProfile;
 import org.cbio.causality.model.AlterationPack;
 import org.cbio.causality.util.Download;
@@ -26,10 +27,7 @@ import org.patika.mada.graph.Node;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Ozgun Babur
@@ -76,11 +74,14 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 		{
 			if (study == null)
 			{
-				ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 200,
-					"Available studies", "Please select a study", BroadAccessor.getStudyCodes(),
-					null, false, true, null);
+
+
+				ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 500,
+					"Available studies", "Please select a study",
+					prepareStudyList(BroadAccessor.getStudyCodes()), null, false, true, null);
 
 				study = (String) dialog.open();
+				if (study != null) study = study.substring(0, study.indexOf(" "));
 			}
 
 			if (study == null) return;
@@ -340,6 +341,33 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private List<String> prepareStudyList(List<String> studyCodes)
+	{
+		List<String> list = new ArrayList<String>(studyCodes.size());
+		try
+		{
+			CBioPortalAccessor acc = new CBioPortalAccessor();
+			for (String code : studyCodes)
+			{
+				code = code.toLowerCase();
+				for (CancerStudy cancerStudy : acc.getCancerStudies())
+				{
+					if (cancerStudy.getStudyId().equals(code + "_tcga"))
+					{
+						list.add(code.toUpperCase() + " - " + cancerStudy.getName());
+						break;
+					}
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 
 	static
