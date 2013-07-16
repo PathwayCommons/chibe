@@ -51,23 +51,31 @@ public class QueryPCPathwaysAction extends QueryPCAction
                 main.lockWithMessage("Querying Pathway Commons ...");
                 CPath2Client pc2 = getPCClient();
                 pc2.setType("Pathway");
-                SearchResponse resp = (SearchResponse) pc2.search("name:" + keyword);
+                SearchResponse resp = pc2.search("name:" + keyword);
                 main.unlock();
 
-                List<Holder> holders = extractResultFromServResp(resp, keyword);
+				if (resp != null)
+				{
+					List<Holder> holders = extractResultFromServResp(resp, keyword);
 
-                ItemSelectionDialog isd = new ItemSelectionDialog(main.getShell(),
-                    500, "Result Pathways", "Select Pathway to Get", holders, null,
-                    false, true, null);
-                isd.setDoSort(false);
+					ItemSelectionDialog isd = new ItemSelectionDialog(main.getShell(),
+						500, "Result Pathways", "Select Pathway to Get", holders, null,
+						false, true, null);
+					isd.setDoSort(false);
 
-                Object selected = isd.open();
+					Object selected = isd.open();
 
-                if (selected == null) return;
+					if (selected == null) return;
 
-                pathwayID = ((Holder) selected).id;
+					pathwayID = ((Holder) selected).id;
 
-                execute();
+					execute();
+				}
+				else
+				{
+					MessageDialog.openInformation(main.getShell(), "No result",
+						"Could not find any match.\n");
+				}
             }
             catch (Exception e)
             {

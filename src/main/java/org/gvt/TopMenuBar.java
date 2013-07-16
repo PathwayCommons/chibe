@@ -74,7 +74,8 @@ public class TopMenuBar
 
 		// SIF
 		menuBar.add(sifMenu);
-		sifMenu.add(new ExportToSIFAction(chisio));
+		sifMenu.add(new ExportToSIFAction(chisio, true));
+		sifMenu.add(new ExportToSIFAction(chisio, false));
 		sifMenu.add(new Separator());
 		sifMenu.add(new LoadSIFFileAction(chisio));
 		sifMenu.add(new SaveToSIFFileAction(chisio));

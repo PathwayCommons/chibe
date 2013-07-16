@@ -28,7 +28,7 @@ public class ToolbarManager extends ToolBarManager
 		add(new DeletePathwayAction(main, false));
 		add(new UpdatePathwayAction(main, true));
 		add(new Separator());
-		add(new ExportToSIFAction(main));
+		add(new ExportToSIFAction(main, true));
 		add(new Separator());
 		add(new SelectionToolAction("Select Tool", main));
 		add(new MarqueeZoomToolAction("Marquee Zoom Tool", main));

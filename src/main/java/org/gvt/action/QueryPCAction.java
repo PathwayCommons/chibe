@@ -4,6 +4,7 @@ import cpath.client.CPath2Client;
 import cpath.client.util.CPathException;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.model.level3.Interaction;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -94,7 +95,11 @@ public abstract class QueryPCAction extends Action
 
                 if (model != null)
                 {
-                    if (!model.getObjects().isEmpty())
+					if (containsOnlyAnEmptyPathway(model))
+					{
+						alertEmptyPathway();
+					}
+                    else if (!model.getObjects().isEmpty())
                     {
                         if (main.getOwlModel() != null)
                         {
@@ -182,6 +187,12 @@ public abstract class QueryPCAction extends Action
         }
 	}
 
+	protected boolean containsOnlyAnEmptyPathway(Model model)
+	{
+		return !model.getObjects(Pathway.class).isEmpty() &&
+			model.getObjects(Interaction.class).isEmpty();
+	}
+
 	protected String getNewPathwayName()
 	{
 		if (newPathwayName == null)
@@ -192,6 +203,12 @@ public abstract class QueryPCAction extends Action
 	protected void alertNoResults()
 	{
 		MessageDialog.openInformation(main.getShell(), "Empty result set", "No results found!");
+	}
+
+	protected void alertEmptyPathway()
+	{
+		MessageDialog.openInformation(main.getShell(), "Empty pathway",
+			"The pathway has no content.");
 	}
 
 	/**
