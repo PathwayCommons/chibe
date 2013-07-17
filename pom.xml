@@ -102,7 +102,7 @@
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>2.2-beta-5</version>
 					<configuration>
-						<finalName>ChiBE-${project.version}}</finalName>
+						<finalName>ChiBE-fatjar-${project.version}</finalName>
 						<appendAssemblyId>false</appendAssemblyId>
 						<descriptorRefs>
 							<descriptorRef>jar-with-dependencies</descriptorRef>
