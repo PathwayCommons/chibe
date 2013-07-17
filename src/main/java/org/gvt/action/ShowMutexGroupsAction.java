@@ -125,6 +125,17 @@ public class ShowMutexGroupsAction extends TCGASIFAction
 		List<NodeGroup> groups = new ArrayList<NodeGroup>();
 
 		List<Node> nodes = new ArrayList<Node>(graph.getNodes());
+
+		Iterator<Node> iter = nodes.iterator();
+		while (iter.hasNext())
+		{
+			Node node = iter.next();
+			if (getAltPack(node) == null)
+			{
+				iter.remove();
+			}
+		}
+
 		Collections.sort(nodes, new Comparator<Node>()
 		{
 			@Override
@@ -165,7 +176,7 @@ public class ShowMutexGroupsAction extends TCGASIFAction
 
 		for (Node node : nodes)
 		{
-			if (!group.contains(node))
+			if (!group.contains(node) && getAltPack(node) != null)
 			{
 				group.addNode(node);
 

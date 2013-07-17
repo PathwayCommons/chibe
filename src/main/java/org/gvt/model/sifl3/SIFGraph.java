@@ -88,7 +88,7 @@ public class SIFGraph extends BioPAXGraph
 	private Set<SIFInteraction> getSimpleInteractions()
 	{
 		SIFSearcher searcher = new SIFSearcher(ruleTypes.toArray(new SIFType[ruleTypes.size()]));
-		searcher.setMassDataMode(true);
+//		searcher.setMassDataMode(true);
 		return searcher.searchSIF(biopaxModel);
 	}
 

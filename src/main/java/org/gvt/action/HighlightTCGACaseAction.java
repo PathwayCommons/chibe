@@ -76,7 +76,7 @@ public class HighlightTCGACaseAction extends TCGASIFAction
 					{
 						String sym = node.getName();
 						AlterationPack altPack = ChisioMain.cBioPortalAccessor.getAlterations(sym);
-						if (altPack.get(Alteration.ANY)[index].isAltered())
+						if (altPack != null && altPack.get(Alteration.ANY)[index].isAltered())
 						{
 							node.setHighlight(true);
 							gos.add(node);
