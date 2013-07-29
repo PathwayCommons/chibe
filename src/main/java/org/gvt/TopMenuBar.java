@@ -154,6 +154,8 @@ public class TopMenuBar
 		dataMenu.add(new SearchCausativePathsAction(chisio, false));
 		dataMenu.add(new SearchCausativePathsAction(chisio, true));
         dataMenu.add(new HighlightWithDataValuesAction(chisio));
+        dataMenu.add(new Separator());
+        dataMenu.add(new ConnectToDAVIDAction(chisio));                
 
 		// QUERY
 
