@@ -1,6 +1,6 @@
 package org.gvt.action;
 
-import cpath.client.CPath2Client;
+import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
@@ -75,14 +75,14 @@ public class QueryPCGetAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws CPathException
 	{
-		CPath2Client pc2 = getPCClient();
+		CPathClient pc2 = getPCClient();
 
 		if (useSelected && !options.getSourceList().isEmpty())
 		{
 			id = new HashSet<String>(options.getSourceList());
 		}
 
-		return pc2.get(id);
+		return getPCGetQuery().sources(id).result();
 	}
 
 	@Override

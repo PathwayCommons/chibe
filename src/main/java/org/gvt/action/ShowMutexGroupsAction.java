@@ -271,7 +271,7 @@ public class ShowMutexGroupsAction extends TCGASIFAction
 				Change[] alt = altIter.next();
 				Change[] others = uniteAltExcluding(node);
 
-				pval[i++] = Overlap.calcAlterationMutexPval(alt, others);
+				pval[i++] = Overlap.calcMutexPval(alt, others);
 			}
 			return pval;
 		}

@@ -1,7 +1,8 @@
 package org.gvt.action;
 
-import cpath.client.CPath2Client;
+import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
+import cpath.service.GraphType;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.query.algorithm.Direction;
 import org.gvt.ChisioMain;
@@ -42,12 +43,12 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 	{
 		List<String> sourceSymbols = options.getConvertedSourceList();
 
-		CPath2Client pc2 = getPCClient();
-		pc2.setGraphQueryLimit(options.getLengthLimit());
-		pc2.setDirection(options.isDownstream() ?
-			CPath2Client.Direction.DOWNSTREAM : CPath2Client.Direction.UPSTREAM);
-
-		return pc2.getCommonStream(sourceSymbols);
+		return getPCGraphQuery().
+			kind(GraphType.COMMONSTREAM).
+			sources(sourceSymbols).
+			limit(options.getLengthLimit()).direction(options.isDownstream() ?
+				CPathClient.Direction.DOWNSTREAM : CPathClient.Direction.UPSTREAM).
+			result();
 	}
 
 	@Override
