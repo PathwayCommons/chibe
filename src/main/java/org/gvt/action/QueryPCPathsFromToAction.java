@@ -1,7 +1,8 @@
 package org.gvt.action;
 
-import cpath.client.CPath2Client;
+import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
+import cpath.service.GraphType;
 import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
@@ -42,9 +43,11 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 		List<String> sourceSymbols = options.getConvertedSourceList();
 		List<String> targetSymbols = options.getConvertedTargetList();
 
-		CPath2Client pc2 = getPCClient();
-		pc2.setGraphQueryLimit(options.getLengthLimit());
-		return pc2.getPathsFromTo(sourceSymbols, targetSymbols);
+		return getPCGraphQuery().limit(options.getLengthLimit()).
+			kind(GraphType.PATHSFROMTO).
+			sources(sourceSymbols).
+			targets(targetSymbols).
+			result();
 	}
 
 	@Override

@@ -1,7 +1,8 @@
 package org.gvt.action;
 
-import cpath.client.CPath2Client;
+import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
+import cpath.service.GraphType;
 import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
@@ -48,15 +49,16 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	{
 		List<String> symbols = options.getConvertedSourceList();
 
-		CPath2Client pc2 = getPCClient();
-		pc2.setGraphQueryLimit(options.getLengthLimit());
-		pc2.setDirection(options.isUpstream() && options.isDownstream() ?
-			CPath2Client.Direction.BOTHSTREAM: options.isUpstream() ?
-			CPath2Client.Direction.UPSTREAM : CPath2Client.Direction.DOWNSTREAM);
-
 		try
 		{
-			return pc2.getNeighborhood(symbols);
+			return getPCGraphQuery().
+				kind(GraphType.NEIGHBORHOOD).
+				sources(symbols).
+				limit(options.getLengthLimit()).
+				direction(options.isUpstream() && options.isDownstream() ?
+					CPathClient.Direction.BOTHSTREAM: options.isUpstream() ?
+					CPathClient.Direction.UPSTREAM : CPathClient.Direction.DOWNSTREAM).
+				result();
 		}
 		catch (Exception e)
 		{

@@ -1,7 +1,8 @@
 package org.gvt.action;
 
-import cpath.client.CPath2Client;
+import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
+import cpath.query.CPathSearchQuery;
 import cpath.service.jaxb.SearchHit;
 import cpath.service.jaxb.SearchResponse;
 import org.biopax.paxtools.model.BioPAXLevel;
@@ -49,9 +50,12 @@ public class QueryPCPathwaysAction extends QueryPCAction
                 keyword = keyword.trim().toLowerCase();
 
                 main.lockWithMessage("Querying Pathway Commons ...");
-                CPath2Client pc2 = getPCClient();
-                pc2.setType("Pathway");
-                SearchResponse resp = pc2.search("name:" + keyword);
+
+				SearchResponse resp = getPCSearchQuery().
+					typeFilter("Pathway").
+					queryString("name:" + keyword).
+					result();
+
                 main.unlock();
 
 				if (resp != null)
@@ -143,8 +147,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws CPathException
 	{
-		CPath2Client pc2 = getPCClient();
-		return pc2.get(pathwayID);
+		return getPCGetQuery().sources(new String[]{pathwayID}).result();
 	}
 
 	@Override

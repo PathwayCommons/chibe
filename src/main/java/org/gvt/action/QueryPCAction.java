@@ -1,7 +1,10 @@
 package org.gvt.action;
 
-import cpath.client.CPath2Client;
+import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
+import cpath.query.CPathGetQuery;
+import cpath.query.CPathGraphQuery;
+import cpath.query.CPathSearchQuery;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Interaction;
@@ -293,19 +296,41 @@ public abstract class QueryPCAction extends Action
 		return !options.getSourceList().isEmpty();
 	}
 
-	protected CPath2Client getPCClient()
+	protected CPathClient getPCClient()
 	{
 		System.setProperty("cPath2Url", Conf.get(Conf.PATHWAY_COMMONS_URL));
-		CPath2Client pc2 = CPath2Client.newInstance();
+		CPathClient pc2 = CPathClient.newInstance();
 
 		// Setting endpoint url disabled temporarily. New PC client uses the latest url
 		// automatically.
 //		pc2.setEndPointURL(Conf.get(Conf.PATHWAY_COMMONS_URL));
 
-		pc2.setMergeEquivalentInteractions(true);
 		return pc2;
 	}
 	
+	protected CPathGraphQuery getPCGraphQuery()
+	{
+		CPathClient client = getPCClient();
+		CPathGraphQuery query = client.createGraphQuery();
+		query.mergeEquivalentInteractions(true);
+		return query;
+	}
+
+	protected CPathSearchQuery getPCSearchQuery()
+	{
+		CPathClient client = getPCClient();
+		CPathSearchQuery query = client.createSearchQuery();
+		return query;
+	}
+
+	protected CPathGetQuery getPCGetQuery()
+	{
+		CPathClient client = getPCClient();
+		CPathGetQuery query = client.createGetQuery();
+		query.mergeEquivalentInteractions(true);
+		return query;
+	}
+
 	protected void warnForUnknownSymbols(List<String> unknown)
 	{
 		if (unknown != null && unknown.size() > 0)

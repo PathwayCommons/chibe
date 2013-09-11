@@ -1,7 +1,8 @@
 package org.gvt.action;
 
-import cpath.client.CPath2Client;
+import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
+import cpath.service.GraphType;
 import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
@@ -47,9 +48,11 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	protected Model doQuery() throws CPathException
 	{
 		List<String> sourceSymbols = options.getConvertedSourceList();
-		CPath2Client pc2 = getPCClient();
-		pc2.setGraphQueryLimit(options.getLengthLimit());
-		return pc2.getPathsBetween(sourceSymbols);
+		return getPCGraphQuery().
+			kind(GraphType.PATHSBETWEEN).
+			sources(sourceSymbols).
+			limit(options.getLengthLimit()).
+			result();
 	}
 
 	@Override
