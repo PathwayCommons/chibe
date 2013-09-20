@@ -66,15 +66,15 @@ public class PopupManager extends MenuManager
 
 				tcgasif = TCGASIFAction.okToRun(main, false);
 			}
-
-			if (tcgasif)
-			{
-				manager.add(new ShowMutexGroupsAction(main));
-				manager.add(new HighlightTCGACaseAction(main));
-				manager.add(new UpdateTCGASIFForACaseAction(main));
-				manager.add(new LoadTCGASpecificReactionsAction(main));
-				manager.add(new Separator());
-			}
+//
+//			if (tcgasif)
+//			{
+//				manager.add(new ShowMutexGroupsAction(main));
+//				manager.add(new HighlightTCGACaseAction(main));
+//				manager.add(new UpdateTCGASIFForACaseAction(main));
+//				manager.add(new LoadTCGASpecificReactionsAction(main));
+//				manager.add(new Separator());
+//			}
 
 			ClosePathwayAction action = new ClosePathwayAction(main);
 			if (sif) action.setText("Close Graph");
