@@ -45,7 +45,7 @@ public class GOIofSIFAction extends Action
 
 	public GOIofSIFAction(ChisioMain main)
 	{
-		super("Paths Between Query on SIF File ...");
+		super("Paths-Between Query on SIF File ...");
 		setToolTipText(getText());
 		this.main = main;
 		this.selectedRuleTypes = new ArrayList<SIFType>();
