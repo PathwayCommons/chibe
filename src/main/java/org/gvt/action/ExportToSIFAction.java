@@ -118,7 +118,7 @@ public class ExportToSIFAction extends Action
 		if (okPressed && (!ruleTypesL2.isEmpty() || !ruleTypesL3.isEmpty()))
 		{
 			BioPAXGraph sif = l3 ?
-			new org.gvt.model.sifl3.SIFGraph(model, ruleTypesL3) :
+			new org.gvt.model.sifl3.SIFGraph(model, ruleTypesL3, main.collectUbiqueIDs()) :
 			new org.gvt.model.sifl2.SIFGraph(model, ruleTypesL2);
 
 			int nodenum = sif.getNodes().size();

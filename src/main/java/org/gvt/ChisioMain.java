@@ -990,6 +990,26 @@ public class ChisioMain extends ApplicationWindow
 
     } // End of method
 
+	/**
+	 * Collects IDs of the ubique molecules in the current model.
+	 */
+	public Set<String> collectUbiqueIDs()
+	{
+		Set<String> set = new HashSet<String>();
+		for (Object o : rootGraph.getNodes())
+		{
+			if (o instanceof org.gvt.model.biopaxl3.Actor)
+			{
+				org.gvt.model.biopaxl3.Actor actor = (org.gvt.model.biopaxl3.Actor) o;
+				if (actor.isUbique())
+				{
+					EntityHolder eh = actor.getEntity();
+					set.add(eh.getID());
+				}
+			}
+		}
+		return set;
+	}
 
     //----------------------------------------------------------------------------------------------
 	// Section: Experiment data related methods
