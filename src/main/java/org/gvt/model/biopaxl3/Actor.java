@@ -13,6 +13,10 @@ import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 /**
@@ -36,6 +40,11 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	protected Entity related;
 
 	int multimerNo;
+
+	/**
+	 * This is the list of IDs of ubiquotous small molecules in Pathway Commons 2.
+	 */
+	private static Set<String> blacklist;
 
 	/**
 	 * Constructor.
@@ -366,7 +375,9 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public boolean isUbique()
 	{
-		return entity instanceof SmallMolecule && isUbiqueName(entity.getStandardName());
+		if (blacklist == null) blacklist = fetchBlackListFromPC();
+		return blacklist.contains(entity.getRDFId()) ||
+			entity instanceof SmallMolecule && isUbiqueName(entity.getStandardName());
 	}
 
 	public static boolean isUbiqueName(String name)
@@ -385,6 +396,12 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				name.startsWith("GTP") ||
 				name.startsWith("PPi") ||
 				name.equals("Pi") ||
+				name.equals("NAD") ||
+				name.equals("NADH") ||
+				name.equals("NAD+") ||
+				name.equals("NADP") ||
+				name.equals("NADPH") ||
+				name.equals("NADP+") ||
 				name.startsWith("Phosphate") ||
 				name.startsWith("phosphate") ||
 				name.startsWith("Orthophosphate") ||
@@ -453,6 +470,27 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return reqs;
 	}
 
+	private Set<String> fetchBlackListFromPC()
+	{
+		Set<String> black = new HashSet<String>();
+
+		try
+		{
+			URL url = new URL(Conf.get(Conf.PATHWAY_COMMONS_URL) + "downloads/blacklist.txt");
+			URLConnection con = url.openConnection();
+			Scanner sc = new Scanner(con.getContent().toString());
+			while(sc.hasNextLine())
+			{
+				black.add(sc.nextLine());
+			}
+			return black;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Cannot fetch blacklist from Pathway Commons.");
+			return black;
+		}
+	}
 
 	public static final int DEFAULT_HEIGHT = 20;
 	public static final int DEFAULT_UBIQUE_HEIGHT = 15;

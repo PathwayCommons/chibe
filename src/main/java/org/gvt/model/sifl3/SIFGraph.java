@@ -28,12 +28,14 @@ import java.util.*;
 public class SIFGraph extends BioPAXGraph
 {
 	private List<SIFType> ruleTypes;
+	private Set<String> ubiqueIDs;
 
-	public SIFGraph(Model biopaxModel, List<SIFType> ruleTypes)
+	public SIFGraph(Model biopaxModel, List<SIFType> ruleTypes, Set<String> ubiqueIDs)
 	{
 		setBiopaxModel(biopaxModel);
 		setGraphType(SIF_LEVEL3);
 		this.ruleTypes = ruleTypes;
+		this.ubiqueIDs = ubiqueIDs;
 
 		createContents();
 	}
@@ -88,6 +90,7 @@ public class SIFGraph extends BioPAXGraph
 	private Set<SIFInteraction> getSimpleInteractions()
 	{
 		SIFSearcher searcher = new SIFSearcher(ruleTypes.toArray(new SIFType[ruleTypes.size()]));
+		searcher.setUbiqueIDs(ubiqueIDs);
 //		searcher.setMassDataMode(true);
 		return searcher.searchSIF(biopaxModel);
 	}
