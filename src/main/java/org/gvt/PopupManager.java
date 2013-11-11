@@ -7,6 +7,8 @@ import org.eclipse.gef.*;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.internal.Model;
 import org.gvt.action.*;
 import org.gvt.editpart.ChsEdgeEditPart;
 import org.gvt.editpart.ChsRootEditPart;
@@ -66,15 +68,15 @@ public class PopupManager extends MenuManager
 
 				tcgasif = TCGASIFAction.okToRun(main, false);
 			}
-//
-//			if (tcgasif)
-//			{
-//				manager.add(new ShowMutexGroupsAction(main));
-//				manager.add(new HighlightTCGACaseAction(main));
-//				manager.add(new UpdateTCGASIFForACaseAction(main));
-//				manager.add(new LoadTCGASpecificReactionsAction(main));
-//				manager.add(new Separator());
-//			}
+
+			if (tcgasif)
+			{
+				manager.add(new ShowMutexGroupsAction(main));
+				manager.add(new HighlightTCGACaseAction(main));
+				manager.add(new UpdateTCGASIFForACaseAction(main));
+				manager.add(new LoadTCGASpecificReactionsAction(main));
+				manager.add(new Separator());
+			}
 
 			ClosePathwayAction action = new ClosePathwayAction(main);
 			if (sif) action.setText("Close Graph");
@@ -151,22 +153,33 @@ public class PopupManager extends MenuManager
 			Object o = ep.getModel();
 			if (o instanceof BasicSIFEdge || o instanceof SIFEdge)
 			{
-
 				EdgeModel model = (EdgeModel) o;
 				String arrow = model.getArrow();
 				boolean directed = !arrow.equals("None");
 				String source = HGNC.getSymbol(model.getSource().getText());
 				String target = HGNC.getSymbol(model.getTarget().getText());
 
-				if (source != null && target != null)
+				if (o instanceof BasicSIFEdge)
 				{
-					if (directed)
+					QueryPCGetAction query = new QueryPCGetAction(main, true);
+					String text = multipleBasicSIFEdgeSelected() ? "Detailed View" :
+						source + (directed ? " -> " : " -- ") + target + " Detailed";
+					query.setText(text);
+					manager.add(query);
+					manager.add(new Separator());
+				}
+				else
+				{
+					if (source != null && target != null)
 					{
-						QueryPCPathsFromToAction action = new QueryPCPathsFromToAction(main, source, target);
-						action.setIncreaseLimitIfNoResult(true);
-						manager.add(action);
+						if (directed)
+						{
+							QueryPCPathsFromToAction action = new QueryPCPathsFromToAction(main, source, target);
+							action.setIncreaseLimitIfNoResult(true);
+							manager.add(action);
+						}
+						else manager.add(new QueryPCPathsBetweenAction(main, source, target));
 					}
-					else manager.add(new QueryPCPathsBetweenAction(main, source, target));
 				}
 			}
 
@@ -185,5 +198,23 @@ public class PopupManager extends MenuManager
 	public void setClickLocation(Point clickLocation)
 	{
 		this.clickLocation = clickLocation;
+	}
+
+	private boolean multipleBasicSIFEdgeSelected()
+	{
+		java.util.List parts = ((IStructuredSelection) main.getViewer().getSelection()).toList();
+
+		int cnt = 0;
+		for (Object partObj : parts)
+		{
+			EditPart ep = (EditPart) partObj;
+			Object mod = ep.getModel();
+
+			if (mod instanceof BasicSIFEdge) cnt++;
+
+			if (cnt > 1) return true;
+		}
+		assert cnt < 2;
+		return false;
 	}
 }

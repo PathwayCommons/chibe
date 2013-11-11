@@ -10,6 +10,9 @@ import org.gvt.ChisioMain;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
+import org.gvt.model.biopaxl3.ChbConversion;
+import org.gvt.model.biopaxl3.ChbTempReac;
+import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.HashSet;

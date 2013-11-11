@@ -170,8 +170,8 @@ public class SIFEdge extends BioPAXEdge
 	{
 		typeMap = new HashMap<String, EdgeType>();
 		
-		addType(new EdgeType(SIFType.INTERACTS_WITH,
-			new Color(null, 100, 150, 100), SOLID, NO_SIGN, false));
+		addType(new EdgeType(SIFType.RELATED_THROUGH_INTERACTION,
+			new Color(null, 100, 120, 100), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFType.IN_SAME_COMPLEX,
 			new Color(null, 150, 150, 150), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFType.CONTROLS_STATE_CHANGE,
@@ -182,6 +182,10 @@ public class SIFEdge extends BioPAXEdge
                 new Color(null, 50, 150, 50), DASHED, NO_SIGN, false));
         addType(new EdgeType(SIFType.CONTROLS_DEGRADATION,
                 new Color(null, 150, 50, 50), SOLID, NO_SIGN, false));
+        addType(new EdgeType(SIFType.CONTROLS_METABOLIC_CATALYSIS,
+                new Color(null, 50, 120, 100), SOLID, NO_SIGN, false));
+        addType(new EdgeType(SIFType.CHEMICAL_AFFECTS_PROTEIN,
+                new Color(null, 100, 80, 80), SOLID, NO_SIGN, false));
 
 
         // Non-Paxtools SIF edges

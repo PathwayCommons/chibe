@@ -18,7 +18,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.model.EntityAssociated;
+import org.gvt.model.GraphObject;
 import org.gvt.model.NodeModel;
+import org.gvt.model.basicsif.BasicSIFEdge;
+import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.util.XRef;
@@ -262,9 +265,9 @@ public abstract class QueryPCAction extends Action
 		return false;
 	}
 	
-	protected Set<NodeModel> getSelectedNodes()
+	protected Set<GraphObject> getSelectedObjects()
 	{
-		Set<NodeModel> selected = new HashSet<NodeModel>();
+		Set<GraphObject> selected = new HashSet<GraphObject>();
 
 		ScrollingGraphicalViewer viewer = main.getViewer();
 		Iterator selectedObjects = ((IStructuredSelection) viewer.getSelection()).iterator();
@@ -273,9 +276,9 @@ public abstract class QueryPCAction extends Action
 		{
 			Object o = ((EditPart)selectedObjects.next()).getModel();
 
-			if (o instanceof NodeModel)
+			if (o instanceof GraphObject)
 			{
-				selected.add((NodeModel) o);
+				selected.add((GraphObject) o);
 			}
 		}
 		return selected;
@@ -284,13 +287,22 @@ public abstract class QueryPCAction extends Action
 	protected boolean setSelectedPEIDsAsSource()
 	{
 		Set<String> set = new HashSet<String>();
-		for (NodeModel nm : getSelectedNodes())
+		for (GraphObject nm : getSelectedObjects())
 		{
 			if (nm instanceof EntityAssociated)
 			{
 				set.add(((EntityAssociated) nm).getEntity().getID());
 			}
+			else if (nm instanceof BasicSIFEdge)
+			{
+				set.addAll(((BasicSIFEdge) nm).getMediators());
+			}
+			else if (nm instanceof BasicSIFNode)
+			{
+				set.add(nm.getText());
+			}
 		}
+
 		options.setSourceList(new ArrayList<String>(set));
 		options.setUseID(true);
 		return !options.getSourceList().isEmpty();

@@ -311,7 +311,11 @@ public class BioPAXL3Graph extends BioPAXGraph
 			{
 				pathway.addPathwayComponent(((Pairing) o).getInteraction());
 			}
-		}	
+			if (o instanceof NonModulatedEffector)
+			{
+				pathway.addPathwayComponent(((NonModulatedEffector) o).getControl());
+			}
+		}
 	}
 
 	public int numberOfUnemptyPathways()
