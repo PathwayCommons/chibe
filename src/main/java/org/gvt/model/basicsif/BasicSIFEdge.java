@@ -6,8 +6,7 @@ import org.gvt.model.biopaxl3.BioPAXEdge;
 import org.gvt.model.NodeModel;
 import org.gvt.model.sifl3.SIFEdge;
 
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Ozgun Babur
@@ -18,7 +17,9 @@ public class BasicSIFEdge extends BioPAXEdge
 {
 	protected SIFEdge.EdgeType type;
 
-	public BasicSIFEdge(BasicSIFNode source, BasicSIFNode target, String tag)
+	protected Set<String> mediators;
+
+	public BasicSIFEdge(BasicSIFNode source, BasicSIFNode target, String tag, String mediators)
 	{
 		super(source, target);
 
@@ -37,12 +38,20 @@ public class BasicSIFEdge extends BioPAXEdge
 		{
 			setStyle("Dashed");
 		}
+
+		if (mediators != null)
+		{
+			this.mediators = new HashSet<String>();
+			Collections.addAll(this.mediators, mediators.split(" "));
+		}
+		else this.mediators = Collections.emptySet();
 	}
 
 	public BasicSIFEdge(BioPAXEdge excised, Map<NodeModel, NodeModel> map)
 	{
 		super(excised, map);
 		this.type = ((BasicSIFEdge) excised).type;
+		this.mediators = ((BasicSIFEdge) excised).mediators;
 	}
 
 	public int getSign()
@@ -69,7 +78,12 @@ public class BasicSIFEdge extends BioPAXEdge
 	{
 		return type.getIntType();
 	}
-	
+
+	public Set<String> getMediators()
+	{
+		return mediators;
+	}
+
 	public List<String[]> getInspectable()
 	{
 		List<String[]> list = super.getInspectable();

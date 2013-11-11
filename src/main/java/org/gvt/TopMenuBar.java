@@ -81,8 +81,8 @@ public class TopMenuBar
 		sifMenu.add(new SaveToSIFFileAction(chisio));
 		sifMenu.add(new Separator());
 		sifMenu.add(new GOIofSIFAction(chisio));
-//		sifMenu.add(new Separator());
-//		sifMenu.add(new LoadTCGASpecificSIFAction(chisio));
+		sifMenu.add(new Separator());
+		sifMenu.add(new LoadTCGASpecificSIFAction(chisio));
 
 		// VIEW
 		menuBar.add(viewMenu);

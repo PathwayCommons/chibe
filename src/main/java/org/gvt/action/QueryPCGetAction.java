@@ -75,8 +75,6 @@ public class QueryPCGetAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws CPathException
 	{
-		CPathClient pc2 = getPCClient();
-
 		if (useSelected && !options.getSourceList().isEmpty())
 		{
 			id = new HashSet<String>(options.getSourceList());
