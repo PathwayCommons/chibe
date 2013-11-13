@@ -218,7 +218,10 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 	private boolean downloadPCSIF(String saveLoc)
 	{
 		String url = Conf.get(Conf.PC_SIF_FILE_URL);
-		return Download.downlaodTextFile(url, saveLoc);
+
+		return url.endsWith(".gz") ?
+			Download.downloadAndUncompress(url, saveLoc) :
+			Download.downlaodTextFile(url, saveLoc);
 	}
 
 	//--------------------- Graph operations ------------------------------------------------------|

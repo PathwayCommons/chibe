@@ -78,7 +78,7 @@ public class Conf
 //		s += PATHWAY_COMMONS_URL + " = http://webservice.baderlab.org:48080/\n";
 
 		s += PC_SIF_FILE + " = " + DEFAULT + "\n";
-		s += PC_SIF_FILE_URL + " = http://chibe.googlecode.com/files/PC.sif\n";
+		s += PC_SIF_FILE_URL + " = http://resources.chibe.googlecode.com/hg/PC.sif.gz\n";
 		s += REACTION_2_GENE_FILE + " = " + DEFAULT + "\n";
 		s += REACTION_2_GENE_FILE_URL + " = http://chibe.googlecode.com/files/related-genes-of-interactions.txt\n";
 		s += BROAD_DATA_URL + " = http://gdac.broadinstitute.org/runs/analyses__2013_05_23/\n";
