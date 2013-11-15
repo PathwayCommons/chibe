@@ -36,8 +36,6 @@ import java.util.*;
  */
 public class LoadTCGASpecificSIFAction extends TCGASIFAction
 {
-	private static final String DEFAULT_PC_FILE_NAME = "PC.sif";
-
 	protected String caseID;
 	protected String study;
 	protected boolean newView;
@@ -95,16 +93,16 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 				return;
 			}
 
-			BasicSIFGraph pcGraph = getPCGraph();
+			BasicSIFGraph pcGraph = QueryPCAction.getPCGraph();
 
-			Set<Node> seed = getSeed(pcGraph, genes);
+			Set<Node> seed = QueryPCAction.getSeed(pcGraph, genes);
 
 			Set<String> gisticGenes = BroadAccessor.getGisticGenes(study, 0.01);
 
 			gisticGenes = getNeighborsOfFirstAlsoInTheSecondSet(genes, gisticGenes, seed);
 			keepOverValue(study, gisticGenes, genes, 0.05);
 			genes.addAll(gisticGenes);
-			seed = getSeed(pcGraph, genes);
+			seed = QueryPCAction.getSeed(pcGraph, genes);
 
 			Set<String> caseGenes = null;
 			Set<String> caseOnly = null;
@@ -115,7 +113,7 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 				caseOnly = new HashSet<String>(caseGenes);
 				caseOnly.removeAll(genes);
 				genes.addAll(caseOnly);
-				seed = getSeed(pcGraph, genes);
+				seed = QueryPCAction.getSeed(pcGraph, genes);
 
 				System.out.println("caseOnly.size() = " + caseOnly.size());
 				System.out.println("caseGenes = " + caseGenes.size());
@@ -185,56 +183,7 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 		}
 	}
 
-	//--------------------- Getting PC SIF graph --------------------------------------------------|
-
-	private BasicSIFGraph getPCGraph()
-	{
-		SIFReader sifReader = new SIFReader(Arrays.asList(SIFType.CONTROLS_STATE_CHANGE,
-			SIFType.CONTROLS_EXPRESSION, SIFType.CONTROLS_DEGRADATION));
-
-		File sifFile = new File(getPCSifFileLocation());
-
-		if (!sifFile.exists())
-		{
-			downloadPCSIF(sifFile.getPath());
-		}
-
-		return (BasicSIFGraph) sifReader.readXMLFile(sifFile);
-	}
-
-	private String getPCSifFileLocation()
-	{
-		String s = Conf.get(Conf.PC_SIF_FILE);
-		if (s.equals(Conf.DEFAULT))
-		{
-			return Conf.getPortalCacheDir() + DEFAULT_PC_FILE_NAME;
-		}
-		else
-		{
-			return s;
-		}
-	}
-
-	private boolean downloadPCSIF(String saveLoc)
-	{
-		String url = Conf.get(Conf.PC_SIF_FILE_URL);
-
-		return url.endsWith(".gz") ?
-			Download.downloadAndUncompress(url, saveLoc) :
-			Download.downlaodTextFile(url, saveLoc);
-	}
-
 	//--------------------- Graph operations ------------------------------------------------------|
-
-	private Set<Node> getSeed(Graph graph, Set<String> symbols)
-	{
-		Set<Node> seed = new HashSet<Node>();
-		for (Node node : graph.getNodes())
-		{
-			if (symbols.contains(node.getName())) seed.add(node);
-		}
-		return seed;
-	}
 
 	private Set<String> getNeighborsOfFirstAlsoInTheSecondSet(Set<String> first, Set<String> second,
 		Set<Node> nodes)

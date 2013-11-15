@@ -123,14 +123,14 @@ public class PopupManager extends MenuManager
 
 			MenuManager pcQueryMenu = new MenuManager("&Pathway Commons Query (Level 3)");
 			MenuManager neighMenu = new MenuManager("&Neighborhood");
-			neighMenu.add(new QueryPCNeighborsAction(main, false, true));
-			neighMenu.add(new QueryPCNeighborsAction(main, true, false));
-			neighMenu.add(new QueryPCNeighborsAction(main, true, true));
+			neighMenu.add(new QueryPCNeighborsAction(main, false, true, false));
+			neighMenu.add(new QueryPCNeighborsAction(main, true, false, false));
+			neighMenu.add(new QueryPCNeighborsAction(main, true, true, false));
 			pcQueryMenu.add(neighMenu);
-			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true));
+			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true, false));
 			MenuManager commStreamMenu = new MenuManager("&Common Stream");
-			commStreamMenu.add(new QueryPCCommonStreamAction(main, true));
-			commStreamMenu.add(new QueryPCCommonStreamAction(main, false));
+			commStreamMenu.add(new QueryPCCommonStreamAction(main, true, false));
+			commStreamMenu.add(new QueryPCCommonStreamAction(main, false, false));
 			pcQueryMenu.add(commStreamMenu);
             manager.add(pcQueryMenu);
 
@@ -174,11 +174,11 @@ public class PopupManager extends MenuManager
 					{
 						if (directed)
 						{
-							QueryPCPathsFromToAction action = new QueryPCPathsFromToAction(main, source, target);
+							QueryPCPathsFromToAction action = new QueryPCPathsFromToAction(main, source, target, false);
 							action.setIncreaseLimitIfNoResult(true);
 							manager.add(action);
 						}
-						else manager.add(new QueryPCPathsBetweenAction(main, source, target));
+						else manager.add(new QueryPCPathsBetweenAction(main, false, source, target));
 					}
 				}
 			}

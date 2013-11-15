@@ -8,7 +8,11 @@ import org.biopax.paxtools.query.algorithm.Direction;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.CommonStreamQueryParamWithEntitiesDialog;
+import org.gvt.model.basicsif.BasicSIFGraph;
+import org.patika.mada.algorithm.AlgoRunner;
+import org.patika.mada.graph.GraphObject;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,14 +21,14 @@ import java.util.List;
  */
 public class QueryPCCommonStreamAction extends QueryPCAction
 {
-	public QueryPCCommonStreamAction(ChisioMain main)
+	public QueryPCCommonStreamAction(ChisioMain main, boolean querySIF)
 	{
-		super(main, "Common Stream ...", false);
+		super(main, "Common Stream ...", false, querySIF);
 	}
 
-	public QueryPCCommonStreamAction(ChisioMain main, boolean downstream)
+	public QueryPCCommonStreamAction(ChisioMain main, boolean downstream, boolean querySIF)
 	{
-		this(main);
+		this(main, querySIF);
 		super.useSelected = true;
 		setText(downstream ? "Downstream" : "Upstream");
 
@@ -49,6 +53,13 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 			limit(options.getLengthLimit()).direction(options.isDownstream() ?
 				CPathClient.Direction.DOWNSTREAM : CPathClient.Direction.UPSTREAM).
 			result();
+	}
+
+	@Override
+	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
+	{
+		return AlgoRunner.searchCommonStream(getSeed(graph, options.getConvertedSourceList()),
+			options.isDownstream(), options.getLengthLimit());
 	}
 
 	@Override

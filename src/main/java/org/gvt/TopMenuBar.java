@@ -177,17 +177,24 @@ public class TopMenuBar
 		pcOldMenu.add(new QueryNeighborsAction(chisio, false));
 		pcOldMenu.add(new QueryPathwaysAction(chisio, false));
 
-		MenuManager pcNewMenu = new MenuManager("&Pathway Commons (Level 3)");
-
 		// Query new pathway commons
+		MenuManager pcNewMenu = new MenuManager("&Pathway Commons (Level 3)");
 		queryMenu.add(pcNewMenu);
-		pcNewMenu.add(new QueryPCNeighborsAction(chisio));
-		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio, false));
-		pcNewMenu.add(new QueryPCPathsFromToAction(chisio));
-		pcNewMenu.add(new QueryPCCommonStreamAction(chisio));
+		pcNewMenu.add(new QueryPCNeighborsAction(chisio, false));
+		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio, false, false));
+		pcNewMenu.add(new QueryPCPathsFromToAction(chisio, false));
+		pcNewMenu.add(new QueryPCCommonStreamAction(chisio, false));
 		pcNewMenu.add(new Separator());
 		pcNewMenu.add(new QueryPCPathwaysAction(chisio));
 		pcNewMenu.add(new QueryPCGetAction(chisio, false));
+
+		// Query new pathway commons in SIF
+		MenuManager pcNewSIFMenu = new MenuManager("&Pathway Commons (SIF)");
+		queryMenu.add(pcNewSIFMenu);
+		pcNewSIFMenu.add(new QueryPCNeighborsAction(chisio, true));
+		pcNewSIFMenu.add(new QueryPCPathsBetweenAction(chisio, false, true));
+		pcNewSIFMenu.add(new QueryPCPathsFromToAction(chisio, true));
+		pcNewSIFMenu.add(new QueryPCCommonStreamAction(chisio, true));
 
 		// HELP
 		menuBar.add(helpMenu);

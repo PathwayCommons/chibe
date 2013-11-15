@@ -12,6 +12,8 @@ import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.StringInputDialog;
+import org.gvt.model.basicsif.BasicSIFGraph;
+import org.patika.mada.graph.GraphObject;
 
 import java.util.*;
 
@@ -27,7 +29,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 	public QueryPCPathwaysAction(ChisioMain main)
 	{
-		super(main, "Pathways With Keyword ...", false);
+		super(main, "Pathways With Keyword ...", false, false);
 	}
 
 	public void run()
@@ -148,6 +150,12 @@ public class QueryPCPathwaysAction extends QueryPCAction
 	protected Model doQuery() throws CPathException
 	{
 		return getPCGetQuery().sources(new String[]{pathwayID}).result();
+	}
+
+	@Override
+	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
+	{
+		throw new UnsupportedOperationException("Cannot get from SIF");
 	}
 
 	@Override

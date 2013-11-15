@@ -7,7 +7,11 @@ import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
+import org.gvt.model.basicsif.BasicSIFGraph;
+import org.patika.mada.algorithm.AlgoRunner;
+import org.patika.mada.graph.GraphObject;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,10 +27,11 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	 * @param upstream
 	 * @param downstream
 	 */
-	public QueryPCNeighborsAction(ChisioMain main, boolean upstream, boolean downstream)
+	public QueryPCNeighborsAction(ChisioMain main, boolean upstream, boolean downstream,
+		boolean querySIF)
 	{
 		super(main, upstream && downstream ? "Both Streams" : upstream ? "Upstream" : "Downstream",
-			true);
+			true, querySIF);
 
 		assert upstream || downstream;
 
@@ -34,9 +39,9 @@ public class QueryPCNeighborsAction extends QueryPCAction
 		options.setDownstream(downstream);
 	}
 
-	public QueryPCNeighborsAction(ChisioMain main)
+	public QueryPCNeighborsAction(ChisioMain main, boolean querySIF)
 	{
-		super(main, "Neighborhood ...", false);
+		super(main, "Neighborhood ...", false, querySIF);
 	}
 
 	public void run()
@@ -66,6 +71,13 @@ public class QueryPCNeighborsAction extends QueryPCAction
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
+	{
+		return AlgoRunner.searchNeighborhood(getSeed(graph, options.getConvertedSourceList()),
+			options.getLengthLimit(), options.isUpstream(), options.isDownstream());
 	}
 
 	@Override

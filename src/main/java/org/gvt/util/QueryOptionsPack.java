@@ -2,6 +2,7 @@ package org.gvt.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.cbio.causality.idmapping.HGNC;
@@ -190,13 +191,15 @@ public class QueryOptionsPack implements Serializable
 	public List<String> getConvertedSourceList()
 	{
 		if (useID) return sourceList;
-		return getConvertedSymbols(sourceList);
+		return sourceList == null ? Collections.<String>emptyList() :
+			getConvertedSymbols(sourceList);
 	}
 
 	public List<String> getConvertedTargetList()
 	{
 		if (useID) return targetList;
-		return getConvertedSymbols(targetList);
+		return targetList == null ? Collections.<String>emptyList() :
+			getConvertedSymbols(targetList);
 	}
 
 	public String getOneStringSources()

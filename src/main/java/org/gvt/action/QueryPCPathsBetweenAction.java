@@ -7,8 +7,12 @@ import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.GoIQueryParamWithEntitiesDialog;
+import org.gvt.model.basicsif.BasicSIFGraph;
+import org.patika.mada.algorithm.AlgoRunner;
+import org.patika.mada.graph.GraphObject;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,9 +23,9 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 {
 	private String[] symbols;
 
-	public QueryPCPathsBetweenAction(ChisioMain main, String... symbols)
+	public QueryPCPathsBetweenAction(ChisioMain main, boolean querySIF, String... symbols)
 	{
-		super(main, "Paths Between ...", false);
+		super(main, "Paths Between ...", false, querySIF);
 		if (symbols.length > 1)
 		{
 			this.symbols = symbols;
@@ -34,9 +38,9 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 		}
 	}
 
-	public QueryPCPathsBetweenAction(ChisioMain main, boolean useSelected)
+	public QueryPCPathsBetweenAction(ChisioMain main, boolean useSelected, boolean querySIF)
 	{
-		super(main, "Paths Between ...", useSelected);
+		super(main, "Paths Between ...", useSelected, querySIF);
 	}
 
 	public void run()
@@ -53,6 +57,13 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 			sources(sourceSymbols).
 			limit(options.getLengthLimit()).
 			result();
+	}
+
+	@Override
+	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
+	{
+		return AlgoRunner.searchGraphOfInterest(graph,
+			getSeed(graph, options.getConvertedSourceList()), options.getLengthLimit(), true);
 	}
 
 	@Override
