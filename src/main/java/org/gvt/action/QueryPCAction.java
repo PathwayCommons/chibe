@@ -9,6 +9,8 @@ import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Interaction;
 import org.biopax.paxtools.model.level3.Pathway;
+import org.biopax.paxtools.pattern.miner.SIFType;
+import org.cbio.causality.util.Download;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
@@ -16,16 +18,23 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
+import org.gvt.editpart.ChsScalableRootEditPart;
+import org.gvt.figure.HighlightLayer;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.GraphObject;
 import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFEdge;
+import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
+import org.gvt.util.SIFReader;
+import org.patika.mada.graph.Graph;
+import org.patika.mada.graph.Node;
 import org.patika.mada.util.XRef;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -50,7 +59,9 @@ public abstract class QueryPCAction extends Action
 
 	protected String newPathwayName;
 
-	public QueryPCAction(ChisioMain main, String text, boolean useSelected)
+	protected boolean querySIF;
+
+	public QueryPCAction(ChisioMain main, String text, boolean useSelected, boolean querySIF)
 	{
 		super(text);
 		setImageDescriptor(ImageDescriptor.createFromFile(
@@ -59,6 +70,7 @@ public abstract class QueryPCAction extends Action
 		this.main = main;
 		options = new QueryOptionsPack();
 		this.useSelected = useSelected;
+		this.querySIF = querySIF;
 		increaseLimitIfNoResult = false;
 	}
 
@@ -89,84 +101,9 @@ public abstract class QueryPCAction extends Action
                 if (!canQuery()) return;
 
                 main.lockWithMessage("Querying Pathway Commons ...");
-                Model model = doQuery();
 
-				if (model == null && increaseLimitIfNoResult)
-				{
-					options.setLengthLimit(options.getLengthLimit() + 1);
-					model = doQuery();
-				}
-
-                main.unlock();
-
-                if (model != null)
-                {
-					if (containsOnlyAnEmptyPathway(model))
-					{
-						alertEmptyPathway();
-					}
-                    else if (!model.getObjects().isEmpty())
-                    {
-                        if (main.getOwlModel() != null)
-                        {
-                            MergeAction merge = new MergeAction(main, model);
-                            merge.setOpenPathways(true);
-							boolean hasNonEmptyPathway = modelHasNonEmptyPathway(model);
-                            merge.setCreateNewPathway(!hasNonEmptyPathway);
-                            if (!hasNonEmptyPathway) merge.setNewPathwayName(getNewPathwayName());
-							merge.updatePathways = false;
-                            merge.run();
-                        }
-                        else
-                        {
-                            LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
-                            load.setOpenPathways(true);
-
-                            if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getNewPathwayName());
-                            load.run();
-                        }
-						
-						// Highlight source and target
-
-						if (main.getPathwayGraph() != null)
-						{
-							Set<String> st = new HashSet<String>();
-							if (options.getSourceList() != null)
-								st.addAll(options.getSourceList());
-							if (options.getTargetList() != null)
-								st.addAll(options.getTargetList());
-
-							if (options.isUseID())
-							{
-								HighlightWithEntityIDAction hac = new HighlightWithEntityIDAction(
-									main, main.getPathwayGraph(), st);
-
-								hac.run();
-							}
-							else
-							{
-								Set<XRef> refSet = new HashSet<XRef>();
-								for (String name : st)
-								{
-									refSet.add(new XRef("Name", name));
-								}
-
-								HighlightWithRefAction hac = new HighlightWithRefAction(
-									main, main.getPathwayGraph(), refSet);
-
-								hac.run();
-							}
-						}
-                    }
-                    else
-                    {
-                        alertNoResults();
-                    }
-                }
-				else
-				{
-					alertNoResults();
-				}
+				if (querySIF) doSIFQuery();
+				else doMechanisticQuery();
             }
             catch (Exception e)
             {
@@ -189,8 +126,124 @@ public abstract class QueryPCAction extends Action
         }
         else
         {
-            MessageDialog.openError(main.getShell(), "Incompatible Levels","This query is only applicable to Level 3 models.");
+            MessageDialog.openError(main.getShell(), "Incompatible Levels",
+				"This query is only applicable to Level 3 models.");
         }
+	}
+
+	private void doSIFQuery() throws CPathException
+	{
+		BasicSIFGraph graph = getPCGraph();
+
+		Collection<org.patika.mada.graph.GraphObject> gos = doSIFQuery(graph);
+
+		if (gos.isEmpty())
+		{
+			alertNoResults();
+			return;
+		}
+
+		BasicSIFGraph goi = (BasicSIFGraph) graph.excise(gos, true);
+		goi.setName(getNewPathwayName());
+		goi.setAsRoot();
+
+		main.createNewTab(goi);
+
+		new CoSELayoutAction(main).run();
+
+		Set<String> seed = new HashSet<String>(options.getConvertedSourceList());
+		seed.addAll(options.getConvertedTargetList());
+
+		for (Object o : goi.getNodes())
+		{
+			NodeModel node = (NodeModel) o;
+			if (seed.contains(node.getText()))
+			{
+				node.setHighlight(true);
+			}
+		}
+	}
+
+	private void doMechanisticQuery() throws CPathException
+	{
+		Model model = doQuery();
+
+		if (model == null && increaseLimitIfNoResult)
+		{
+			options.setLengthLimit(options.getLengthLimit() + 1);
+			model = doQuery();
+		}
+
+		main.unlock();
+
+		if (model != null)
+		{
+			if (containsOnlyAnEmptyPathway(model))
+			{
+				alertEmptyPathway();
+			}
+			else if (!model.getObjects().isEmpty())
+			{
+				if (main.getOwlModel() != null)
+				{
+					MergeAction merge = new MergeAction(main, model);
+					merge.setOpenPathways(true);
+					boolean hasNonEmptyPathway = modelHasNonEmptyPathway(model);
+					merge.setCreateNewPathway(!hasNonEmptyPathway);
+					if (!hasNonEmptyPathway) merge.setNewPathwayName(getNewPathwayName());
+					merge.updatePathways = false;
+					merge.run();
+				}
+				else
+				{
+					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
+					load.setOpenPathways(true);
+
+					if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getNewPathwayName());
+					load.run();
+				}
+
+				// Highlight source and target
+
+				if (main.getPathwayGraph() != null)
+				{
+					Set<String> st = new HashSet<String>();
+					if (options.getSourceList() != null)
+						st.addAll(options.getSourceList());
+					if (options.getTargetList() != null)
+						st.addAll(options.getTargetList());
+
+					if (options.isUseID())
+					{
+						HighlightWithEntityIDAction hac = new HighlightWithEntityIDAction(
+							main, main.getPathwayGraph(), st);
+
+						hac.run();
+					}
+					else
+					{
+						Set<XRef> refSet = new HashSet<XRef>();
+						for (String name : st)
+						{
+							refSet.add(new XRef("Name", name));
+						}
+
+						HighlightWithRefAction hac = new HighlightWithRefAction(
+							main, main.getPathwayGraph(), refSet);
+
+						hac.run();
+					}
+				}
+			}
+			else
+			{
+				alertNoResults();
+			}
+		}
+		else
+		{
+			alertNoResults();
+		}
 	}
 
 	protected boolean containsOnlyAnEmptyPathway(Model model)
@@ -222,6 +275,13 @@ public abstract class QueryPCAction extends Action
 	 * @return
 	 */
 	protected abstract Model doQuery() throws CPathException;
+
+	/**
+	 * Queries pathway commons, gets the model.
+	 * @return
+	 */
+	protected abstract Collection<org.patika.mada.graph.GraphObject> doSIFQuery(BasicSIFGraph graph)
+		throws CPathException;
 
 	/**
 	 * Provides the parameter dialog that will display to get input.
@@ -365,5 +425,56 @@ public abstract class QueryPCAction extends Action
 	{
 		MessageDialog.openWarning(main.getShell(), "Need more input", "Query needs at least " +
 			required + " entities. Currently only " + found + " is recognized.");
+	}
+
+	//--------------------- Getting PC SIF graph --------------------------------------------------|
+
+	public static BasicSIFGraph getPCGraph()
+	{
+		SIFReader sifReader = new SIFReader(Arrays.asList(SIFType.CONTROLS_STATE_CHANGE,
+			SIFType.CONTROLS_EXPRESSION, SIFType.CONTROLS_DEGRADATION));
+
+		File sifFile = new File(getPCSifFileLocation());
+
+		if (!sifFile.exists())
+		{
+			downloadPCSIF(sifFile.getPath());
+		}
+
+		return (BasicSIFGraph) sifReader.readXMLFile(sifFile);
+	}
+
+	private static final String DEFAULT_PC_FILE_NAME = "PC.sif";
+
+	private static String getPCSifFileLocation()
+	{
+		String s = Conf.get(Conf.PC_SIF_FILE);
+		if (s.equals(Conf.DEFAULT))
+		{
+			return Conf.getPortalCacheDir() + DEFAULT_PC_FILE_NAME;
+		}
+		else
+		{
+			return s;
+		}
+	}
+
+	private static boolean downloadPCSIF(String saveLoc)
+	{
+		String url = Conf.get(Conf.PC_SIF_FILE_URL);
+
+		return url.endsWith(".gz") ?
+			Download.downloadAndUncompress(url, saveLoc) :
+			Download.downlaodTextFile(url, saveLoc);
+	}
+
+	public static Set<Node> getSeed(Graph graph, Collection<String> symbols)
+	{
+		Set<Node> seed = new HashSet<Node>();
+		for (Node node : graph.getNodes())
+		{
+			if (symbols.contains(node.getName())) seed.add(node);
+		}
+		return seed;
 	}
 }

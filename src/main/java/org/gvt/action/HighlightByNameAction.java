@@ -1,6 +1,7 @@
 package org.gvt.action;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.StringInputDialog;
 import org.gvt.editpart.ChsRootEditPart;
@@ -67,6 +68,8 @@ public class HighlightByNameAction extends Action
 
 			Iterator<NodeModel> nodeIter = root.getNodes().iterator();
 
+			boolean highlighted = false;
+
 			while (nodeIter.hasNext())
 			{
 				NodeModel node = nodeIter.next();
@@ -77,7 +80,14 @@ public class HighlightByNameAction extends Action
 				{
 					node.setHighlightColor(ChisioMain.higlightColor);
                     node.setHighlight(true);
+					highlighted = true;
 				}
+			}
+
+			if (!highlighted)
+			{
+				MessageDialog.openInformation(main.getShell(),
+					"Not Found.", "\"" + name + "\" is not found");
 			}
 		}
 		

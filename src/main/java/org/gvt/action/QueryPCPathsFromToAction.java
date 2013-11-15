@@ -1,14 +1,17 @@
 package org.gvt.action;
 
-import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
 import cpath.service.GraphType;
 import org.biopax.paxtools.model.Model;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.PoIQueryParamWithEntitiesDialog;
+import org.gvt.model.basicsif.BasicSIFGraph;
+import org.patika.mada.algorithm.AlgoRunner;
+import org.patika.mada.graph.GraphObject;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,14 +23,15 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 	private String fromSymbol;
 	private String toSymbol;
 
-	public QueryPCPathsFromToAction(ChisioMain main)
+	public QueryPCPathsFromToAction(ChisioMain main, boolean querySIF)
 	{
-		super(main, "Paths From To ...", false);
+		super(main, "Paths From To ...", false, querySIF);
 	}
 
-	public QueryPCPathsFromToAction(ChisioMain main, String fromSymbol, String toSymbol)
+	public QueryPCPathsFromToAction(ChisioMain main, String fromSymbol, String toSymbol,
+		boolean querySIF)
 	{
-		super(main, "Paths from " + fromSymbol + " to " + toSymbol, false);
+		super(main, "Paths from " + fromSymbol + " to " + toSymbol, false, querySIF);
 		this.fromSymbol = fromSymbol;
 		this.toSymbol = toSymbol;
 	}
@@ -48,6 +52,13 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 			sources(sourceSymbols).
 			targets(targetSymbols).
 			result();
+	}
+
+	@Override
+	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
+	{
+		return AlgoRunner.searchPathsFromTo(getSeed(graph, options.getConvertedSourceList()),
+			getSeed(graph, options.getConvertedTargetList()), options.getLengthLimit());
 	}
 
 	@Override

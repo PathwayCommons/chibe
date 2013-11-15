@@ -8,8 +8,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.StringInputDialog;
+import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.util.Conf;
+import org.patika.mada.graph.GraphObject;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +27,7 @@ public class QueryPCGetAction extends QueryPCAction
 
 	public QueryPCGetAction(ChisioMain main, boolean useSelected)
 	{
-		super(main, "Object With Database ID ...", useSelected);
+		super(main, "Object With Database ID ...", useSelected, false);
 	}
 
 	public void run()
@@ -81,6 +84,12 @@ public class QueryPCGetAction extends QueryPCAction
 		}
 
 		return getPCGetQuery().sources(id).result();
+	}
+
+	@Override
+	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
+	{
+		throw new UnsupportedOperationException("Cannot get from SIF");
 	}
 
 	@Override

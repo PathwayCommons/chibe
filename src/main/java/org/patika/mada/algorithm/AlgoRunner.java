@@ -57,4 +57,27 @@ public class AlgoRunner
 		GraphOfInterets goi = new GraphOfInterets(seed, directed, graph, limit);
 		return goi.run();
 	}
+
+	public static Collection<GraphObject> searchNeighborhood(Set<Node> seed,
+		int limit, boolean upstream, boolean downstream)
+	{
+		LocalNeighborhoodQuery nq = new LocalNeighborhoodQuery(seed, upstream, downstream, limit);
+		return nq.run();
+	}
+
+	public static Collection<GraphObject> searchPathsFromTo(Set<Node> source, Set<Node> target,
+		int limit)
+	{
+		LocalPoIQuery poi = new LocalPoIQuery(source, target, LocalPoIQuery.NORMAL_LIMIT, limit,
+			true);
+		return poi.run();
+	}
+
+	public static Collection<GraphObject> searchCommonStream(Set<Node> source, boolean downstream,
+		int limit)
+	{
+		LocalCommonStreamQuery csq = new LocalCommonStreamQuery(source, downstream, limit);
+		Set<Node> common = csq.run();
+		return searchPathsFromTo(source, common, limit);
+	}
 }
