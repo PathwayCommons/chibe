@@ -1,5 +1,6 @@
 package org.gvt.gui;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -25,23 +26,16 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 	/**
 	 * All entities of graph
 	 */
-	List<EntityHolder> allEntities;
-
-	/**
-	 * Entities which are added
-	 */
-//	ArrayList<EntityHolder> addedEntities;
-
+	Collection<EntityHolder> allEntities;
 
 	/**
 	 * Create the dialog
 	 */
 	public NeighborhoodQueryParamWithEntitiesDialog(ChisioMain main,
-		List<EntityHolder> allEntities)
+		Collection<EntityHolder> allEntities)
 	{
 		super(main);
 		this.allEntities = allEntities;
-//		this.addedEntities = new ArrayList<EntityHolder>();
 	}
 
 	/**

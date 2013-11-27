@@ -1,8 +1,6 @@
 package org.gvt.action;
 
-import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
-import cpath.query.CPathSearchQuery;
 import cpath.service.jaxb.SearchHit;
 import cpath.service.jaxb.SearchResponse;
 import org.biopax.paxtools.model.BioPAXLevel;
@@ -34,7 +32,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 	public void run()
 	{
-        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
+        if(main.getBioPAXModel() == null || main.getBioPAXModel().getLevel().equals(BioPAXLevel.L3))
         {
             try
             {

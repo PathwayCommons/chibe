@@ -1,16 +1,21 @@
 package org.gvt.action;
 
+import org.biopax.paxtools.model.BioPAXElement;
+import org.biopax.paxtools.query.QueryExecuter;
+import org.biopax.paxtools.query.algorithm.LimitType;
 import org.gvt.ChisioMain;
 import org.gvt.gui.CompartmentQueryParamWithEntitiesDialog;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.biopax.paxtools.model.Model;
+import org.gvt.util.BioPAXUtil;
 import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.graph.Node;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.algorithm.LocalPoIQuery;
 
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.ArrayList;
@@ -43,9 +48,7 @@ public class LocalCompartmentQueryAction extends AbstractLocalQueryAction
 
     public void run()
     {
-        Model owlModel = this.main.getOwlModel();
-
-        if (owlModel == null)
+        if (main.getBioPAXModel() == null)
         {
             MessageDialog.openError(main.getShell(), "Error!",
                 "Load or query a BioPAX model first!");
@@ -69,98 +72,17 @@ public class LocalCompartmentQueryAction extends AbstractLocalQueryAction
 
         //Source and target node sets
 
-        Set<Node> sourceNodes = new HashSet<Node>();
-        Set<Node> targetNodes = new HashSet<Node>();
+		Set<String> source = new HashSet<String>(dialog.getSourceAddedCompartments());
+        Set<String> target = new HashSet<String>(dialog.getTargetAddedCompartments());
 
-		//Get added source compartments.
-        ArrayList<CompoundModel> sourceAddedCompartments =
-			dialog.getSourceAddedCompartments();
+		Set<BioPAXElement> result = QueryExecuter.runPathsFromTo(
+			BioPAXUtil.getElementsAtLocations(main.getBioPAXModel(), source),
+			BioPAXUtil.getElementsAtLocations(main.getBioPAXModel(), target),
+			main.getBioPAXModel(),
+			options.getLimitType() ? LimitType.NORMAL : LimitType.SHORTEST_PLUS_K,
+			options.getLengthLimit());
 
-		Set<GraphObject> sourceSet = new HashSet<GraphObject>();
-		//Get nodes and edges from source added compartments.
-		for (CompoundModel compartment : sourceAddedCompartments)
-		{
-			sourceSet.addAll(compartment.getChildren());
-		}
-
-		//Select the nodes that are entity associated
-		for (GraphObject go : sourceSet)
-        {
-            if (go instanceof EntityAssociated)
-            {
-                sourceNodes.add((Node)go);
-            }
-        }
-
-		//Get added target compartments.
-        ArrayList<CompoundModel> targetAddedCompartments =
-			dialog.getTargetAddedCompartments();
-
-        Set<GraphObject> targetSet = new HashSet<GraphObject>();
-		//Get nodes and edges from target added compartments.
-		for (CompoundModel compartment : targetAddedCompartments)
-		{
-			targetSet.addAll(compartment.getChildren());
-		}
-
-		//Select the nodes that are entity associated
-        for (GraphObject go : targetSet)
-        {
-            if (go instanceof EntityAssociated)
-            {
-                targetNodes.add((Node) go);
-            }
-        }
-
-		/**
-		 * To find the paths between compartments, PoI will be run from
-		 * the nodes in the source compartment to the nodes in the target
-		 * compartment
-		 */
-		LocalPoIQuery poi;
-        Set<GraphObject> result = new HashSet<GraphObject>();
-
-        //if length limit is selected and strict is unchecked.
-        if (options.getLimitType() && !options.isStrict())
-        {
-            poi = new LocalPoIQuery(sourceNodes, targetNodes,
-                true, options.getLengthLimit(), false);
-        }
-        //if length limit is selected and strict is checked.
-        else if (options.getLimitType() && options.isStrict())
-        {
-            poi = new LocalPoIQuery(sourceNodes, targetNodes,
-                true, options.getLengthLimit(), true);
-        }
-        //if shortest+k is selected and strict is unchecked.
-        else if (!options.getLimitType() && !options.isStrict())
-        {
-            poi = new LocalPoIQuery(sourceNodes, targetNodes,
-                false, options.getShortestPlusKLimit(), false);
-        }
-        //if shortest+k is selected and strict is checked.
-        else
-        {
-            poi = new LocalPoIQuery(sourceNodes, targetNodes,
-                false, options.getShortestPlusKLimit(), true);
-        }
-
-        //Run PoI and add result of PoI to the result set
-        result.addAll(poi.run());
-
-        //if no result can be found, open dialog to warn.
-        if (result.size() == 0)
-        {
-            MessageDialog.openWarning(main.getShell(),
-                "No result!",
-                "No path can be found with specified parameters!");
-        }
-        else
-        {
-            viewAndHighlightResult(result,
-                options.isCurrentView(),
-                "Compartment");
-        }
+		viewAndHighlightResult(result, options.isCurrentView(), "Query Result");
     }
 }
 

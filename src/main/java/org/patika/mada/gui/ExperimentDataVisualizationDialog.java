@@ -17,6 +17,7 @@ import org.gvt.ChisioMain;
 import org.gvt.action.GetNeighborhoodOfSelectedEntityAction;
 import org.gvt.action.QueryNeighborsAction;
 import org.gvt.model.BioPAXGraph;
+import org.gvt.util.BioPAXUtil;
 import org.gvt.util.EntityHolder;
 import org.patika.mada.dataXML.Reference;
 import org.patika.mada.dataXML.Row;
@@ -366,10 +367,10 @@ public class ExperimentDataVisualizationDialog extends Dialog implements Selecti
 				switch (selection)
 				{
 					case 0: // Neighbors in loaded file
-						BioPAXGraph root = main.getRootGraph();
-						if (root != null)
+						if (main.getBioPAXModel() != null)
 						{
-							Collection<EntityHolder> entities = root.getRelatedEntities(refs);
+							Collection<EntityHolder> entities =
+								BioPAXUtil.getRelatedEntities(main.getBioPAXModel(), refs);
 
 							if (entities.isEmpty())
 							{

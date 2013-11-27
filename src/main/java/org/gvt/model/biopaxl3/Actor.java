@@ -188,6 +188,11 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return related;
 	}
 
+	public void setRelated(Entity related)
+	{
+		this.related = related;
+	}
+
 	public Collection<? extends Level3Element> getRelatedModelElements()
 	{
 		Collection<Level3Element> col = new HashSet<Level3Element>();
@@ -370,20 +375,37 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public String getIDHash()
 	{
-		return entity.getRDFId() + (isUbique() ? related.getRDFId() : "");
+		return entity.getRDFId() + (related != null ? related.getRDFId() : "");
 	}
 
 	public boolean isUbique()
 	{
+		return isIDUbique(entity.getRDFId()) ||
+			entity instanceof SmallMolecule && isUbiqueName(entity.getDisplayName());
+	}
+
+	public static boolean isUbique(PhysicalEntity pe)
+	{
+		return isIDUbique(pe.getRDFId()) ||
+			(pe instanceof SmallMolecule && isUbiqueName(pe.getDisplayName()));
+	}
+
+	public static boolean isIDUbique(String rdfID)
+	{
 		if (blacklist == null) blacklist = fetchBlackListFromPC();
-		return blacklist.contains(entity.getRDFId()) ||
-			entity instanceof SmallMolecule && isUbiqueName(entity.getStandardName());
+		return blacklist.contains(rdfID);
+	}
+
+	public static Set<String> getBlackList()
+	{
+		if (blacklist == null) blacklist = fetchBlackListFromPC();
+		return blacklist;
 	}
 
 	public static boolean isUbiqueName(String name)
 	{
-		return
-			name.startsWith("ATP") ||
+		return name != null &&
+			(name.startsWith("ATP") ||
 				name.startsWith("ADP") ||
 				name.startsWith("AMP") ||
 				name.startsWith("adenosine 5'-monophosphate") ||
@@ -402,11 +424,15 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				name.equals("NADP") ||
 				name.equals("NADPH") ||
 				name.equals("NADP+") ||
+				name.equals("FAD") ||
+				name.equals("FADH") ||
+				name.equals("FADH2") ||
 				name.startsWith("Phosphate") ||
 				name.startsWith("phosphate") ||
 				name.startsWith("Orthophosphate") ||
 				name.startsWith("orthophosphate") ||
-				name.startsWith("NTP");
+				name.startsWith("NTP"));
+
 	}
 
 	private boolean isEffector()
@@ -470,7 +496,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return reqs;
 	}
 
-	private Set<String> fetchBlackListFromPC()
+	private static Set<String> fetchBlackListFromPC()
 	{
 		Set<String> black = new HashSet<String>();
 

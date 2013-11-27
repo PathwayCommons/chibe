@@ -191,7 +191,7 @@ public class FetchFromGEODialog extends Dialog
 		{
 			public void widgetSelected(SelectionEvent arg0)
 			{
-				if(main.getRootGraph() == null)
+				if(main.getBioPAXModel() == null)
 				{
 					MessageDialog.openError(main.getShell(), "Error!",
 						"No BioPAX model loaded.");

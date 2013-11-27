@@ -11,12 +11,11 @@ import org.gvt.GraphAnimation;
 import org.gvt.editpart.ChsScalableRootEditPart;
 import org.gvt.figure.HighlightLayer;
 import org.gvt.model.BioPAXGraph;
+import org.gvt.model.GraphObject;
 import org.gvt.model.IBioPAXEdge;
 import org.gvt.model.IBioPAXNode;
-import org.gvt.util.BioPAXReader;
 import org.gvt.util.Conf;
 import org.gvt.util.PathwayHolder;
-import org.patika.mada.graph.GraphObject;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,11 +37,6 @@ public class UpdatePathwayAction extends Action
 	private boolean allOpenPathways;
 
 	/**
-	 * Parameter for recreating root graph.
-	 */
-	private boolean withRoot;
-
-	/**
 	 * This collection is used when user wants to update contents of the pathway.
 	 */
 	private Collection<GraphObject> withContent;
@@ -61,7 +55,6 @@ public class UpdatePathwayAction extends Action
 		this.setToolTipText(this.getText());
 		this.main = main;
 		this.allOpenPathways = allOpenPathways;
-		withRoot = allOpenPathways;
 	}
 
 	public UpdatePathwayAction(ChisioMain main, Collection<GraphObject> withContent)
@@ -130,8 +123,10 @@ public class UpdatePathwayAction extends Action
 
 		// Excise pathway
 
-		BioPAXGraph newGraph = main.getRootGraph().excise(p);
+		BioPAXGraph newGraph = main.createAModelForView(p);
 		newGraph.setAsRoot();
+
+		newGraph.setName(graph.getName());
 
 		// Replace the graph
 		viewer.setContents(newGraph);
@@ -177,15 +172,9 @@ public class UpdatePathwayAction extends Action
 		}
 	}
 
-	private void updateRoot()
-	{
-		BioPAXGraph root = (BioPAXGraph) new BioPAXReader(main.getOwlModel()).readXMLFile(null);
-		main.setRootGraph(root);
-	}
-
 	public void run()
 	{
-		Model model = main.getOwlModel();
+		Model model = main.getBioPAXModel();
 
 		if (model == null)
 		{
@@ -193,11 +182,6 @@ public class UpdatePathwayAction extends Action
 				"Load or query a BioPAX model first!");
 
 			return;
-		}
-
-		if (withRoot)
-		{
-			updateRoot();
 		}
 
 		if (allOpenPathways)

@@ -16,12 +16,14 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.gvt.model.BioPAXGraph;
-import org.gvt.util.BioPAXReader;
+import org.gvt.util.BioPAXUtil;
+import org.gvt.util.PathwayHolder;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class merges two models via BioPAX Merger interface
@@ -29,8 +31,8 @@ import java.util.List;
  *
  * @author Arman Aksoy
  * @author Ozgun Babur
- *
- * Copyright: Bilkent Center for Bioinformatics, 2007 - present
+ *         <p/>
+ *         Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
 public class MergeAction extends Action
 {
@@ -49,7 +51,7 @@ public class MergeAction extends Action
 	boolean openPathways;
 	boolean createNewPathway;
 
-    /**
+	/**
 	 * Constructor without filename. opens an FileChooser for filename
 	 *
 	 * @param chisio
@@ -64,7 +66,7 @@ public class MergeAction extends Action
 
 		this.updatePathways = true;
 		this.openPathways = true;
-    }
+	}
 
 	public void setOpenPathways(boolean openPathways)
 	{
@@ -127,7 +129,7 @@ public class MergeAction extends Action
 
 	public void run()
 	{
-		if ( main.getRootGraph() == null )
+		if (main.getBioPAXModel() == null)
 		{
 			MessageDialog.openError(main.getShell(), "Error!",
 				"Load or query a BioPAX model first.");
@@ -139,14 +141,14 @@ public class MergeAction extends Action
 			filename = openFileChooser();
 
 			// If no file is selected
-			if( filename == null )
+			if (filename == null)
 			{
 				return;
 			}
 		}
 
 
-        // For now we only have one source model
+		// For now we only have one source model
 		HashSet<Model> sources = new HashSet<Model>();
 
 		try
@@ -168,50 +170,45 @@ public class MergeAction extends Action
 				return;
 			}
 
-            if(main.getOwlModel().getLevel().equals(model.getLevel()))
-            {
-                // Typical merging process
-                sources.add(model);
-                Model target = main.getOwlModel();
+			if (main.getBioPAXModel().getLevel().equals(model.getLevel()))
+			{
+				// Typical merging process
+				sources.add(model);
 
-                SimpleMerger merger = new SimpleMerger(SimpleEditorMap.get(target.getLevel()));
-                merger.merge(target, sources.toArray(new Model[sources.size()]));
-				ModelUtils.mergeEquivalentInteractions(target);
+				SimpleMerger merger = new SimpleMerger(
+					SimpleEditorMap.get(main.getBioPAXModel().getLevel()));
 
-                BioPAXReader reader = new BioPAXReader(target);
-                BioPAXGraph graph = (BioPAXGraph) reader.readXMLFile(null);
+				merger.merge(main.getBioPAXModel(), model);
+				ModelUtils.mergeEquivalentInteractions(main.getBioPAXModel());
 
-                if (createNewPathway)
-                {
-                    List<String> intids = getInteractionIDs(model);
-                    newPathwayName = graph.createPathway(
-                        newPathwayName == null ? "No name" : newPathwayName, intids);
-                    main.getAllPathwayNames().add(newPathwayName);
-                }
+				if (createNewPathway)
+				{
+					Set<String> intids = BioPAXUtil.getInteractionIDs(model);
 
-                main.setRootGraph(graph);
-                main.makeDirty();
+					newPathwayName = BioPAXUtil.createPathway(
+						main.getBioPAXModel(), newPathwayName, intids).getName();
+				}
 
-                if (updatePathways) new UpdatePathwayAction(main, true).run();
+				main.makeDirty();
 
-                if (openPathways)
-                {
-                    if (newPathwayName != null)
-                    {
-                        List<String> pnames = new ArrayList<String>(main.getOpenTabNames());
-                        pnames.add(newPathwayName);
-                        new OpenPathwaysAction(main, pnames).run();
-                    }
-                    else
-                    {
-                        new OpenPathwaysAction(main).run();
-                    }
-			    }
-            }
-            else
-            {
-                MessageDialog.openError(main.getShell(), "Incompatible Levels", "Models with different levels cannot be merged.");
-            }
+				if (updatePathways) new UpdatePathwayAction(main, true).run();
+
+				if (openPathways)
+				{
+					if (newPathwayName != null)
+					{
+						List<String> pnames = new ArrayList<String>(main.getOpenTabNames());
+						pnames.add(newPathwayName);
+						new OpenPathwaysAction(main, pnames).run();
+					} else
+					{
+						new OpenPathwaysAction(main).run();
+					}
+				}
+			} else
+			{
+				MessageDialog.openError(main.getShell(), "Incompatible Levels", "Models with different levels cannot be merged.");
+			}
 
 //			// Prepare a RDF list for merged elements
 //			// we are going to use it for highlighting
@@ -230,58 +227,18 @@ public class MergeAction extends Action
 //			main.highlightRDFs(mergedRdfs);
 //			// A simple procedure can be followed by starting with
 //			// the elements in merger.getAddedElements()
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
-		}
-		finally
+		} finally
 		{
 			// Reset the variables for later use
 			filename = null;
 			model = null;
 		}
-    }
-
-    /**
-	 * Checks if the file has a valid extension for loading into chisio.
-	 * @param path the path of the file
-	 * @return true if file name is valid
-	 */
-	public static boolean hasValidExtension(String path)
-	{
-		for (String extension : FILTER_EXTENSIONS)
-		{
-			if (path.substring(path.lastIndexOf(".")).equalsIgnoreCase(extension.substring(1)))
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 
-	private static List<String> getInteractionIDs(Model model)
-	{
-		List<String> ids = new ArrayList<String>();
+	public static final String[] FILTER_EXTENSIONS = new String[]{"*.owl"};
 
-		if (model.getLevel() == BioPAXLevel.L2)
-		{
-			for (interaction inter : model.getObjects(interaction.class))
-			{
-				ids.add(inter.getRDFId());
-			}
-		}
-		else if (model.getLevel() == BioPAXLevel.L3)
-		{
-			for (Interaction inter : model.getObjects(Interaction.class))
-			{
-				ids.add(inter.getRDFId());
-			}
-		}
-		return ids;
-	}
-
-    public static final String[] FILTER_EXTENSIONS = new String[]{ "*.owl" };
-
-	public static final String[] FILTER_NAMES = new String[]{ "BioPAX (*.owl)" };
+	public static final String[] FILTER_NAMES = new String[]{"BioPAX (*.owl)"};
 }

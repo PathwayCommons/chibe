@@ -21,7 +21,7 @@ public class ToolbarManager extends ToolBarManager
 		add(new MergeAction(main));
 		add(new SaveBioPAXFileAction(main));
 		add(new Separator());
-		add(new OpenPathwaysAction(main, null));
+		add(new OpenPathwaysAction(main));
 		add(new ClosePathwayAction(main, false));
 		add(new CropAction(main, CropAction.CropTo.HIGHLIGHTED));
 		add(new CropAction(main, CropAction.CropTo.SELECTED));

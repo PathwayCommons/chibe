@@ -13,6 +13,8 @@ import java.util.Random;
  */
 public class Conf
 {
+	public static final String DRAW_PPI_EDGES = "DRAW_PPI_EDGES";
+
 	public static final String PATHWAY_COMMONS_URL = "PATHWAY_COMMONS_URL";
 	public static final String PC_SIF_FILE = "PC_SIF_FILE";
 	public static final String PC_SIF_FILE_URL = "PC_SIF_FILE_URL";
@@ -73,6 +75,7 @@ public class Conf
 	private static String getDefaultConfString()
 	{
 		String s = "";
+		s += DRAW_PPI_EDGES + " = true\n";
 		s += PATHWAY_COMMONS_URL + " = http://www.pathwaycommons.org/pc2/\n";
 //		s += PATHWAY_COMMONS_URL + " = http://purl.org/chibe/pc2/\n";
 //		s += PATHWAY_COMMONS_URL + " = http://webservice.baderlab.org:48080/\n";
@@ -311,5 +314,10 @@ public class Conf
 		File f = new File(dir);
 		if (!f.exists()) f.mkdirs();
 		return dir;
+	}
+
+	public static boolean drawPPI()
+	{
+		return getBoolean(DRAW_PPI_EDGES);
 	}
 }

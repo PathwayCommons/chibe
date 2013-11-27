@@ -40,7 +40,9 @@ public class CustomGroup extends CompoundModel
 
 			for (String mem : members)
 			{
-				assert nodeMap.containsKey(mem);
+				if (mem.isEmpty()) continue;
+
+				assert nodeMap.containsKey(mem) : "Member node not found: " + mem;
 				
 				NodeModel node = nodeMap.get(mem);
 				

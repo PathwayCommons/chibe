@@ -200,4 +200,11 @@ public class EntityHolder
 
 		return false;
 	}
+
+	public BioPAXElement getEntity()
+	{
+		if (l3er != null) return l3er;
+		if (l3pe != null) return l3pe;
+		return l2pe;
+	}
 }

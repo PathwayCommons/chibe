@@ -10,6 +10,7 @@ import org.gvt.util.EntityHolder;
 import org.gvt.util.QueryOptionsPack;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * This class maintains GoI Query Dialog for TopMenuBar.
@@ -21,12 +22,12 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
     /**
      * All entities of graph
      */
-    ArrayList<EntityHolder> allEntities;
+    Collection<EntityHolder> allEntities;
 
     /**
      * Create the dialog
      */
-    public GoIQueryParamWithEntitiesDialog(ChisioMain main, ArrayList<EntityHolder> allEntities)
+    public GoIQueryParamWithEntitiesDialog(ChisioMain main, Collection<EntityHolder> allEntities)
     {
         super(main);
         this.allEntities = allEntities;

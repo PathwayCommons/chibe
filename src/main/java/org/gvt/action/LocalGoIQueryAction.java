@@ -1,14 +1,16 @@
 package org.gvt.action;
 
+import org.biopax.paxtools.model.BioPAXElement;
+import org.biopax.paxtools.query.QueryExecuter;
 import org.gvt.ChisioMain;
 import org.gvt.gui.GoIQueryParamDialog;
 import org.gvt.gui.GoIQueryParamWithEntitiesDialog;
+import org.gvt.util.BioPAXUtil;
 import org.gvt.util.EntityHolder;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.biopax.paxtools.model.Model;
 import org.gvt.util.QueryOptionsPack;
 import org.patika.mada.graph.Node;
-import org.patika.mada.graph.GraphObject;
 import org.patika.mada.algorithm.LocalPoIQuery;
 
 import java.util.List;
@@ -52,9 +54,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
 
     public void LocalGoI()
     {
-        Model owlModel = this.main.getOwlModel();
-
-        if (owlModel == null)
+        if (main.getBioPAXModel() == null)
         {
             MessageDialog.openError(main.getShell(), "Error!",
                 "Load or query a BioPAX model first!");
@@ -62,7 +62,7 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
             return;
         }
 
-        Set<Node> sourceNodes = new HashSet<Node>();
+		Set<BioPAXElement> source;
 
         //if action is called from PopupMenu
         if (useSelection)
@@ -88,14 +88,15 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
             }
 
             //Get Selected Nodes in graph
-            sourceNodes = getSelectedNodes();
-        }
+			source = main.getSelectedBioPAXElements();
+		}
         //if action is called from TopMenuBar
         else
         {
             //open dialog
-            GoIQueryParamWithEntitiesDialog dialog =
-                new GoIQueryParamWithEntitiesDialog(main, main.getAllEntities());
+            GoIQueryParamWithEntitiesDialog dialog = new GoIQueryParamWithEntitiesDialog(
+				main, BioPAXUtil.getEntities(main.getBioPAXModel()));
+
             options = dialog.open(options);
 
             if ( !options.isCancel() )
@@ -109,35 +110,12 @@ public class LocalGoIQueryAction extends AbstractLocalQueryAction
 
             //Get added entities to the list
             List<EntityHolder> addedEntities = dialog.getAddedSourceEntities();
-
-            //Get the states of added entities.
-            Set<Node> sourceSet =
-                main.getRootGraph().getRelatedStates(addedEntities);
-
-            //Replace any complex member with its corresponding complex.
-            main.getRootGraph().replaceComplexMembersWithComplexes(sourceSet);
-
-            for (GraphObject go : sourceSet)
-            {
-                if (go instanceof Node)
-                {
-                    sourceNodes.add((Node) go);
-                }
-            }
+			source = BioPAXUtil.getContent(addedEntities);
         }
 
-        Set<GraphObject> result = new HashSet<GraphObject>();
+		Set<BioPAXElement> result = QueryExecuter.runPathsBetween(
+			source, main.getBioPAXModel(), options.getLengthLimit());
 
-        /**
-         * GoI finds the paths between a set of nodes, thus running GoI is equal
-         * to giving the source nodes to PoI as both source set and target set.
-         */
-        LocalPoIQuery poi = new LocalPoIQuery(sourceNodes, sourceNodes,
-            true, options.getLengthLimit(), false);
-        result.addAll(poi.run());
-
-        viewAndHighlightResult(result,
-            options.isCurrentView(),
-            "Graph of Interest");
+        viewAndHighlightResult(result, options.isCurrentView(), "Query Result");
     }
 }

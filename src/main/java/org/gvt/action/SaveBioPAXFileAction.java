@@ -47,7 +47,7 @@ public class SaveBioPAXFileAction extends Action
 		this.saved = false;
 
 		// Only possible when there is an owl model associated.
-		if (main.getOwlModel() == null)
+		if (main.getBioPAXModel() == null)
 		{
 			return;
 		}
@@ -87,10 +87,10 @@ public class SaveBioPAXFileAction extends Action
 				}
 			}
 
-			BioPAXIOHandler exporter = new SimpleIOHandler(main.getOwlModel().getLevel());
+			BioPAXIOHandler exporter = new SimpleIOHandler(main.getBioPAXModel().getLevel());
 
 			FileOutputStream stream = new FileOutputStream(filename);
-			exporter.convertToOWL(main.getOwlModel(), stream);
+			exporter.convertToOWL(main.getBioPAXModel(), stream);
 			stream.close();
 
 			main.setOwlFileName(filename);

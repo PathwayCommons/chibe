@@ -42,7 +42,7 @@ public class LocalPathIterationQueryAction extends Action
 
 	public void LocalPathIteration()
 	{
-		Model owlModel = this.main.getOwlModel();
+		Model owlModel = this.main.getBioPAXModel();
 
 		if (owlModel == null)
 		{
@@ -52,7 +52,9 @@ public class LocalPathIterationQueryAction extends Action
 			return;
 		}
 
-		LocalPathIterationQuery lpi = new LocalPathIterationQuery(main.getRootGraph());
+		BioPAXGraph rootGraph = BioPAXGraph.newInstance(main.getBioPAXModel());
+
+		LocalPathIterationQuery lpi = new LocalPathIterationQuery(rootGraph);
 
 		// Run BFS from all nodes in the graph and store the result in a set.
 		Set<LocalPathIterationQuery.NodePair> result = lpi.run();
@@ -143,11 +145,11 @@ public class LocalPathIterationQueryAction extends Action
 
 		// Get the source node of PoI
 		Set<Node> sourceSet = new HashSet<Node>();
-		sourceSet.addAll(main.getRootGraph().getRelatedStates(selectedNodePair.getNodeA()));
+		sourceSet.addAll(rootGraph.getRelatedStates(selectedNodePair.getNodeA()));
 
 		// Get the target node of PoI
 		Set<Node> targetSet = new HashSet<Node>();
-		targetSet.addAll(main.getRootGraph().getRelatedStates(selectedNodePair.getNodeB()));
+		targetSet.addAll(rootGraph.getRelatedStates(selectedNodePair.getNodeB()));
 
 		// PoI will be run from the first node in NodePair to the second one
 		// with shortest+0 length limit and not strict type
@@ -163,7 +165,7 @@ public class LocalPathIterationQueryAction extends Action
 		// Result of PoI will be displayed in new niew
 		else
 		{
-			BioPAXGraph pathwayGraph = main.getRootGraph().excise(resultSet);
+			BioPAXGraph pathwayGraph = rootGraph.excise(resultSet);
 			pathwayGraph.setName("Path Iteration");
 			main.createNewTab(pathwayGraph);
 			new CoSELayoutAction(main).run();

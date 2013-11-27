@@ -7,12 +7,13 @@ import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.model.level3.Process;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.BioPAXLevel;
-import org.patika.mada.graph.GraphObject;
+import org.gvt.model.GraphObject;
 import org.gvt.model.biopaxl2.Conversion;
 import org.gvt.model.biopaxl3.ChbConversion;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -22,6 +23,8 @@ public class PathwayHolder
 {
 	public pathway l2p;
 	public Pathway l3p;
+
+	private static final Random random = new Random();
 
 	/**
 	 * Constructor for null pathway
@@ -45,18 +48,23 @@ public class PathwayHolder
 		this.l3p = l3p;
 	}
 
-	public PathwayHolder(Model model)
+	public PathwayHolder(Model model, String name)
 	{
-		String id = "http://www.chisio.org/user#" + System.currentTimeMillis();
+		String id = "http://chibecreated#" + System.currentTimeMillis() + "" + random.nextInt();
 
 		if (model.getLevel() == BioPAXLevel.L2)
 		{
 			l2p = BioPAXLevel.L2.getDefaultFactory().create(pathway.class, id);
+			name = BioPAXUtil.makeUniquePathwayName(model, name);
+			l2p.setNAME(name);
+			l2p.setSHORT_NAME(name);
 			model.add(l2p);
 		}
 		else if (model.getLevel() == BioPAXLevel.L3)
 		{
 			l3p = BioPAXLevel.L3.getDefaultFactory().create(Pathway.class, id);
+			name = BioPAXUtil.makeUniquePathwayName(model, name);
+			l3p.setDisplayName(name);
 			model.add(l3p);
 		}
 	}
@@ -207,5 +215,10 @@ public class PathwayHolder
 				!l3p.getControllerOf().isEmpty();
 		}
 		else return false;
+	}
+
+	public boolean isLevel3()
+	{
+		return l3p != null;
 	}
 }

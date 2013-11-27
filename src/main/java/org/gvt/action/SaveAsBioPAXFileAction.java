@@ -38,7 +38,7 @@ public class SaveAsBioPAXFileAction extends Action
 		this.saved = false;
 
 		// Only possible when there is an owl model associated.
-		if (main.getOwlModel() == null)
+		if (main.getBioPAXModel() == null)
 		{
 			return;
 		}

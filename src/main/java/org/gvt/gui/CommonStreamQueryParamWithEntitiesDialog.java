@@ -9,6 +9,7 @@ import org.gvt.util.EntityHolder;
 import org.gvt.util.QueryOptionsPack;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * This class maintains Common Stream Query Dialog for TopMenuBar
@@ -22,13 +23,13 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 	/**
 	 * All entities of graph
 	 */
-	ArrayList<EntityHolder> allEntities;
+	Collection<EntityHolder> allEntities;
 
 	/**
 	 * Create the dialog
 	 */
 	public CommonStreamQueryParamWithEntitiesDialog(ChisioMain main,
-		ArrayList<EntityHolder> allEntities)
+		Collection<EntityHolder> allEntities)
 	{
 		super(main);
 		this.allEntities = allEntities;

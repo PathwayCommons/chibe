@@ -21,7 +21,7 @@ public class Member extends BioPAXEdge
 {
 	public Member(NodeModel parent, NodeModel child)
 	{
-		super(parent, child);
+		super(child, parent);
 
 		assert parent instanceof Actor || parent instanceof ChbComplex;
 		assert child instanceof Actor || child instanceof ChbComplex;

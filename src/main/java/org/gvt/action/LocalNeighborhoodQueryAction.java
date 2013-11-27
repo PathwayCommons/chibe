@@ -1,19 +1,18 @@
 package org.gvt.action;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.model.BioPAXElement;
+import org.biopax.paxtools.query.QueryExecuter;
+import org.biopax.paxtools.query.algorithm.Direction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.NeighborhoodQueryParamDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
+import org.gvt.util.BioPAXUtil;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.QueryOptionsPack;
-import org.patika.mada.algorithm.LocalNeighborhoodQuery;
-import org.patika.mada.graph.GraphObject;
-import org.patika.mada.graph.Node;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class creates the action for opening layout properties window.
@@ -56,9 +55,7 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 
 	public void LocalNeighborhood()
 	{
-		Model owlModel = this.main.getOwlModel();
-
-		if (owlModel == null)
+		if (main.getBioPAXModel() == null)
 		{
 			MessageDialog.openError(main.getShell(), "Error!",
 				"Load or query a BioPAX model first!");
@@ -66,7 +63,7 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 			return;
 		}
 
-		Set<Node> sourceNodes = new HashSet<Node>();
+		Set<BioPAXElement> source;
 
 		//if action is called from PopupMenu
 		if (useSelection)
@@ -75,6 +72,8 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 			{
 				MessageDialog.openError(main.getShell(), "Error!",
 					"This feature works only for BioPAX graphs");
+
+				return;
 			}
 
 			//open dialog
@@ -93,14 +92,15 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 			}
 			
 			//Get Selected Nodes in graph
-			sourceNodes = getSelectedNodes();
+			source = main.getSelectedBioPAXElements();
 		}
 		//if action is called from TopMenuBar
 		else
 		{
 			//open dialog
 			NeighborhoodQueryParamWithEntitiesDialog dialog =
-				new NeighborhoodQueryParamWithEntitiesDialog(main, main.getAllEntities());
+				new NeighborhoodQueryParamWithEntitiesDialog(
+					main, BioPAXUtil.getEntities(main.getBioPAXModel()));
 
 			options = dialog.open(options);
 
@@ -116,33 +116,14 @@ public class LocalNeighborhoodQueryAction extends AbstractLocalQueryAction
 			//if cancel is not pressed, begin running algorithm
 			
 			List<EntityHolder> addedEntities = dialog.getAddedSourceEntities();
-
-			Set<Node> sourceSet = main.getRootGraph().getRelatedStates(addedEntities);
-
-			main.getRootGraph().replaceComplexMembersWithComplexes(sourceSet);
-
-			for (GraphObject go : sourceSet)
-			{
-				if (go instanceof Node)
-				{
-					sourceNodes.add((Node) go);
-				}
-			}
+			source = BioPAXUtil.getContent(addedEntities);
 		}
 
-		//Neighborhood Query
-		LocalNeighborhoodQuery neighborhood =
-			new LocalNeighborhoodQuery(sourceNodes,
-				options.isUpstream(),
-				options.isDownstream(),
-				options.getLengthLimit());
-		
-		//run query
-		Set<GraphObject> result = neighborhood.run();
-		
-        //View result of query and Highlight it
-        viewAndHighlightResult(result,
-        	options.isCurrentView(),
-        	"Neighborhood");
+		Set<BioPAXElement> result = QueryExecuter.runNeighborhood(source, main.getBioPAXModel(),
+			options.getLengthLimit(), options.isBothstream() ? Direction.BOTHSTREAM :
+			options.isDownstream() ? Direction.DOWNSTREAM : Direction.UPSTREAM);
+
+		//View result of query and Highlight it
+        viewAndHighlightResult(result, options.isCurrentView(), "Query Result");
 	}
 }

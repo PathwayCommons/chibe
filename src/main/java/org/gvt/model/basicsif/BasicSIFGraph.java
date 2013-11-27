@@ -21,10 +21,9 @@ public class BasicSIFGraph extends BioPAXL3Graph
 {
 	public BasicSIFGraph()
 	{
+		super(null);
 		this.setGraphType(BASIC_SIF);
 	}
-
-	
 
 
 	public void write(OutputStream os)

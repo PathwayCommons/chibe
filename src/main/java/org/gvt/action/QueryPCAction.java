@@ -18,8 +18,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
-import org.gvt.editpart.ChsScalableRootEditPart;
-import org.gvt.figure.HighlightLayer;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.GraphObject;
@@ -91,7 +89,7 @@ public abstract class QueryPCAction extends Action
 
 	public void execute()
 	{
-        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
+        if(main.getBioPAXModel() == null || main.getBioPAXModel().getLevel().equals(BioPAXLevel.L3))
         {
             try
             {
@@ -184,7 +182,7 @@ public abstract class QueryPCAction extends Action
 			}
 			else if (!model.getObjects().isEmpty())
 			{
-				if (main.getOwlModel() != null)
+				if (main.getBioPAXModel() != null)
 				{
 					MergeAction merge = new MergeAction(main, model);
 					merge.setOpenPathways(true);
@@ -431,8 +429,8 @@ public abstract class QueryPCAction extends Action
 
 	public static BasicSIFGraph getPCGraph()
 	{
-		SIFReader sifReader = new SIFReader(Arrays.asList(SIFType.CONTROLS_STATE_CHANGE,
-			SIFType.CONTROLS_EXPRESSION, SIFType.CONTROLS_DEGRADATION));
+		SIFReader sifReader = new SIFReader(Arrays.asList(SIFType.CHANGES_STATE_OF,
+			SIFType.CONTROLS_EXPRESSION_OF, SIFType.CONTROLS_DEGRADATION_OF));
 
 		File sifFile = new File(getPCSifFileLocation());
 
