@@ -1,13 +1,19 @@
 package org.gvt;
 
 import cpath.client.PathwayCommonsIOHandler;
+import org.biopax.paxtools.controller.Cloner;
+import org.biopax.paxtools.controller.Completer;
+import org.biopax.paxtools.controller.PathAccessor;
+import org.biopax.paxtools.controller.SimpleEditorMap;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.model.level2.pathway;
 import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level3.EntityReference;
+import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.model.level3.PhysicalEntity;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.eclipse.draw2d.ColorConstants;
@@ -46,17 +52,15 @@ import org.gvt.editpart.ChsNodeEditPart;
 import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.editpart.ChsScalableRootEditPart;
 import org.gvt.figure.HighlightLayer;
-import org.gvt.model.BioPAXGraph;
-import org.gvt.model.CompoundModel;
-import org.gvt.model.GraphObject;
+import org.gvt.model.*;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.biopaxl2.Actor;
 import org.gvt.model.biopaxl2.BioPAXL2Graph;
 import org.gvt.model.biopaxl2.Complex;
 import org.gvt.model.biopaxl2.Conversion;
+import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.model.sifl2.SIFGraph;
-import org.gvt.util.EntityHolder;
-import org.gvt.util.PathwayHolder;
+import org.gvt.util.*;
 import org.patika.mada.dataXML.ChisioExperimentData;
 import org.patika.mada.util.ExperimentDataManager;
 
@@ -84,7 +88,6 @@ public class ChisioMain extends ApplicationWindow
 	private KeyHandler keyHandler;
 
 	private Set<String> openTabNames;
-	private Set<String> allPathwayNames;
 
 	private Map<CTabItem, ScrollingGraphicalViewer> tabToViewerMap;
 	private Map<String, CTabItem> nameToTabMap;
@@ -107,9 +110,9 @@ public class ChisioMain extends ApplicationWindow
 	private Shell lockShell;
 
 	/**
-	 * This is the subject graph. Not shown in any view.
+	 * This is the BioPAX model to visualize its pathways.
 	 */
-	private BioPAXGraph rootGraph;
+	private Model rootBioPAXModel;
 
 	/**
 	 * Used to undeerstand if there is a modification to the biopax file which is not captured by
@@ -243,7 +246,6 @@ public class ChisioMain extends ApplicationWindow
 		});
 
 		this.openTabNames = new HashSet<String>();
-		this.allPathwayNames = new HashSet<String>();
 		this.nameToTabMap = new HashMap<String, CTabItem>();
 
 		this.tabToViewerMap = new HashMap<CTabItem, ScrollingGraphicalViewer>();
@@ -285,10 +287,8 @@ public class ChisioMain extends ApplicationWindow
 
 	public CTabItem createNewTab(CompoundModel root)
 	{
-		if (root == null)
-		{
-			root = new BioPAXL2Graph();
-		}
+		assert root != null;
+
 		root.setAsRoot();
 
 		String name;
@@ -297,23 +297,8 @@ public class ChisioMain extends ApplicationWindow
 		{
 			BioPAXGraph graph = (BioPAXGraph) root;
 
-			if (graph.isMechanistic() && graph.getPathway() == null)
-			{
-				PathwayHolder p = new PathwayHolder(getOwlModel());
-
-				p.setName(adviceTabName(graph.getName()));
-
-				graph.setName(p.getName());
-
-				graph.setPathway(p);
-				graph.registerContentsToPathway();
-				allPathwayNames.add(p.getName());
-			}
-			else
-			{
-				graph.setName(graph.getPathway() != null ? graph.getPathway().getName() :
-					adviceTabName(graph.getName()));
-			}
+			graph.setName(graph.getPathway() != null ? graph.getPathway().getName() :
+				adviceTabName(graph.getName()));
 
 			name = graph.getName();
 		}
@@ -382,7 +367,8 @@ public class ChisioMain extends ApplicationWindow
 
 		int i = 2;
 
-		while (allPathwayNames.contains(name) || openTabNames.contains(name))
+		Set<String> existing = getAllPathwayNames();
+		while (existing.contains(name))
 		{
 			name = candidate + " (" + (i++) + ")";
 		}
@@ -493,7 +479,13 @@ public class ChisioMain extends ApplicationWindow
 
 	public Set<String> getAllPathwayNames()
 	{
-		return allPathwayNames;
+		Set<String> names = new HashSet<String>();
+		for (CTabItem cTabItem : tabToViewerMap.keySet())
+		{
+			names.add(cTabItem.getText());
+		}
+		names.addAll(BioPAXUtil.getPathwayNames(rootBioPAXModel));
+		return names;
 	}
 
 	public void renamePathway(CTabItem tab, String newName)
@@ -503,12 +495,6 @@ public class ChisioMain extends ApplicationWindow
 
 		nameToTabMap.put(newName, tab);
 		openTabNames.add(newName);
-
-		if (allPathwayNames.contains(tab.getText()))
-		{
-			allPathwayNames.remove(tab.getText());
-			allPathwayNames.add(newName);
-		}
 
 		Object compmod = tabToViewerMap.get(tab).getContents().getModel();
 		if (compmod instanceof BioPAXGraph)
@@ -640,41 +626,12 @@ public class ChisioMain extends ApplicationWindow
 
 	public boolean isLevel2()
 	{
-		return getOwlModel() != null && getOwlModel().getLevel() == BioPAXLevel.L2;
+		return getBioPAXModel() != null && getBioPAXModel().getLevel() == BioPAXLevel.L2;
 	}
 
 	public boolean isLevel3()
 	{
-		return getOwlModel() != null && getOwlModel().getLevel() == BioPAXLevel.L3;
-	}
-
-	public ArrayList<EntityHolder> getAllEntities()
-	{
-		ArrayList<EntityHolder> entities = new ArrayList<EntityHolder>();
-
-		if (isLevel2())
-		{
-			for (physicalEntity pe : getOwlModel().getObjects(physicalEntity.class))
-			{
-				entities.add(new EntityHolder(pe));
-			}
-		}
-		else if (isLevel3())
-		{
-			for (EntityReference er : getOwlModel().getObjects(EntityReference.class))
-			{
-				entities.add(new EntityHolder(er));
-			}
-			if (entities.isEmpty())
-			{
-				for (PhysicalEntity pe : getOwlModel().getObjects(PhysicalEntity.class))
-				{
-					entities.add(new EntityHolder(pe));
-				}
-			}
-		}
-
-		return entities;
+		return getBioPAXModel() != null && getBioPAXModel().getLevel() == BioPAXLevel.L3;
 	}
 
 	protected MenuManager createMenuManager()
@@ -809,7 +766,7 @@ public class ChisioMain extends ApplicationWindow
 		this.owlFileName = filename;
 
 		String suffix = "";
-		Model model = getOwlModel();
+		Model model = getBioPAXModel();
 		if (model != null)
 		{
 			suffix = " (Level " + (model.getLevel() == BioPAXLevel.L3 ? "3" : "2") + ")";
@@ -831,36 +788,6 @@ public class ChisioMain extends ApplicationWindow
 		return owlFileName;
 	}
 
-	public BioPAXGraph getRootGraph()
-	{
-		return rootGraph;
-	}
-
-	public void setRootGraph(BioPAXGraph rootGraph)
-	{
-		this.rootGraph = rootGraph;
-
-		if (this.rootGraph != null)
-		{
-			assert rootGraph.getBiopaxModel() != null;
-
-			this.associateGraphWithExperimentData(rootGraph);
-
-			allPathwayNames.clear();
-
-			allPathwayNames.addAll(rootGraph.getPathwayNames());
-		}
-		else
-		{
-			this.dirty = false;
-		}
-	}
-
-	public Model getOwlModel()
-	{
-		return rootGraph == null ? null : rootGraph.getBiopaxModel();
-	}
-
 	public HighlightLayer getHighlightLayer()
 	{
 		HighlightLayer highlight = (HighlightLayer)
@@ -878,25 +805,65 @@ public class ChisioMain extends ApplicationWindow
 		return handle;
 	}
 
-	public java.util.List getSelectedModel()
+	public java.util.List<GraphObject> getSelectedModel()
 	{
 		if (getViewer() == null) return null;
 
-		java.util.List models = new ArrayList();
+		java.util.List<GraphObject> models = new ArrayList<GraphObject>();
 		java.util.List parts = ((IStructuredSelection) getViewer().getSelection()).toList();
 
 		for (Object partObj : parts)
 		{
 			EditPart ep = (EditPart) partObj;
-			models.add(ep.getModel());
+			models.add((GraphObject) ep.getModel());
 		}
 
 		return models;
 	}
 
+	public Set<BioPAXElement> getSelectedBioPAXElements()
+	{
+		Set<BioPAXElement> set = new HashSet<BioPAXElement>();
+		for (GraphObject go : getSelectedModel())
+		{
+			if (go instanceof EntityAssociated)
+			{
+				set.add (((EntityAssociated) go).getEntity().getEntity());
+			}
+		}
+		return set;
+	}
+
+	public BioPAXGraph createAModelForView(PathwayHolder p)
+	{
+		if (p.l3p != null)
+		{
+			return new BioPAXL3Graph(rootBioPAXModel, p.l3p);
+		}
+		else if (p.l2p != null)
+		{
+			BioPAXL2Graph view = new BioPAXL2Graph(rootBioPAXModel, p.l2p);
+			BioPAXL2Reader reader = new BioPAXL2Reader(rootBioPAXModel);
+			reader.createGraph(view);
+			return view;
+		}
+		return null;
+	}
+
+
 	//----------------------------------------------------------------------------------------------
 	// Section: BioPAX related methods
 	//----------------------------------------------------------------------------------------------
+
+	public Model getBioPAXModel()
+	{
+		return this.rootBioPAXModel;
+	}
+
+	public void setBioPAXModel(Model model)
+	{
+		this.rootBioPAXModel = model;
+	}
 
 	public BioPAXGraph getPathwayGraph()
 	{
@@ -941,53 +908,25 @@ public class ChisioMain extends ApplicationWindow
     /**
      * A method to highlight graph objects in the current model
      * according to a collection of Rdf Ids.
-     * @param rdfs rdfs of the objects to be highlighted as a collecton of string
+     * @param ids rdfs of the objects to be highlighted as a collecton of string
      */
-    public void highlightRDFs(Collection<String> rdfs)
+    public void highlightIDs(Collection<String> ids)
     {
-        // Below, we iterate starting from the root
-        // to find nodes who have the element(s) in interest
-        // (check via RDFId)
-        ChsRootEditPart root = (ChsRootEditPart) getViewer().
-                                    getRootEditPart().getChildren().get(0);
+		BioPAXGraph graph = getPathwayGraph();
+		if (graph == null) return;
 
-        for (int i = 0; i < root.getChildren().size(); i++)
-        {
-            EditPart node = (EditPart) root.getChildren().get(i);
-            ListIterator nodeIterator = node.getChildren().listIterator();
-
-            while( nodeIterator.hasNext() ) {
-                ChsNodeEditPart oneObj = (ChsNodeEditPart) nodeIterator.next();
-                Object oneModel = oneObj.getModel();
-                BioPAXElement be = null;
-
-                if( oneModel instanceof Actor)
-                {
-                    be = ((Actor) oneModel).getEntity().l2pe;
-                } else if( oneModel instanceof Complex)
-                {
-                    be = ((Complex) oneModel).getComplex();
-                } else if( oneModel instanceof Conversion)
-                {
-                    be = ((Conversion) oneModel).getConversion();
-                } else if( oneModel instanceof org.gvt.model.biopaxl2.Control)
-                {
-                    be = ((org.gvt.model.biopaxl2.Control) oneModel).getControl();
-                }
-
-                // We have the element and its type
-                // Let's check whether it's rdf has a match
-                // If so, simply higlight the node.
-                if( be != null && rdfs.contains(be.getRDFId()) )
-                {
-                    ((GraphObject) oneModel).setHighlightColor(higlightColor);
-                    ((GraphObject) oneModel).setHighlight(true);
-                }
-
-            } // End of node iteration
-
-        } // End of root iteration
-
+		for (Object o : graph.getGraphObjects())
+		{
+			if (o instanceof EntityAssociated)
+			{
+				EntityAssociated ea = (EntityAssociated) o;
+				if (ea.getEntity() != null && ids.contains(ea.getEntity().getID()))
+				{
+					((GraphObject) o).setHighlightColor(higlightColor);
+					((GraphObject) o).setHighlight(true);
+				}
+			}
+		}
     } // End of method
 
 	/**
@@ -995,20 +934,7 @@ public class ChisioMain extends ApplicationWindow
 	 */
 	public Set<String> collectUbiqueIDs()
 	{
-		Set<String> set = new HashSet<String>();
-		for (Object o : rootGraph.getNodes())
-		{
-			if (o instanceof org.gvt.model.biopaxl3.Actor)
-			{
-				org.gvt.model.biopaxl3.Actor actor = (org.gvt.model.biopaxl3.Actor) o;
-				if (actor.isUbique())
-				{
-					EntityHolder eh = actor.getEntity();
-					set.add(eh.getID());
-				}
-			}
-		}
-		return set;
+		return org.gvt.model.biopaxl3.Actor.getBlackList();
 	}
 
     //----------------------------------------------------------------------------------------------
@@ -1028,17 +954,11 @@ public class ChisioMain extends ApplicationWindow
 		ExperimentDataManager man = new ExperimentDataManager(data, fileLocation);
 		dataManagerMap.put(type, man);
 
-		if (rootGraph != null)
+		for (ScrollingGraphicalViewer viewer : tabToViewerMap.values())
 		{
-			man.clearExperimentData(rootGraph);
-			man.associateExperimentData(rootGraph);
-
-			for (ScrollingGraphicalViewer viewer : tabToViewerMap.values())
-			{
-				BioPAXGraph graph = (BioPAXGraph) viewer.getContents().getModel();
-				man.clearExperimentData(graph);
-				man.associateExperimentData(graph);
-			}
+			BioPAXGraph graph = (BioPAXGraph) viewer.getContents().getModel();
+			man.clearExperimentData(graph);
+			man.associateExperimentData(graph);
 		}
 	}
 

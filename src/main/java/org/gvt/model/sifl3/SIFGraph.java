@@ -1,5 +1,6 @@
 package org.gvt.model.sifl3;
 
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.pattern.miner.SIFInteraction;
@@ -91,7 +92,6 @@ public class SIFGraph extends BioPAXGraph
 	{
 		SIFSearcher searcher = new SIFSearcher(ruleTypes.toArray(new SIFType[ruleTypes.size()]));
 		searcher.setUbiqueIDs(ubiqueIDs);
-//		searcher.setMassDataMode(true);
 		return searcher.searchSIF(biopaxModel);
 	}
 
@@ -134,27 +134,6 @@ public class SIFGraph extends BioPAXGraph
 	}
 
 	public String getPathwayRDFID()
-	{
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public int numberOfUnemptyPathways()
-	{
-		return 0;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	@Override
-	public List<String> namesOfUnemptyPathways() {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public String createGlobalPathway(String name)
-	{
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	@Override
-	public String createPathway(String name, List<String> intids)
 	{
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
@@ -218,11 +197,6 @@ public class SIFGraph extends BioPAXGraph
 	public void replaceComplexMembersWithComplexes(Collection<Node> objects)
 	{
 		//To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public Map<String, PathwayHolder> getNameToPathwayMap()
-	{
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	public BioPAXGraph excise(PathwayHolder p)

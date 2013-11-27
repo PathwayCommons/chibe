@@ -2,6 +2,7 @@ package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.level3.*;
+import org.biopax.paxtools.model.level3.Process;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.cbio.causality.data.portal.GeneticProfile;
 import org.cbio.causality.idmapping.HGNC;
@@ -17,6 +18,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -676,40 +678,25 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		}
 	}
 
-	protected void createControlOverInteraction(CompoundModel root, Interaction inter, Map<String,
-		NodeModel> map)
+	protected void createControlOverInteraction(CompoundModel root, Interaction inter,
+		NodeProvider prov)
 	{
 		// Create effectors.
 
 		for (Control con : inter.getControlledOf())
 		{
-			if (map.containsKey(con.getRDFId()))
+			if (ChbControl.controlNeedsToBeANode(con, prov))
 			{
-				ChbControl cont = (ChbControl) map.get(con.getRDFId());
-				new EffectorSecondHalf(cont, this, cont.getControl());
-			}
-			else if (con.getControlledOf().isEmpty() && con.getController().size() == 1)
-			{
-				Controller ctrlr = con.getController().iterator().next();
-
-				NodeModel source = map.get(ctrlr.getRDFId());
-
-				if (source == null)
-				{
-					source = map.get(ctrlr.getRDFId() + con.getRDFId());
-					
-					if (source == null && ctrlr instanceof Pathway)
-					{
-						source = new ChbPathway(root, (Pathway) ctrlr, map);
-					}
-				}
-
-				new NonModulatedEffector(source, this, con, inter);
+				ChbControl ctrl = (ChbControl) prov.getNode(con.getRDFId(), root);
+				new EffectorSecondHalf(ctrl, this, con);
 			}
 			else
 			{
-				ChbControl ctrl = new ChbControl(root, con, this, map);
-				map.put(con.getRDFId(), ctrl);
+				for (Controller ctrlr : con.getController())
+				{
+					NodeModel source = prov.getNode(ctrlr.getRDFId(), root);
+					if (source != null) new NonModulatedEffector(source, this, con, inter);
+				}
 			}
 		}
 	}

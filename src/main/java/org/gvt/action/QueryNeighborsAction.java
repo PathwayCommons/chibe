@@ -9,7 +9,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
-import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
 import org.gvt.gui.StringInputDialog;
 import org.gvt.model.biopaxl2.Actor;
 import org.gvt.model.biopaxl2.Complex;
@@ -75,7 +74,7 @@ public class QueryNeighborsAction extends Action
 
 	public void run()
 	{
-        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L2))
+        if(main.getBioPAXModel() == null || main.getBioPAXModel().getLevel().equals(BioPAXLevel.L2))
         {
             if (refs == null)
             {
@@ -181,7 +180,7 @@ public class QueryNeighborsAction extends Action
                         {
                             String pname = "Neighborhood for " + ref;
 
-                            if (main.getOwlModel() != null)
+                            if (main.getBioPAXModel() != null)
                             {
                                 MergeAction merge = new MergeAction(main, resultModel);
                                 merge.setOpenPathways(false);

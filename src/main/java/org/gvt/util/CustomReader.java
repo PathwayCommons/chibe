@@ -53,7 +53,8 @@ public class CustomReader
 			assert edgeProps.containsKey(SOURCE);
 			assert edgeProps.containsKey(TARGET);
 			assert nodeMap.containsKey(edgeProps.get(SOURCE));
-			assert nodeMap.containsKey(edgeProps.get(TARGET));
+			assert nodeMap.containsKey(edgeProps.get(TARGET)) :
+				"Target node does not exist: " + edgeProps.get(TARGET);
 
 			CustomEdge edge = new CustomEdge(nodeMap.get(edgeProps.get(SOURCE)),
 				nodeMap.get(edgeProps.get(TARGET)), edgeProps);

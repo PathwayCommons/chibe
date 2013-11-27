@@ -6,6 +6,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.*;
@@ -34,84 +35,85 @@ public class ChbControl extends BioPAXNode
 		setShape("Diamond");
 	}
 	
-	public ChbControl(CompoundModel root, Control con, NodeModel target, Map<String, NodeModel> map)
+	public ChbControl(CompoundModel root, Control con, NodeProvider provider)
 	{
 		this(root);
 		
-		assert target instanceof ChbConversion || target instanceof ChbControl || target instanceof Hub;
-
-//		assert (con.isCONTROLLEDOf() != null && !con.isCONTROLLEDOf().isEmpty()) ||
-//			con.getCONTROLLER().size() > 1;
-		
 		// Remember this control to prevent duplication.
-		map.put(con.getRDFId(), this);
+		provider.register(con.getRDFId(), this);
 		
-		// Connect controller and controlled.
-		Set<Controller> controllers = con.getController();
-
-		for (Controller controller : controllers)
+		// Connect controller and control.
+		for (Controller controller : con.getController())
 		{
-			if (controller instanceof PhysicalEntity)
+			if (provider.needsToBeDisplayed(controller.getRDFId()))
 			{
-				PhysicalEntity ent = (PhysicalEntity) controller;
-				NodeModel node = map.get(ent.getRDFId());
+				NodeModel node = provider.getNode(controller.getRDFId(), root);
 				new EffectorFirstHalf(node, this);
+
+				if (node instanceof Actor && ((Actor) node).isUbique())
+				{
+					((Actor) node).setRelated(con);
+				}
 			}
 		}
 		
-		new EffectorSecondHalf(this, target, con);
-		
-		// Connect modulators.
-		
-		for (Control c : con.getControlledOf())
-		{
-			if (map.containsKey(c.getRDFId()))
-			{
-				ChbControl mod = (ChbControl) map.get(c.getRDFId());
-				new EffectorSecondHalf(mod, this, mod.getControl());
-			}
-			else if (c.getControlledOf().isEmpty() && c.getController().size() == 1)
-			{
-				Controller ctrl = c.getController().iterator().next();
-
-				NodeModel source = map.get(ctrl.getRDFId());
-
-				if (source == null)
-				{
-					source = map.get(ctrl.getRDFId() + c.getRDFId());
-				}
-				
-				if (source == null && ctrl instanceof Pathway)
-				{
-					source = new ChbPathway(root, (Pathway) ctrl, map);
-				}
-
-				new NonModulatedEffector(source, this, c, con);
-			}
-			else
-			{
-				ChbControl ctrl = new ChbControl(root, c, this, map);
-				map.put(c.getRDFId(), ctrl);
-			}
-		}
-
-		// connect controlled pathways
-
+		// Connect control and controlled.
 		for (Process process : con.getControlled())
 		{
-			if (process instanceof Pathway)
+			if (provider.needsToBeDisplayed(process.getRDFId()))
 			{
-				ChbPathway pat = (ChbPathway) map.get(process.getRDFId());
-				if (pat == null) pat = new ChbPathway(root, (Pathway) process, map);
-				new EffectorSecondHalf(this, pat, con);
+				NodeModel node = provider.getNode(process.getRDFId(), root);
+
+				if (process instanceof Pathway && node != null)
+				{
+					new EffectorSecondHalf(this, node, con);
+				}
+				// else the interaction will establish the link
 			}
 		}
 
+		// Connect modulators.
+		createControlOverInteraction(root, con, provider);
 
 		this.con = con;
 
 		configFromModel();
 	}
+
+	public static boolean controlNeedsToBeANode(Control ctrl, NodeProvider prov)
+	{
+		// check if there are multiple controllers
+
+		int controllerCnt = 0;
+
+		for (Controller controller : ctrl.getController())
+		{
+			if (prov.needsToBeDisplayed(controller.getRDFId())) controllerCnt++;
+		}
+
+		if (controllerCnt != 1) return true;
+
+		// check if the control has another control over it
+
+		for (Control control : ctrl.getControlledOf())
+		{
+			if (prov.needsToBeDisplayed(control.getRDFId())) return true;
+		}
+
+		// check if the control has empty targets
+
+		int tarCnt = 0;
+		for (Process process : ctrl.getControlled())
+		{
+			if (prov.needsToBeDisplayed(process.getRDFId())) tarCnt++;
+		}
+		if (tarCnt == 0) return true;
+
+		// return false if none of the above holds
+		return false;
+	}
+
+
 
 	public void configFromModel()
 	{

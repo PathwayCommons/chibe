@@ -1,5 +1,7 @@
 package org.gvt.action;
 
+import org.biopax.paxtools.io.BioPAXIOHandler;
+import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -9,9 +11,11 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.model.BioPAXGraph;
-import org.gvt.util.BioPAXReader;
+import org.gvt.util.BioPAXUtil;
+import org.gvt.util.PathwayHolder;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,11 +39,6 @@ public class LoadBioPaxModelAction extends Action
 	 * BioPAX paxtools model object.
 	 */
 	protected Model model;
-
-	/**
-	 * The graph to load (if supplied)
-	 */
-	protected BioPAXGraph graph;
 
 	/**
 	 * What to do after load operation.
@@ -97,12 +96,6 @@ public class LoadBioPaxModelAction extends Action
 		this.model = model;
 	}
 
-	public LoadBioPaxModelAction(ChisioMain chisio, BioPAXGraph graph)
-	{
-		this(chisio);
-		this.graph = graph;
-	}
-
 	/**
 	 * Hands unsaved changes before the text is discarded.
 	 *
@@ -111,7 +104,7 @@ public class LoadBioPaxModelAction extends Action
 	 */
 	public static boolean saveChangesBeforeDiscard(ChisioMain main)
 	{
-		if (main.isDirty() && main.getOwlModel() != null)
+		if (main.isDirty() && main.getBioPAXModel() != null)
 		{
 			MessageBox messageBox = new MessageBox(
 				main.getShell(),
@@ -177,7 +170,7 @@ public class LoadBioPaxModelAction extends Action
 	{
 		if (saveChangesBeforeDiscard(main))
 		{
-			if (filename == null && model == null && graph == null)
+			if (filename == null && model == null)
 			{
 				filename = openFileChooser();
 
@@ -191,19 +184,17 @@ public class LoadBioPaxModelAction extends Action
 			{
 				main.lockWithMessage("Loading BioPAX model ...");
 
-				BioPAXGraph root = this.graph;
+				File xmlfile = filename == null ? null : new File(filename);
 
-				if (root == null)
+				if (model == null)
 				{
-					File xmlfile = filename == null ? null : new File(filename);
-					BioPAXReader reader = model == null ?
-						new BioPAXReader(): new BioPAXReader(model);
-					root = (BioPAXGraph) reader.readXMLFile(xmlfile);
+					BioPAXIOHandler reader = new SimpleIOHandler();
+					model = reader.convertFromOWL(new FileInputStream(xmlfile));
 				}
 
-				if (root != null)
+				if (model != null)
 				{
-					if (root.numberOfUnemptyPathways() == 0 || pathwayName != null)
+					if (BioPAXUtil.numberOfUnemptyPathways(model) == 0 || pathwayName != null)
 					{
 						String name = pathwayName == null ? filename : pathwayName;
 
@@ -227,13 +218,13 @@ public class LoadBioPaxModelAction extends Action
 						{
 							name = "Auto-created Pathway";
 						}
-						root.createGlobalPathway(name);
-						pathwayName = name;
+						PathwayHolder ph = BioPAXUtil.createGlobalPathway(model, name);
+						pathwayName = ph.getName();
 						main.getAllPathwayNames().add(pathwayName);
 					}
 
-					if (main.getOwlModel() != null) main.closeAllTabs(false);
-					main.setRootGraph(root);
+					if (main.getBioPAXModel() != null) main.closeAllTabs(false);
+					main.setBioPAXModel(model);
 					main.setOwlFileName(filename);
 
 					if (openPathways)
@@ -242,7 +233,7 @@ public class LoadBioPaxModelAction extends Action
 
 						// If there is only one pathway, open it automatically
 
-						List<String> names = root.namesOfUnemptyPathways();
+						List<String> names = BioPAXUtil.namesOfUnemptyPathways(model);
 						List<String> autoOpen = null;
 
 						if (names.size() == 1)

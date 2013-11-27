@@ -5,6 +5,8 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.NodeProvider;
+import org.ivis.layout.Cluster;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.*;
@@ -28,7 +30,7 @@ public class Hub extends BioPAXNode
 		setSize(new Dimension(9, 9));
 	}
 	
-	public Hub(CompoundModel root, Interaction inter, Map<String, NodeModel> map)
+	public Hub(CompoundModel root, Interaction inter, NodeProvider prov)
 	{
 		this(root);
 		this.inter = inter;
@@ -36,7 +38,7 @@ public class Hub extends BioPAXNode
 		this.setTooltipText(inter.getStandardName());
 
 		extractReferences(inter);
-		buildConnections(root, map);
+		buildConnections(root, prov);
 	}
 
 	public Hub(Hub excised, CompoundModel root)
@@ -60,52 +62,60 @@ public class Hub extends BioPAXNode
 		return Arrays.asList(this.inter);
 	}
 
-	private void buildConnections(CompoundModel root, Map<String, NodeModel> map)
+	private void buildConnections(CompoundModel root, NodeProvider prov)
 	{
-		for (Control c : this.inter.getControlledOf())
+		for (Entity ent : inter.getParticipant())
 		{
-			if (map.containsKey(c.getRDFId()))
+			NodeModel node = prov.getNode(ent.getRDFId(), root);
+			if (node != null)
 			{
-				ChbControl mod = (ChbControl) map.get(c.getRDFId());
-				new EffectorSecondHalf(mod, this, mod.getControl());
-			}
-			else if (c.getControlledOf().isEmpty() && c.getController().size() == 1)
-			{
-				Controller ctrlr = c.getController().iterator().next();
-				NodeModel source = map.get(ctrlr.getRDFId());
-				if (source == null && ctrlr instanceof Pathway)
-				{
-					source = new ChbPathway(root, (Pathway) ctrlr, map);
-				}
-				new NonModulatedEffector(source, this, c, inter);
-			}
-			else
-			{
-				ChbControl ctrl = new ChbControl(root, c, this, map);
-				map.put(c.getRDFId(), ctrl);
+				new MultiTouch(node, this);
 			}
 		}
+
+		createControlOverInteraction(root, inter, prov);
 	}
 
 	private static final Color COLOR = new Color(null, 100, 100, 100);
 
-	public static String getPossibleCompartmentName(Collection<PhysicalEntity> pes)
+	public static String getPossibleCompartmentName(Interaction inter)
 	{
 		Set<String> names = new HashSet<String>();
 
-		for (PhysicalEntity pe : pes)
+		for (Entity ent : inter.getParticipant())
 		{
-			if (pe.getCellularLocation() != null)
+			if (ent instanceof PhysicalEntity)
 			{
-				for (String loc : pe.getCellularLocation().getTerm())
+				PhysicalEntity pe = (PhysicalEntity) ent;
+				if (pe.getCellularLocation() != null)
 				{
-					names.add(loc);
-					break;
+					for (String loc : pe.getCellularLocation().getTerm())
+					{
+						names.add(loc);
+						break;
+					}
 				}
 			}
 		}
 		if (names.size() == 1) return names.iterator().next();
 		else return null;
+	}
+
+	public static boolean needsToRepresentedWithANode(MolecularInteraction mi, NodeProvider prov)
+	{
+		for (Control control : mi.getControlledOf())
+		{
+			if (prov.needsToBeDisplayed(control.getRDFId())) return true;
+		}
+		int cnt = 0;
+		for (Entity entity : mi.getParticipant())
+		{
+			if (prov.needsToBeDisplayed(entity.getRDFId()))
+			{
+				cnt++;
+			}
+		}
+		return cnt != 2;
 	}
 
 	public Set<GraphObject> getRequisites()

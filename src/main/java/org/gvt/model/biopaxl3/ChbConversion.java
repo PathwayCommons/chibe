@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 import org.patika.mada.graph.Edge;
@@ -39,14 +40,14 @@ public class ChbConversion extends BioPAXNode
 		setShape("Rectangle");
 	}
 
-	public ChbConversion(CompoundModel root, Conversion conv, boolean direction,
-		Map<String, NodeModel> map)
+	public ChbConversion(CompoundModel root, Conversion conv, boolean direction, NodeProvider prov)
 	{
 		this(root);
 		this.conv = conv;
 		this.direction = direction;
 		configFromModel();
-		buildConnections(root, conv, direction, map);
+		prov.register(conv.getRDFId(), this);
+		buildConnections(root, conv, direction, prov);
 	}
 
 	public ChbConversion(ChbConversion excised, CompoundModel root)
@@ -94,11 +95,8 @@ public class ChbConversion extends BioPAXNode
 	}
 
 	private void buildConnections(CompoundModel root, Conversion conv, boolean direction,
-		Map<String, NodeModel> map)
+		NodeProvider prov)
 	{
-		// Will be used when inferring if this conversion is a transcription
-//		boolean prodIsActor = false;
-
 		// Create substrate and products.
 		
 		Set<PhysicalEntity> subsSet = direction == LEFT_TO_RIGHT ?
@@ -109,13 +107,23 @@ public class ChbConversion extends BioPAXNode
 		
 		for (PhysicalEntity ent : subsSet)
 		{
-			NodeModel sub = mapLookup(ent, conv, map);
+			NodeModel sub = prov.getNode(ent.getRDFId(), root);
 			new Substrate(sub, this);
+
+			if (sub instanceof Actor && ((Actor) sub).isUbique())
+			{
+				((Actor) sub).setRelated(conv);
+			}
 		}
 		for (PhysicalEntity par : prodSet)
 		{
-			NodeModel prod = mapLookup(par, conv, map);
+			NodeModel prod = prov.getNode(par.getRDFId(), root);
 			new Product(this, prod);
+
+			if (prod instanceof Actor && ((Actor) prod).isUbique())
+			{
+				((Actor) prod).setRelated(conv);
+			}
 		}
 
 		// Infer if this conversion is a transcription
@@ -123,18 +131,11 @@ public class ChbConversion extends BioPAXNode
 		if (!t && subsSet.isEmpty() && prodSet.size() == 1)
 		{
 			t = true;
-//			this.setText("t");
+			this.setText("t");
 			util.recordModelTag(BioPAXL3Graph.TRANSCRIPTION_TAG, "");
 		}
 
-		createControlOverInteraction(root, conv, map);
-	}
-
-	private NodeModel mapLookup(PhysicalEntity pe, Conversion conv, Map<String, NodeModel> map)
-	{
-		NodeModel nm = map.get(pe.getRDFId());
-		if (nm == null) nm = map.get(pe.getRDFId() + conv.getRDFId());
-		return nm;
+		createControlOverInteraction(root, conv, prov);
 	}
 
 	public static String getPossibleCompartmentName(Conversion conv)

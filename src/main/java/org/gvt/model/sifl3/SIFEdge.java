@@ -172,19 +172,25 @@ public class SIFEdge extends BioPAXEdge
 		
 		addType(new EdgeType(SIFType.RELATED_THROUGH_INTERACTION,
 			new Color(null, 100, 120, 100), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.IN_SAME_COMPLEX,
+		addType(new EdgeType(SIFType.IN_COMPLEX_WITH,
 			new Color(null, 150, 150, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.CONTROLS_STATE_CHANGE,
+		addType(new EdgeType(SIFType.CHANGES_STATE_OF,
 			new Color(null, 50, 100, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.CONSECUTIVE_CATALYSIS,
+		addType(new EdgeType(SIFType.CONTROLS_TRANSPORT_OF,
+			new Color(null, 100, 100, 150), SOLID, NO_SIGN, false));
+		addType(new EdgeType(SIFType.SEQUENTIAL_CATALYSIS,
 			new Color(null, 150, 50, 150), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONTROLS_EXPRESSION,
+        addType(new EdgeType(SIFType.CONTROLS_EXPRESSION_OF,
                 new Color(null, 50, 150, 50), DASHED, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONTROLS_DEGRADATION,
+        addType(new EdgeType(SIFType.CONTROLS_DEGRADATION_OF,
                 new Color(null, 150, 50, 50), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONTROLS_METABOLIC_CATALYSIS,
+        addType(new EdgeType(SIFType.CHEMICAL_CONSUMED_BY,
+                new Color(null, 100, 120, 80), SOLID, NO_SIGN, false));
+        addType(new EdgeType(SIFType.PRODUCES_CHEMICAL,
                 new Color(null, 50, 120, 100), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CHEMICAL_AFFECTS_PROTEIN,
+        addType(new EdgeType(SIFType.CONTROLS_TRANSPORT_OF_CHEMICAL,
+                new Color(null, 80, 130, 100), SOLID, NO_SIGN, false));
+        addType(new EdgeType(SIFType.CHEMICAL_AFFECTS,
                 new Color(null, 100, 80, 80), SOLID, NO_SIGN, false));
 
 

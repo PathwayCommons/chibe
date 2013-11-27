@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -33,12 +34,12 @@ public class ChbTempReac extends BioPAXNode
 		setShape("Rectangle");
 	}
 
-	public ChbTempReac(CompoundModel root, TemplateReaction tr, Map<String, NodeModel> map)
+	public ChbTempReac(CompoundModel root, TemplateReaction tr, NodeProvider prov)
 	{
 		this(root);
 		this.tr = tr;
 		configFromModel();
-		buildConnections(root, tr, map);
+		buildConnections(root, tr, prov);
 	}
 
 	public ChbTempReac(ChbTempReac excised, CompoundModel root)
@@ -64,15 +65,14 @@ public class ChbTempReac extends BioPAXNode
 		return Arrays.asList(tr);
 	}
 
-	private void buildConnections(CompoundModel root, TemplateReaction tr,
-		Map<String, NodeModel> map)
+	private void buildConnections(CompoundModel root, TemplateReaction tr, NodeProvider prov)
 	{
 		// CreateTemplate
 
 		NucleicAcid template = tr.getTemplate();
 		if (template != null)
 		{
-			NodeModel tmp = map.get(template.getRDFId());
+			NodeModel tmp = prov.getNode(template.getRDFId(), root);
 			new Template(tmp, this);
 		}
 
@@ -80,11 +80,11 @@ public class ChbTempReac extends BioPAXNode
 
 		for (PhysicalEntity ent : tr.getProduct())
 		{
-			NodeModel prd = mapLookup(ent, tr, map);
+			NodeModel prd = prov.getNode(ent.getRDFId(), root);
 			new Product(this, prd);
 		}
 
-		createControlOverInteraction(root, tr, map);
+		createControlOverInteraction(root, tr, prov);
 	}
 
 	private NodeModel mapLookup(PhysicalEntity pe, TemplateReaction tr, Map<String, NodeModel> map)

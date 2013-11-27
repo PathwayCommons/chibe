@@ -235,6 +235,11 @@ public class QueryOptionsPack implements Serializable
 		this.upstream = upstream;
 	}
 
+	public boolean isBothstream()
+	{
+		return isUpstream() && isDownstream();
+	}
+
 	public int getShortestPlusKLimit()
 	{
 		return shortestPlusKLimit;

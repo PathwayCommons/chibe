@@ -59,7 +59,7 @@ public class ExportToSIFAction extends Action
 
 	public void run()
 	{
-		Model model = main.getOwlModel();
+		Model model = main.getBioPAXModel();
 
 		if (model == null)
 		{
@@ -109,7 +109,7 @@ public class ExportToSIFAction extends Action
 		else
 		{
 			ExportToSIFL2Dialog dialog = new ExportToSIFL2Dialog(main.getShell(),
-				org.gvt.model.sifl2.SIFGraph.getPossibleRuleTypes(main.getOwlModel().getLevel()),
+				org.gvt.model.sifl2.SIFGraph.getPossibleRuleTypes(main.getBioPAXModel().getLevel()),
 				ruleTypesL2);
 
 			okPressed = dialog.open();

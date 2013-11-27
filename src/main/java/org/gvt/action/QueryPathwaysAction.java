@@ -63,7 +63,7 @@ public class QueryPathwaysAction extends Action
 
 	public void run()
 	{
-        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L2))
+        if(main.getBioPAXModel() == null || main.getBioPAXModel().getLevel().equals(BioPAXLevel.L2))
         {
             if (refs == null)
             {
@@ -273,7 +273,7 @@ public class QueryPathwaysAction extends Action
 
 			if (resultModel != null && !resultModel.getObjects().isEmpty())
 			{
-				if (main.getOwlModel() != null)
+				if (main.getBioPAXModel() != null)
 				{
 					MergeAction merge = new MergeAction(main, resultModel);
 					merge.setOpenPathways(false);

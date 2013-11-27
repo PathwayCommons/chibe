@@ -35,7 +35,7 @@ public class BioPAXL2Reader
 	 * This method uses the Model object embedded in the root to create elements of
 	 * BioPAX graph.
 	 */
-	protected void createGraph(BioPAXL2Graph root)
+	public void createGraph(BioPAXL2Graph root)
 	{
 		Map<String, NodeModel> map = new HashMap<String, NodeModel>();
 		

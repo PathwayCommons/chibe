@@ -636,11 +636,11 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		/**
 		  * All entities of graph
 		  */
-		java.util.List<EntityHolder> allEntities;
+		Collection<EntityHolder> allEntities;
 
 		java.util.List<EntityHolder> addedEntities;
 
-		public EntityListGroup(Composite composite, int i, java.util.List<EntityHolder> allEntities)
+		public EntityListGroup(Composite composite, int i, Collection<EntityHolder> allEntities)
 		{
 			super(composite, i);
 			this.allEntities = allEntities;

@@ -54,7 +54,7 @@ public class ConnectToDAVIDAction extends Action
 
     public void run()
     {
-        if(main.getRootGraph() == null)
+        if(main.getBioPAXModel() == null)
         {
              MessageDialog.openError(main.getShell(), "Error!", "Load or query a BioPAX model first!");
              return;

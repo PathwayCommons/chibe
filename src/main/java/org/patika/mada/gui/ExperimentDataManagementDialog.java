@@ -276,7 +276,6 @@ public class ExperimentDataManagementDialog extends Dialog implements SelectionL
 			if (updateGrouping())
 			{
 				List<BioPAXGraph> graphs = main.getAllPathwayGraphs();
-				graphs.add(main.getRootGraph());
 
 				for (BioPAXGraph graph : graphs)
 				{

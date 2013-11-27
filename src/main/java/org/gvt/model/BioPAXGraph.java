@@ -1,7 +1,11 @@
 package org.gvt.model;
 
+import org.biopax.paxtools.model.BioPAXElement;
+import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.swt.graphics.Color;
+import org.gvt.model.biopaxl2.BioPAXL2Graph;
+import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.graph.Edge;
@@ -62,6 +66,13 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 		return graphType;
 	}
 
+	public Set<org.gvt.model.GraphObject> getGraphObjects()
+	{
+		Set<org.gvt.model.GraphObject> set = new HashSet<org.gvt.model.GraphObject>(getNodes());
+		set.addAll(getEdges());
+		return set;
+	}
+
 	public void setGraphType(String graphType)
 	{
 		this.graphType = graphType;
@@ -105,36 +116,8 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 		}
 	}
 
-	public String makeUniquePathwayName(String name)
-	{
-		List<String> names = getPathwayNames();
-
-		if (!names.contains(name)) return name;
-		String offer;
-
-		int i = 2;
-		do
-		{
-			offer = name + " (" + i + ")";
-			i++;
-		}
-		while(names.contains(offer));
-
-		return offer;
-	}
-
-	public abstract List<String> getPathwayNames();
-
 	public abstract String getPathwayRDFID();
 	
-	public abstract int numberOfUnemptyPathways();
-
-	public abstract List<String> namesOfUnemptyPathways();
-
-	public abstract String createGlobalPathway(String name);
-
-	public abstract String createPathway(String name, List<String> intids);
-
 	public abstract List<String[]> getInspectable();
 
 	//----------------------------------------------------------------------------------------------
@@ -379,12 +362,6 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 	// Section: Pathway related
 	//----------------------------------------------------------------------------------------------
 
-	/**
-	 * Gets pathways mapped to their names.
-	 * @return name -> pathway map
-	 */
-	public abstract Map<String, PathwayHolder> getNameToPathwayMap();
-
 	public abstract BioPAXGraph excise(PathwayHolder p);
 
 	public abstract PathwayHolder getPathway();
@@ -410,12 +387,16 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 	 */
 	public static final String EXCISED_FROM = "EXCISED_FROM";
 
+	public static final String CHIBE_TAG = "#chibedata";
+
 	// Model Tag related
 
 	/**
 	 * Used for storing layout information in the BioPAX model.
 	 */
 	public static final String LAYOUT_TAG = "Layout";
+
+	public static final String PATHWAY_CONTENT_TAG = CHIBE_TAG + "-pathwaymember";
 
 	public static final String MODEL_TAG_SEPARATOR = "@";
 
@@ -429,4 +410,43 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 	public static final String SIF_LEVEL3 = "SIF_LEVEL3";
 	public static final String BASIC_SIF = "BASIC_SIF";
 
+	public static BioPAXGraph newInstance(Model model, List<String> pathwayMemberIDs, 
+		String pathwayName)
+	{
+		if (model.getLevel() == BioPAXLevel.L3)
+		{
+			return new BioPAXL3Graph(model, pathwayMemberIDs, pathwayName);
+		}
+		else if (model.getLevel() == BioPAXLevel.L2)
+		{
+			return new BioPAXL2Graph(model, pathwayMemberIDs, pathwayName);
+		}
+		else throw new IllegalArgumentException("Unsupported BioPAX leve: " + model.getLevel());
+	}
+
+	public static BioPAXGraph newInstance(Model model)
+	{
+		if (model.getLevel() == BioPAXLevel.L3)
+		{
+			return new BioPAXL3Graph(model);
+		}
+		else if (model.getLevel() == BioPAXLevel.L2)
+		{
+			return new BioPAXL2Graph(model);
+		}
+		else throw new IllegalArgumentException("Unsupported BioPAX leve: " + model.getLevel());
+	}
+
+	public static BioPAXGraph newInstance(Model model, PathwayHolder holder)
+	{
+		if (model.getLevel() == BioPAXLevel.L3)
+		{
+			return new BioPAXL3Graph(model, holder.l3p);
+		}
+		else if (model.getLevel() == BioPAXLevel.L2)
+		{
+			return new BioPAXL2Graph(model, holder.l2p);
+		}
+		else throw new IllegalArgumentException("Unsupported BioPAX leve: " + model.getLevel());
+	}
 }

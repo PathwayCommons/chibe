@@ -4,6 +4,7 @@ import org.biopax.paxtools.io.sif.BinaryInteractionType;
 import org.biopax.paxtools.io.sif.InteractionRule;
 import org.biopax.paxtools.io.sif.SimpleInteraction;
 import org.biopax.paxtools.io.sif.SimpleInteractionConverter;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.gvt.model.BioPAXGraph;
@@ -178,27 +179,6 @@ public class SIFGraph extends BioPAXGraph
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
-	public int numberOfUnemptyPathways()
-	{
-		return 0;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	@Override
-	public List<String> namesOfUnemptyPathways() {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public String createGlobalPathway(String name)
-	{
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	@Override
-	public String createPathway(String name, List<String> intids)
-	{
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
 	@Override
 	public List<String[]> getInspectable()
 	{
@@ -258,11 +238,6 @@ public class SIFGraph extends BioPAXGraph
 	public void replaceComplexMembersWithComplexes(Collection<Node> objects)
 	{
 		//To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public Map<String, PathwayHolder> getNameToPathwayMap()
-	{
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	public BioPAXGraph excise(PathwayHolder p)

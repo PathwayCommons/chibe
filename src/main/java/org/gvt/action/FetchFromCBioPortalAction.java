@@ -54,7 +54,7 @@ public class FetchFromCBioPortalAction extends Action
 
     public void run() {
         // First things first
-        if(main.getRootGraph() == null && getBasicSIFGraphs() == null) {
+        if(main.getBioPAXModel() == null && getBasicSIFGraphs() == null) {
              MessageDialog.openError(main.getShell(), "Error!",
                      "No BioPAX model loaded.");
              return;
@@ -93,7 +93,7 @@ public class FetchFromCBioPortalAction extends Action
         // Extract gene names from the current BioPAX model
         List<String> geneNames = new ArrayList<String>();
         HashMap<String, String> geneNameToXrefStr = new HashMap<String, String>();
-        Model model = main.getOwlModel();
+        Model model = main.getBioPAXModel();
 		if (model != null)
 		{
 			for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
@@ -242,7 +242,6 @@ public class FetchFromCBioPortalAction extends Action
 
         // And apply the coloring
         List<BioPAXGraph> graphs = main.getAllPathwayGraphs();
-        if (main.getRootGraph() != null) graphs.add(main.getRootGraph());
 
         for (BioPAXGraph graph : graphs) {
             dataManager.clearExperimentData(graph);

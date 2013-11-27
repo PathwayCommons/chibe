@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.*;
@@ -33,12 +34,12 @@ public class ChbPathway extends BioPAXNode
 		setShape("Diamond");
 	}
 
-	public ChbPathway(CompoundModel root, Pathway pathway, Map<String, NodeModel> map)
+	public ChbPathway(CompoundModel root, Pathway pathway, NodeProvider prov)
 	{
 		this(root);
 
 		// Remember this control to prevent duplication.
-		map.put(pathway.getRDFId(), this);
+		prov.register(pathway.getRDFId(), this);
 
 		this.pathway = pathway;
 		configFromModel();

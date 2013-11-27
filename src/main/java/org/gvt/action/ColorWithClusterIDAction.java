@@ -45,7 +45,7 @@ public class ColorWithClusterIDAction extends Action
 
 	public void run()
 	{
-		List clusterIDs = main.getRootGraph().getClusterManager().
+		List clusterIDs = main.getPathwayGraph().getClusterManager().
 			getClusterIDs();
 
 		for (int i = 0 ; i < clusterIDs.size(); i++)
@@ -55,7 +55,7 @@ public class ColorWithClusterIDAction extends Action
 				rnd.nextInt(256),
 				rnd.nextInt(256),
 				rnd.nextInt(256));
-			Iterator iter = this.main.getRootGraph().getClusterManager().
+			Iterator iter = this.main.getPathwayGraph().getClusterManager().
 				getClusterByID((Integer) clusterIDs.get(i)).getNodes().
 				iterator();
 
@@ -76,8 +76,7 @@ public class ColorWithClusterIDAction extends Action
 
 		// Nodes which do not belong to any cluster, are colored with
 		// default color
-		CompoundModel root = (CompoundModel) ((ChsRootEditPart) this.main.getViewer().
-			getRootEditPart().getChildren().get(0)).getModel();
+		CompoundModel root = main.getPathwayGraph();
 		Iterator nodeIter = root.getNodes().iterator();
 
 		while (nodeIter.hasNext())

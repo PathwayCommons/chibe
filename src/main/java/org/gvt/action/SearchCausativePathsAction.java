@@ -61,7 +61,7 @@ public class SearchCausativePathsAction extends Action
 
 	public void run()
 	{
-		if (globalSearch && main.getRootGraph() == null) return;
+		if (globalSearch && main.getBioPAXModel() == null) return;
 
 		if (!globalSearch && main.getPathwayGraph() == null) return;
 
@@ -82,6 +82,9 @@ public class SearchCausativePathsAction extends Action
 			return;
 		}
 
+		BioPAXGraph graph = globalSearch ? BioPAXGraph.newInstance(main.getBioPAXModel()) :
+			main.getPathwayGraph();
+
 		if (targets == null)
 		{
 			targets = new HashSet<Node>();
@@ -99,8 +102,7 @@ public class SearchCausativePathsAction extends Action
 
 				if (!targets.isEmpty() && globalSearch)
 				{
-					Map<EntityHolder, List<Node>> entityToNodeMap =
-						main.getRootGraph().getEntityToNodeMap();
+					Map<EntityHolder, List<Node>> entityToNodeMap = graph.getEntityToNodeMap();
 
 					ArrayList<Node> actors = new ArrayList<Node>(targets);
 					targets.clear();
@@ -130,8 +132,6 @@ public class SearchCausativePathsAction extends Action
 		int limit = 10;
 		int k = 0;
 		int t = 0;
-
-		BioPAXGraph graph = globalSearch ? main.getRootGraph() : main.getPathwayGraph();
 
 		if (targets.isEmpty()) targets = null;
 

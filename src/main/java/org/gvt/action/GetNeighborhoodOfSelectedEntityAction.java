@@ -1,5 +1,10 @@
 package org.gvt.action;
 
+import org.biopax.paxtools.model.BioPAXElement;
+import org.biopax.paxtools.model.BioPAXLevel;
+import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.model.level2.physicalEntity;
+import org.biopax.paxtools.model.level3.EntityReference;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
@@ -8,7 +13,9 @@ import org.gvt.model.BioPAXGraph;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.biopaxl2.Complex;
 import org.gvt.model.biopaxl2.ComplexMember;
+import org.gvt.util.BioPAXUtil;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.PathwayHolder;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
@@ -43,9 +50,7 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 
 	public void run()
 	{
-		BioPAXGraph root = main.getRootGraph();
-
-		if (root == null)
+		if (main.getBioPAXModel() == null)
 		{
 			MessageDialog.openError(main.getShell(), "Error!", "No BioPAX model.");
 			return;
@@ -55,40 +60,36 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 
 		if (entities == null)
 		{
-			entities = new HashSet<EntityHolder>();
-
-			if (main.getViewer() != null)
-			{
-				for (Object o : main.getSelectedModel())
-				{
-					if (o instanceof EntityAssociated)
-					{
-						entities.add(((EntityAssociated) o).getEntity());
-					}
-				}
-			}
+			entities = BioPAXUtil.getEntities(main.getBioPAXModel());
 		}
 
+		Model model = main.getBioPAXModel();
+
 		// Still no entity? Then open the list of entities and make user to select
-
-		// Prepare data structures to access entities
-
-		Map<EntityHolder, List<Node>> entityToNodeMap = root.getEntityToNodeMap();
 
 		if (entities.isEmpty())
 		{
 			List<String> allEntityNames = new ArrayList<String>();
 			Map<String, EntityHolder> nametoEntityMap = new HashMap<String, EntityHolder>();
 
-			for (EntityHolder eh : entityToNodeMap.keySet())
+			if (model.getLevel() == BioPAXLevel.L3)
 			{
-				String name = eh.getName();
-
-				assert name != null;
-
-				nametoEntityMap.put(name, eh);
-				allEntityNames.add(name);
+				for (EntityReference er : model.getObjects(EntityReference.class))
+				{
+					EntityHolder eh = new EntityHolder(er);
+					nametoEntityMap.put(eh.getName(), eh);
+				}
 			}
+			else if (model.getLevel() == BioPAXLevel.L2)
+			{
+				for (physicalEntity pe : model.getObjects(physicalEntity.class))
+				{
+					EntityHolder eh = new EntityHolder(pe);
+					nametoEntityMap.put(eh.getName(), eh);
+				}
+			}
+
+			allEntityNames.addAll(nametoEntityMap.keySet());
 
 			List<String> userSelection = new ArrayList<String>();
 
@@ -114,28 +115,6 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 
 		if (!entities.isEmpty())
 		{
-			List<GraphObject> related = new ArrayList<GraphObject>();
-
-			for (EntityHolder pe : entities)
-			{
-				for (Node node : entityToNodeMap.get(pe))
-				{
-					related.add(node);
-
-					related.addAll(node.getUpstream());
-					related.addAll(node.getDownstream());
-
-					if (node instanceof ComplexMember)
-					{
-						Complex cmp = ((ComplexMember) node).getParentComplex();
-						related.addAll(cmp.getUpstream());
-						related.addAll(cmp.getDownstream());
-					}
-				}
-			}
-
-			BioPAXGraph graph = main.getRootGraph().excise(related);
-
 			String name = "Neighborhood of";
 
 			int i = 0;
@@ -147,13 +126,12 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 			}
 			if (entities.size() > i) name += ", et al.";
 
-			graph.setName(name);
+			PathwayHolder ph = BioPAXUtil.getPathwayOfNeighbors(entities, model, name);
 
-			main.createNewTab(graph);
-
-			new CoSELayoutAction(main).run();
+			new OpenPathwaysAction(main, Collections.singletonList(ph.getName())).run();
 
 			// Highlight the source set of nodes
+			BioPAXGraph graph = main.getPathwayGraph();
 			graph.hihglightRelatedNodes(entities);
 		}
 

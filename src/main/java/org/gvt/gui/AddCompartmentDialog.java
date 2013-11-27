@@ -9,7 +9,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
-import org.gvt.model.CompoundModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -24,12 +23,12 @@ public class AddCompartmentDialog extends Dialog
 	/**
 	 * Selected compartments
 	 */
-	private ArrayList<CompoundModel> selectedCompartments;
+	private ArrayList<String> selectedCompartments;
 
 	/**
 	 * All compartments
 	 */
-	private ArrayList<CompoundModel> allCompartments;
+	private java.util.List<String> allCompartments;
 
 	private String[] allCompartmentNames;
 
@@ -58,7 +57,7 @@ public class AddCompartmentDialog extends Dialog
 	 * Constructor
 	 */
 	public AddCompartmentDialog(Shell shell,
-		ArrayList<CompoundModel> allCompartments)
+		java.util.List<String> allCompartments)
 	{
 		super(shell);
 		this.shell = shell;
@@ -69,11 +68,11 @@ public class AddCompartmentDialog extends Dialog
 		this.allCompartmentNames = new String[allCompartments.size()];
 		for (int i = 0; i < allCompartments.size(); i ++)
 		{
-			allCompartmentNames[i] = allCompartments.get(i).getText();
+			allCompartmentNames[i] = allCompartments.get(i);
 		}
 		Arrays.sort(allCompartmentNames);
 		
-		this.selectedCompartments = new ArrayList<CompoundModel>();
+		this.selectedCompartments = new ArrayList<String>();
 
 		addPressed = false;
 	}
@@ -187,9 +186,9 @@ public class AddCompartmentDialog extends Dialog
 
 		for (String selected : selectionResult)
 		{
-			for (CompoundModel compartment : allCompartments)
+			for (String compartment : allCompartments)
 			{
-				if (selected != null && selected.equals(compartment.getText()))
+				if (selected != null && selected.equals(compartment))
 				{
 					this.selectedCompartments.add(compartment);
 				}
@@ -200,7 +199,7 @@ public class AddCompartmentDialog extends Dialog
 	/**
 	 * Getter
 	 */
-	public ArrayList<CompoundModel> getSelectedCompartments()
+	public java.util.List<String> getSelectedCompartments()
 	{
 		return selectedCompartments;
 	}

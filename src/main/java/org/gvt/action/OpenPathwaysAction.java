@@ -12,6 +12,7 @@ import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.PathwaySelectionDialog;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
+import org.gvt.util.BioPAXUtil;
 import org.gvt.util.Conf;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.util.XRef;
@@ -59,9 +60,15 @@ public class OpenPathwaysAction extends Action
 		this.pathways = pathways;
 	}
 
+	public OpenPathwaysAction(ChisioMain main, String pathwayName)
+	{
+		this(main, new ArrayList<String>());
+		pathways.add(pathwayName);
+	}
+
 	public void run()
 	{
-		Model model = main.getOwlModel();
+		Model model = main.getBioPAXModel();
 
 		if (model == null)
 		{
@@ -72,7 +79,7 @@ public class OpenPathwaysAction extends Action
 		}
 
 		List<String> allNames = new ArrayList<String>(main.getAllPathwayNames());
-		Map<String, PathwayHolder> nameToPathwayMap = main.getRootGraph().getNameToPathwayMap();
+		Map<String, PathwayHolder> nameToPathwayMap = BioPAXUtil.getNameToPathwayMap(model);
 
 		assert allNames.size() == nameToPathwayMap.size() : "Sizes do not match!";
 
@@ -160,7 +167,7 @@ public class OpenPathwaysAction extends Action
 	{
 		assert p != null;
 
-		BioPAXGraph graph = main.getRootGraph().excise(p);
+		BioPAXGraph graph = BioPAXGraph.newInstance(main.getBioPAXModel(), p);
 
 		boolean layedout = graph.fetchLayout();
 		CTabItem tab = main.createNewTab(graph);

@@ -51,8 +51,7 @@ public class AssignNewClusterIDAction extends Action
 		Iterator selectedObjects = ((IStructuredSelection) viewer.
 			getSelection()).iterator();
 		
-		List clusterIDs = main.getRootGraph().getClusterManager().
-			getClusterIDs();
+		List clusterIDs = main.getPathwayGraph().getClusterManager().getClusterIDs();
 		
 		int newID = 1;
 		for(int i= 0 ; i < clusterIDs.size(); i++)
@@ -78,8 +77,8 @@ public class AssignNewClusterIDAction extends Action
 				// add new cluster
 				node.addCluster(newID);
 				
-				Cluster cluster = this.main.getRootGraph().
-					getClusterManager().getClusterByID(newID);
+				Cluster cluster = this.main.getPathwayGraph().getClusterManager().
+					getClusterByID(newID);
 				
 				cluster.calculatePolygon();
 				

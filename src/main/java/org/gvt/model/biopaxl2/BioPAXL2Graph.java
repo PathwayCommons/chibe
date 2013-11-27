@@ -8,6 +8,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.EntityAssociated;
+import org.gvt.util.BioPAXUtil;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.graph.Graph;
@@ -35,19 +36,32 @@ public class BioPAXL2Graph extends BioPAXGraph
 	/**
 	 * Empty constructor.
 	 */
-	public BioPAXL2Graph()
+	public BioPAXL2Graph(Model model)
 	{
 		this.graphType = PROCESS_DIAGRAM;
+		this.biopaxModel = model;
+		this.setAsRoot();
 	}
 	
 	/**
 	 * @param biopaxModel biopax graph
 	 */
-	public BioPAXL2Graph(Model biopaxModel)
+	public BioPAXL2Graph(Model biopaxModel, pathway pathway)
 	{
-		this();
-		this.biopaxModel = biopaxModel;
-		this.setAsRoot();
+		this(biopaxModel);
+		this.pathway = pathway;
+		if (pathway == null)
+		{
+			this.pathway = BioPAXUtil.createGlobalPathway(biopaxModel, "Entire content").l2p;
+		}
+	}
+
+	public BioPAXL2Graph(Model model, Collection<String> pathwayMemberIDs, String pathwayName)
+	{
+		this(model);
+		this.pathway = BioPAXUtil.createPathway(model,
+			pathwayName == null ? "unnamed pathway" : pathwayName,
+			pathwayMemberIDs).l2p;
 	}
 
 	public PathwayHolder getPathway()
@@ -254,26 +268,6 @@ public class BioPAXL2Graph extends BioPAXGraph
 	//----------------------------------------------------------------------------------------------
 
 	/**
-	 * Gets pathways mapped to their names.
-	 * @return name -> pathway map
-	 */
-	public Map<String, PathwayHolder> getNameToPathwayMap()
-	{
-		if (biopaxModel != null)
-		{
-			Map<String, PathwayHolder> map = new HashMap<String, PathwayHolder>();
-
-			for (pathway p : biopaxModel.getObjects(pathway.class))
-			{
-				PathwayHolder ph = new PathwayHolder(p);
-				map.put(ph.getName(), ph);
-			}
-			return map;
-		}
-		return null;
-	}
-
-	/**
 	 * Fills in the empty pathway with the biopax interactions in the graph.
 	 */
 	public void registerContentsToPathway()
@@ -304,66 +298,6 @@ public class BioPAXL2Graph extends BioPAXGraph
 				pathway.addPATHWAY_COMPONENTS(((Pairing) o).getInteraction());
 			}
 		}	
-	}
-
-	public int numberOfUnemptyPathways()
-	{
-		int count = 0;
-		for (pathway p : biopaxModel.getObjects(pathway.class))
-		{
-			if (!p.getPATHWAY_COMPONENTS().isEmpty()) count++;
-		}
-		return count;
-	}
-
-	public List<String> namesOfUnemptyPathways()
-	{
-		List<String> list = new ArrayList<String>();
-		for (pathway p : biopaxModel.getObjects(pathway.class))
-		{
-			if (!p.getPATHWAY_COMPONENTS().isEmpty()) list.add(p.getNAME());
-		}
-		return list;
-	}
-
-	public String createGlobalPathway(String name)
-	{
-		pathway p = biopaxModel.addNew(pathway.class,
-			"http://chisiobiopaxeditor/#" + System.currentTimeMillis());
-
-		for (interaction inter : biopaxModel.getObjects(interaction.class))
-		{
-			p.addPATHWAY_COMPONENTS(inter);
-		}
-		p.setNAME(makeUniquePathwayName(name));
-		return p.getNAME();
-	}
-
-	public String createPathway(String name, List<String> intids)
-	{
-		pathway p = biopaxModel.addNew(pathway.class,
-			"http://chisiobiopaxeditor/#" + System.currentTimeMillis());
-
-		for (interaction inter : biopaxModel.getObjects(interaction.class))
-		{
-			if (intids.contains(inter.getRDFId()))
-			{
-				p.addPATHWAY_COMPONENTS(inter);
-			}
-		}
-		p.setNAME(makeUniquePathwayName(name));
-		return p.getNAME();
-	}
-
-	public List<String> getPathwayNames()
-	{
-		List<String> names = new ArrayList<String>();
-
-		for (pathway p : biopaxModel.getObjects(pathway.class))
-		{
-			names.add(p.getNAME());
-		}
-		return names;
 	}
 
 	public String getPathwayRDFID()

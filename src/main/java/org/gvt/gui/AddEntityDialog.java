@@ -44,7 +44,7 @@ public class AddEntityDialog extends Dialog
 	/**
 	 * All physical Entites
 	 */
-	private java.util.List<EntityHolder> allEntities;
+	private Collection<EntityHolder> allEntities;
 	
 	/**
 	 * Provides a mapping from KeyName of the entity to the entity type.
@@ -84,7 +84,7 @@ public class AddEntityDialog extends Dialog
 	/**
 	 * Create the dialog
 	 */
-	public AddEntityDialog(Shell shell,	final java.util.List<EntityHolder> allEntities)
+	public AddEntityDialog(Shell shell,	final Collection<EntityHolder> allEntities)
 	{
 		super(shell);
 		

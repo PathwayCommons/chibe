@@ -24,7 +24,6 @@ public class CloseBioPAXFileAction extends Action
 		if (LoadBioPaxModelAction.saveChangesBeforeDiscard(main))
 		{
 			main.closeAllTabs(false);
-			main.setRootGraph(null);
 			main.setOwlFileName(null);
 			ChisioMain.updateCombo("100%");
 		}

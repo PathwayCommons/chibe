@@ -1,6 +1,5 @@
 package org.gvt.action;
 
-import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
@@ -9,7 +8,6 @@ import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.StringInputDialog;
 import org.gvt.model.basicsif.BasicSIFGraph;
-import org.gvt.util.Conf;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.Collection;
@@ -32,7 +30,7 @@ public class QueryPCGetAction extends QueryPCAction
 
 	public void run()
 	{
-        if(main.getOwlModel() == null || main.getOwlModel().getLevel().equals(BioPAXLevel.L3))
+        if(main.getBioPAXModel() == null || main.getBioPAXModel().getLevel().equals(BioPAXLevel.L3))
         {
             if (!useSelected)
             {
