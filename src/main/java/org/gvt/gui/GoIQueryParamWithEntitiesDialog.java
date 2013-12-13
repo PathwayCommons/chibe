@@ -34,6 +34,14 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
     }
 
     /**
+     * Create the dialog
+     */
+    public GoIQueryParamWithEntitiesDialog(ChisioMain main, boolean forSIF)
+    {
+        super(main, forSIF);
+    }
+
+    /**
      * Create contents of the dialog.
      * Buttons, List, Text Field, Radio Buttons, etc
      */

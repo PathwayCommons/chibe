@@ -19,6 +19,7 @@ import org.gvt.gui.ExportToSIFL3Dialog;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
+import org.gvt.util.BioPAXUtil;
 
 import java.util.*;
 
@@ -70,9 +71,7 @@ public class ExportToSIFAction extends Action
 
 		if (!entireModel)
 		{
-			ScrollingGraphicalViewer viewer = main.getTabToViewerMap().get(main.getSelectedTab());
-
-			CompoundModel root = (CompoundModel) viewer.getContents().getModel();
+			CompoundModel root = main.getPathwayGraph();
 
 			boolean stop = true;
 
@@ -82,7 +81,7 @@ public class ExportToSIFAction extends Action
 
 				if (model.getLevel() == BioPAXLevel.L3 && graph.isMechanistic())
 				{
-					model = excise(model, graph.getPathway().l3p);
+					model = BioPAXUtil.excise(model, graph.getPathway());
 					stop = false;
 				}
 			}
@@ -159,27 +158,5 @@ public class ExportToSIFAction extends Action
 		}
 
 		ruleTypesL2.clear();
-	}
-
-	/**
-	 * Editor map to use for excising.
-	 */
-	static final SimpleEditorMap EM = SimpleEditorMap.L3;
-
-	/**
-	 * Excises a model to the given elements.
-	 * @param model model to excise
-	 * @param p pathway to excise to
-	 * @return excised model
-	 */
-	public static Model excise(Model model, Pathway p)
-	{
-		Completer c = new Completer(EM);
-
-		Set<BioPAXElement> result = c.complete(new HashSet<BioPAXElement>(Arrays.asList(p)), model);
-
-		Cloner cln = new Cloner(EM, BioPAXLevel.L3.getDefaultFactory());
-
-		return cln.clone(model, result);
 	}
 }

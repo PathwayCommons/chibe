@@ -1,5 +1,6 @@
 package org.gvt.util;
 
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.level2.pathway;
 import org.biopax.paxtools.model.level2.pathwayComponent;
 import org.biopax.paxtools.model.level2.conversion;
@@ -220,5 +221,11 @@ public class PathwayHolder
 	public boolean isLevel3()
 	{
 		return l3p != null;
+	}
+
+	public BioPAXElement getPathway()
+	{
+		if (l3p != null) return l3p;
+		return l2p;
 	}
 }

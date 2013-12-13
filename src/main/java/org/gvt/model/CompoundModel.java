@@ -33,6 +33,8 @@ public class CompoundModel extends NodeModel
 
 	protected List children;
 
+	int labelHeight;
+
 	/*
 	 * Cluster Manager of all graphs managed by this graph manager
 	 */
@@ -58,6 +60,7 @@ public class CompoundModel extends NodeModel
 		this.borderColor = DEFAULT_BORDER_COLOR;
 		this.shape = DEFAULT_SHAPE;
 		this.children = new ArrayList();
+		this.labelHeight = LABEL_HEIGHT;
 	}
 
 	public CompoundModel(Point pt, Color c, String lbl)
@@ -65,6 +68,16 @@ public class CompoundModel extends NodeModel
 		this(new Rectangle(pt, CompoundModel.DEFAULT_SIZE));
 		setColor(c);
 		setText(lbl);
+	}
+
+	public int getLabelHeight()
+	{
+		return labelHeight;
+	}
+
+	public void setLabelHeight(int labelHeight)
+	{
+		this.labelHeight = labelHeight;
 	}
 
 	/**
@@ -179,7 +192,7 @@ public class CompoundModel extends NodeModel
 				setLocationAbs(new Point(bound.x - this.MARGIN_SIZE,
 					bound.y - this.MARGIN_SIZE));
 				setSize(new Dimension(bound.width + (2 * this.MARGIN_SIZE),
-					bound.height + (2 * this.MARGIN_SIZE) + this.LABEL_HEIGHT));
+					bound.height + (2 * this.MARGIN_SIZE) + this.labelHeight));
 
 				iter = this.children.iterator();
 
@@ -216,7 +229,7 @@ public class CompoundModel extends NodeModel
 				setLocationAbs(new Point(bound.x - this.MARGIN_SIZE,
 					bound.y - this.MARGIN_SIZE));
 				setSize(new Dimension(bound.width + (2 * this.MARGIN_SIZE),
-					bound.height + (2 * this.MARGIN_SIZE) + this.LABEL_HEIGHT));
+					bound.height + (2 * this.MARGIN_SIZE) + this.labelHeight));
 
 				Iterator iter = this.children.iterator();
 

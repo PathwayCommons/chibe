@@ -9,6 +9,7 @@ import org.eclipse.gef.*;
 import org.gvt.editpolicy.*;
 import org.gvt.figure.*;
 import org.gvt.model.*;
+import org.gvt.model.sifl3.SIFGroup;
 
 /**
  * This class maintains the editpart for Compound Nodes.
@@ -22,8 +23,13 @@ public class ChsCompoundEditPart extends ChsNodeEditPart
 	protected IFigure createFigure()
 	{
 		NodeModel model = getNodeModel();
+
+		int labelHeight = model instanceof CompoundModel ?
+			((CompoundModel) model).getLabelHeight() : 0;
+
 		CompoundFigure cFigure = new CompoundFigure(model.getLocationAbs(),
 			model.getSize(),
+			labelHeight,
 			model.getText(),
 			model.getTooltipText(),
 			model.getTextFont(),

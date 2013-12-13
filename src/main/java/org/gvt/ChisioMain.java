@@ -15,6 +15,7 @@ import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level3.EntityReference;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.model.level3.PhysicalEntity;
+import org.biopax.paxtools.pattern.util.Blacklist;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureCanvas;
@@ -932,7 +933,7 @@ public class ChisioMain extends ApplicationWindow
 	/**
 	 * Collects IDs of the ubique molecules in the current model.
 	 */
-	public Set<String> collectUbiqueIDs()
+	public Blacklist collectUbiqueIDs()
 	{
 		return org.gvt.model.biopaxl3.Actor.getBlackList();
 	}

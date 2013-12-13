@@ -83,7 +83,7 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	@Override
 	protected AbstractQueryParamDialog getDialog()
 	{
-		return new NeighborhoodQueryParamWithEntitiesDialog(main, null);
+		return new NeighborhoodQueryParamWithEntitiesDialog(main, querySIF);
 	}
 
 	@Override

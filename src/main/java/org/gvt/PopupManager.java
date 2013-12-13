@@ -15,6 +15,7 @@ import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.model.EdgeModel;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
+import org.gvt.model.basicsif.BasicSIFGroup;
 import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.sifl3.SIFEdge;
@@ -210,11 +211,22 @@ public class PopupManager extends MenuManager
 			EditPart ep = (EditPart) partObj;
 			Object mod = ep.getModel();
 
-			if (mod instanceof BasicSIFEdge) cnt++;
+			if (mod instanceof BasicSIFEdge)
+			{
+				cnt++;
+
+				if (((BasicSIFEdge) mod).getSource() instanceof BasicSIFGroup ||
+					((BasicSIFEdge) mod).getTarget() instanceof BasicSIFGroup )
+				{
+					return true;
+				}
+			}
+
 
 			if (cnt > 1) return true;
 		}
 		assert cnt < 2;
+
 		return false;
 	}
 }

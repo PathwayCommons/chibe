@@ -35,6 +35,14 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 	}
 
     /**
+     * Constructor
+     */
+    public PoIQueryParamWithEntitiesDialog(ChisioMain main, boolean forSIF)
+	{
+		super(main, forSIF);
+	}
+
+    /**
 	 * Create contents of the dialog.
 	 * Buttons, List, Text Field, Radio Buttons, etc.
 	 */

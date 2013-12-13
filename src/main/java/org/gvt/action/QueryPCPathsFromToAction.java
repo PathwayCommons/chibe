@@ -67,7 +67,7 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 		if (fromSymbol == null)
 		{
 			assert toSymbol == null;
-			return new PoIQueryParamWithEntitiesDialog(main, null);
+			return new PoIQueryParamWithEntitiesDialog(main, querySIF);
 		}
 		else
 		{

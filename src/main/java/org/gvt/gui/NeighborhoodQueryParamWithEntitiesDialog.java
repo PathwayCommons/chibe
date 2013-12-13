@@ -39,6 +39,14 @@ public class NeighborhoodQueryParamWithEntitiesDialog extends AbstractQueryParam
 	}
 
 	/**
+	 * Create the dialog
+	 */
+	public NeighborhoodQueryParamWithEntitiesDialog(ChisioMain main, boolean forSIF)
+	{
+		super(main, forSIF);
+	}
+
+	/**
 	 * Create contents of the dialog.
 	 * Buttons, List, Text Field, Radio Buttons, etc
 	 */

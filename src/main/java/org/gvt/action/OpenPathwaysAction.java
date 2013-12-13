@@ -81,8 +81,6 @@ public class OpenPathwaysAction extends Action
 		List<String> allNames = new ArrayList<String>(main.getAllPathwayNames());
 		Map<String, PathwayHolder> nameToPathwayMap = BioPAXUtil.getNameToPathwayMap(model);
 
-		assert allNames.size() == nameToPathwayMap.size() : "Sizes do not match!";
-
 		if (allNames.isEmpty())
 		{
 			String message = model.getObjects().isEmpty() ? "BioPAX model is empty!" :

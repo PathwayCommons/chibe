@@ -19,6 +19,7 @@ public class CompoundFigure extends NodeFigure
 
 	public CompoundFigure(Point locationAbs,
 		Dimension size,
+		int labelHeight,
 		String text,
 		String toolTipText,
 		Font textFont,
@@ -40,7 +41,7 @@ public class CompoundFigure extends NodeFigure
 			highlightColor,
 			highlight, 1);
 
-		this.labelHeight = CompoundModel.LABEL_HEIGHT;
+		this.labelHeight = labelHeight;
 		this.label.setOpaque(true);
 		this.label.setBackgroundColor(color);
 		this.label.setBounds(new Rectangle(
@@ -53,7 +54,7 @@ public class CompoundFigure extends NodeFigure
 		setBackgroundColor(ColorConstants.white);
 		LineBorder border = new LineBorder(1);
 		border.setColor(getForegroundColor());
-		label.setBorder(border);		
+		label.setBorder(border);
 	}
 
 	public void updateColor(Color color)
