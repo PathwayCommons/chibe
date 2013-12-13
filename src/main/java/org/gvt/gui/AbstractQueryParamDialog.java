@@ -2,6 +2,7 @@ package org.gvt.gui;
 
 import java.util.*;
 
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.cbio.causality.idmapping.HGNC;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -9,6 +10,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
@@ -87,7 +89,11 @@ public abstract class AbstractQueryParamDialog extends Dialog
 
 	protected SymbolText sourceST;
 	protected SymbolText targetST;
-	
+
+	protected boolean forSIF;
+	protected Button sifTypeButton;
+	protected java.util.List<SIFType> selectedTypes;
+
 	/**
 	 * Shell used for query dialogs
 	 */
@@ -128,8 +134,17 @@ public abstract class AbstractQueryParamDialog extends Dialog
 	 */
 	public AbstractQueryParamDialog(ChisioMain main)
 	{
+		this(main, false);
+	}
+
+	/**
+	 * Create the dialog
+	 */
+	public AbstractQueryParamDialog(ChisioMain main, boolean forSIF)
+	{
 		super(main.getShell(), SWT.NONE);
 		this.main = main;
+		this.forSIF = forSIF;
 	}
 
 	/**
@@ -148,6 +163,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
         gridData.horizontalSpan = 8;
         gridData.verticalSpan = 6;
         infoLabel.setLayoutData(gridData);
+		if (forSIF) selectedTypes = opt.getSifTypes();
 	}
 	
 	/**
@@ -251,9 +267,35 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		GridData gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
 		gridData.horizontalSpan = horizontalSpan;
 		exeCancelDefaultGroup.setLayoutData(gridData);
-		exeCancelDefaultGroup.setLayout(new GridLayout(3, true));
+		exeCancelDefaultGroup.setLayout(new GridLayout(4, true));
 
-        //Execute Button
+		if (forSIF)
+		{
+			sifTypeButton = new Button(exeCancelDefaultGroup, SWT.NONE);
+			sifTypeButton.setBackground(new Color(null, 255, 255, 255));
+			gridData = new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
+			sifTypeButton.setLayoutData(gridData);
+			sifTypeButton.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent arg0)
+				{
+					ArrayList<SIFType> selection = new ArrayList<SIFType>(selectedTypes);
+					ExportToSIFL3Dialog dialog = new ExportToSIFL3Dialog(main.getShell(),
+						org.gvt.model.sifl3.SIFGraph.getPossibleRuleTypes(), selection);
+
+					if (dialog.open())
+					{
+						selectedTypes.clear();
+						selectedTypes.addAll(selection);
+						updateSIFTypeButtonText();
+					}
+				}
+			});
+			if (selectedTypes == null) selectedTypes = new ArrayList<SIFType>();
+			updateSIFTypeButtonText();
+		}
+
+		//Execute Button
 
         executeButton = new Button(exeCancelDefaultGroup, SWT.NONE);
         executeButton.setText("Execute");
@@ -277,6 +319,14 @@ public abstract class AbstractQueryParamDialog extends Dialog
 				{
 					MessageDialog.openError(main.getShell(), "Error!",
 						"Add Target Molecule!");
+
+					return;
+				}
+
+				if (forSIF && selectedTypes.isEmpty())
+				{
+					MessageDialog.openError(main.getShell(), "Error!",
+						"Please select at least one interaction type.");
 
 					return;
 				}
@@ -327,6 +377,19 @@ public abstract class AbstractQueryParamDialog extends Dialog
                 setDefaultQueryDialogOptions();
             }
         });
+	}
+
+	private void updateSIFTypeButtonText()
+	{
+		if (selectedTypes.isEmpty())
+		{
+			sifTypeButton.setText("Select interaction type");
+		}
+		else
+		{
+			sifTypeButton.setText(selectedTypes.size() + " type" +
+				(selectedTypes.size() > 1 ? "s" : "") + " selected");
+		}
 	}
 
 	/**
@@ -561,6 +624,11 @@ public abstract class AbstractQueryParamDialog extends Dialog
 
 		if (sourceST != null) opt.setSourceList(sourceST.getSymbols());
 		if (targetST != null) opt.setTargetList(targetST.getSymbols());
+
+		if (forSIF)
+		{
+			opt.setSifTypes(selectedTypes);
+		}
 	}
 
 	/**

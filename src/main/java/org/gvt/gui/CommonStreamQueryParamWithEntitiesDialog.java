@@ -36,6 +36,14 @@ public class CommonStreamQueryParamWithEntitiesDialog extends AbstractQueryParam
 	}
 
 	/**
+	 * Create the dialog
+	 */
+	public CommonStreamQueryParamWithEntitiesDialog(ChisioMain main, boolean forSIF)
+	{
+		super(main, forSIF);
+	}
+
+	/**
 	 * Create contents of the dialog.
 	 * Buttons, List, Text Field, Radio Buttons, etc
 	 */

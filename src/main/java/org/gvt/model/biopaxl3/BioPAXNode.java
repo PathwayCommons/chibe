@@ -250,12 +250,19 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 	public static String getDisplayName(Entity ent)
 	{
-		String txt = extractGeneSymbol(ent);
+		String txt = null;
 
-		if (txt == null)// && !(ent instanceof SmallMolecule))
+		if (ent instanceof SmallMolecule)
 		{
-			txt = ent.getDisplayName();
+			EntityReference er = ((SmallMolecule) ent).getEntityReference();
+			if (er != null && er.getDisplayName() != null)
+			{
+				txt = er.getDisplayName();
+			}
 		}
+
+		if (txt == null) txt = extractGeneSymbol(ent);
+		if (txt == null) txt = ent.getDisplayName();
 
 		if (txt == null)
 		{

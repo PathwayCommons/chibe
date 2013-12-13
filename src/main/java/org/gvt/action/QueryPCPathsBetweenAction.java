@@ -70,7 +70,7 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	protected AbstractQueryParamDialog getDialog()
 	{
 		if (symbols == null || symbols.length < 2)
-			return new GoIQueryParamWithEntitiesDialog(main, null);
+			return new GoIQueryParamWithEntitiesDialog(main, querySIF);
 		else
 		{
 			options.setSourceList(Arrays.asList(symbols));

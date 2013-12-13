@@ -123,7 +123,7 @@ public class SIFReader
 				String meds = st.hasMoreTokens() ? st.nextToken() : null;
 
 				// commented out because we want to display non-paxtools sifs
-//				if (types == null || types.contains(relation))
+				if (types == null || types.contains(relation))
 				{
 					createUnit(first, relation, second, meds);
 				}

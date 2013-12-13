@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.cbio.causality.idmapping.HGNC;
 import org.gvt.gui.AbstractQueryParamDialog;
 
@@ -74,9 +75,9 @@ public class QueryOptionsPack implements Serializable
 	private boolean strict;
 
 	/**
-	 * A prefix for querying PC with gene symbols
+	 * Selected binary interaction types for SIF querying.
 	 */
-	final String SYMBOL_PREFIX = "urn:biopax:RelationshipXref:HGNC_HGNC%3A";
+	private List<SIFType> sifTypes;
 
 	public QueryOptionsPack()
 	{
@@ -278,6 +279,16 @@ public class QueryOptionsPack implements Serializable
 	public void setUseID(boolean useID)
 	{
 		this.useID = useID;
+	}
+
+	public List<SIFType> getSifTypes()
+	{
+		return sifTypes;
+	}
+
+	public void setSifTypes(List<SIFType> sifTypes)
+	{
+		this.sifTypes = sifTypes;
 	}
 
 	/**

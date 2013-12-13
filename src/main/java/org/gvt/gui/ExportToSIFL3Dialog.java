@@ -1,6 +1,5 @@
 package org.gvt.gui;
 
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -94,14 +93,14 @@ public class ExportToSIFL3Dialog extends Dialog
 	private void createContents()
 	{
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		shell.setText("SIF Rules Settings");
+		shell.setText("Binary Interaction Types");
         shell.setImage(ImageDescriptor.createFromFile(ChisioMain.class, "icon/cbe-icon.png").createImage());
 		GridLayout gridLy = new GridLayout();
 		gridLy.numColumns = 1;
 		shell.setLayout(gridLy);
 
 		Group rulesGroup = new Group(shell, SWT.NONE);
-		rulesGroup.setText("Select rules to use");
+		rulesGroup.setText("Select interaction types to use");
 		gridLy = new GridLayout();
 		gridLy.numColumns = 1;
 		rulesGroup.setLayout(gridLy);

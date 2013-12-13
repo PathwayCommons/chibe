@@ -19,7 +19,7 @@ public class BasicSIFEdge extends BioPAXEdge
 
 	protected Set<String> mediators;
 
-	public BasicSIFEdge(BasicSIFNode source, BasicSIFNode target, String tag, String mediators)
+	public BasicSIFEdge(NodeModel source, NodeModel target, String tag, String mediators)
 	{
 		super(source, target);
 
@@ -39,12 +39,11 @@ public class BasicSIFEdge extends BioPAXEdge
 			setStyle("Dashed");
 		}
 
+		this.mediators = new HashSet<String>();
 		if (mediators != null)
 		{
-			this.mediators = new HashSet<String>();
 			Collections.addAll(this.mediators, mediators.split(" "));
 		}
-		else this.mediators = Collections.emptySet();
 	}
 
 	public BasicSIFEdge(BioPAXEdge excised, Map<NodeModel, NodeModel> map)
@@ -82,6 +81,11 @@ public class BasicSIFEdge extends BioPAXEdge
 	public Set<String> getMediators()
 	{
 		return mediators;
+	}
+
+	public void addMediators(Collection<String> meds)
+	{
+		this.mediators.addAll(meds);
 	}
 
 	public List<String[]> getInspectable()

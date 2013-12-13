@@ -1,6 +1,7 @@
 package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.level3.*;
+import org.biopax.paxtools.pattern.util.Blacklist;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -14,6 +15,7 @@ import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -44,7 +46,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	/**
 	 * This is the list of IDs of ubiquotous small molecules in Pathway Commons 2.
 	 */
-	private static Set<String> blacklist;
+	private static Blacklist blacklist;
 
 	/**
 	 * Constructor.
@@ -380,23 +382,22 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public boolean isUbique()
 	{
-		return isIDUbique(entity.getRDFId()) ||
+		return isIDUbique(entity) ||
 			entity instanceof SmallMolecule && isUbiqueName(entity.getDisplayName());
 	}
 
 	public static boolean isUbique(PhysicalEntity pe)
 	{
-		return isIDUbique(pe.getRDFId()) ||
-			(pe instanceof SmallMolecule && isUbiqueName(pe.getDisplayName()));
+		return isIDUbique(pe) || (pe instanceof SmallMolecule && isUbiqueName(pe.getDisplayName()));
 	}
 
-	public static boolean isIDUbique(String rdfID)
+	public static boolean isIDUbique(PhysicalEntity pe)
 	{
 		if (blacklist == null) blacklist = fetchBlackListFromPC();
-		return blacklist.contains(rdfID);
+		return blacklist.isUbique(pe);
 	}
 
-	public static Set<String> getBlackList()
+	public static Blacklist getBlackList()
 	{
 		if (blacklist == null) blacklist = fetchBlackListFromPC();
 		return blacklist;
@@ -496,25 +497,19 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		return reqs;
 	}
 
-	private static Set<String> fetchBlackListFromPC()
+	private static Blacklist fetchBlackListFromPC()
 	{
-		Set<String> black = new HashSet<String>();
-
 		try
 		{
-			URL url = new URL(Conf.get(Conf.PATHWAY_COMMONS_URL) + "downloads/blacklist.txt");
+//			URL url = new URL(Conf.get(Conf.PATHWAY_COMMONS_URL) + "downloads/blacklist.txt");
+			URL url = new URL(Conf.getBlacklistURL());
 			URLConnection con = url.openConnection();
-			Scanner sc = new Scanner(con.getContent().toString());
-			while(sc.hasNextLine())
-			{
-				black.add(sc.nextLine());
-			}
-			return black;
+			return new Blacklist((InputStream) con.getContent());
 		}
 		catch (Exception e)
 		{
 			System.out.println("Cannot fetch blacklist from Pathway Commons.");
-			return black;
+			return new Blacklist();
 		}
 	}
 

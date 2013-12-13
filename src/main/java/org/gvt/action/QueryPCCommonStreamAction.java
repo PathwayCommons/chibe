@@ -65,7 +65,7 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 	@Override
 	protected AbstractQueryParamDialog getDialog()
 	{
-		return new CommonStreamQueryParamWithEntitiesDialog(main, null);
+		return new CommonStreamQueryParamWithEntitiesDialog(main, querySIF);
 	}
 
 	@Override

@@ -12,6 +12,8 @@ public class BiPaNode extends org.ivis.layout.cose.CoSENode
 {
 	private int type;
 	private boolean hasInfo;
+
+	// name of the node -- for debugging.
 	private String text;
 
 	public static final int COMPLEX = 1;
@@ -36,7 +38,9 @@ public class BiPaNode extends org.ivis.layout.cose.CoSENode
 		if (model != null) this.text = model.getText();
 
 		if (model instanceof org.gvt.model.biopaxl2.Complex ||
-			model instanceof org.gvt.model.biopaxl3.ChbComplex)
+			model instanceof org.gvt.model.biopaxl3.ChbComplex ||
+			model instanceof org.gvt.model.sifl3.SIFGroup ||
+			model instanceof org.gvt.model.basicsif.BasicSIFGroup)
 		{
 			type = COMPLEX;
 		}

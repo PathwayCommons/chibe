@@ -1,5 +1,6 @@
 package org.gvt.util;
 
+import org.biopax.paxtools.controller.Cloner;
 import org.biopax.paxtools.controller.Completer;
 import org.biopax.paxtools.controller.PathAccessor;
 import org.biopax.paxtools.controller.SimpleEditorMap;
@@ -301,22 +302,17 @@ public class BioPAXUtil
 		return set;
 	}
 
-	public static BioPAXGraph excise(Model model, Set<BioPAXElement> set, String newName)
+	public static Model excise(Model model, PathwayHolder ph)
 	{
 		SimpleEditorMap editorMap = SimpleEditorMap.get(model.getLevel());
 		Completer c = new Completer(editorMap);
 
+		Set<BioPAXElement> set = new HashSet<BioPAXElement>();
+		set.add(ph.getPathway());
 		set = c.complete(set, model);
-		Set<String> ids = new HashSet<String>();
-		for (BioPAXElement ele : set)
-		{
-			ids.add(ele.getRDFId());
-		}
 
-		return model.getLevel() == BioPAXLevel.L3 ?
-			new BioPAXL3Graph(model, ids, newName) :
-			model.getLevel() == BioPAXLevel.L2 ?
-				new BioPAXL2Graph(model, ids, newName) : null;
+		Cloner cloner = new Cloner(editorMap, model.getLevel().getDefaultFactory());
+		return cloner.clone(model, set);
 	}
 
 	public static Set<BioPAXElement> getContent(Collection<EntityHolder> ehs)

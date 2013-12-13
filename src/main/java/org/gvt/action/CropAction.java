@@ -119,6 +119,8 @@ public class CropAction extends Action
 			return;			
 		}
 
+		// todo: WE need to create a new pathway and open it here. Below is old code.
+
 		BioPAXGraph excised = graph.excise(cropto, true);
 		excised.setName(graph.getName() + " cropped");
 

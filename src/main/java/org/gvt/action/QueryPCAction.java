@@ -131,7 +131,7 @@ public abstract class QueryPCAction extends Action
 
 	private void doSIFQuery() throws CPathException
 	{
-		BasicSIFGraph graph = getPCGraph();
+		BasicSIFGraph graph = getPCGraph(options.getSifTypes());
 
 		Collection<org.patika.mada.graph.GraphObject> gos = doSIFQuery(graph);
 
@@ -427,10 +427,9 @@ public abstract class QueryPCAction extends Action
 
 	//--------------------- Getting PC SIF graph --------------------------------------------------|
 
-	public static BasicSIFGraph getPCGraph()
+	public static BasicSIFGraph getPCGraph(List<SIFType> types)
 	{
-		SIFReader sifReader = new SIFReader(Arrays.asList(SIFType.CHANGES_STATE_OF,
-			SIFType.CONTROLS_EXPRESSION_OF, SIFType.CONTROLS_DEGRADATION_OF));
+		SIFReader sifReader = new SIFReader(types);
 
 		File sifFile = new File(getPCSifFileLocation());
 

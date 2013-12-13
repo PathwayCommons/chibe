@@ -93,7 +93,9 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 				return;
 			}
 
-			BasicSIFGraph pcGraph = QueryPCAction.getPCGraph();
+			BasicSIFGraph pcGraph = QueryPCAction.getPCGraph(Arrays.asList(
+				SIFType.CONTROLS_STATE_CHANGE_OF, SIFType.CONTROLS_EXPRESSION_OF,
+				SIFType.CONTROLS_DEGRADATION_OF));
 
 			Set<Node> seed = QueryPCAction.getSeed(pcGraph, genes);
 

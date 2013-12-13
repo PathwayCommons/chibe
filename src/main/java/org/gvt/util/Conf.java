@@ -320,4 +320,13 @@ public class Conf
 	{
 		return getBoolean(DRAW_PPI_EDGES);
 	}
+
+	/**
+	 * This is a temporary code. Change this when the blacklist is provided by Pathway Commons.
+	 * @return
+	 */
+	public static String getBlacklistURL()
+	{
+		return "http://resources.chibe.googlecode.com/hg/blacklist.txt";
+	}
 }
