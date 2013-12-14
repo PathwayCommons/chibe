@@ -3,6 +3,7 @@ package org.gvt.model.basicsif;
 import org.biopax.paxtools.model.level3.Level3Element;
 import org.cbio.causality.idmapping.HGNC;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.biopaxl3.BioPAXNode;
 import org.gvt.model.biopaxl3.Actor;
@@ -33,7 +34,7 @@ public class BasicSIFNode extends BioPAXNode
 
 		setShape("RoundRect");
 		configFromModel();
-		
+
 		int width = Math.max(suggestInitialWidth(), Actor.MIN_INITIAL_WIDTH);
 
 		int height = 20;
@@ -49,12 +50,16 @@ public class BasicSIFNode extends BioPAXNode
 	public void configFromModel()
 	{
 		setTooltipText(getText());
-		setColor(getStringSpecificColor(getText()));
 
 		String symbol = HGNC.getSymbol(getText());
 		if (symbol != null)
 		{
+			setColor(getStringSpecificColor(getText()));
 			this.addReference(new XRef("HGNC", symbol));
+		}
+		else
+		{
+			setColor(SM_COLOR);
 		}
 
 	}
@@ -85,4 +90,6 @@ public class BasicSIFNode extends BioPAXNode
 		list.add(new String[]{"ID", rdfid});
 		return list;
 	}
+
+	private static final Color SM_COLOR = new Color(null, 255, 255, 255);
 }

@@ -63,7 +63,8 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
 	{
 		return AlgoRunner.searchGraphOfInterest(graph,
-			getSeed(graph, options.getConvertedSourceList()), options.getLengthLimit(), true);
+			getSeed(graph, options.getConvertedSourceList()), options.getLengthLimit(),
+			!options.undirectedSIFTypeSelected());
 	}
 
 	@Override
