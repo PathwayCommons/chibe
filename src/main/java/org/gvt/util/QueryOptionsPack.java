@@ -291,6 +291,15 @@ public class QueryOptionsPack implements Serializable
 		this.sifTypes = sifTypes;
 	}
 
+	public boolean undirectedSIFTypeSelected()
+	{
+		for (SIFType sifType : sifTypes)
+		{
+			if (!sifType.isDirected()) return true;
+		}
+		return false;
+	}
+
 	/**
 	 * This method sets default values of length limit and current view fields
 	 */

@@ -152,12 +152,15 @@ public abstract class QueryPCAction extends Action
 		Set<String> seed = new HashSet<String>(options.getConvertedSourceList());
 		seed.addAll(options.getConvertedTargetList());
 
-		for (Object o : goi.getNodes())
+		if (options.getLengthLimit() > 1)
 		{
-			NodeModel node = (NodeModel) o;
-			if (seed.contains(node.getText()))
+			for (Object o : goi.getNodes())
 			{
-				node.setHighlight(true);
+				NodeModel node = (NodeModel) o;
+				if (seed.contains(node.getText()))
+				{
+					node.setHighlight(true);
+				}
 			}
 		}
 	}

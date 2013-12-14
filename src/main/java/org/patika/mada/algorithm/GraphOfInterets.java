@@ -1,17 +1,15 @@
 package org.patika.mada.algorithm;
 
+import org.gvt.model.basicsif.BasicSIFEdge;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 /**
- * Does not handle compound nodes.
+ * Does not handle compound nodes. For binary netowrks only.
  *
  * @author Ozgun Babur
  *
@@ -23,7 +21,14 @@ public class GraphOfInterets
 	private boolean directed;
 	private Graph graph;
 	private int limit;
+
 	Set<GraphObject> goi;
+
+	private Map<GraphObject, Map<Integer, Set<Node>>> fwdLabel;
+	private Map<GraphObject, Map<Integer, Set<Node>>> bkwLabel;
+	private Map<GraphObject, Map<Integer, Set<Node>>> labelMap;
+
+	private Set<GraphObject> visitedObjects;
 
 	public GraphOfInterets(Set<Node> seed, boolean directed, Graph graph, int limit)
 	{
@@ -35,60 +40,67 @@ public class GraphOfInterets
 
 	public Set<GraphObject> run()
 	{
-//		System.out.println("---------\nGOI algorithm starting");
-//		System.out.println("seed.size() = " + seed.size());
-//		System.out.println("graph.getNodes() = " + graph.getNodes().size());
-//		System.out.println("graph.getEdges() = " + graph.getEdges().size());
-//		System.out.println("directed = " + directed);
-//		System.out.println("limit = " + limit);
-
 		goi = new HashSet<GraphObject>();
-
-		// Init node and edge distances. seed <- 0, non-seed <- max
-		for (Node node : graph.getNodes())
-		{
-			initGraphObject(node);
-		}
-		for (Edge edge : graph.getEdges())
-		{
-			initGraphObject(edge);
-		}
+		visitedObjects = new HashSet<GraphObject>();
 
 		if (directed)
 		{
-			runBFS_directed(FORWARD);
-			runBFS_directed(BACKWARD);
+			this.fwdLabel = new HashMap<GraphObject, Map<Integer, Set<Node>>>();
+			this.bkwLabel = new HashMap<GraphObject, Map<Integer, Set<Node>>>();
 		}
-		else
+		else this.labelMap = new HashMap<GraphObject, Map<Integer, Set<Node>>>();
+
+		for (Node node : seed)
 		{
-			runBFS_undirected();
+			initSeed(node);
+
+			if (directed)
+			{
+				runBFS_directed(node, FORWARD);
+				runBFS_directed(node, BACKWARD);
+			}
+			else
+			{
+				runBFS_undirected(node);
+			}
+
+			// Record distances for that seed node
+			recordDistances(node);
+
+			// Remove all algorithm specific labels
+			clearLabels();
 		}
+
+		// Reformat the label maps
+
+		if (directed)
+		{
+			mergeLabels(fwdLabel);
+			mergeLabels(bkwLabel);
+		}
+		else mergeLabels(labelMap);
+
 
 		// Select graph objects that are traversed with the BFS. It is important to process nodes
 		// before edges.
-
-		selectSatisfyingElements(graph.getNodes());
-		selectSatisfyingElements(graph.getEdges());
+		selectSatisfyingElements();
 
 		// Prune so that no non-seed degree-1 nodes remain
 		pruneResult();
-
-		// Remove all algorithm specific labels
-		clearLabels();
 
 		assert checkEdgeSanity();
 
 		return goi;
 	}
 
-	private void runBFS_directed(boolean direction)
+	private void runBFS_directed(Node seed, boolean direction)
 	{
 		assert directed;
 
 		// Initialize queue to contain all seed nodes
 
 		LinkedList<Node> queue = new LinkedList<Node>();
-		queue.addAll(seed);
+		queue.add(seed);
 
 		// Run BFS forward or backward till queue is not empty
 
@@ -99,14 +111,14 @@ public class GraphOfInterets
 		}
 	}
 
-	private void runBFS_undirected()
+	private void runBFS_undirected(Node seed)
 	{
 		assert !directed;
 
 		// Initialize queue to contain all seed nodes
 
 		LinkedList<Node> queue = new LinkedList<Node>();
-		queue.addAll(seed);
+		queue.add(seed);
 
 		// Run BFS till queue is not empty
 
@@ -133,25 +145,22 @@ public class GraphOfInterets
 
 	private void BFStep(Node node, boolean upstr, String label, LinkedList<Node> queue)
 	{
-		int d = (Integer) node.getLabel(label);
+		int d = getLabel(node, label);
 
 		if (d < limit)
 		{
 			for (Edge edge : upstr? node.getUpstream() : node.getDownstream())
 			{
+				setLabel(edge, label, !upstr && label.equals(DIST_FORWARD) ? d + 1 : d);
+
 				Node n = upstr ? edge.getSourceNode() : edge.getTargetNode();
 
-				edge.putLabel(label, !upstr && label.equals(DIST_FORWARD) ? d + 1 : d);
+				int d_n = getLabel(n, label);
 
-				if (n.hasLabel(label))
+				if (d_n > d + 1)
 				{
-					int d_n = (Integer) n.getLabel(label);
-
-					if (d_n > d + 1)
-					{
-						n.putLabel(label, d + 1);
-						if (d + 1 < limit && !queue.contains(n)) queue.add(n);
-					}
+					setLabel(n, label, d + 1);
+					if (d + 1 < limit && !queue.contains(n)) queue.add(n);
 				}
 			}
 		}
@@ -165,74 +174,75 @@ public class GraphOfInterets
 		BFStep(node, DOWNSTREAM, DIST, queue);
 	}
 
-	private void initGraphObject(GraphObject obj)
-	{
-		if (seed.contains(obj))
-		{
-			initSeed(obj);
-		}
-		else
-		{
-			initNonSeed(obj);
-		}
-	}
-
 	private void initSeed(GraphObject obj)
 	{
 		if (directed)
 		{
-			obj.putLabel(DIST_FORWARD, 0);
-			obj.putLabel(DIST_BACKWARD, 0);
+			setLabel(obj, DIST_FORWARD, 0);
+			setLabel(obj, DIST_BACKWARD, 0);
 		}
 		else
 		{
-			obj.putLabel(DIST, 0);
+			setLabel(obj, DIST, 0);
 		}
 	}
 	
-	private void initNonSeed(GraphObject obj)
+	private void selectSatisfyingElements()
 	{
-		if (directed)
-		{
-			obj.putLabel(DIST_FORWARD, limit * 2);
-			obj.putLabel(DIST_BACKWARD, limit * 2);
-		}
-		else
-		{
-			obj.putLabel(DIST, limit * 2);
-		}
-	}
-
-	private void selectSatisfyingElements(Collection<? extends GraphObject> ojects)
-	{
-		for (GraphObject go : ojects)
+		for (GraphObject go : visitedObjects)
 		{
 			if (distanceSatisfies(go))
 			{
-				if (go instanceof Edge)
-				{
-					Edge edge = (Edge) go;
-					if (!goi.contains(edge.getSourceNode()) || !goi.contains(edge.getTargetNode()))
-					{
-						continue;
-					}
-				}
 				goi.add(go);
 			}
 		}
+
+		// Remove edges in the result whose node is not in the result
+
+		Set<Edge> extra = new HashSet<Edge>();
+		for (GraphObject go : goi)
+		{
+			if (go instanceof Edge)
+			{
+				Edge edge = (Edge) go;
+				if (!goi.contains(edge.getSourceNode()) || !goi.contains(edge.getTargetNode()))
+				{
+					extra.add(edge);
+				}
+			}
+		}
+		goi.removeAll(extra);
 	}
 
 	private boolean distanceSatisfies(GraphObject go)
 	{
 		if (directed)
 		{
-			return (Integer) go.getLabel(DIST_FORWARD) +
-					(Integer) go.getLabel(DIST_BACKWARD) <= limit;
+			if (!fwdLabel.containsKey(go) || !bkwLabel.containsKey(go)) return false;
+
+			for (Integer i : fwdLabel.get(go).keySet())
+			{
+				for (Integer j : bkwLabel.get(go).keySet())
+				{
+					if (i + j <= limit)
+					{
+						if (setsSatisfy(fwdLabel.get(go).get(i), bkwLabel.get(go).get(j)))
+							return true;
+					}
+				}
+			}
 		}
 		else
 		{
-			return (Integer) go.getLabel(DIST) <= limit;
+			if (!labelMap.containsKey(go)) return false;
+
+			for (Integer i : labelMap.get(go).keySet())
+			{
+				if (i <= limit && labelMap.get(go).get(i).size() > 1) return true;
+			}
 		}
+
+		return false;
 	}
 
 	private void pruneResult()
@@ -296,28 +306,16 @@ public class GraphOfInterets
 
 	private void clearLabels()
 	{
-		for (Node node : graph.getNodes())
+		for (GraphObject go : visitedObjects)
 		{
 			if (directed)
 			{
-				node.removeLabel(DIST_FORWARD);
-				node.removeLabel(DIST_BACKWARD);
+				go.removeLabel(DIST_FORWARD);
+				go.removeLabel(DIST_BACKWARD);
 			}
 			else
 			{
-				node.removeLabel(DIST);
-			}
-		}
-		for (Edge edge : graph.getEdges())
-		{
-			if (directed)
-			{
-				edge.removeLabel(DIST_FORWARD);
-				edge.removeLabel(DIST_BACKWARD);
-			}
-			else
-			{
-				edge.removeLabel(DIST);
+				go.removeLabel(DIST);
 			}
 		}
 	}
@@ -335,6 +333,69 @@ public class GraphOfInterets
 			}
 		}
 		return true;
+	}
+
+	private int getLabel(GraphObject go, String label)
+	{
+		if (go.hasLabel(label)) return (Integer) go.getLabel(label);
+		else return Integer.MAX_VALUE / 2;
+	}
+	private void setLabel(GraphObject go, String label, Integer value)
+	{
+		go.putLabel(label, value);
+		visitedObjects.add(go);
+	}
+
+	private void recordDistances(Node seed)
+	{
+		for (GraphObject go : visitedObjects)
+		{
+			if (directed)
+			{
+				recordDistance(go, seed, DIST_FORWARD, fwdLabel);
+				recordDistance(go, seed, DIST_BACKWARD, bkwLabel);
+			}
+			else recordDistance(go, seed, DIST, labelMap);
+		}
+	}
+
+	private void recordDistance(GraphObject go, Node seed, String label,
+		Map<GraphObject, Map<Integer, Set<Node>>> map)
+	{
+		int d = getLabel(go, label);
+		if (d > limit) return;
+		if (!map.containsKey(go)) map.put(go, new HashMap<Integer, Set<Node>>());
+		if (!map.get(go).containsKey(d)) map.get(go).put(d, new HashSet<Node>());
+		map.get(go).get(d).add(seed);
+	}
+
+	private void mergeLabels(Map<GraphObject, Map<Integer, Set<Node>>> map)
+	{
+		for (GraphObject go : map.keySet())
+		{
+			for (int i = 0; i < limit; i++)
+			{
+				if (map.get(go).containsKey(i))
+				{
+					for (int j = i+1; j <= limit; j++)
+					{
+						if (map.get(go).containsKey(j))
+						{
+							map.get(go).get(j).addAll(map.get(go).get(i));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private boolean setsSatisfy(Set<Node> set1, Set<Node> set2)
+	{
+		assert !set1.isEmpty();
+		assert !set2.isEmpty();
+
+		return set1.size() > 1 || set2.size() > 1 ||
+			!set1.containsAll(set2) || !set2.containsAll(set1);
 	}
 
 	public static final String DIST = "DIST";

@@ -71,7 +71,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 					if (selected == null) return;
 
-					pathwayID = ((Holder) selected).id;
+					pathwayID = ((Holder) selected).getID();
 
 					execute();
 				}
@@ -103,22 +103,11 @@ public class QueryPCPathwaysAction extends QueryPCAction
 	private List<Holder> extractResultFromServResp(SearchResponse resp, String keyword)
 	{
 		List<Holder> holders = new ArrayList<Holder>();
-//		Set<String> words = getKeywords(keyword);
 
 		for (SearchHit hit : resp.getSearchHit())
 		{
-//			String name = hit.getName().toLowerCase();
-
-//			for (String word : words)
-			{
-//				if (name.contains(word))
-				{
-					Holder h = new Holder(hit.getName(), hit.getUri());
-//					if (!holders.contains(h))
-						holders.add(h);
-//					break;
-				}
-			}
+			Holder h = new Holder(hit);
+			if (h.getID() != null && h.getName() != null) holders.add(h);
 		}
 		return holders;
 	}
@@ -128,7 +117,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 		List<String> ids = new ArrayList<String>(holders.size());
 		for (Holder holder : holders)
 		{
-			ids.add(holder.id);
+			ids.add(holder.getID());
 		}
 		return ids;
 	}
@@ -170,25 +159,23 @@ public class QueryPCPathwaysAction extends QueryPCAction
 
 	private class Holder implements Comparable
 	{
-		String name;
-		String id;
+		SearchHit hit;
 
-		private Holder(String name, String id)
+		private Holder(SearchHit hit)
 		{
-			this.name = name;
-			this.id = id;
+			this.hit = hit;
 		}
 
 		@Override
 		public int compareTo(Object o)
 		{
-			return name.compareTo(((Holder) o).name);
+			return hit.getName().compareTo(((Holder) o).hit.getName());
 		}
 
 		@Override
 		public int hashCode()
 		{
-			return id.hashCode();
+			return hit.getUri().hashCode();
 		}
 
 		@Override
@@ -197,15 +184,56 @@ public class QueryPCPathwaysAction extends QueryPCAction
 			if (o instanceof Holder)
 			{
 				Holder h = (Holder) o;
-				return id.equals(h.id);
+				return hit.getUri().equals(h.hit.getUri());
 			}
 			return false;
+		}
+
+		public String getDataSource()
+		{
+			if (!hit.getDataSource().isEmpty())
+			{
+				String s = hit.getDataSource().iterator().next();
+				if (s.contains("/") && !s.endsWith("/")) s = s.substring(s.lastIndexOf("/") + 1);
+				return s;
+			}
+			return null;
+		}
+
+		public String getOrganism()
+		{
+			if (!hit.getOrganism().isEmpty())
+			{
+				String s = hit.getOrganism().iterator().next();
+				if (s.contains("/") && !s.endsWith("/")) s = s.substring(s.lastIndexOf("/") + 1);
+				if (s.equals("9606")) s = "Human";
+				return s;
+			}
+			return null;
+		}
+
+		public String getID()
+		{
+			return hit.getUri();
+		}
+
+		public String getName()
+		{
+			return hit.getName();
 		}
 
 		@Override
 		public String toString()
 		{
-			return name;
+			String s = hit.getName();
+
+			String d = getDataSource();
+			if (d != null) s += " [" + d + "]";
+
+			String o = getOrganism();
+			if (o != null) s += " [" + o + "]";
+
+			return s;
 		}
 	}
 }
