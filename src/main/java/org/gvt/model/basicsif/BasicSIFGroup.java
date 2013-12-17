@@ -5,13 +5,10 @@ import org.eclipse.swt.graphics.Color;
 import org.gvt.command.AddCommand;
 import org.gvt.command.DeleteConnectionCommand;
 import org.gvt.command.OrphanChildCommand;
-import org.gvt.model.CompoundModel;
-import org.gvt.model.EntityAssociated;
-import org.gvt.model.NodeModel;
+import org.gvt.model.*;
 import org.gvt.model.biopaxl3.BioPAXCompoundNode;
 import org.gvt.util.EntityHolder;
 import org.patika.mada.graph.Edge;
-import org.patika.mada.graph.GraphObject;
 
 import java.util.*;
 
@@ -23,6 +20,8 @@ import java.util.*;
 public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociated
 {
 	private Set<String> mediators;
+
+	private Map<GraphObject, Set<BasicSIFEdge>> substitutionMap;
 
 	/**
 	 * Constructor for excising.
@@ -172,7 +171,7 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 
 		for (BasicSIFEdge edge : edges)
 		{
-			merged.addMediators(edge.getMediators());
+			merged.addSubstitution(edge, incoming ? edge.getTarget() : edge.getSource());
 
 			DeleteConnectionCommand command = new DeleteConnectionCommand();
 			command.setConnectionModel(edge);
@@ -183,14 +182,18 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 	private void createMergedEdge(Collection<BasicSIFEdge> edges, String commonNodeName)
 	{
 		BasicSIFEdge sample = edges.iterator().next();
+		boolean incoming = getNodeName(sample.getSource()).equals(commonNodeName);
+
+		if (!incoming) assert getNodeName(sample.getTarget()).equals(commonNodeName);
+
 		BasicSIFEdge merged = new BasicSIFEdge(
-			getNodeName(sample.getSource()).equals(commonNodeName) ? sample.getSource() : this,
-			getNodeName(sample.getTarget()).equals(commonNodeName) ? sample.getTarget() : this,
+			incoming ? sample.getSource() : this,
+			incoming ? this : sample.getTarget(),
 			sample.getType().getTag(), null);
 
 		for (BasicSIFEdge edge : edges)
 		{
-			merged.addMediators(edge.getMediators());
+			merged.addSubstitution(edge, incoming ? edge.getTarget() : edge.getSource());
 
 			DeleteConnectionCommand command = new DeleteConnectionCommand();
 			command.setConnectionModel(edge);
@@ -289,7 +292,7 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 
 		for (BasicSIFEdge edge : edges)
 		{
-			this.mediators.addAll(edge.getMediators());
+			addSubstitution(edge);
 
 			DeleteConnectionCommand command = new DeleteConnectionCommand();
 			command.setConnectionModel(edge);
@@ -318,6 +321,47 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 		return s;
 	}
 
+	public Set<String> getMediators()
+	{
+		return mediators;
+	}
+
+	public Set<String> getMediators(Set<GraphObject> nodes)
+	{
+		if (nodes.isEmpty()) return mediators;
+		if (substitutionMap == null) return mediators;
+
+		Set<BasicSIFEdge> edges = new HashSet<BasicSIFEdge>();
+		for (GraphObject node : nodes)
+		{
+			if (substitutionMap.containsKey(node)) edges.addAll(substitutionMap.get(node));
+		}
+
+		Set<String> meds = new HashSet<String>();
+		for (BasicSIFEdge edge : edges)
+		{
+			meds.addAll(edge.getMediators());
+		}
+		return meds;
+	}
+
+	public void addSubstitution(BasicSIFEdge edge)
+	{
+		mediators.addAll(edge.getMediators());
+
+		if (substitutionMap == null) substitutionMap =
+			new HashMap<GraphObject, Set<BasicSIFEdge>>();
+
+		if (substitutionMap.containsKey(edge.getSource()))
+			substitutionMap.put(edge.getSource(), new HashSet<BasicSIFEdge>());
+		if (substitutionMap.containsKey(edge.getTarget()))
+			substitutionMap.put(edge.getTarget(), new HashSet<BasicSIFEdge>());
+
+		// The edge won't remember its source and target after being removed, so we need to record
+		// them here. That's why only recording the edge is not enough.
+		substitutionMap.get(edge.getSource()).add(edge);
+		substitutionMap.get(edge.getTarget()).add(edge);
+	}
 
 	/**
 	 * Complexes are breadth nodes.
@@ -328,9 +372,9 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 		return true;
 	}
 
-	public Set<GraphObject> getRequisites()
+	public Set<org.patika.mada.graph.GraphObject> getRequisites()
 	{
-		Set<GraphObject> reqs = super.getRequisites();
+		Set<org.patika.mada.graph.GraphObject> reqs = super.getRequisites();
 		reqs.addAll(this.getChildren());
 		return reqs;
 	}

@@ -24,6 +24,8 @@ public class SIFGroup extends BioPAXCompoundNode implements EntityAssociated
 {
 	private Set<String> mediators;
 
+	private Map<org.gvt.model.GraphObject, Set<SIFEdge>> substitutionMap;
+
 	public SIFGroup(CompoundModel root)
 	{
 		super(root);
@@ -161,7 +163,7 @@ public class SIFGroup extends BioPAXCompoundNode implements EntityAssociated
 
 		for (SIFEdge edge : edges)
 		{
-			merged.addMediators(edge.getMediators());
+			merged.addSubstitution(edge, incoming ? edge.getTarget() : edge.getSource());
 
 			DeleteConnectionCommand command = new DeleteConnectionCommand();
 			command.setConnectionModel(edge);
@@ -172,15 +174,18 @@ public class SIFGroup extends BioPAXCompoundNode implements EntityAssociated
 	private void createMergedEdge(Collection<SIFEdge> edges, String commonNodeName)
 	{
 		SIFEdge sample = edges.iterator().next();
+		boolean incoming = getNodeName(sample.getSource()).equals(commonNodeName);
+
+		if (!incoming) assert getNodeName(sample.getTarget()).equals(commonNodeName);
+
 		SIFEdge merged = new SIFEdge(
-			getNodeName(sample.getSource()).equals(commonNodeName) ? sample.getSource() : this,
-			getNodeName(sample.getTarget()).equals(commonNodeName) ? sample.getTarget() : this,
+			incoming ? sample.getSource() : this,
+			incoming ? this : sample.getTarget(),
 			sample.getTag(), null);
 
 		for (SIFEdge edge : edges)
 		{
-			merged.addMediators(edge.getMediators());
-
+			merged.addSubstitution(edge, incoming ? edge.getTarget() : edge.getSource());
 			DeleteConnectionCommand command = new DeleteConnectionCommand();
 			command.setConnectionModel(edge);
 			command.execute();
@@ -307,6 +312,49 @@ public class SIFGroup extends BioPAXCompoundNode implements EntityAssociated
 		}
 		return s;
 	}
+
+	public Set<String> getMediators()
+	{
+		return mediators;
+	}
+
+	public Set<String> getMediators(Set<org.gvt.model.GraphObject> nodes)
+	{
+		if (nodes.isEmpty()) return mediators;
+		if (substitutionMap == null) return mediators;
+
+		Set<SIFEdge> edges = new HashSet<SIFEdge>();
+		for (org.gvt.model.GraphObject node : nodes)
+		{
+			if (substitutionMap.containsKey(node)) edges.addAll(substitutionMap.get(node));
+		}
+
+		Set<String> meds = new HashSet<String>();
+		for (SIFEdge edge : edges)
+		{
+			meds.addAll(edge.getMediators());
+		}
+		return meds;
+	}
+
+	public void addSubstitution(SIFEdge edge)
+	{
+		mediators.addAll(edge.getMediators());
+
+		if (substitutionMap == null) substitutionMap =
+			new HashMap<org.gvt.model.GraphObject, Set<SIFEdge>>();
+
+		if (substitutionMap.containsKey(edge.getSource()))
+			substitutionMap.put(edge.getSource(), new HashSet<SIFEdge>());
+		if (substitutionMap.containsKey(edge.getTarget()))
+			substitutionMap.put(edge.getTarget(), new HashSet<SIFEdge>());
+
+		// The edge won't remember its source and target after being removed, so we need to record
+		// them here. That's why only recording the edge is not enough.
+		substitutionMap.get(edge.getSource()).add(edge);
+		substitutionMap.get(edge.getTarget()).add(edge);
+	}
+
 
 	/**
 	 * Constructor for excising.

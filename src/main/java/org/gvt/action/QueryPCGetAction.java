@@ -50,7 +50,8 @@ public class QueryPCGetAction extends QueryPCAction
 				}
 
                 StringInputDialog dialog = new StringInputDialog(main.getShell(), "Get Objects",
-                    "Enter Pathway Commons ID of database object", ids, "Find the specified object");
+                    "Enter Pathway Commons ID of database object", ids,
+					"Find the specified object");
 
                 ids = dialog.open();
 
@@ -64,7 +65,8 @@ public class QueryPCGetAction extends QueryPCAction
         }
         else
         {
-            MessageDialog.openError(main.getShell(), "Incompatible Levels","This query is only applicable to Level 3 models.");
+            MessageDialog.openError(main.getShell(), "Incompatible Levels",
+				"This query is only applicable to Level 3 models.");
         }
     }
 

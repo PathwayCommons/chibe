@@ -18,7 +18,7 @@ public class EdgeIterator implements Iterator
 	private int ledgeType;
 	
 	// collection of all edges for given gvt compound model
-	private HashSet ledges;
+	private HashSet<EdgeModel> ledges;
 	
 	// iterator over the constructed edge set
 	private Iterator literator;
@@ -63,7 +63,7 @@ public class EdgeIterator implements Iterator
 		this.ledgeType = edgeType;
 		this.lisRecursive = isRecursive;
 		this.lonlyEndsWithinRoot = onlyEndsWithinRoot;
-		this.ledges = new HashSet();
+		this.ledges = new HashSet<EdgeModel>();
 		this.constructEdges(root);
 		this.literator = this.ledges.iterator();
 	}
@@ -184,7 +184,7 @@ public class EdgeIterator implements Iterator
 	{
 	}
 
-	public Set getEdges()
+	public Set<EdgeModel> getEdges()
 	{
 		return ledges;
 	}

@@ -73,6 +73,48 @@ public class EdgeModel extends GraphObject implements Updatable
 			PointD targetLoc = new PointD(lEdge.getTarget().getCenterX(),
 				lEdge.getTarget().getCenterY());
 
+			// When x == y this means that the layout does not support bendpoints, and the
+			// bendpoints still have the indexes we originally assigned. Here we handle them.
+
+			if (p.getX() == p.getY())
+			{
+				double difX = sourceLoc.getX() - targetLoc.getX();
+				double difY = sourceLoc.getY() - targetLoc.getY();
+
+				double lengthSq = (difX * difX) + (difY * difY);
+
+				double xShare = (difX * difX) / lengthSq;
+				double yShare = 1 - xShare;
+
+				double xx = Math.sqrt((lengthSq / 800) * yShare) * Math.signum(difY);
+				double yy = Math.sqrt((lengthSq / 800) * xShare) * Math.signum(difX);
+
+				int index = (int) p.getX();
+
+				if (index < 0)
+				{
+					xx *= -1;
+					yy *= -1;
+					index *= -1;
+				}
+
+				if (index % 2 == 1)
+				{
+					xx *= -1;
+					yy *= -1;
+				}
+
+				// don't forget below are integer divisions
+				xx *= ((index / 2) * 2) + 1;
+				yy *= ((index / 2) * 2) + 1;
+
+				double centerX = sourceLoc.getX() + targetLoc.getX();
+				double centerY = sourceLoc.getY() + targetLoc.getY();
+
+				p.setX((centerX / 2) - xx);
+				p.setY((centerY / 2) + yy);
+			}
+
 			DimensionD dim1 = p.getDifference(sourceLoc);
 			DimensionD dim2 = p.getDifference(targetLoc);
 

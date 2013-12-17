@@ -8,7 +8,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.internal.Model;
 import org.gvt.action.*;
 import org.gvt.editpart.ChsEdgeEditPart;
 import org.gvt.editpart.ChsRootEditPart;
@@ -19,6 +18,7 @@ import org.gvt.model.basicsif.BasicSIFGroup;
 import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.sifl3.SIFEdge;
+import org.gvt.model.sifl3.SIFGroup;
 import org.gvt.model.sifl3.SIFNode;
 import org.patika.mada.util.ExperimentData;
 
@@ -110,6 +110,17 @@ public class PopupManager extends MenuManager
 		else if (ep instanceof NodeEditPart)
 		{
 			// NODE-COMPOUND POPUP
+
+			Object o = ep.getModel();
+			if ((o instanceof BasicSIFGroup && !((BasicSIFGroup) o).getMediators().isEmpty()) ||
+				(o instanceof SIFGroup && !((SIFGroup) o).getMediators().isEmpty()))
+			{
+				QueryPCGetAction query = new QueryPCGetAction(main, true);
+				query.setText("Detailed View");
+				manager.add(query);
+				manager.add(new Separator());
+			}
+
 			manager.add(new HighlightSelectedAction(main));
 			manager.add(new RemoveHighlightFromSelectedAction(main));
 			manager.add(new DeleteAction(main));
@@ -151,37 +162,14 @@ public class PopupManager extends MenuManager
 		else if (ep instanceof ChsEdgeEditPart)
 		{
 			// EDGE POPUP
+
 			Object o = ep.getModel();
 			if (o instanceof BasicSIFEdge || o instanceof SIFEdge)
 			{
-				EdgeModel model = (EdgeModel) o;
-				String arrow = model.getArrow();
-				boolean directed = !arrow.equals("None");
-				String source = HGNC.getSymbol(model.getSource().getText());
-				String target = HGNC.getSymbol(model.getTarget().getText());
-
-				if (o instanceof BasicSIFEdge)
-				{
-					QueryPCGetAction query = new QueryPCGetAction(main, true);
-					String text = multipleBasicSIFEdgeSelected() ? "Detailed View" :
-						source + (directed ? " -> " : " -- ") + target + " Detailed";
-					query.setText(text);
-					manager.add(query);
-					manager.add(new Separator());
-				}
-				else
-				{
-					if (source != null && target != null)
-					{
-						if (directed)
-						{
-							QueryPCPathsFromToAction action = new QueryPCPathsFromToAction(main, source, target, false);
-							action.setIncreaseLimitIfNoResult(true);
-							manager.add(action);
-						}
-						else manager.add(new QueryPCPathsBetweenAction(main, false, source, target));
-					}
-				}
+				QueryPCGetAction query = new QueryPCGetAction(main, true);
+				query.setText("Detailed View");
+				manager.add(query);
+				manager.add(new Separator());
 			}
 
 			manager.add(new HighlightSelectedAction(main));
@@ -199,34 +187,5 @@ public class PopupManager extends MenuManager
 	public void setClickLocation(Point clickLocation)
 	{
 		this.clickLocation = clickLocation;
-	}
-
-	private boolean multipleBasicSIFEdgeSelected()
-	{
-		java.util.List parts = ((IStructuredSelection) main.getViewer().getSelection()).toList();
-
-		int cnt = 0;
-		for (Object partObj : parts)
-		{
-			EditPart ep = (EditPart) partObj;
-			Object mod = ep.getModel();
-
-			if (mod instanceof BasicSIFEdge)
-			{
-				cnt++;
-
-				if (((BasicSIFEdge) mod).getSource() instanceof BasicSIFGroup ||
-					((BasicSIFEdge) mod).getTarget() instanceof BasicSIFGroup )
-				{
-					return true;
-				}
-			}
-
-
-			if (cnt > 1) return true;
-		}
-		assert cnt < 2;
-
-		return false;
 	}
 }

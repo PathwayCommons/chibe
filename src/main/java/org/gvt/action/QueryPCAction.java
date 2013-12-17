@@ -24,7 +24,10 @@ import org.gvt.model.GraphObject;
 import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
+import org.gvt.model.basicsif.BasicSIFGroup;
 import org.gvt.model.basicsif.BasicSIFNode;
+import org.gvt.model.sifl3.SIFEdge;
+import org.gvt.model.sifl3.SIFGroup;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
 import org.gvt.util.SIFReader;
@@ -348,15 +351,28 @@ public abstract class QueryPCAction extends Action
 	protected boolean setSelectedPEIDsAsSource()
 	{
 		Set<String> set = new HashSet<String>();
-		for (GraphObject nm : getSelectedObjects())
+		Set<GraphObject> selectedObjects = getSelectedObjects();
+		for (GraphObject nm : selectedObjects)
 		{
-			if (nm instanceof EntityAssociated)
+			if (nm instanceof BasicSIFEdge)
+			{
+				set.addAll(((BasicSIFEdge) nm).getMediators(selectedObjects));
+			}
+			else if (nm instanceof SIFEdge)
+			{
+				set.addAll(((SIFEdge) nm).getMediators(selectedObjects));
+			}
+			else if (nm instanceof BasicSIFGroup)
+			{
+				set.addAll(((BasicSIFGroup) nm).getMediators(selectedObjects));
+			}
+			else if (nm instanceof SIFGroup)
+			{
+				set.addAll(((SIFGroup) nm).getMediators(selectedObjects));
+			}
+			else if (nm instanceof EntityAssociated)
 			{
 				set.add(((EntityAssociated) nm).getEntity().getID());
-			}
-			else if (nm instanceof BasicSIFEdge)
-			{
-				set.addAll(((BasicSIFEdge) nm).getMediators());
 			}
 			else if (nm instanceof BasicSIFNode)
 			{

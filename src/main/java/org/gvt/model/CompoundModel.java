@@ -31,7 +31,7 @@ public class CompoundModel extends NodeModel
 
 	private boolean isDirected = false;
 
-	protected List children;
+	protected List<NodeModel> children;
 
 	int labelHeight;
 
@@ -59,7 +59,7 @@ public class CompoundModel extends NodeModel
 		this.color = DEFAULT_COLOR;
 		this.borderColor = DEFAULT_BORDER_COLOR;
 		this.shape = DEFAULT_SHAPE;
-		this.children = new ArrayList();
+		this.children = new ArrayList<NodeModel>();
 		this.labelHeight = LABEL_HEIGHT;
 	}
 
@@ -122,10 +122,10 @@ public class CompoundModel extends NodeModel
 		}
 	}
 
-	public void addChild(Object o)
+	public void addChild(NodeModel node)
 	{
-		this.children.add(o);
-		firePropertyChange(P_CHILDREN, -1, o);
+		this.children.add(node);
+		firePropertyChange(P_CHILDREN, -1, node);
 	}
 
 	public List getChildren()
