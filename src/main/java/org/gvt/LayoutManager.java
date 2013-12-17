@@ -1,29 +1,15 @@
 package org.gvt;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.gvt.action.ZoomAction;
 import org.gvt.model.CompoundModel;
-import org.gvt.model.ECluster;
 import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
-import org.ivis.layout.Cluster;
-import org.ivis.layout.LEdge;
-import org.ivis.layout.LGraph;
-import org.ivis.layout.LGraphManager;
-import org.ivis.layout.LNode;
-import org.ivis.layout.Layout;
-import org.ivis.layout.LayoutOptionsPack;
+import org.ivis.layout.*;
 import org.ivis.util.PointD;
+
+import java.util.*;
 
 /**
  * This class manages the operations related to layout. Methods related to
@@ -94,28 +80,74 @@ public class LayoutManager
 		LGraph lroot = graphMgr.addRoot();
 		lroot.vGraphObject = this.root;
 
-		Iterator nodeIter = this.root.getChildren().iterator();
-		
 		// for each NodeModel in the root model create an LNode
 
-		while(nodeIter.hasNext())
+		for (Object o : root.getChildren())
 		{
-			createNode((NodeModel) nodeIter.next(), null, this.layout);
+			createNode((NodeModel) o, null, this.layout);
 		}
-		
-		Set edgeSet = this.root.getEdges();
-		Iterator edgeIter = edgeSet.iterator();
-					
+
+		Map<EdgeModel, Integer> multiEdges = findMultiEdges(root.getEdges());
+
 		// for each EdgeModel in the edge set create an LEdge
 
-		while(edgeIter.hasNext())
+		for (Object o : root.getEdges())
 		{
-			createEdge((EdgeModel) edgeIter.next(), this.layout);
+			EdgeModel edge = (EdgeModel) o;
+			createEdge(edge, multiEdges.get(edge));
 		}
 
 		graphMgr.updateBounds();
 	}
-	
+
+	private Map<EdgeModel, Integer> findMultiEdges(Set<EdgeModel> edges)
+	{
+		Map<EdgeModel, Set<EdgeModel>> map = new HashMap<EdgeModel, Set<EdgeModel>>();
+
+		for (EdgeModel edge1 : edges)
+		{
+			for (EdgeModel edge2 : edges)
+			{
+				if (edge1 == edge2) continue;
+				if (edge1.hashCode() < edge2.hashCode()) continue;
+
+				if ((edge1.getSource() == edge2.getSource() && edge1.getTarget() == edge2.getTarget()) ||
+					(edge1.getSource() == edge2.getTarget() && edge1.getTarget() == edge2.getSource()))
+				{
+
+					Set<EdgeModel> set = map.get(edge1);
+					if (set == null) set = map.get(edge2);
+					if (set == null) set = new HashSet<EdgeModel>();
+
+					if (!map.containsKey(edge1)) map.put(edge1, set);
+					if (!map.containsKey(edge2)) map.put(edge2, set);
+
+					set.add(edge1);
+					set.add(edge2);
+				}
+			}
+		}
+
+		Map<EdgeModel, Integer> multi = new HashMap<EdgeModel, Integer>();
+
+		for (Set<EdgeModel> edgeSet : map.values())
+		{
+			int i = 0;
+			NodeModel ref = null;
+			for (EdgeModel edge : edgeSet)
+			{
+				int index = i++;
+
+				if (ref == null) ref = edge.getSource();
+				else if (edge.getTarget() == ref) index *= -1;
+
+				multi.put(edge, index);
+			}
+		}
+
+		return multi;
+	}
+
 	/**
 	 * Creates an LNode for the given NodeModel object.
 	 * 
@@ -207,10 +239,8 @@ public class LayoutManager
 	 * Creates an LEdge for the given EdgeModel object.
 	 * 
 	 * @param edge		source edge 
-	 * @param layout	layout of the graph
 	 */
-	private void createEdge(EdgeModel edge,
-		Layout layout)
+	private void createEdge(EdgeModel edge, Integer bendpointIndex)
 	{
 		LEdge lEdge = this.layout.newEdge(edge);
 		
@@ -219,7 +249,8 @@ public class LayoutManager
 		
 		this.layout.getGraphManager().add(lEdge, sourceLNode, targetLNode);
 		
-		List bendPoints = edge.getBendpoints();
+		if (bendpointIndex != null) lEdge.getBendpoints().add(
+			new PointD(bendpointIndex, bendpointIndex));
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package org.gvt.model.sifl3;
 
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.swt.graphics.Color;
+import org.gvt.model.GraphObject;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXEdge;
 import org.gvt.model.biopaxl3.IBioPAXL3Node;
@@ -18,6 +19,8 @@ public class SIFEdge extends BioPAXEdge
 	private String tag;
 	private boolean breadthEdge;
 	private Set<String> mediators;
+	protected Map<GraphObject, SIFEdge> substitutionMap;
+
 
 	public static Map<String, EdgeType> typeMap;
 
@@ -46,7 +49,7 @@ public class SIFEdge extends BioPAXEdge
 		breadthEdge = !getType(tag).noDistance;
 
 		this.mediators = new HashSet<String>();
-		if (mediators != null) addMediators(mediators);
+		if (mediators != null) this.mediators.addAll(mediators);
 	}
 
 	public String getTag()
@@ -166,14 +169,34 @@ public class SIFEdge extends BioPAXEdge
 			((IBioPAXL3Node) getTargetNode()).getIDHash() + tag;
 	}
 
-	public void addMediators(Set<String> mediators)
-	{
-		this.mediators.addAll(mediators);
-	}
-
 	public Set<String> getMediators()
 	{
 		return mediators;
+	}
+
+	public Set<String> getMediators(Set<GraphObject> nodes)
+	{
+		if (substitutionMap == null) return mediators;
+		if (nodes.isEmpty()) return mediators;
+
+		Set<String> meds = new HashSet<String>();
+		for (GraphObject node : nodes)
+		{
+			if (substitutionMap.containsKey(node))
+				meds.addAll(substitutionMap.get(node).getMediators(nodes));
+		}
+
+		if (!meds.isEmpty()) return meds;
+		else return mediators;
+	}
+
+	public void addSubstitution(SIFEdge edge, NodeModel node)
+	{
+		if (substitutionMap == null)
+			substitutionMap = new HashMap<GraphObject, SIFEdge>();
+
+		substitutionMap.put(node, edge);
+		mediators.addAll(edge.getMediators());
 	}
 
 	private static final boolean SOLID = true;

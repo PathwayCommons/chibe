@@ -1,7 +1,7 @@
 package org.gvt.model.basicsif;
 
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
 import org.biopax.paxtools.pattern.miner.SIFType;
+import org.gvt.model.GraphObject;
 import org.gvt.model.biopaxl3.BioPAXEdge;
 import org.gvt.model.NodeModel;
 import org.gvt.model.sifl3.SIFEdge;
@@ -18,6 +18,8 @@ public class BasicSIFEdge extends BioPAXEdge
 	protected SIFEdge.EdgeType type;
 
 	protected Set<String> mediators;
+
+	protected Map<GraphObject, BasicSIFEdge> substitutionMap;
 
 	public BasicSIFEdge(NodeModel source, NodeModel target, String tag, String mediators)
 	{
@@ -83,9 +85,29 @@ public class BasicSIFEdge extends BioPAXEdge
 		return mediators;
 	}
 
-	public void addMediators(Collection<String> meds)
+	public Set<String> getMediators(Set<GraphObject> nodes)
 	{
-		this.mediators.addAll(meds);
+		if (substitutionMap == null) return mediators;
+		if (nodes.isEmpty()) return mediators;
+
+		Set<String> meds = new HashSet<String>();
+		for (GraphObject node : nodes)
+		{
+			if (substitutionMap.containsKey(node))
+				meds.addAll(substitutionMap.get(node).getMediators(nodes));
+		}
+
+		if (!meds.isEmpty()) return meds;
+		else return mediators;
+	}
+
+	public void addSubstitution(BasicSIFEdge edge, NodeModel node)
+	{
+		if (substitutionMap == null)
+			substitutionMap = new HashMap<GraphObject, BasicSIFEdge>();
+
+		substitutionMap.put(node, edge);
+		mediators.addAll(edge.getMediators());
 	}
 
 	public List<String[]> getInspectable()
