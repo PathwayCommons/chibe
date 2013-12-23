@@ -11,6 +11,7 @@ import org.eclipse.swt.SWT;
 
 import org.ivis.layout.LEdge;
 import org.ivis.layout.LGraphObject;
+import org.ivis.layout.LNode;
 import org.ivis.layout.Updatable;
 import org.ivis.util.DimensionD;
 import org.ivis.util.PointD;
@@ -67,11 +68,14 @@ public class EdgeModel extends GraphObject implements Updatable
 
 		for(PointD p: lEdge.getBendpoints())
 		{
-			PointD sourceLoc = new PointD(lEdge.getSource().getCenterX(),
-				lEdge.getSource().getCenterY());
+//			PointD sourceLoc = new PointD(lEdge.getSource().getCenterX(),
+//				lEdge.getSource().getCenterY());
+//
+//			PointD targetLoc = new PointD(lEdge.getTarget().getCenterX(),
+//				lEdge.getTarget().getCenterY());
 
-			PointD targetLoc = new PointD(lEdge.getTarget().getCenterX(),
-				lEdge.getTarget().getCenterY());
+			PointD sourceLoc = getClippingPoint(lEdge.getSource(), lEdge.getTarget().getCenter());
+			PointD targetLoc = getClippingPoint(lEdge.getTarget(), lEdge.getSource().getCenter());
 
 			// When x == y this means that the layout does not support bendpoints, and the
 			// bendpoints still have the indexes we originally assigned. Here we handle them.
@@ -86,8 +90,8 @@ public class EdgeModel extends GraphObject implements Updatable
 				double xShare = (difX * difX) / lengthSq;
 				double yShare = 1 - xShare;
 
-				double xx = Math.sqrt((lengthSq / 800) * yShare) * Math.signum(difY);
-				double yy = Math.sqrt((lengthSq / 800) * xShare) * Math.signum(difX);
+				double xx = Math.sqrt((lengthSq / 300) * yShare) * Math.signum(difY);
+				double yy = Math.sqrt((lengthSq / 300) * xShare) * Math.signum(difX);
 
 				int index = (int) p.getX();
 
@@ -105,8 +109,8 @@ public class EdgeModel extends GraphObject implements Updatable
 				}
 
 				// don't forget below are integer divisions
-				xx *= ((index / 2) * 2) + 1;
-				yy *= ((index / 2) * 2) + 1;
+				xx *= ((index / 2) ) + 1;
+				yy *= ((index / 2) ) + 1;
 
 				double centerX = sourceLoc.getX() + targetLoc.getX();
 				double centerY = sourceLoc.getY() + targetLoc.getY();
@@ -127,6 +131,46 @@ public class EdgeModel extends GraphObject implements Updatable
 		}
 
 		this.setBendpoints(bendpoints);
+	}
+
+	private PointD getClippingPoint(LNode node, PointD towards)
+	{
+		PointD center = node.getCenter();
+
+		double halfH = node.getHeight() / 2;
+		double halfW = node.getWidth() / 2;
+
+		double xDif = towards.getX() - center.getX();
+		double yDif = towards.getY() - center.getY();
+
+		if (xDif == 0)
+		{
+			return new PointD(center.getX(),
+				center.getY() < towards.getY() ? center.getY() + halfH : center.getY() - halfH);
+		}
+
+		double rat = yDif / xDif;
+
+		if (halfW * Math.abs(rat) <= halfH)
+		{
+			double xx = towards.getX() > center.getX() ?
+				center.getX() + halfW : center.getX() - halfW;
+
+			double yy = halfW * Math.abs(rat);
+			if (towards.getY() - center.getY() < 0) yy = -yy;
+
+			return new PointD(xx, center.getY() + yy);
+		}
+		else
+		{
+			double yy = towards.getY() > center.getY() ?
+				center.getY() + halfH : center.getY() - halfH;
+
+			double xx = halfH / Math.abs(rat);
+			if (towards.getX() - center.getX() < 0) xx = -yy;
+
+			return new PointD(center.getX() + xx, yy);
+		}
 	}
 
 	public String getStyle()
