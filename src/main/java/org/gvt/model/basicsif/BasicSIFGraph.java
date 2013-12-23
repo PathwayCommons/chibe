@@ -1,5 +1,6 @@
 package org.gvt.model.basicsif;
 
+import org.biopax.paxtools.pattern.miner.SIFType;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.patika.mada.graph.GraphObject;
@@ -33,17 +34,66 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			for (Object o : getEdges())
 			{
 				BasicSIFEdge edge = (BasicSIFEdge) o;
-				BasicSIFNode source = (BasicSIFNode) edge.getSource();
-				BasicSIFNode target = (BasicSIFNode) edge.getTarget();
-				
-				writer.write(source.getRdfid() + "\t");
-				writer.write(edge.type.getTag() + "\t");
-				writer.write(target.getRdfid() + "\n");
+				for (BasicSIFNode source : getNonGroupNodes(edge.getSource()))
+				{
+					for (BasicSIFNode target : getNonGroupNodes(edge.getTarget()))
+					{
+						writer.write(source.getText() + "\t");
+						writer.write(edge.getType().getTag() + "\t");
+						writer.write(target.getText() + "\n");
+					}
+				}
+			}
+
+			for (Object o : getChildren())
+			{
+				if (o instanceof BasicSIFGroup)
+				{
+					String text = ((BasicSIFGroup) o).getText();
+
+					if (text != null && !text.isEmpty())
+					{
+						for (String type : text.split(","))
+						{
+							type = type.trim();
+
+							SIFType sifType = SIFType.typeOf(type);
+							if (sifType != null)
+							{
+								BasicSIFNode[] members = getNonGroupNodes((BasicSIFGroup) o);
+
+								for (int i = 0; i < members.length; i++)
+								{
+									for (int j = 0; j < members.length; j++)
+									{
+										if (i == j || (!sifType.isDirected() &&
+											members[i].getText().compareTo(members[i].getText()) >= 0))
+											continue;
+
+										writer.write(members[i].getText() + "\t");
+										writer.write(type + "\t");
+										writer.write(members[j].getText() + "\n");
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 
 			writer.close();
 		}
 		catch (IOException e){e.printStackTrace();}
+	}
+
+	private BasicSIFNode[] getNonGroupNodes(NodeModel node)
+	{
+		if (node instanceof BasicSIFGroup)
+		{
+			return (BasicSIFNode[]) ((BasicSIFGroup) node).getChildren().toArray(
+				new BasicSIFNode[((BasicSIFGroup) node).getChildren().size()]);
+		}
+		else return new BasicSIFNode[]{(BasicSIFNode) node};
 	}
 
 	public BioPAXL3Graph excise(Collection<GraphObject> objects, boolean keepHighlights)

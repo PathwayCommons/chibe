@@ -115,17 +115,67 @@ public class SIFGraph extends BioPAXGraph
 			for (Object o : getEdges())
 			{
 				SIFEdge edge = (SIFEdge) o;
-				SIFNode source = (SIFNode) edge.getSource();
-				SIFNode target = (SIFNode) edge.getTarget();
 
-				writer.write(source.getText() + "\t");
-				writer.write(edge.getTag() + "\t");
-				writer.write(target.getText() + "\n");
+				for (SIFNode source : getNonGroupNodes(edge.getSource()))
+				{
+					for (SIFNode target : getNonGroupNodes(edge.getTarget()))
+					{
+						writer.write(source.getText() + "\t");
+						writer.write(edge.getTag() + "\t");
+						writer.write(target.getText() + "\n");
+					}
+				}
+			}
+
+			for (Object o : getChildren())
+			{
+				if (o instanceof SIFGroup)
+				{
+					String text = ((SIFGroup) o).getText();
+
+					if (text != null && !text.isEmpty())
+					{
+						for (String type : text.split(","))
+						{
+							type = type.trim();
+
+							SIFType sifType = SIFType.typeOf(type);
+							if (sifType != null)
+							{
+								SIFNode[] members = getNonGroupNodes((SIFGroup) o);
+
+								for (int i = 0; i < members.length; i++)
+								{
+									for (int j = 0; j < members.length; j++)
+									{
+										if (i == j || (!sifType.isDirected() &&
+											members[i].getText().compareTo(members[i].getText()) >= 0))
+											continue;
+
+										writer.write(members[i].getText() + "\t");
+										writer.write(type + "\t");
+										writer.write(members[j].getText() + "\n");
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 
 			writer.close();
 		}
 		catch (IOException e){e.printStackTrace();}
+	}
+
+	private SIFNode[] getNonGroupNodes(NodeModel node)
+	{
+		if (node instanceof SIFGroup)
+		{
+			return (SIFNode[]) ((SIFGroup) node).getChildren().toArray(
+				new SIFNode[((SIFGroup) node).getChildren().size()]);
+		}
+		else return new SIFNode[]{(SIFNode) node};
 	}
 
 	public void groupSimilarNodes()

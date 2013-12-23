@@ -156,7 +156,7 @@ public class SaveToSIFFileAction extends Action
 		}
 		catch (Exception e)
 		{
-			// e.printStackTrace();
+			e.printStackTrace();
 			MessageBox messageBox = new MessageBox(main.getShell(), SWT.ERROR_UNSUPPORTED_FORMAT);
 			messageBox.setMessage("File cannot be saved!");
 			messageBox.setText(ChisioMain.TOOL_NAME);
