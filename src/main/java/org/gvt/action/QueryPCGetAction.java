@@ -21,7 +21,8 @@ import java.util.Set;
  */
 public class QueryPCGetAction extends QueryPCAction
 {
-	protected Set<String> id;
+	protected Set<String> ids;
+	private String lastEntry;
 
 	public QueryPCGetAction(ChisioMain main, boolean useSelected)
 	{
@@ -34,34 +35,27 @@ public class QueryPCGetAction extends QueryPCAction
         {
             if (!useSelected)
             {
-				String ids = null;
-				if (id != null && !id.isEmpty())
+				if (this.ids == null || this.ids.isEmpty())
 				{
-					if (id.size() == 1) ids = id.iterator().next();
-					else
-					{
-						ids = " ";
-						for (String s : id)
-						{
-							ids += s;
-						}
-						ids = ids.trim();
-					}
+					String idStr = "";
+
+					if (lastEntry != null) idStr = lastEntry;
+
+					StringInputDialog dialog = new StringInputDialog(main.getShell(), "Get Objects",
+						"Enter Pathway Commons ID of database object", idStr,
+						"Find the specified object");
+
+					idStr = dialog.open();
+					lastEntry = idStr;
+
+					if (this.ids == null) this.ids = new HashSet<String>();
+					Collections.addAll(this.ids, idStr.split("\\s+"));
+					if (this.ids.isEmpty()) this.ids = null;
 				}
-
-                StringInputDialog dialog = new StringInputDialog(main.getShell(), "Get Objects",
-                    "Enter Pathway Commons ID of database object", ids,
-					"Find the specified object");
-
-                ids = dialog.open();
-
-				if (id == null) id = new HashSet<String>();
-				Collections.addAll(id, ids.split("\\s+"));
-				if (id.isEmpty()) id = null;
             }
 
             execute();
-            id = null;
+            ids = null;
         }
         else
         {
@@ -72,7 +66,7 @@ public class QueryPCGetAction extends QueryPCAction
 
 	public void setIDs(Set<String> ids)
 	{
-		this.id = ids;
+		this.ids = ids;
 	}
 
 	@Override
@@ -80,10 +74,10 @@ public class QueryPCGetAction extends QueryPCAction
 	{
 		if (useSelected && !options.getSourceList().isEmpty())
 		{
-			id = new HashSet<String>(options.getSourceList());
+			ids = new HashSet<String>(options.getSourceList());
 		}
 
-		return getPCGetQuery().sources(id).result();
+		return getPCGetQuery().sources(ids).result();
 	}
 
 	@Override
@@ -101,7 +95,7 @@ public class QueryPCGetAction extends QueryPCAction
 	@Override
 	protected boolean canQuery()
 	{
-		return !(id == null &&
+		return !(ids == null &&
 			(options.getSourceList() == null || options.getSourceList().isEmpty()));
 	}
 }

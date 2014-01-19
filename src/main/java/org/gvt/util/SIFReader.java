@@ -2,9 +2,11 @@ package org.gvt.util;
 
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.gvt.model.CompoundModel;
+import org.gvt.model.NodeModel;
 import org.gvt.model.sifl3.SIFEdge;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
@@ -28,17 +30,21 @@ public class SIFReader
 	private List<SIFType> enumTypes;
 	private Set<String> types;
 	private Map<String, BasicSIFNode> nodeMap;
+	private Map<String, BasicSIFEdge> edgeMap;
 	private Map<String, String> idToName;
 	private Set<String> relationsSet;
 	private BasicSIFGraph root;
 	private String delim;
+	private boolean useGroups;
 
 	private boolean duplicatesExist;
 
 	public SIFReader()
 	{
 		nodeMap = new HashMap<String, BasicSIFNode>();
+		edgeMap = new HashMap<String, BasicSIFEdge>();
 		relationsSet = new HashSet<String>();
+		useGroups = true;
 //		prepareIdToNameMap();
 	}
 
@@ -46,6 +52,11 @@ public class SIFReader
 	{
 		this();
 		this.enumTypes = enumTypes;
+	}
+
+	public void setUseGroups(boolean useGroups)
+	{
+		this.useGroups = useGroups;
 	}
 
 	public CompoundModel readXMLFile(File sifFile)
@@ -103,6 +114,18 @@ public class SIFReader
 		System.out.println("SIF view contains " + root.getNodes().size() + " nodes and " +
 			root.getEdges().size() + " edges.");
 
+		// Format the SIF view if an additional format file exists
+
+		String formatFile = sifFile.getPath().substring(0, sifFile.getPath().lastIndexOf(".")) + ".format";
+
+		boolean group = useGroups;
+		if (new File(formatFile).exists())
+		{
+			group = formatView(formatFile) && useGroups;
+		}
+
+		if (group) root.groupSimilarNodes();
+
 		return root;
 	}
 
@@ -157,7 +180,8 @@ public class SIFReader
 
 		BasicSIFNode node1 = getNode(first);
 		BasicSIFNode node2 = getNode(second);
-		new BasicSIFEdge(node1, node2, relation, medIDs);
+		BasicSIFEdge edge = new BasicSIFEdge(node1, node2, relation, medIDs);
+		edgeMap.put(first + " " + relation + " " + second, edge);
 	}
 
 	private BasicSIFNode getNode(String id)
@@ -280,6 +304,78 @@ public class SIFReader
 			reader.close();
 		}
 		catch (Exception e){e.printStackTrace();}
+	}
+
+	private boolean formatView(String formatFile)
+	{
+		boolean group = useGroups;
+		try
+		{
+			BufferedReader reader = new BufferedReader(new FileReader(formatFile));
+
+			for (String line = reader.readLine(); line != null; line = reader.readLine())
+			{
+				String[] token = line.split("\t");
+
+				if (token.length < 2) continue;
+
+				if (token[0].equals("node"))
+				{
+					NodeModel node = findNode(token[1]);
+
+					if (node == null) continue;
+
+					if (token[2].equals("color"))
+					{
+						node.setColor(getColor(token[3]));
+					}
+					else if (token[2].equals("highlight"))
+					{
+						node.setHighlight(token[3].equals("on"));
+					}
+				}
+				else if (token[0].equals("edge"))
+				{
+					BasicSIFEdge edge = edgeMap.get(token[1]);
+
+					if (token[2].equals("color"))
+					{
+						edge.setColor(getColor(token[3]));
+					}
+				}
+				else if (token[0].equals("graph"))
+				{
+					if (token[1].equals("grouping"))
+					{
+						useGroups = token[2].equals("on");
+					}
+				}
+			}
+
+			reader.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return group;
+	}
+
+	private NodeModel findNode(String name)
+	{
+		for (Object o : root.getNodes())
+		{
+			NodeModel nm = (NodeModel) o;
+			if (nm.getText().equals(name)) return nm;
+		}
+		return null;
+	}
+
+	private Color getColor(String s)
+	{
+		String[] c = s.split(" ");
+		return new Color(null,
+			Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]));
 	}
 
 	private static final String OUTER_SEP = "~";

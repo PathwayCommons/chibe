@@ -212,7 +212,7 @@ public class EdgeFigure extends PolylineConnection
 	{
 		fillShape(graphics);
 		graphics.setLineWidth(width);
-		graphics.setLineDash(dash);
+		if (dash != null) graphics.setLineDash(dash);
 		outlineShape(graphics);
 	}
 }

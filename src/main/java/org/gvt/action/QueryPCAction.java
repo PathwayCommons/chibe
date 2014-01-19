@@ -449,6 +449,7 @@ public abstract class QueryPCAction extends Action
 	public static BasicSIFGraph getPCGraph(List<SIFType> types)
 	{
 		SIFReader sifReader = new SIFReader(types);
+		sifReader.setUseGroups(false);
 
 		File sifFile = new File(getPCSifFileLocation());
 

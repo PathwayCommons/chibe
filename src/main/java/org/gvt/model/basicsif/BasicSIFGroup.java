@@ -352,9 +352,9 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 		if (substitutionMap == null) substitutionMap =
 			new HashMap<GraphObject, Set<BasicSIFEdge>>();
 
-		if (substitutionMap.containsKey(edge.getSource()))
+		if (!substitutionMap.containsKey(edge.getSource()))
 			substitutionMap.put(edge.getSource(), new HashSet<BasicSIFEdge>());
-		if (substitutionMap.containsKey(edge.getTarget()))
+		if (!substitutionMap.containsKey(edge.getTarget()))
 			substitutionMap.put(edge.getTarget(), new HashSet<BasicSIFEdge>());
 
 		// The edge won't remember its source and target after being removed, so we need to record

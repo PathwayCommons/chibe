@@ -12,6 +12,7 @@ import org.gvt.action.*;
 import org.gvt.editpart.ChsEdgeEditPart;
 import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.model.EdgeModel;
+import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.basicsif.BasicSIFGroup;
@@ -120,6 +121,10 @@ public class PopupManager extends MenuManager
 				manager.add(query);
 				manager.add(new Separator());
 			}
+
+			ExperimentData data = DataLegendAction.getData((NodeModel) o, main);
+			if (data != null)
+				manager.add(new DataLegendAction(main, data));
 
 			manager.add(new HighlightSelectedAction(main));
 			manager.add(new RemoveHighlightFromSelectedAction(main));

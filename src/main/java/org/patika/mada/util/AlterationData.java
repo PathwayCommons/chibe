@@ -41,9 +41,13 @@ public class AlterationData extends ExperimentData {
 
     @Override
     public Color getNodeColor() {
+		return getNodeColor(getValue());
+	}
+
+    public static Color getNodeColor(double value) {
         // Reverse log-scale the color to make alterations more obvious, e.g. 10% more red
         double C = 100.0;
-        double value = (getValue() * C) + 1.0D; // To prevent NaNs
+        value = (value * C) + 1.0D; // To prevent NaNs
         Color alt = Conf.getColor(Conf.EXPERIMENT_UP_COLOR);
         Color nonalt = Conf.getColor(Conf.EXPERIMENT_MIDDLE_COLOR);
 

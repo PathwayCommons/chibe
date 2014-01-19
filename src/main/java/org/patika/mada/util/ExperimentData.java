@@ -169,8 +169,11 @@ public abstract class ExperimentData implements Representable
 
 	public Color getNodeColor()
 	{
-		double v = this.getValue();
+		return getNodeColor(getValue());
+	}
 
+	public static Color getNodeColor(double v)
+	{
  		if (v >= high)
 		{
 			return highC;
@@ -199,7 +202,7 @@ public abstract class ExperimentData implements Representable
 		}		
 	}
 
-	private int getValueByRatio(double num,
+	private static int getValueByRatio(double num,
 		double numLow, double numHigh, int colorNum1, int colorNum2)
 	{
 		return (int)
@@ -267,10 +270,10 @@ public abstract class ExperimentData implements Representable
 	
 	/*	UK: Modified high, mid and low to fit better for proteomics use, where regulation values are often represented as 
 	 * 	fold change in the range (-inf, -1] U [1, inf)	*/
-	private static final double high = Conf.getNumber(Conf.EXPERIMENT_MAX_UPREGULATION);
-	private static final double mid_h = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_UPPER_BOUND);
-	private static final double mid_l = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_LOWER_BOUND);
-	private static final double low = Conf.getNumber(Conf.EXPERIMENT_MAX_DOWNREGULATION);
+	public static final double high = Conf.getNumber(Conf.EXPERIMENT_MAX_UPREGULATION);
+	public static final double mid_h = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_UPPER_BOUND);
+	public static final double mid_l = Conf.getNumber(Conf.EXPERIMENT_NO_CHANGE_LOWER_BOUND);
+	public static final double low = Conf.getNumber(Conf.EXPERIMENT_MAX_DOWNREGULATION);
 
 	private static final Color DEFAULT_TEXT_COLOR = new Color(null, 0, 0, 0);
 }
