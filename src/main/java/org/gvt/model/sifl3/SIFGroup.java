@@ -344,9 +344,9 @@ public class SIFGroup extends BioPAXCompoundNode implements EntityAssociated
 		if (substitutionMap == null) substitutionMap =
 			new HashMap<org.gvt.model.GraphObject, Set<SIFEdge>>();
 
-		if (substitutionMap.containsKey(edge.getSource()))
+		if (!substitutionMap.containsKey(edge.getSource()))
 			substitutionMap.put(edge.getSource(), new HashSet<SIFEdge>());
-		if (substitutionMap.containsKey(edge.getTarget()))
+		if (!substitutionMap.containsKey(edge.getTarget()))
 			substitutionMap.put(edge.getTarget(), new HashSet<SIFEdge>());
 
 		// The edge won't remember its source and target after being removed, so we need to record

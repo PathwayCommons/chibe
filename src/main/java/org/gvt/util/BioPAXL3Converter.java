@@ -76,6 +76,7 @@ public class BioPAXL3Converter implements NodeProvider
 		// Create homologies
 
 		Set<PhysicalEntity> reiter = new HashSet<PhysicalEntity>();
+		Map<NodeModel, Set<NodeModel>> existing = new HashMap<NodeModel, Set<NodeModel>>();
 
 		for (String id : idsOfInterest)
 		{
@@ -103,7 +104,15 @@ public class BioPAXL3Converter implements NodeProvider
 							node2 = getNode(mem.getRDFId(), root);
 							newEnts.add(mem);
 						}
+
+						if (existing.containsKey(node1) && existing.get(node1).contains(node2))
+							continue;
+
 						new Member(node1, node2);
+
+						if (!existing.containsKey(node1))
+							existing.put(node1, new HashSet<NodeModel>());
+						existing.get(node1).add(node2);
 					}
 				}
 				for (PhysicalEntity parent : pe.getMemberPhysicalEntityOf())
@@ -116,7 +125,15 @@ public class BioPAXL3Converter implements NodeProvider
 							node2 = getNode(parent.getRDFId(), root);
 							newEnts.add(parent);
 						}
+
+						if (existing.containsKey(node2) && existing.get(node2).contains(node1))
+							continue;
+
 						new Member(node2, node1);
+
+						if (!existing.containsKey(node2))
+							existing.put(node2, new HashSet<NodeModel>());
+						existing.get(node2).add(node1);
 					}
 				}
 			}

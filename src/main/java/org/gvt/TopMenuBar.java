@@ -187,6 +187,7 @@ public class TopMenuBar
 		pcNewMenu.add(new Separator());
 		pcNewMenu.add(new QueryPCPathwaysAction(chisio));
 		pcNewMenu.add(new QueryPCGetAction(chisio, false));
+		pcNewMenu.add(new EnrichedReactionsAction(main));
 
 		// Query new pathway commons in SIF
 		MenuManager pcNewSIFMenu = new MenuManager("&Pathway Commons (SIF)");

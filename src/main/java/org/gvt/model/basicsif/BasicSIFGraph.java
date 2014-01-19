@@ -165,6 +165,24 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			}
 			new BasicSIFGroup(this, members);
 		}
+
+		for (Object o : getEdges())
+		{
+			BasicSIFEdge edge = (BasicSIFEdge) o;
+			if (edge.substitutionMap != null && !edge.substitutionMap.isEmpty())
+			{
+				BasicSIFEdge hidden = edge.substitutionMap.values().iterator().next();
+
+				while (hidden.substitutionMap != null && !hidden.substitutionMap.isEmpty())
+				{
+					hidden = hidden.substitutionMap.values().iterator().next();
+				}
+
+				edge.setColor(hidden.getColor());
+				edge.setHighlight(hidden.isHighlight());
+				edge.setWidth(hidden.getWidth());
+			}
+		}
 	}
 
 	private Set<Set<NodeModel>> findGroups(Collection<NodeModel> nodes,

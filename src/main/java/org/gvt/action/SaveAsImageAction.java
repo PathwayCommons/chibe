@@ -1,9 +1,13 @@
 package org.gvt.action;
 
+import org.apache.batik.svggen.SVGGeneratorContext;
+import org.apache.batik.svggen.SVGGraphics2D;
+import org.eclipse.draw2d.geometry.*;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.*;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.draw2d.*;
@@ -11,8 +15,12 @@ import org.gvt.ChisioMain;
 import org.gvt.model.CompoundModel;
 import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.editpart.ChsScalableRootEditPart;
+import org.gvt.util.onotoa.GraphicsToGraphics2DAdaptor;
+import org.w3c.dom.Document;
 
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.FileWriter;
 
 /**
  * Action for saving the graph or view as an image.
@@ -47,36 +55,9 @@ public class SaveAsImageAction extends Action
 		rootFigure = (Figure) ((ChsScalableRootEditPart) main.getViewer().
 			getRootEditPart()).getFigure();
 
-		if (!saveWholeGraph)
-		{
-			bounds = getBounds(rootFigure);
-		}
-		else
-		{
-			rootFigure = (Figure) rootFigure.getChildren().get(0);
-			layer = (ScalableLayeredPane)rootFigure.getChildren().get(0);
-			double scale = layer.getScale();
-			bounds = getBounds(main.getViewer(), rootFigure, scale);
-		}
-
-		final Image image = new Image(shell.getDisplay(), bounds);
-
-		GC gc = new GC(image);
-		gc.setAntialias(SWT.ON);
-		gc.setTextAntialias(SWT.ON);
-		
-		Graphics graphics = new SWTGraphics(gc);
-
-		rootFigure.paint(graphics);
-		graphics.drawText(main.getPathwayGraph().getName(), 3, 3);
-
-		graphics.dispose();
-
-		ImageLoader loader = new ImageLoader();
-		loader.data = new ImageData[]{image.getImageData()};
 		// Get the user to choose a file name and type to save.
 		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.SAVE);
-		
+
 		/* UK: the default name for the saved image is set to the name of the graph/pathway instead of the name of the BioPAX file.
 		 * This makes sense as there might be (and often are) multiple pathways/networks in one owl file.
 		 */
@@ -84,22 +65,23 @@ public class SaveAsImageAction extends Action
 //		int ind = tmpfilename.lastIndexOf('.');
 //		tmpfilename = tmpfilename.substring(0, ind);
 
-		
+
 		/* UK: Added support for saving images as PNG, as the libraries support these formats */
-		fileChooser.setFileName(tmpfilename + ".jpg");
-		fileChooser.setFilterExtensions(new String[]{"*.jpg", "*.bmp", "*.png"});
+		fileChooser.setFileName(tmpfilename + ".svg");
+		fileChooser.setFilterExtensions(new String[]{"*.svg", "*.jpg", "*.bmp", "*.png"});
 		fileChooser.setFilterNames(
-			new String[]{"JPEG (*.jpg)", "BMP (*.bmp)", "PNG (*.png)"});
+			new String[]{"SVG (*.svg)", "JPEG (*.jpg)", "BMP (*.bmp)", "PNG (*.png)"});
 		String filename = fileChooser.open();
 
 		if (filename == null)
 		{
 			return;
 		}
-		else if (!filename.endsWith(".jpg") && !filename.endsWith(".bmp") && !filename.endsWith(".png"))
+		else if (!filename.endsWith(".jpg") && !filename.endsWith(".bmp") &&
+			!filename.endsWith(".png")&& !filename.endsWith(".svg"))
 		{
 			MessageDialog.openError(main.getShell(), "Invalid filename",
-				"ChiBE supports JPEG, PNG and Bitmap file formats only.\n" +
+				"ChiBE supports SVG, JPEG, PNG and Bitmap file formats only.\n" +
 					"Please provide a filename with an appropriate extension.");
 			return;
 		}
@@ -125,17 +107,52 @@ public class SaveAsImageAction extends Action
 			}
 		}
 
-		if (filename.endsWith(".bmp"))
+		if (!saveWholeGraph)
 		{
-			loader.save(filename, SWT.IMAGE_BMP);
+			bounds = getBounds(rootFigure);
 		}
-		else if (filename.endsWith(".jpg"))
+		else
 		{
-			loader.save(filename, SWT.IMAGE_JPEG);
+			rootFigure = (Figure) rootFigure.getChildren().get(0);
+			layer = (ScalableLayeredPane)rootFigure.getChildren().get(0);
+			double scale = layer.getScale();
+			bounds = getBounds(main.getViewer(), rootFigure, scale);
 		}
-        else if (filename.endsWith(".png"))
+
+		final Image image = new Image(shell.getDisplay(), bounds);
+
+		if (filename.endsWith(".svg"))
 		{
-			loader.save(filename, SWT.IMAGE_PNG);
+			exportSvg(image, rootFigure, new File(filename));
+		}
+		else
+		{
+			GC gc = new GC(image);
+			gc.setAntialias(SWT.ON);
+			gc.setTextAntialias(SWT.ON);
+
+			Graphics graphics = new SWTGraphics(gc);
+
+			rootFigure.paint(graphics);
+			graphics.drawText(main.getPathwayGraph().getName(), 3, 3);
+
+			graphics.dispose();
+
+			ImageLoader loader = new ImageLoader();
+			loader.data = new ImageData[]{image.getImageData()};
+
+			if (filename.endsWith(".bmp"))
+			{
+				loader.save(filename, SWT.IMAGE_BMP);
+			}
+			else if (filename.endsWith(".jpg"))
+			{
+				loader.save(filename, SWT.IMAGE_JPEG);
+			}
+			else if (filename.endsWith(".png"))
+			{
+				loader.save(filename, SWT.IMAGE_PNG);
+			}
 		}
 	}
 
@@ -166,4 +183,38 @@ public class SaveAsImageAction extends Action
 			bounds.width ,
 			bounds.height);
 	}
+
+	public void exportSvg(Image image, IFigure fig, File file) {
+		Graphics g = null;
+		try {
+			String svgNS = "http://www.w3.org/2000/svg";
+
+			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().getDOMImplementation().createDocument(
+				svgNS, "svg", null);
+
+			SVGGeneratorContext ctx = SVGGeneratorContext.createDefault(doc);
+			ctx.setComment("Generated by Onotoa with Batik SVG Generator");
+			ctx.setEmbeddedFontsOn(true);
+			ctx.setPrecision(3);
+			SVGGraphics2D svgGraphics2d = new SVGGraphics2D(ctx, true);
+			g = new GraphicsToGraphics2DAdaptor(svgGraphics2d, image.getBounds());
+
+			g.translate(fig.getBounds().getLocation().getCopy().scale(-1.));
+			fig.paint(g);
+
+			FileWriter writer = new FileWriter(file);
+			svgGraphics2d.stream(writer);
+			writer.flush();
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (g != null) {
+				g.dispose();
+			}
+			if (image!=null)
+				image.dispose();
+		}
+	}
+
 }

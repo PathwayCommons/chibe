@@ -6,22 +6,22 @@ import org.gvt.gui.LegendDialog;
 
 /**
  * @author Merve Cakir
- *
- * Copyright: I-Vis Research Group, Bilkent University, 2007
+ *         <p/>
+ *         Copyright: I-Vis Research Group, Bilkent University, 2007
  */
 public class LegendAction extends Action
 {
-    ChisioMain main;
+	ChisioMain main;
 
-    public LegendAction(ChisioMain main)
-    {
-        super("Legend");
+	public LegendAction(ChisioMain main)
+	{
+		super("Legend");
 
-        this.main = main;
-    }
+		this.main = main;
+	}
 
-    public void run()
-    {
-        new LegendDialog(main.getShell()).open();
-    }
+	public void run()
+	{
+		new LegendDialog(main.getShell()).open();
+	}
 }

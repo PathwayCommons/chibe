@@ -17,13 +17,13 @@
 
 		<!--<swt.artifactId>swt-win32-win32-x86</swt.artifactId>-->
 
-        <!-- Installer variables -->
-        <staging.dir>${project.build.directory}/staging</staging.dir>
-        <info.appName>ChiBE</info.appName>
-        <izpack.dir.app>${basedir}/src/main/izpack</izpack.dir.app>
-        <staging.dir.app>${staging.dir}/appfiles</staging.dir.app>
+		<!-- Installer variables -->
+		<staging.dir>${project.build.directory}/staging</staging.dir>
+		<info.appName>ChiBE</info.appName>
+		<izpack.dir.app>${basedir}/src/main/izpack</izpack.dir.app>
+		<staging.dir.app>${staging.dir}/appfiles</staging.dir.app>
 
-    </properties>
+	</properties>
 
 	<repositories>
 		<repository>
@@ -35,21 +35,21 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-        <repository>
-            <id>maven-repository.dev.java.net</id>
-            <name>Java.net Maven 2 Repository</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
+		<repository>
+			<id>maven-repository.dev.java.net</id>
+			<name>Java.net Maven 2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</repository>
 		<!--<repository>-->
 		<!--<id>eclipse</id>-->
 		<!--<name>eclipse</name>-->
 		<!--<url>http://maven.eclipse.org/nexus/content/repositories/testing</url>-->
 		<!--</repository>-->
-        <repository>
-            <id>biopax.releases</id>
-            <name>BioPAX Snapshots Repository at Sourceforge</name>
-            <url>http://biopax.sourceforge.net/m2repo/releases/</url>
-        </repository>
+		<repository>
+			<id>biopax.releases</id>
+			<name>BioPAX Snapshots Repository at Sourceforge</name>
+			<url>http://biopax.sourceforge.net/m2repo/releases/</url>
+		</repository>
 		<repository>
 			<id>biopax.snapshots</id>
 			<name>BioPAX Snapshots Repository at Sourceforge</name>
@@ -94,8 +94,8 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.7</source>
+						<target>1.7</target>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -115,21 +115,21 @@
 						</archive>
 					</configuration>
 				</plugin>
-                <plugin>
-                    <groupId>org.codehaus.izpack</groupId>
-                    <artifactId>izpack-maven-plugin</artifactId>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <baseDir>${staging.dir.app}</baseDir>
-                        <installFile>${izpack.dir.app}/install.xml</installFile>
-                        <outputDirectory>${project.build.directory}</outputDirectory>
-                        <finalName>${project.build.finalName}</finalName>
-                        <enableOverrideArtifact>true</enableOverrideArtifact>
-                        <mkdirs>true</mkdirs>
-                        <autoIncludeUrl>false</autoIncludeUrl>
-                        <autoIncludeDevelopers>false</autoIncludeDevelopers>
-                    </configuration>
-                </plugin>
+				<plugin>
+					<groupId>org.codehaus.izpack</groupId>
+					<artifactId>izpack-maven-plugin</artifactId>
+					<extensions>true</extensions>
+					<configuration>
+						<baseDir>${staging.dir.app}</baseDir>
+						<installFile>${izpack.dir.app}/install.xml</installFile>
+						<outputDirectory>${project.build.directory}</outputDirectory>
+						<finalName>${project.build.finalName}</finalName>
+						<enableOverrideArtifact>true</enableOverrideArtifact>
+						<mkdirs>true</mkdirs>
+						<autoIncludeUrl>false</autoIncludeUrl>
+						<autoIncludeDevelopers>false</autoIncludeDevelopers>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -187,7 +187,7 @@
 			<activation>
 				<os>
 					<family>Linux</family>
-                    <arch>x86</arch>
+					<arch>x86</arch>
 				</os>
 			</activation>
 			<properties>
@@ -199,7 +199,7 @@
 			<activation>
 				<os>
 					<family>Linux</family>
-                    <arch>x86</arch>
+					<arch>x86</arch>
 				</os>
 			</activation>
 			<properties>
@@ -211,7 +211,7 @@
 			<activation>
 				<os>
 					<family>Linux</family>
-                    <arch>amd64</arch>
+					<arch>amd64</arch>
 				</os>
 			</activation>
 			<properties>
@@ -246,11 +246,11 @@
 			<artifactId>paxtools-core</artifactId>
 			<version>${paxtools.version}</version>
 		</dependency>
-        <dependency>
-            <groupId>org.cbio</groupId>
-            <artifactId>causality</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+		<dependency>
+			<groupId>org.cbio</groupId>
+			<artifactId>causality</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.biopax.paxtools</groupId>
 			<artifactId>sif-converter</artifactId>
@@ -261,16 +261,16 @@
 			<artifactId>pattern</artifactId>
 			<version>1.1.1-SNAPSHOT</version>
 		</dependency>
-        <dependency>
-            <groupId>org.ivis</groupId>
-            <artifactId>chilay</artifactId>
-            <version>(2,]</version>
-        </dependency>
-        <dependency>
-            <groupId>pathwaycommons.cpath</groupId>
-            <artifactId>cpath-client</artifactId>
-            <version>4.1.0-SNAPSHOT</version>
-        </dependency>
+		<dependency>
+			<groupId>org.ivis</groupId>
+			<artifactId>chilay</artifactId>
+			<version>(2,]</version>
+		</dependency>
+		<dependency>
+			<groupId>pathwaycommons.cpath</groupId>
+			<artifactId>cpath-client</artifactId>
+			<version>4.1.0-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.patika.mada</groupId>
 			<artifactId>dataXML</artifactId>
@@ -281,21 +281,31 @@
 			<artifactId>xmlns</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
 			<version>2.5.0</version>
 		</dependency>
 		<dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>1.0.6</version>
-        </dependency>
-    </dependencies>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-svggen</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 
-    <!-- Launch IzPack automatically -->
-    <!--<packaging>izPack-jar</packaging>-->
+	<!-- Launch IzPack automatically -->
+	<!--<packaging>izPack-jar</packaging>-->
 
 </project>

@@ -1,7 +1,6 @@
 package org.gvt.util;
 
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 import java.io.*;
 import java.util.HashMap;
@@ -83,8 +82,8 @@ public class Conf
 		s += PC_SIF_FILE + " = " + DEFAULT + "\n";
 		s += PC_SIF_FILE_URL + " = http://resources.chibe.googlecode.com/hg/PC.sif.gz\n";
 		s += REACTION_2_GENE_FILE + " = " + DEFAULT + "\n";
-		s += REACTION_2_GENE_FILE_URL + " = http://chibe.googlecode.com/files/related-genes-of-interactions.txt\n";
-		s += BROAD_DATA_URL + " = http://gdac.broadinstitute.org/runs/analyses__2013_05_23/\n";
+		s += REACTION_2_GENE_FILE_URL + " = http://resources.chibe.googlecode.com/hg/reaction2gene.txt\n";
+		s += BROAD_DATA_URL + " = http://gdac.broadinstitute.org/runs/analyses__LATEST/\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
 		s += CBIOPORTAL_USE_CACHE + " = true\n";

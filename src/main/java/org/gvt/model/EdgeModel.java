@@ -68,14 +68,14 @@ public class EdgeModel extends GraphObject implements Updatable
 
 		for(PointD p: lEdge.getBendpoints())
 		{
-//			PointD sourceLoc = new PointD(lEdge.getSource().getCenterX(),
-//				lEdge.getSource().getCenterY());
-//
-//			PointD targetLoc = new PointD(lEdge.getTarget().getCenterX(),
-//				lEdge.getTarget().getCenterY());
+			PointD sourceLoc = new PointD(lEdge.getSource().getCenterX(),
+				lEdge.getSource().getCenterY());
 
-			PointD sourceLoc = getClippingPoint(lEdge.getSource(), lEdge.getTarget().getCenter());
-			PointD targetLoc = getClippingPoint(lEdge.getTarget(), lEdge.getSource().getCenter());
+			PointD targetLoc = new PointD(lEdge.getTarget().getCenterX(),
+				lEdge.getTarget().getCenterY());
+
+//			PointD sourceLoc = getClippingPoint(lEdge.getSource(), lEdge.getTarget().getCenter());
+//			PointD targetLoc = getClippingPoint(lEdge.getTarget(), lEdge.getSource().getCenter());
 
 			// When x == y this means that the layout does not support bendpoints, and the
 			// bendpoints still have the indexes we originally assigned. Here we handle them.
@@ -112,11 +112,11 @@ public class EdgeModel extends GraphObject implements Updatable
 				xx *= ((index / 2) ) + 1;
 				yy *= ((index / 2) ) + 1;
 
-				double centerX = sourceLoc.getX() + targetLoc.getX();
-				double centerY = sourceLoc.getY() + targetLoc.getY();
+				double centerX = (sourceLoc.getX() + targetLoc.getX()) / 2;
+				double centerY = (sourceLoc.getY() + targetLoc.getY()) / 2;
 
-				p.setX((centerX / 2) - xx);
-				p.setY((centerY / 2) + yy);
+				p.setX(centerX - xx);
+				p.setY(centerY + yy);
 			}
 
 			DimensionD dim1 = p.getDifference(sourceLoc);
@@ -167,7 +167,7 @@ public class EdgeModel extends GraphObject implements Updatable
 				center.getY() + halfH : center.getY() - halfH;
 
 			double xx = halfH / Math.abs(rat);
-			if (towards.getX() - center.getX() < 0) xx = -yy;
+			if (towards.getX() - center.getX() < 0) xx = -xx;
 
 			return new PointD(center.getX() + xx, yy);
 		}
