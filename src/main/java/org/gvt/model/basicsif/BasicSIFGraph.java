@@ -1,5 +1,6 @@
 package org.gvt.model.basicsif;
 
+import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
@@ -57,7 +58,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 						{
 							type = type.trim();
 
-							SIFType sifType = SIFType.typeOf(type);
+							SIFType sifType = SIFEnum.typeOf(type);
 							if (sifType != null)
 							{
 								BasicSIFNode[] members = getNonGroupNodes((BasicSIFGroup) o);

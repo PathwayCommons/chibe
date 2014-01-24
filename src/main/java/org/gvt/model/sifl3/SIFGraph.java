@@ -1,6 +1,7 @@
 package org.gvt.model.sifl3;
 
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFInteraction;
 import org.biopax.paxtools.pattern.miner.SIFSearcher;
 import org.biopax.paxtools.pattern.miner.SIFType;
@@ -103,7 +104,7 @@ public class SIFGraph extends BioPAXGraph
 	 */
 	public static List<SIFType> getPossibleRuleTypes()
 	{
-		return Arrays.asList(SIFType.values());
+		return new ArrayList<SIFType>(Arrays.asList(SIFEnum.values()));
 	}
 
 	public void write(OutputStream os)
@@ -139,7 +140,7 @@ public class SIFGraph extends BioPAXGraph
 						{
 							type = type.trim();
 
-							SIFType sifType = SIFType.typeOf(type);
+							SIFType sifType = SIFEnum.typeOf(type);
 							if (sifType != null)
 							{
 								SIFNode[] members = getNonGroupNodes((SIFGroup) o);

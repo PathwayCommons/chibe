@@ -174,7 +174,7 @@ public class TCGAGenesDialog extends Dialog
 
 	private void okPressed()
 	{
-		genes = new HashSet<>();
+		genes = new HashSet<String>();
 
 		String study = studyCodes.get(studyCombo.getSelectionIndex());
 		if (mutsigButton.getSelection())

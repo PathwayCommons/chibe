@@ -1,5 +1,6 @@
 package org.gvt.model.sifl3;
 
+import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.GraphObject;
@@ -206,33 +207,33 @@ public class SIFEdge extends BioPAXEdge
 	{
 		typeMap = new HashMap<String, EdgeType>();
 		
-		addType(new EdgeType(SIFType.NEIGHBOR_OF,
+		addType(new EdgeType(SIFEnum.NEIGHBOR_OF,
 			new Color(null, 100, 120, 100), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.INTERACTS_WITH,
+		addType(new EdgeType(SIFEnum.INTERACTS_WITH,
 			new Color(null, 120, 120, 120), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.IN_COMPLEX_WITH,
+		addType(new EdgeType(SIFEnum.IN_COMPLEX_WITH,
 			new Color(null, 150, 150, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.CONTROLS_STATE_CHANGE_OF,
+		addType(new EdgeType(SIFEnum.CONTROLS_STATE_CHANGE_OF,
 			new Color(null, 50, 100, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.CONTROLS_TRANSPORT_OF,
+		addType(new EdgeType(SIFEnum.CONTROLS_TRANSPORT_OF,
 			new Color(null, 100, 100, 150), SOLID, NO_SIGN, false));
-		addType(new EdgeType(SIFType.CATALYSIS_PRECEDES,
+		addType(new EdgeType(SIFEnum.CATALYSIS_PRECEDES,
 			new Color(null, 150, 50, 150), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONTROLS_EXPRESSION_OF,
+        addType(new EdgeType(SIFEnum.CONTROLS_EXPRESSION_OF,
                 new Color(null, 50, 150, 50), DASHED, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONTROLS_DEGRADATION_OF,
+        addType(new EdgeType(SIFEnum.CONTROLS_DEGRADATION_OF,
                 new Color(null, 150, 50, 50), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONSUMPTION_CONTROLLED_BY,
+        addType(new EdgeType(SIFEnum.CONSUMPTION_CONTROLLED_BY,
                 new Color(null, 100, 120, 80), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONTROLS_PRODUCTION_OF,
+        addType(new EdgeType(SIFEnum.CONTROLS_PRODUCTION_OF,
                 new Color(null, 50, 120, 100), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CONTROLS_TRANSPORT_OF_CHEMICAL,
+        addType(new EdgeType(SIFEnum.CONTROLS_TRANSPORT_OF_CHEMICAL,
                 new Color(null, 80, 130, 100), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.CHEMICAL_AFFECTS,
+        addType(new EdgeType(SIFEnum.CHEMICAL_AFFECTS,
                 new Color(null, 100, 80, 80), SOLID, NO_SIGN, false));
-        addType(new EdgeType(SIFType.REACTS_WITH,
+        addType(new EdgeType(SIFEnum.REACTS_WITH,
                 new Color(null, 70, 120, 80), SOLID, NO_SIGN, true));
-        addType(new EdgeType(SIFType.USED_TO_PRODUCE,
+        addType(new EdgeType(SIFEnum.USED_TO_PRODUCE,
                 new Color(null, 70, 80, 120), SOLID, NO_SIGN, false));
 
 

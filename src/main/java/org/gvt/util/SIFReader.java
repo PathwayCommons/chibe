@@ -27,7 +27,7 @@ import java.util.*;
  */
 public class SIFReader
 {
-	private List<SIFType> enumTypes;
+	private List<? extends SIFType> enumTypes;
 	private Set<String> types;
 	private Map<String, BasicSIFNode> nodeMap;
 	private Map<String, BasicSIFEdge> edgeMap;
@@ -48,7 +48,7 @@ public class SIFReader
 //		prepareIdToNameMap();
 	}
 
-	public SIFReader(List<SIFType> enumTypes)
+	public SIFReader(List<? extends SIFType> enumTypes)
 	{
 		this();
 		this.enumTypes = enumTypes;
@@ -341,6 +341,10 @@ public class SIFReader
 					if (token[2].equals("color"))
 					{
 						edge.setColor(getColor(token[3]));
+					}
+					else if (token[2].equals("width"))
+					{
+						edge.setWidth(Integer.parseInt(token[3]));
 					}
 				}
 				else if (token[0].equals("graph"))
