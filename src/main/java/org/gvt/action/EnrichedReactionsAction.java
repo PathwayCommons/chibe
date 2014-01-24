@@ -46,14 +46,14 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 		// assign p-values
 
-		Set<String> allSymbols = new HashSet<>();
+		Set<String> allSymbols = new HashSet<String>();
 		for (Reaction reaction : reactions.values())
 		{
 			allSymbols.addAll(reaction.genes);
 		}
 		int allSize = allSymbols.size();
 		int querySize = query.size();
-		Map<String, Double> pvals = new HashMap<>();
+		Map<String, Double> pvals = new HashMap<String, Double>();
 		for (Reaction reaction : reactions.values())
 		{
 			reaction.assignPval(allSize, querySize);
@@ -69,7 +69,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 		// group reactions
 
-		Map<String, List<Reaction>> groups = new HashMap<>();
+		Map<String, List<Reaction>> groups = new HashMap<String, List<Reaction>>();
 		for (Reaction reac : reactions.values())
 		{
 			if (reac.hit.isEmpty()) continue;
@@ -85,7 +85,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 		// add representing reactions to selection list
 
-		List<SelectionItem> items = new ArrayList<>();
+		List<SelectionItem> items = new ArrayList<SelectionItem>();
 		for (List<Reaction> list : groups.values())
 		{
 			items.add(new SelectionItem(list.get(0)));
@@ -104,7 +104,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		if (dialog.isCancelled() || selected.isEmpty()) return;
 
 		Set<String> ids = new HashSet<String>();
-		Set<String> genes = new HashSet<>();
+		Set<String> genes = new HashSet<String>();
 
 		for (SelectionItem item : selected)
 		{
@@ -122,7 +122,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		qa.setNewPathwayName(title);
 		qa.run();
 
-		Set<XRef> xrefs = new HashSet<>();
+		Set<XRef> xrefs = new HashSet<XRef>();
 		for (String gene : genes)
 		{
 			xrefs.add(new XRef("Name", gene));
@@ -150,7 +150,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 		try
 		{
-			Map<String, Reaction> reactions = new HashMap<>();
+			Map<String, Reaction> reactions = new HashMap<String, Reaction>();
 			BufferedReader reader = new BufferedReader(new FileReader(rFile));
 
 			for (String line = reader.readLine(); line != null; line = reader.readLine())

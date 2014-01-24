@@ -148,7 +148,7 @@ public class EnrichedReactionsDialog extends Dialog
 
 	private void okPressed()
 	{
-		genes = new ArrayList<>();
+		genes = new ArrayList<String>();
 		for (String s : genesText.getText().split("\\s+"))
 		{
 			if (!s.isEmpty()) genes.add(s);
@@ -159,7 +159,7 @@ public class EnrichedReactionsDialog extends Dialog
 
 	private void tcgaPressed()
 	{
-		genes = new ArrayList<>(Arrays.asList(genesText.getText().split("\\s+")));
+		genes = new ArrayList<String>(Arrays.asList(genesText.getText().split("\\s+")));
 
 		TCGAGenesDialog d = new TCGAGenesDialog(shell);
 		Set<String> selected = d.open();

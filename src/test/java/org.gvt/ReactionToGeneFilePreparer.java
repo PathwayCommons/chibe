@@ -35,15 +35,15 @@ public class ReactionToGeneFilePreparer
 
 		for (Conversion conv : model.getObjects(Conversion.class))
 		{
-			Set<BioPAXElement> set = new HashSet<>();
+			Set<BioPAXElement> set = new HashSet<BioPAXElement>();
 			set.add(conv);
 
 			set.addAll(conv.getControlledOf());
 
 			set = cpt.complete(set, model);
 
-			Set<String> symbols = new HashSet<>();
-			Set<Control> controls = new HashSet<>();
+			Set<String> symbols = new HashSet<String>();
+			Set<Control> controls = new HashSet<Control>();
 			for (BioPAXElement ele : set)
 			{
 				if (ele instanceof ProteinReference)

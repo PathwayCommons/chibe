@@ -1,6 +1,7 @@
 package org.gvt.action;
 
 import org.apache.commons.io.IOUtils;
+import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.cbio.causality.data.portal.BroadAccessor;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
@@ -94,8 +95,8 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 			}
 
 			BasicSIFGraph pcGraph = QueryPCAction.getPCGraph(Arrays.asList(
-				SIFType.CONTROLS_STATE_CHANGE_OF, SIFType.CONTROLS_EXPRESSION_OF,
-				SIFType.CONTROLS_DEGRADATION_OF));
+				SIFEnum.CONTROLS_STATE_CHANGE_OF, SIFEnum.CONTROLS_EXPRESSION_OF,
+				SIFEnum.CONTROLS_DEGRADATION_OF));
 
 			Set<Node> seed = QueryPCAction.getSeed(pcGraph, genes);
 
