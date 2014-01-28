@@ -647,7 +647,12 @@ public class GraphicsToGraphics2DAdaptor extends Graphics  {
 				getGraphics2D().setPaint(paint);
 			}
 		}
-		getGraphics2D().fill(relativeClipRegion2D.createIntersection(rect));
+		Rectangle2D inter = relativeClipRegion2D.createIntersection(rect);
+
+		if (!inter.equals(relativeClipRegion2D)) // do not draw the white background
+		{
+			getGraphics2D().fill(inter);
+		}
 	}
 
 	/*

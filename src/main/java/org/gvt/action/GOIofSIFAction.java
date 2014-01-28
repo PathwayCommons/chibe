@@ -175,11 +175,14 @@ public class GOIofSIFAction extends Action
 
 				for (Object o : goi.getNodes())
 				{
-					BasicSIFNode node = (BasicSIFNode) o;
-					if (rdfseed.contains(node.getRdfid()))
+					if (o instanceof BasicSIFNode)
 					{
-						node.setHighlightColor(ChisioMain.higlightColor);
-						node.setHighlight(true);
+						BasicSIFNode node = (BasicSIFNode) o;
+						if (rdfseed.contains(node.getRdfid()))
+						{
+							node.setHighlightColor(ChisioMain.higlightColor);
+							node.setHighlight(true);
+						}
 					}
 				}
 
