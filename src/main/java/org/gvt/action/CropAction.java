@@ -12,6 +12,7 @@ import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.ChbConversion;
 import org.gvt.model.biopaxl3.ChbTempReac;
+import org.gvt.util.PathwayHolder;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 
@@ -123,6 +124,8 @@ public class CropAction extends Action
 
 		BioPAXGraph excised = graph.excise(cropto, true);
 		excised.setName(graph.getName() + " cropped");
+		PathwayHolder h = new PathwayHolder(graph.getBiopaxModel(), excised.getName());
+		excised.setPathway(h);
 
 		main.createNewTab(excised);
 		new CoSELayoutAction(main).run();

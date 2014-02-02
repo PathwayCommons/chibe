@@ -8,6 +8,7 @@ import org.biopax.paxtools.pattern.miner.SIFType;
 import org.biopax.paxtools.pattern.util.Blacklist;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.NodeModel;
+import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.graph.GraphObject;
@@ -88,7 +89,7 @@ public class SIFGraph extends BioPAXGraph
             }
 		}
 
-		groupSimilarNodes();
+		if (Conf.getBoolean(Conf.USE_SIF_GROUPING)) groupSimilarNodes();
 	}
 
 	private Set<SIFInteraction> getSimpleInteractions()

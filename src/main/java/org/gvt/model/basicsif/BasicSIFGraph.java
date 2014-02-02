@@ -4,6 +4,7 @@ import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
+import org.gvt.util.Conf;
 import org.patika.mada.graph.GraphObject;
 
 import java.io.BufferedWriter;
@@ -122,7 +123,8 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			}
 		}
 
-		graph.groupSimilarNodes();
+		if (Conf.getBoolean(Conf.USE_SIF_GROUPING)) graph.groupSimilarNodes();
+
 		return graph;
 	}
 

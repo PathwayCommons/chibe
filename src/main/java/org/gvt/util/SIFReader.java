@@ -124,7 +124,7 @@ public class SIFReader
 			group = formatView(formatFile) && useGroups;
 		}
 
-		if (group) root.groupSimilarNodes();
+		if (group && Conf.getBoolean(Conf.USE_SIF_GROUPING)) root.groupSimilarNodes();
 
 		return root;
 	}

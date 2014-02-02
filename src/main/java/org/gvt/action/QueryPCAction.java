@@ -401,7 +401,7 @@ public abstract class QueryPCAction extends Action
 	{
 		CPathClient client = getPCClient();
 		CPathGraphQuery query = client.createGraphQuery();
-		query.mergeEquivalentInteractions(true);
+//		query.mergeEquivalentInteractions(true);
 		return query;
 	}
 
@@ -416,7 +416,7 @@ public abstract class QueryPCAction extends Action
 	{
 		CPathClient client = getPCClient();
 		CPathGetQuery query = client.createGetQuery();
-		query.mergeEquivalentInteractions(true);
+//		query.mergeEquivalentInteractions(true);
 		return query;
 	}
 
