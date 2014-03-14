@@ -45,6 +45,8 @@ public class NodeModel extends GraphObject implements Updatable, Clustered
 
 	protected Color borderColor;
 
+	protected int borderWidth;
+
 	protected List sourceConnections = new ArrayList();
 
 	protected List targetConnections = new ArrayList();
@@ -75,6 +77,7 @@ public class NodeModel extends GraphObject implements Updatable, Clustered
 		this.textColor = DEFAULT_TEXT_COLOR;
 		this.color = DEFAULT_COLOR;
 		this.borderColor = DEFAULT_BORDER_COLOR;
+		this.borderWidth = DEFAULT_BORDER_WIDTH;
 		this.shape = DEFAULT_SHAPE;
 		this.clusters = new ArrayList<Cluster>();
 	}
@@ -160,7 +163,18 @@ public class NodeModel extends GraphObject implements Updatable, Clustered
 	{
 		return this.borderColor;
 	}
-	
+
+	public int getBorderWidth()
+	{
+		return borderWidth;
+	}
+
+	public void setBorderWidth(int borderWidth)
+	{
+		this.borderWidth = borderWidth;
+		firePropertyChange(P_BORDERWIDTH, null, this.borderWidth);
+	}
+
 	public NodeModel(Point pt, String str, Color c, String lbl)
 	{
 		this(new Rectangle(pt, NodeModel.DEFAULT_SIZE));
@@ -356,8 +370,84 @@ public class NodeModel extends GraphObject implements Updatable, Clustered
 	public int getCenterY()
 	{
 		return this.constraint.getCenter().y;
-
 	}
+
+	//-- Section: Alignment related ---------------------------------------------------------------|
+	// Methods below implemented for aligning selected objects.
+	public int getLeftAbs()
+	{
+		return getLocationAbs().x;
+	}
+
+	public int getRightAbs()
+	{
+		return getLeftAbs() + this.constraint.width;
+	}
+
+	public int getTopAbs()
+	{
+		return getLocationAbs().y;
+	}
+
+	public int getBottomAbs()
+	{
+		return getTopAbs() + this.constraint.height;
+	}
+
+	public int getCenterXAbs()
+	{
+		return getLeftAbs() + (this.constraint.width / 2);
+	}
+
+	public int getCenterYAbs()
+	{
+		return getTopAbs() + (this.constraint.height / 2);
+	}
+
+	public void setLeftAbs(int left)
+	{
+		Point loc = getLocationAbs();
+		loc.x = left;
+		setLocationAbs(loc);
+	}
+
+	public void setRightAbs(int right)
+	{
+
+		Point loc = getLocationAbs();
+		loc.x = right - this.constraint.width;
+		setLocationAbs(loc);
+	}
+
+	public void setTopAbs(int top)
+	{
+		Point loc = getLocationAbs();
+		loc.y = top;
+		setLocationAbs(loc);
+	}
+
+	public void setBottomAbs(int bottom)
+	{
+		Point loc = getLocationAbs();
+		loc.y  = bottom - this.constraint.height;
+		setLocationAbs(loc);
+	}
+
+	public void setCenterXAbs(int centerX)
+	{
+		Point loc = getLocationAbs();
+		loc.x = centerX - (this.constraint.width / 2);
+		setLocationAbs(loc);
+	}
+
+	public void setCenterYAbs(int centerY)
+	{
+		Point loc = getLocationAbs();
+		loc.y  = centerY - (this.constraint.height / 2);
+		setLocationAbs(loc);
+	}
+	//-- End of Section: Six setters --------------------------------------------------------------|
+
 
 	public void setPositiveLocation(Rectangle r)
 	{
@@ -503,6 +593,8 @@ public class NodeModel extends GraphObject implements Updatable, Clustered
 
 	public static Color DEFAULT_BORDER_COLOR = new Color(null, 14, 112, 130);
 
+	public static int DEFAULT_BORDER_WIDTH = 1;
+
 	public static String DEFAULT_SHAPE = shapes[0];
 
 // -----------------------------------------------------------------------------
@@ -515,6 +607,8 @@ public class NodeModel extends GraphObject implements Updatable, Clustered
 	public static final String P_CLUSTERID = "_clusterID";
 
 	public static final String P_BORDERCOLOR = "_borderColor";
+
+	public static final String P_BORDERWIDTH = "_borderWidth";
 
 	public static final String P_CONNX_SOURCE = "_connx_source";
 

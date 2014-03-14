@@ -7,6 +7,7 @@ import org.gvt.ChisioMain;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.ItemSelectionRunnable;
 import org.gvt.model.CompoundModel;
+import org.gvt.model.basicsif.BasicSIFGroup;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -74,6 +75,8 @@ public class HighlightTCGACaseAction extends TCGASIFAction
 
 					for (Node node : graph.getNodes())
 					{
+						if (node instanceof BasicSIFGroup) continue;
+
 						String sym = node.getName();
 						AlterationPack altPack = ChisioMain.cBioPortalAccessor.getAlterations(sym);
 						if (altPack != null && altPack.get(Alteration.ANY)[index].isAltered())

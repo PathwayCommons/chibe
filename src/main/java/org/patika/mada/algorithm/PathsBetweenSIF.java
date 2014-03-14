@@ -1,8 +1,6 @@
 package org.patika.mada.algorithm;
 
-import org.gvt.model.basicsif.BasicSIFEdge;
 import org.patika.mada.graph.Edge;
-import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
@@ -15,12 +13,36 @@ import java.util.*;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class GraphOfInterets
+public class PathsBetweenSIF
 {
-	private Set<Node> seed;
+	private Set<Node> sourceSeed;
+	private Set<Node> targetSeed;
 	private boolean directed;
-	private Graph graph;
 	private int limit;
+
+	/**
+	 * If false, then any path in length limit will come. If true, shortest=k limit will be used,
+	 * again bounded by limit.
+	 */
+	private boolean useShortestPlusK = false;
+
+	/**
+	 * If true, will ignore cycles.
+	 */
+	private boolean ignoreSelfLoops = true;
+
+	/**
+	 * If true, then a shortest path will be considered for each distinct pair. If false, then a
+	 * shortest path length per gene will be used.
+	 */
+	private boolean considerAllPairs = false;
+	/**
+	 * If true, and if the reverse path is longer, it wont be retrieved.
+	 */
+	private boolean shortestAnyDir = true;
+	private Map<Node, Map<Node, Integer>> shortestPairLengths;
+	private Map<Node, Integer> shortestSingleLengths;
+	private int k = 0;
 
 	Set<GraphObject> goi;
 
@@ -28,20 +50,60 @@ public class GraphOfInterets
 	private Map<GraphObject, Map<Integer, Set<Node>>> bkwLabel;
 	private Map<GraphObject, Map<Integer, Set<Node>>> labelMap;
 
-	private Set<GraphObject> visitedObjects;
+	private Set<GraphObject> visitedGlobal;
+	private Set<GraphObject> visitedStep;
 
-	public GraphOfInterets(Set<Node> seed, boolean directed, Graph graph, int limit)
+	public PathsBetweenSIF(Set<Node> seed, boolean directed, int limit)
 	{
-		this.seed = seed;
+		this.sourceSeed = seed;
+		this.targetSeed = seed;
 		this.directed = directed;
-		this.graph = graph;
 		this.limit = limit;
+	}
+
+	public PathsBetweenSIF(Set<Node> sourceSeed, Set<Node> targetSeed, boolean directed, int limit)
+	{
+		this.sourceSeed = sourceSeed;
+		this.targetSeed = targetSeed;
+		this.directed = directed;
+		this.limit = limit;
+	}
+
+	public void setUseShortestPlusK(boolean useShortestPlusK)
+	{
+		this.useShortestPlusK = useShortestPlusK;
+	}
+
+	public void setIgnoreSelfLoops(boolean ignoreSelfLoops)
+	{
+		this.ignoreSelfLoops = ignoreSelfLoops;
+	}
+
+	public void setConsiderAllPairs(boolean considerAllPairs)
+	{
+		this.considerAllPairs = considerAllPairs;
+	}
+
+	public void setShortestAnyDir(boolean shortestAnyDir)
+	{
+		this.shortestAnyDir = shortestAnyDir;
+	}
+
+	public void setShortestPairLengths(Map<Node, Map<Node, Integer>> shortestPairLengths)
+	{
+		this.shortestPairLengths = shortestPairLengths;
+	}
+
+	public void setK(int k)
+	{
+		this.k = k;
 	}
 
 	public Set<GraphObject> run()
 	{
 		goi = new HashSet<GraphObject>();
-		visitedObjects = new HashSet<GraphObject>();
+		visitedGlobal = new HashSet<GraphObject>();
+		visitedStep = new HashSet<GraphObject>();
 
 		if (directed)
 		{
@@ -50,13 +112,34 @@ public class GraphOfInterets
 		}
 		else this.labelMap = new HashMap<GraphObject, Map<Integer, Set<Node>>>();
 
-		for (Node node : seed)
+		for (Node node : sourceSeed)
 		{
 			initSeed(node);
 
 			if (directed)
 			{
 				runBFS_directed(node, FORWARD);
+			}
+			else
+			{
+				runBFS_undirected(node);
+			}
+
+			// Record distances for that seed node
+			recordDistances(node);
+
+			// Remove all algorithm specific labels
+			clearLabels();
+		}
+
+		for (Node node : targetSeed)
+		{
+			if (!directed && sourceSeed.contains(node)) continue;
+
+			initSeed(node);
+
+			if (directed)
+			{
 				runBFS_directed(node, BACKWARD);
 			}
 			else
@@ -71,6 +154,8 @@ public class GraphOfInterets
 			clearLabels();
 		}
 
+		if (useShortestPlusK) findShortestPaths();
+
 		// Reformat the label maps
 
 		if (directed)
@@ -79,7 +164,6 @@ public class GraphOfInterets
 			mergeLabels(bkwLabel);
 		}
 		else mergeLabels(labelMap);
-
 
 		// Select graph objects that are traversed with the BFS. It is important to process nodes
 		// before edges.
@@ -101,6 +185,7 @@ public class GraphOfInterets
 
 		LinkedList<Node> queue = new LinkedList<Node>();
 		queue.add(seed);
+		visitedStep.add(seed);
 
 		// Run BFS forward or backward till queue is not empty
 
@@ -119,6 +204,7 @@ public class GraphOfInterets
 
 		LinkedList<Node> queue = new LinkedList<Node>();
 		queue.add(seed);
+		visitedStep.add(seed);
 
 		// Run BFS till queue is not empty
 
@@ -151,6 +237,8 @@ public class GraphOfInterets
 		{
 			for (Edge edge : upstr? node.getUpstream() : node.getDownstream())
 			{
+				if (visitedStep.contains(edge)) continue;
+
 				setLabel(edge, label, !upstr && label.equals(DIST_FORWARD) ? d + 1 : d);
 
 				Node n = upstr ? edge.getSourceNode() : edge.getTargetNode();
@@ -159,8 +247,11 @@ public class GraphOfInterets
 
 				if (d_n > d + 1)
 				{
+					if (d + 1 < limit && !visitedStep.contains(n) && !queue.contains(n)
+						&& (!ignoreSelfLoops || !(sourceSeed.contains(n) || targetSeed.contains(n))))
+						queue.add(n);
+
 					setLabel(n, label, d + 1);
-					if (d + 1 < limit && !queue.contains(n)) queue.add(n);
 				}
 			}
 		}
@@ -189,7 +280,7 @@ public class GraphOfInterets
 	
 	private void selectSatisfyingElements()
 	{
-		for (GraphObject go : visitedObjects)
+		for (GraphObject go : visitedGlobal)
 		{
 			if (distanceSatisfies(go))
 			{
@@ -218,30 +309,45 @@ public class GraphOfInterets
 	{
 		if (directed)
 		{
-			if (!fwdLabel.containsKey(go) || !bkwLabel.containsKey(go)) return false;
-
-			for (Integer i : fwdLabel.get(go).keySet())
-			{
-				for (Integer j : bkwLabel.get(go).keySet())
-				{
-					if (i + j <= limit)
-					{
-						if (setsSatisfy(fwdLabel.get(go).get(i), bkwLabel.get(go).get(j)))
-							return true;
-					}
-				}
-			}
+			return this.distanceSatisfies(go, fwdLabel, bkwLabel);
 		}
 		else
 		{
-			if (!labelMap.containsKey(go)) return false;
+			return this.distanceSatisfies(go, labelMap, labelMap);
 
-			for (Integer i : labelMap.get(go).keySet())
+			// just to remember old
+
+//			if (!labelMap.containsKey(go)) return false;
+//
+//			for (Integer i : labelMap.get(go).keySet())
+//			{
+//				if (i <= limit && labelMap.get(go).get(i).size() > 1) return true;
+//			}
+//			return false;
+		}
+	}
+
+	private boolean distanceSatisfies(GraphObject go,
+		Map<GraphObject, Map<Integer, Set<Node>>> fwdLabel,
+		Map<GraphObject, Map<Integer, Set<Node>>> bkwLabel)
+	{
+		if (!fwdLabel.containsKey(go) || !bkwLabel.containsKey(go)) return false;
+
+		for (Integer i : fwdLabel.get(go).keySet())
+		{
+			for (Integer j : bkwLabel.get(go).keySet())
 			{
-				if (i <= limit && labelMap.get(go).get(i).size() > 1) return true;
+				int dist = i + j;
+
+				if (!directed && go instanceof Edge) dist++;
+
+				if (dist <= limit)
+				{
+					if (setsSatisfy(fwdLabel.get(go).get(i), bkwLabel.get(go).get(j), dist))
+						return true;
+				}
 			}
 		}
-
 		return false;
 	}
 
@@ -258,7 +364,7 @@ public class GraphOfInterets
 
 	private void prune(Node node)
 	{
-		if (goi.contains(node) && !seed.contains(node))
+		if (goi.contains(node) && !(sourceSeed.contains(node) || targetSeed.contains(node)))
 		{
 			if (getNeighborsInResult(node).size() <= 1)
 			{
@@ -306,7 +412,7 @@ public class GraphOfInterets
 
 	private void clearLabels()
 	{
-		for (GraphObject go : visitedObjects)
+		for (GraphObject go : visitedStep)
 		{
 			if (directed)
 			{
@@ -318,6 +424,7 @@ public class GraphOfInterets
 				go.removeLabel(DIST);
 			}
 		}
+		visitedStep.clear();
 	}
 
 	private boolean checkEdgeSanity()
@@ -343,12 +450,13 @@ public class GraphOfInterets
 	private void setLabel(GraphObject go, String label, Integer value)
 	{
 		go.putLabel(label, value);
-		visitedObjects.add(go);
+		visitedStep.add(go);
+		visitedGlobal.add(go);
 	}
 
 	private void recordDistances(Node seed)
 	{
-		for (GraphObject go : visitedObjects)
+		for (GraphObject go : visitedGlobal)
 		{
 			if (directed)
 			{
@@ -389,13 +497,129 @@ public class GraphOfInterets
 		}
 	}
 
-	private boolean setsSatisfy(Set<Node> set1, Set<Node> set2)
+	private boolean setsSatisfy(Set<Node> set1, Set<Node> set2, int length)
 	{
 		assert !set1.isEmpty();
 		assert !set2.isEmpty();
 
-		return set1.size() > 1 || set2.size() > 1 ||
-			!set1.containsAll(set2) || !set2.containsAll(set1);
+		if (useShortestPlusK)
+		{
+			for (Node source : set1)
+			{
+				for (Node target : set2)
+				{
+					if (ignoreSelfLoops && source.equals(target)) continue;
+					if (!sourceSeed.contains(source) || !targetSeed.contains(target)) continue;
+
+					if ((considerAllPairs && shortestPairLengths.containsKey(source) &&
+						shortestPairLengths.get(source).containsKey(target)) ||
+						(!considerAllPairs && shortestSingleLengths.containsKey(source) &&
+						shortestSingleLengths.containsKey(target)))
+					{
+						// decide limit
+						int limit;
+
+						if (considerAllPairs)
+						{
+							limit = shortestPairLengths.get(source).get(target);
+							if (shortestAnyDir && shortestPairLengths.containsKey(target) &&
+								shortestPairLengths.get(target).containsKey(source))
+							{
+								limit = Math.min(limit, shortestPairLengths.get(target).get(source));
+							}
+						}
+						else
+						{
+							limit = Math.max(shortestSingleLengths.get(source),
+								shortestSingleLengths.get(target));
+						}
+
+						limit = Math.min(limit + k, this.limit);
+
+						if (limit >= length) return true;
+					}
+				}
+			}
+			return false;
+		}
+		else
+		{
+			for (Node source : set1)
+			{
+				for (Node target : set2)
+				{
+					if (ignoreSelfLoops && source.equals(target)) continue;
+					if (sourceSeed.contains(source) && targetSeed.contains(target)) return true;
+				}
+			}
+			return false;
+		}
+	}
+
+	private void findShortestPaths()
+	{
+		if (directed) this.findShortestPaths(fwdLabel, bkwLabel);
+		else this.findShortestPaths(labelMap, labelMap);
+	}
+
+	private void findShortestPaths(Map<GraphObject, Map<Integer, Set<Node>>> fwdLabel,
+		Map<GraphObject, Map<Integer, Set<Node>>> bkwLabel)
+	{
+		if (considerAllPairs) shortestPairLengths = new HashMap<Node, Map<Node, Integer>>();
+		else shortestSingleLengths = new HashMap<Node, Integer>();
+
+		for (GraphObject go : fwdLabel.keySet())
+		{
+			if (go instanceof Edge) continue;
+
+			Map<Integer, Set<Node>> fwMap = fwdLabel.get(go);
+			Map<Integer, Set<Node>> bwMap = bkwLabel.get(go);
+
+			if (fwMap == null || bwMap == null) continue;
+
+			for (Integer d1 : fwMap.keySet())
+			{
+				for (Node source : fwMap.get(d1))
+				{
+					for (Integer d2 : bwMap.keySet())
+					{
+						if (d1 + d2 > limit) continue;
+
+						for (Node target : bwMap.get(d2))
+						{
+							if (ignoreSelfLoops && source.equals(target)) continue;
+
+							if (considerAllPairs)
+							{
+								if (!shortestPairLengths.containsKey(source))
+								{
+									shortestPairLengths.put(source, new HashMap<Node, Integer>());
+								}
+
+								if (!shortestPairLengths.get(source).containsKey(target) ||
+									shortestPairLengths.get(source).get(target) > d1 + d2)
+								{
+									shortestPairLengths.get(source).put(target, d1 + d2);
+								}
+							}
+							else
+							{
+								if (!shortestSingleLengths.containsKey(source) ||
+									shortestSingleLengths.get(source) > d1 + d2)
+								{
+									shortestSingleLengths.put(source, d1 + d2);
+								}
+								if (!shortestSingleLengths.containsKey(target) ||
+									shortestSingleLengths.get(target) > d1 + d2)
+								{
+									shortestSingleLengths.put(target, d1 + d2);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public static final String DIST = "DIST";

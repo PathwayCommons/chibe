@@ -2,13 +2,13 @@ package org.gvt.action;
 
 import org.apache.commons.io.IOUtils;
 import org.biopax.paxtools.pattern.miner.SIFEnum;
-import org.biopax.paxtools.pattern.miner.SIFType;
+import org.cbio.causality.analysis.Graph;
 import org.cbio.causality.data.portal.BroadAccessor;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.cbio.causality.data.portal.CancerStudy;
 import org.cbio.causality.data.portal.GeneticProfile;
 import org.cbio.causality.model.AlterationPack;
-import org.cbio.causality.util.Download;
+import org.cbio.causality.network.PathwayCommons;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.ChisioMain;
@@ -18,14 +18,11 @@ import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.util.Conf;
-import org.gvt.util.SIFReader;
 import org.patika.mada.algorithm.AlgoRunner;
 import org.patika.mada.graph.Edge;
-import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -73,8 +70,6 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 		{
 			if (study == null)
 			{
-
-
 				ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 500,
 					"Available studies", "Please select a study",
 					prepareStudyList(BroadAccessor.getStudyCodes()), null, false, true, null);
@@ -85,7 +80,8 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 
 			if (study == null) return;
 
-			Set<String> genes = BroadAccessor.getMutsigGenes(study, 0.1);
+			Set<String> genes = BroadAccessor.getMutsigGenes(study, 0.05);
+			genes.addAll(BroadAccessor.getExpressionVerifiedGistic(study, 0.05));
 
 			if (genes.isEmpty())
 			{
@@ -94,18 +90,15 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 				return;
 			}
 
-			BasicSIFGraph pcGraph = QueryPCAction.getPCGraph(Arrays.asList(
-				SIFEnum.CONTROLS_STATE_CHANGE_OF, SIFEnum.CONTROLS_EXPRESSION_OF,
-				SIFEnum.CONTROLS_DEGRADATION_OF));
+			Graph graph = PathwayCommons.getGraph(
+				SIFEnum.CONTROLS_STATE_CHANGE_OF,
+				SIFEnum.CONTROLS_EXPRESSION_OF);
+
+			genes.addAll(graph.getEnrichedGenes(genes, null, 0.05));
+
+			BasicSIFGraph pcGraph = new BasicSIFGraph(graph);
 
 			Set<Node> seed = QueryPCAction.getSeed(pcGraph, genes);
-
-			Set<String> gisticGenes = BroadAccessor.getGisticGenes(study, 0.01);
-
-			gisticGenes = getNeighborsOfFirstAlsoInTheSecondSet(genes, gisticGenes, seed);
-			keepOverValue(study, gisticGenes, genes, 0.05);
-			genes.addAll(gisticGenes);
-			seed = QueryPCAction.getSeed(pcGraph, genes);
 
 			Set<String> caseGenes = null;
 			Set<String> caseOnly = null;
@@ -130,7 +123,7 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 			}
 
 			Collection<GraphObject> graphObjects =
-				AlgoRunner.searchGraphOfInterest(pcGraph, seed, 1, true);
+				AlgoRunner.searchPathsBetweenSIF(seed, 1, true, -1, true);
 
 			BasicSIFGraph goi = (BasicSIFGraph) pcGraph.excise(graphObjects, true);
 			goi.setName(study);

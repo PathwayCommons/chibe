@@ -21,6 +21,8 @@ public class BasicSIFEdge extends BioPAXEdge
 
 	protected Map<GraphObject, BasicSIFEdge> substitutionMap;
 
+	protected String key;
+
 	public BasicSIFEdge(NodeModel source, NodeModel target, String tag, String mediators)
 	{
 		super(source, target);
@@ -46,6 +48,8 @@ public class BasicSIFEdge extends BioPAXEdge
 		{
 			Collections.addAll(this.mediators, mediators.split(" "));
 		}
+
+		setKey(source.getText() + " " + tag + " " + target.getText());
 	}
 
 	public BasicSIFEdge(BioPAXEdge excised, Map<NodeModel, NodeModel> map)
@@ -108,6 +112,16 @@ public class BasicSIFEdge extends BioPAXEdge
 
 		substitutionMap.put(node, edge);
 		mediators.addAll(edge.getMediators());
+	}
+
+	public String getKey()
+	{
+		return key;
+	}
+
+	public void setKey(String key)
+	{
+		this.key = key;
 	}
 
 	public List<String[]> getInspectable()

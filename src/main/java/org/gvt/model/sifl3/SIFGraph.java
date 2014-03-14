@@ -56,8 +56,8 @@ public class SIFGraph extends BioPAXGraph
 		{
             if(simpleInt.type != null)
             {
-                EntityHolder source = new EntityHolder(simpleInt.source.iterator().next());
-                EntityHolder target = new EntityHolder(simpleInt.target.iterator().next());
+                EntityHolder source = new EntityHolder(simpleInt.sourceERs.iterator().next());
+                EntityHolder target = new EntityHolder(simpleInt.targetERs.iterator().next());
 
                 if (!map.containsKey(source))
                 {

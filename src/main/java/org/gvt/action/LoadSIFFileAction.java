@@ -99,61 +99,70 @@ public class LoadSIFFileAction extends Action
 
 	public void run()
 	{
-//		if (saveChangesBeforeDiscard(main))
-		if (true)
+		if (filename == null)
 		{
+			filename = openFileChooser();
+
 			if (filename == null)
 			{
-				filename = openFileChooser();
-
-				if (filename == null)
-				{
-					return;
-				}
+				return;
 			}
+		}
 
-			// reset highlight
-			if (main.getViewer() != null)
+		// reset highlight
+		if (main.getViewer() != null)
+		{
+			main.getHighlightLayer().removeAll();
+			main.getHighlightLayer().highlighted.clear();
+		}
+
+		File file = new File(filename);
+
+		CompoundModel root;
+
+		if (file.getName().endsWith(".cus"))
+		{
+			CustomReader reader = new CustomReader();
+			root = reader.readFile(file);
+		}
+		else
+		{
+			SIFReader reader = new SIFReader();
+			root = reader.readXMLFile(file);
+		}
+
+		if (root != null)
+		{
+			main.createNewTab(root);
+
+			if (runLayout)
 			{
-				main.getHighlightLayer().removeAll();
-				main.getHighlightLayer().highlighted.clear();
-			}
-
-			File file = new File(filename);
-
-			CompoundModel root;
-
-			if (file.getName().endsWith(".cus"))
-			{
-				CustomReader reader = new CustomReader();
-				root = reader.readFile(file);
+				new CoSELayoutAction(main).run();
 			}
 			else
 			{
-				SIFReader reader = new SIFReader();
-				root = reader.readXMLFile(file);
+				new ZoomAction(main, 0, null).run();
 			}
 
-			if (root != null)
+			main.setOwlFileName(filename);
+
+			if (filename.endsWith(".sif"))
 			{
-				main.createNewTab(root);
+				String series = filename.substring(0, filename.lastIndexOf(".")) +
+					".formatseries";
 
-				if (runLayout)
+				if (new File(series).exists())
 				{
-					new CoSELayoutAction(main).run();
+					ShowFormatSeriesAction action = new ShowFormatSeriesAction(main);
+					action.setFormatFilename(series);
+					action.run();
 				}
-				else
-				{
-					new ZoomAction(main, 0, null).run();
-				}
-
-				main.setOwlFileName(filename);
 			}
-
-			// reset filename for future loadings.
-			// otherwise always opens the same file
-			filename = null;
 		}
+
+		// reset filename for future loadings.
+		// otherwise always opens the same file
+		filename = null;
 	}
 
 	/**

@@ -60,7 +60,9 @@ public class SaveAsImageAction extends Action
 		/* UK: the default name for the saved image is set to the name of the graph/pathway instead of the name of the BioPAX file.
 		 * This makes sense as there might be (and often are) multiple pathways/networks in one owl file.
 		 */
-		String tmpfilename = main.getPathwayGraph().getName();
+		String tmpfilename = main.getPathwayGraph() != null ?
+			main.getPathwayGraph().getName() :
+			main.getSelectedTab().getText();
 //		int ind = tmpfilename.lastIndexOf('.');
 //		tmpfilename = tmpfilename.substring(0, ind);
 

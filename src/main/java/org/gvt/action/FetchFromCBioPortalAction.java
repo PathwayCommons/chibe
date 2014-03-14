@@ -195,6 +195,8 @@ public class FetchFromCBioPortalAction extends Action
 
 			if (alterations == null) continue;
 
+			if (alterations.get(Alteration.ANY) == null) alterations.complete(Alteration.ANY);
+
             try {
                 Row row = expFactory.createRow();
                 Reference ref = expFactory.createReference();

@@ -1,6 +1,5 @@
 package org.gvt.action;
 
-import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
 import cpath.service.GraphType;
 import org.biopax.paxtools.model.Model;
@@ -62,9 +61,9 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	@Override
 	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
 	{
-		return AlgoRunner.searchGraphOfInterest(graph,
-			getSeed(graph, options.getConvertedSourceList()), options.getLengthLimit(),
-			!options.undirectedSIFTypeSelected());
+		return AlgoRunner.searchPathsBetweenSIF(getSeed(graph, options.getConvertedSourceList()),
+			options.getLengthLimit(), !options.undirectedSIFTypeSelected(),
+			options.getLimitType() ? -1 : options.getShortestPlusKLimit(), options.isStrict());
 	}
 
 	@Override

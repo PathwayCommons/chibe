@@ -59,7 +59,7 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
 	{
 		return AlgoRunner.searchCommonStream(getSeed(graph, options.getConvertedSourceList()),
-			options.isDownstream(), options.getLengthLimit());
+			options.isDownstream(), options.getLengthLimit(), !options.undirectedSIFTypeSelected());
 	}
 
 	@Override

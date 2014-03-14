@@ -81,6 +81,7 @@ public class TopMenuBar
 		sifMenu.add(new SaveToSIFFileAction(chisio));
 		sifMenu.add(new Separator());
 		sifMenu.add(new GOIofSIFAction(chisio));
+		sifMenu.add(new FindEnrichedInPCSifAction(chisio));
 		sifMenu.add(new Separator());
 		sifMenu.add(new LoadTCGASpecificSIFAction(chisio));
 
@@ -138,6 +139,15 @@ public class TopMenuBar
 		layoutMenu.add(new SpringLayoutAction(chisio));
 		layoutMenu.add(new Separator());
 		layoutMenu.add(new LayoutInspectorAction(chisio));
+		layoutMenu.add(new Separator());
+		MenuManager alignMenu = new MenuManager("&Align");
+		layoutMenu.add(alignMenu);
+		alignMenu.add(new AlignSelectedAction(chisio, AlignSelectedAction.Direction.TOP));
+		alignMenu.add(new AlignSelectedAction(chisio, AlignSelectedAction.Direction.BOTTOM));
+		alignMenu.add(new AlignSelectedAction(chisio, AlignSelectedAction.Direction.LEFT));
+		alignMenu.add(new AlignSelectedAction(chisio, AlignSelectedAction.Direction.RIGHT));
+		alignMenu.add(new AlignSelectedAction(chisio, AlignSelectedAction.Direction.X_CENTER));
+		alignMenu.add(new AlignSelectedAction(chisio, AlignSelectedAction.Direction.Y_CENTER));
 
 		// DATA
 		menuBar.add(dataMenu);

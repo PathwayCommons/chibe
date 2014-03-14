@@ -40,6 +40,8 @@ public class NodeFigure extends Figure
 	int multimer;
 	boolean drawCloneMarker;
 
+	int borderWidth;
+
 	public PointList triangle = new PointList(3);
 
 	/**
@@ -58,6 +60,7 @@ public class NodeFigure extends Figure
 		Color textColor,
 		Color color,
 		Color borderColor,
+		int borderWidth,
 		String shape,
 		Color highlightColor,
 		boolean highlight,
@@ -76,6 +79,7 @@ public class NodeFigure extends Figure
 
 		setBackgroundColor(color);
 		setForegroundColor(borderColor);
+		this.borderWidth = borderWidth;
 		setLayoutManager(new ChsXYLayout());
 		Rectangle r = new Rectangle(absLocation.getCopy(), size.getCopy());
 		setBounds(r);
@@ -153,6 +157,11 @@ public class NodeFigure extends Figure
 	public void updateBorderColor(Color color)
 	{
 		setForegroundColor(color);
+	}
+
+	public void updateBorderWidth(int width)
+	{
+		this.borderWidth = width;
 	}
 
 	public void updateShape(String s)
@@ -261,9 +270,12 @@ public class NodeFigure extends Figure
 			Rectangle r = getParent().getBounds().getCopy();
 			setBounds(r);
 			g.fillRectangle(r);
-			r.height--;
-			r.width--;
+			r.height -= borderWidth;
+			r.width -= borderWidth;
+			int temp = g.getLineWidth();
+			g.setLineWidth(borderWidth);
 			g.drawRectangle(r);
+			g.setLineWidth(temp);
 		}
 	}
 	
@@ -298,16 +310,29 @@ public class NodeFigure extends Figure
 
 					double ratio = 0.3;
 
-					g.setClip(new Rectangle(r.x, (int) Math.round(r.y + (r.height * (1-ratio))),
-						r.width, (int) Math.round(r.height * ratio)));
+					Rectangle clip = new Rectangle(
+						r.x,
+						(int) Math.round(r.y + (r.height * (1 - ratio))),
+						r.width,
+						(int) Math.round(r.height * ratio));
+
+					g.setClip(clip);
 					g.fillRoundRectangle(r, rounding, rounding);
 					g.setBackgroundColor(old);
 					g.setClip(r);
 				}
 
-				r.height--;
-				r.width--;
+				Rectangle copy = r.getCopy();
+				copy.x -= borderWidth;
+				copy.y -= borderWidth;
+				copy.width += 2 * borderWidth;
+				copy.height += 2 * borderWidth;
+				g.setClip(copy);
+
+				int temp = g.getLineWidth();
+				g.setLineWidth(borderWidth);
 				g.drawRoundRectangle(r, rounding, rounding);
+				g.setLineWidth(temp);
 			}
 		}
 	}

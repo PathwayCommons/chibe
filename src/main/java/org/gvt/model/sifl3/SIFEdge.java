@@ -2,6 +2,7 @@ package org.gvt.model.sifl3;
 
 import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFType;
+import org.cbio.causality.signednetwork.SignedType;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.GraphObject;
 import org.gvt.model.NodeModel;
@@ -217,12 +218,12 @@ public class SIFEdge extends BioPAXEdge
 			new Color(null, 50, 100, 150), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFEnum.CONTROLS_TRANSPORT_OF,
 			new Color(null, 100, 100, 150), SOLID, NO_SIGN, false));
+		addType(new EdgeType(SIFEnum.CONTROLS_PHOSPHORYLATION_OF,
+			new Color(null, 100, 150, 100), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFEnum.CATALYSIS_PRECEDES,
 			new Color(null, 150, 50, 150), SOLID, NO_SIGN, false));
         addType(new EdgeType(SIFEnum.CONTROLS_EXPRESSION_OF,
                 new Color(null, 50, 150, 50), DASHED, NO_SIGN, false));
-        addType(new EdgeType(SIFEnum.CONTROLS_DEGRADATION_OF,
-                new Color(null, 150, 50, 50), SOLID, NO_SIGN, false));
         addType(new EdgeType(SIFEnum.CONSUMPTION_CONTROLLED_BY,
                 new Color(null, 100, 120, 80), SOLID, NO_SIGN, false));
         addType(new EdgeType(SIFEnum.CONTROLS_PRODUCTION_OF,
@@ -236,6 +237,14 @@ public class SIFEdge extends BioPAXEdge
         addType(new EdgeType(SIFEnum.USED_TO_PRODUCE,
                 new Color(null, 70, 80, 120), SOLID, NO_SIGN, false));
 
+        addType(new EdgeType(SignedType.PHOSPHORYLATES,
+                new Color(null, 0, 100, 0), SOLID, POSITIVE, false));
+        addType(new EdgeType(SignedType.DEPHOSPHORYLATES,
+                new Color(null, 100, 0, 0), SOLID, NEGATIVE, false));
+        addType(new EdgeType(SignedType.UPREGULATES_EXPRESSION,
+                new Color(null, 0, 80, 20), DASHED, POSITIVE, false));
+        addType(new EdgeType(SignedType.DOWNREGULATES_EXPRESSION,
+                new Color(null, 80, 20, 0), DASHED, NEGATIVE, false));
 
         // Non-Paxtools SIF edges
 

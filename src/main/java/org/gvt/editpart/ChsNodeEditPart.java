@@ -50,6 +50,7 @@ public class ChsNodeEditPart extends EditPartWithListener
 			model.getTextColor(),
 			model.getColor(),
 			model.getBorderColor(),
+			model.getBorderWidth(),
 			model.getShape(),
 			model.getHighlightColor(),
 			model.isHighlight(),
@@ -155,6 +156,10 @@ public class ChsNodeEditPart extends EditPartWithListener
 		else if (evt.getPropertyName().equals(NodeModel.P_BORDERCOLOR))
 		{
 			((NodeFigure)figure).updateBorderColor((Color) evt.getNewValue());
+		}
+		else if (evt.getPropertyName().equals(NodeModel.P_BORDERWIDTH))
+		{
+			((NodeFigure)figure).updateBorderWidth((Integer) evt.getNewValue());
 		}
 		else if (evt.getPropertyName().equals(NodeModel.P_SHAPE))
 		{

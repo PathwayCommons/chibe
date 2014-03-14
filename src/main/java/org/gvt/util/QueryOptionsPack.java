@@ -89,8 +89,8 @@ public class QueryOptionsPack implements Serializable
 		this.downstream = true;
 		this.upstream = false;
 		this.shortestPlusKLimit = 0;
-		this.limitType = true;
-		this.strict = false;
+		this.limitType = false;
+		this.strict = true;
 	}
 
 	/**

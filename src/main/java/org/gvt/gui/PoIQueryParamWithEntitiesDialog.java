@@ -105,52 +105,8 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         //Group for currentViewButton and newViewButton
         createResultViewGroup(2, 2);
 
-        //Group for lengthLimitButton and shortestPlusKButton
-
-		Group limitTypeGroup = new Group(shell, SWT.NONE);
-        limitTypeGroup.setText("Stop distance");
-        gridData = new GridData(GridData.FILL, GridData.BEGINNING, false, false);
-		gridData.horizontalSpan = 2;
-		gridData.verticalSpan = 2;
-        limitTypeGroup.setLayoutData(gridData);
-		limitTypeGroup.setLayout(new GridLayout(2, true));
-
-        //Length limit radio button
-
-        lengthLimitButton = new Button(limitTypeGroup, SWT.RADIO);
-        lengthLimitButton.setText("Length limit");
-        gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
-        lengthLimitButton.setLayoutData(gridData);
-        
-        //Length limit text
-
-        lengthLimit = new Text(limitTypeGroup, SWT.BORDER);
-        lengthLimit.addKeyListener(keyAdapter);
-        gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
-        lengthLimit.setLayoutData(gridData);
-
-        //Shortest+k radio button
-
-        shortestPlusKButton = new Button(limitTypeGroup, SWT.RADIO);
-        shortestPlusKButton.setText("Shortest+k");
-        gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
-        shortestPlusKButton.setLayoutData(gridData);
-
-        //Shortest+k text
-
-        shortestPlusK = new Text(limitTypeGroup, SWT.BORDER);
-        shortestPlusK.addKeyListener(keyAdapter);
-        gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
-        shortestPlusK.setLayoutData(gridData);
-
-        //Strict check box
-
-        strictButton = new Button(shell, SWT.CHECK | SWT.WRAP);
-        strictButton.setText("Ignore source-source/target-target paths");
-        gridData = new GridData(GridData.CENTER, GridData.CENTER, false, false);
-        gridData.verticalSpan = 2;
-        gridData.horizontalSpan = 4;
-        strictButton.setLayoutData(gridData);
+		// group for limit, shortest+k option and strict option
+		createLimitTypesGroup();
 
 		// Group for execute, cancel and default buttons
 		createExeCancDefGroup(opt, 8);
@@ -158,8 +114,6 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 		// Disable features that are not currently supported
 		if (allEntities == null)
 		{
-			shortestPlusKButton.setEnabled(false);
-			strictButton.setEnabled(false);
 			currentViewButton.setEnabled(false);
 		}
 
@@ -169,4 +123,5 @@ public class PoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
 		//set initial values from opt OptionsPack
 		setInitialValues(opt);
     }
+
 }

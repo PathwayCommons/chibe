@@ -692,6 +692,8 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 		for (Control con : inter.getControlledOf())
 		{
+			if (!prov.needsToBeDisplayed(con.getRDFId())) continue;
+
 			if (ChbControl.controlNeedsToBeANode(con, prov))
 			{
 				ChbControl ctrl = (ChbControl) prov.getNode(con.getRDFId(), root);
