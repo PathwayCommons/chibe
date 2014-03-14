@@ -45,16 +45,21 @@ public class AlgoRunner
 
 	/**
 	 * Gets a merge graph of all paths between seed nodes shorter than a limit.
-	 * @param graph
 	 * @param seed
 	 * @param limit
 	 * @param directed
 	 * @return
 	 */
-	public static Collection<GraphObject> searchGraphOfInterest(Graph graph, Set<Node> seed,
-		int limit, boolean directed)
+	public static Collection<GraphObject> searchPathsBetweenSIF(Set<Node> seed, int limit,
+		boolean directed, int k, boolean ignoreLoops)
 	{
-		GraphOfInterets goi = new GraphOfInterets(seed, directed, graph, limit);
+		PathsBetweenSIF goi = new PathsBetweenSIF(seed, directed, limit);
+		if (k >= 0)
+		{
+			goi.setUseShortestPlusK(true);
+			goi.setK(k);
+		}
+		goi.setIgnoreSelfLoops(ignoreLoops);
 		return goi.run();
 	}
 
@@ -66,18 +71,24 @@ public class AlgoRunner
 	}
 
 	public static Collection<GraphObject> searchPathsFromTo(Set<Node> source, Set<Node> target,
-		int limit)
+		int limit, boolean directedGraph, int k, boolean ignoreLoops)
 	{
-		LocalPoIQuery poi = new LocalPoIQuery(source, target, LocalPoIQuery.NORMAL_LIMIT, limit,
-			true);
-		return poi.run();
+		PathsBetweenSIF goi = new PathsBetweenSIF(source, target, directedGraph, limit);
+		if (k >= 0)
+		{
+			goi.setUseShortestPlusK(true);
+			goi.setK(k);
+		}
+		goi.setIgnoreSelfLoops(ignoreLoops);
+		return goi.run();
 	}
 
 	public static Collection<GraphObject> searchCommonStream(Set<Node> source, boolean downstream,
-		int limit)
+		int limit, boolean directedGraph)
 	{
+		// todo: the underected graph case is not functional
 		LocalCommonStreamQuery csq = new LocalCommonStreamQuery(source, downstream, limit);
 		Set<Node> common = csq.run();
-		return searchPathsFromTo(source, common, limit);
+		return searchPathsFromTo(source, common, limit, directedGraph, -1, true);
 	}
 }

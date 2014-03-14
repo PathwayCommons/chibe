@@ -117,11 +117,11 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 		//Length limit radio button
 
-		lengthLimitButton = new Button(limitTypeGroup, SWT.RADIO);
-		lengthLimitButton.setText("Length limit");
+		lengthLimitLabel = new Label(limitTypeGroup, SWT.NONE);
+		lengthLimitLabel.setText("Length limit");
 		gridData = new GridData(GridData.BEGINNING, GridData.CENTER,
 			false, false);
-		lengthLimitButton.setLayoutData(gridData);
+		lengthLimitLabel.setLayoutData(gridData);
 
 		//Length limit text
 
@@ -132,10 +132,9 @@ public class CompartmentQueryParamWithEntitiesDialog extends AbstractQueryParamD
 
 		//Shortest+k radio button
 
-		shortestPlusKButton = new Button(limitTypeGroup, SWT.RADIO);
+		shortestPlusKButton = new Button(limitTypeGroup, SWT.CHECK);
 		shortestPlusKButton.setText("Shortest+k");
-		gridData = new GridData(GridData.BEGINNING, GridData.CENTER,
-			false, false);
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
 		shortestPlusKButton.setLayoutData(gridData);
 
 		//Shortest+k text

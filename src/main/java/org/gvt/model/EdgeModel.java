@@ -9,6 +9,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.SWT;
 
+import org.gvt.util.Conf;
 import org.ivis.layout.LEdge;
 import org.ivis.layout.LGraphObject;
 import org.ivis.layout.LNode;
@@ -56,6 +57,8 @@ public class EdgeModel extends GraphObject implements Updatable
 
 	public void update(LGraphObject lGraphObj)
 	{
+		if (!Conf.getBoolean(Conf.SPREAD_DOUBLE_EDGES)) return;
+
 		// Since this is the update method of a v-level edge, it is assumed
 		// that the given LGraphObject is an instance of LEdge. So, cast
 		// operation is performed without type checking.

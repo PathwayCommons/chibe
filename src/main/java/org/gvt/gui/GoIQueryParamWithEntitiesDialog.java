@@ -59,7 +59,7 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         //layout of shell contains 4 columns
 
         GridLayout gridLayout = new GridLayout();
-        gridLayout.numColumns = 3;
+        gridLayout.numColumns = 5;
         shell.setLayout(gridLayout);
 
         //Entity list
@@ -87,9 +87,10 @@ public class GoIQueryParamWithEntitiesDialog extends AbstractQueryParamDialog
         createResultViewGroup(2, 2);
 
         //Length Limit Label and Text
-        createLengthLimit(1, 1, 1, 1, 50);
+//        createLengthLimit(1, 1, 1, 1, 50);
+        createLimitTypesGroup();
 
-		createExeCancDefGroup(opt, 4);
+		createExeCancDefGroup(opt, 8);
 
 		// Disable features that are not currently supported
 		if (allEntities == null)

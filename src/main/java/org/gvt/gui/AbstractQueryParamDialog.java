@@ -67,7 +67,6 @@ public abstract class AbstractQueryParamDialog extends Dialog
 	protected Label lengthLimitLabel;
 	protected Text lengthLimit;
 
-	protected Button lengthLimitButton;
     protected Button shortestPlusKButton;
     protected Text shortestPlusK;
 
@@ -432,6 +431,63 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		}
 	}
 
+	protected void createLimitTypesGroup()
+	{
+		GridData gridData;//Group for lengthLimitButton and shortestPlusKButton
+
+		Group limitTypeGroup = new Group(shell, SWT.NONE);
+		limitTypeGroup.setText("Stop distance");
+		gridData = new GridData(GridData.FILL, GridData.BEGINNING, false, false);
+		gridData.horizontalSpan = 2;
+		gridData.verticalSpan = 2;
+		limitTypeGroup.setLayoutData(gridData);
+		limitTypeGroup.setLayout(new GridLayout(2, true));
+
+		//Length limit radio button
+
+		lengthLimitLabel = new Label(limitTypeGroup, SWT.NONE);
+		lengthLimitLabel.setText("Length limit");
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		lengthLimitLabel.setLayoutData(gridData);
+
+		//Length limit text
+
+		lengthLimit = new Text(limitTypeGroup, SWT.BORDER);
+		lengthLimit.addKeyListener(keyAdapter);
+		gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
+		lengthLimit.setLayoutData(gridData);
+
+		//Shortest+k radio button
+
+		shortestPlusKButton = new Button(limitTypeGroup, SWT.CHECK);
+		shortestPlusKButton.setText("Shortest+k");
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false);
+		shortestPlusKButton.setLayoutData(gridData);
+		shortestPlusKButton.addSelectionListener(new SelectionAdapter()
+		{
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				shortestPlusK.setEnabled(shortestPlusKButton.getSelection());
+			}
+		});
+
+		//Shortest+k text
+
+		shortestPlusK = new Text(limitTypeGroup, SWT.BORDER);
+		shortestPlusK.addKeyListener(keyAdapter);
+		gridData = new GridData(GridData.FILL, GridData.CENTER, false, false);
+		shortestPlusK.setLayoutData(gridData);
+
+		//Strict check box
+
+		strictButton = new Button(shell, SWT.CHECK | SWT.WRAP);
+		strictButton.setText("Ignore source-source/target-target paths");
+		gridData = new GridData(GridData.CENTER, GridData.CENTER, false, false);
+		gridData.verticalSpan = 2;
+		gridData.horizontalSpan = 4;
+		strictButton.setLayoutData(gridData);
+	}
+
 	/**
 	 * Method to set default values of abstract dialog
 	 */
@@ -466,7 +522,6 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		if (shortestPlusK != null)
 		{
 			shortestPlusK.setText(String.valueOf(DEFAULT_SHORTEST_PLUS_K));
-			lengthLimitButton.setSelection(true);
 			shortestPlusKButton.setSelection(false);
 			strictButton.setSelection(false);
 		}
@@ -540,18 +595,9 @@ public abstract class AbstractQueryParamDialog extends Dialog
 			shortestPlusK.setText(String.valueOf(opt.getShortestPlusKLimit()));
 		}
 
-        //Length limit or shortest+k
-
-		if (lengthLimitButton != null)
+		if (shortestPlusKButton != null)
 		{
-			if (opt.getLimitType())
-			{
-				lengthLimitButton.setSelection(true);
-			}
-			else
-			{
-				shortestPlusKButton.setSelection(true);
-			}
+			shortestPlusKButton.setSelection(!opt.getLimitType());
 		}
 	}
 
@@ -597,29 +643,21 @@ public abstract class AbstractQueryParamDialog extends Dialog
 			}
 		}
 
-		if (lengthLimitButton != null)
+		//store stop distance according to user's selection
+		if (shortestPlusKButton != null)
 		{
-			//store stop distance according to user's selection
-			if (lengthLimitButton.getSelection())
-			{
-				opt.setLengthLimit(Integer.parseInt(lengthLimit.getText()));
-				opt.setLimitType(true);
-			}
-			else if (shortestPlusKButton.getSelection())
-			{
-				opt.setShortestPlusKLimit(Integer.parseInt(shortestPlusK.getText()));
-				opt.setLimitType(false);
-			}
+			opt.setLimitType(!shortestPlusKButton.getSelection());
+			opt.setShortestPlusKLimit(Integer.parseInt(shortestPlusK.getText()));
+		}
 
-			//if strict is selected.
-			if (strictButton.getSelection())
-			{
-				opt.setStrict(true);
-			}
-			else
-			{
-				opt.setStrict(false);
-			}
+		//if strict is selected.
+		if (strictButton != null && strictButton.getSelection())
+		{
+			opt.setStrict(true);
+		}
+		else
+		{
+			opt.setStrict(false);
 		}
 
 		if (sourceST != null) opt.setSourceList(sourceST.getSymbols());

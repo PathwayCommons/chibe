@@ -26,6 +26,7 @@ public class CompoundFigure extends NodeFigure
 		Color textColor,
 		Color color,
 		Color borderColor,
+		int borderWidth,
 		Color highlightColor,
 		boolean highlight)
 	{
@@ -37,6 +38,7 @@ public class CompoundFigure extends NodeFigure
 			textColor,
 			color,
 			borderColor,
+			borderWidth,
 			"Rectangle",
 			highlightColor,
 			highlight, 1);
@@ -52,7 +54,7 @@ public class CompoundFigure extends NodeFigure
 
 		add(label);
 		setBackgroundColor(ColorConstants.white);
-		LineBorder border = new LineBorder(1);
+		LineBorder border = new LineBorder(borderWidth);
 		border.setColor(getForegroundColor());
 		label.setBorder(border);
 	}

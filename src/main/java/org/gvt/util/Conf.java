@@ -38,6 +38,7 @@ public class Conf
 	public static final String DISPLAY_FRAGMENT_FEATURE = "DISPLAY_FRAGMENT_FEATURE";
 	public static final String HIDE_COMPARTMENT_EDGE_THRESHOLD = "HIDE_COMPARTMENT_EDGE_THRESHOLD";
 	public static final String USE_SIF_GROUPING = "USE_SIF_GROUPING";
+	public static final String SPREAD_DOUBLE_EDGES = "SPREAD_DOUBLE_EDGES";
 	public static final String DEFAULT = "DEFAULT";
 
 	public static final String CONF_FILENAME = "chibe-conf.txt";
@@ -102,6 +103,7 @@ public class Conf
 		s += DISPLAY_FRAGMENT_FEATURE + " = false\n";
 		s += HIDE_COMPARTMENT_EDGE_THRESHOLD + " = 20\n";
 		s += USE_SIF_GROUPING + " = true\n";
+		s += SPREAD_DOUBLE_EDGES + " = true\n";
 		return s.trim();
 	}
 

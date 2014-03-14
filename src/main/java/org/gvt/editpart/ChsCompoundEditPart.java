@@ -36,6 +36,7 @@ public class ChsCompoundEditPart extends ChsNodeEditPart
 			model.getTextColor(),
 			model.getColor(),
 			model.getBorderColor(),
+			model.getBorderWidth(),
 			model.getHighlightColor(),
 			model.isHighlight());
 

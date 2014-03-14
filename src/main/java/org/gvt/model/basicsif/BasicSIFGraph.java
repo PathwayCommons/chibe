@@ -2,6 +2,10 @@ package org.gvt.model.basicsif;
 
 import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFType;
+import org.cbio.causality.analysis.Graph;
+import org.cbio.causality.analysis.GraphList;
+import org.cbio.causality.signednetwork.SignedType;
+import org.eclipse.swt.graphics.Color;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.util.Conf;
@@ -26,6 +30,55 @@ public class BasicSIFGraph extends BioPAXL3Graph
 		this.setGraphType(BASIC_SIF);
 	}
 
+	public BasicSIFGraph(Graph graph)
+	{
+		this();
+
+		Map<String, BasicSIFNode> nodeMap = new HashMap<String, BasicSIFNode>();
+
+		if (graph instanceof GraphList)
+		{
+			for (Graph g : ((GraphList) graph).getGraphs())
+			{
+				loadFromGraph(g, nodeMap);
+			}
+		}
+		else
+		{
+			loadFromGraph(graph, nodeMap);
+		}
+	}
+
+	private void loadFromGraph(Graph graph, Map<String, BasicSIFNode> nodeMap)
+	{
+		boolean directed = graph.isDirected();
+		Set<String> memory = new HashSet<String>();
+
+		for (String gene : graph.getSymbols())
+		{
+			if (!nodeMap.containsKey(gene))
+			{
+				nodeMap.put(gene, new BasicSIFNode(this, gene, gene));
+			}
+			for (String neigh : directed ? graph.getDownstream(gene) : graph.getNeighbors(gene))
+			{
+				if (!nodeMap.containsKey(neigh))
+				{
+					nodeMap.put(neigh, new BasicSIFNode(this, neigh, neigh));
+				}
+
+				String key = gene + "\t" + neigh;
+				String rev = neigh + "\t" + gene;
+
+				if (memory.contains(key) || (!directed && memory.contains(rev))) continue;
+
+				new BasicSIFEdge(nodeMap.get(gene), nodeMap.get(neigh), graph.getEdgeType(),
+					graph.getMediatorsInString(gene, neigh));
+
+				memory.add(key);
+			}
+		}
+	}
 
 	public void write(OutputStream os)
 	{
@@ -128,6 +181,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 		return graph;
 	}
 
+	//--- Section: Grouping -----------------------------------------------------------------------|
 
 	public void groupSimilarNodes()
 	{
@@ -294,5 +348,198 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			parsed.get(tok[0]).add(tok[1]);
 		}
 		return parsed;
+	}
+
+	//--- Section: Formatting ---------------------------------------------------------------------|
+
+	public void format(List<String> lines)
+	{
+		Map<String, BasicSIFEdge> edgeMap = getEdgeMap();
+		Map<String, BasicSIFNode> nodeMap = getNodeMap();
+
+		for (String line : lines)
+		{
+			String[] token = line.split("\t");
+
+			if (token.length < 2) continue;
+
+			if (token[0].equals("node"))
+			{
+				for (BasicSIFNode node : findNodes(token[1], nodeMap))
+				{
+					if (token[2].equals("color"))
+					{
+						node.setColor(stringToColor(token[3]));
+					}
+					else if (token[2].equals("bordercolor"))
+					{
+						node.setBorderColor(stringToColor(token[3]));
+					}
+					else if (token[2].equals("borderwidth"))
+					{
+						node.setBorderWidth(Integer.parseInt(token[3]));
+					}
+					else if (token[2].equals("highlight"))
+					{
+						node.setHighlight(token[3].equals("on"));
+					}
+					else if (token[2].equals("highlightcolor"))
+					{
+						node.setHighlightColor(stringToColor(token[3]));
+					}
+					else if (token[2].equals("textcolor"))
+					{
+						node.setTextColor(stringToColor(token[3]));
+					}
+					else if (token[2].equals("tooltip"))
+					{
+						node.setTooltipText((token[3]));
+					}
+				}
+			}
+			else if (token[0].equals("edge"))
+			{
+				for (BasicSIFEdge edge : findEdges(token[1], edgeMap))
+				{
+					if (token[2].equals("color"))
+					{
+						edge.setColor(stringToColor(token[3]));
+					}
+					else if (token[2].equals("width"))
+					{
+						edge.setWidth(Integer.parseInt(token[3]));
+					}
+					else if (token[2].equals("highlight"))
+					{
+						edge.setHighlight(token[3].equals("on"));
+					}
+					else if (token[2].equals("highlightcolor"))
+					{
+						edge.setHighlightColor(stringToColor(token[3]));
+					}
+				}
+			}
+		}
+	}
+
+	public List<String> getCurrentFormat()
+	{
+		List<String> lines = new ArrayList<String>();
+
+		Map<String, BasicSIFEdge> edgeMap = getEdgeMap();
+		Map<String, BasicSIFNode> nodeMap = getNodeMap();
+
+		for (BasicSIFNode node : nodeMap.values())
+		{
+			String pre = "node\t" + node.getText() + "\t";
+			lines.add(pre + "color\t" + colorToString(node.getColor()));
+			lines.add(pre + "bordercolor\t" + colorToString(node.getBorderColor()));
+			lines.add(pre + "borderwidth\t" + node.getBorderWidth());
+			lines.add(pre + "highlight\t" + node.isHighlight());
+			if (node.getHighlightColor() != null)
+				lines.add(pre + "highlightcolor\t" + colorToString(node.getHighlightColor()));
+			lines.add(pre + "textcolor\t" + colorToString(node.getTextColor()));
+			if (node.getTooltipText() != null) lines.add(pre + "tooltip\t" + node.getTooltipText());
+		}
+		Set<BasicSIFEdge> mem = new HashSet<BasicSIFEdge>();
+		for (String key : edgeMap.keySet())
+		{
+			BasicSIFEdge edge = edgeMap.get(key);
+			if (!mem.contains(edge))
+			{
+				mem.add(edge);
+				String pre = "edge\t" + key + "\t";
+				lines.add(pre + "color\t" + colorToString(edge.getColor()));
+				lines.add(pre + "width\t" + edge.getWidth());
+				lines.add(pre + "highlight\t" + edge.isHighlight());
+				if (edge.getHighlightColor() != null)
+					lines.add(pre + "highlightcolor\t" + colorToString(edge.getHighlightColor()));
+			}
+		}
+		return lines;
+	}
+
+	private Map<String, BasicSIFEdge> getEdgeMap()
+	{
+		Map<String, BasicSIFEdge> map = new HashMap<String, BasicSIFEdge>();
+
+		for (Object o : getEdges())
+		{
+			if (o instanceof BasicSIFEdge)
+			{
+				BasicSIFEdge edge = (BasicSIFEdge) o;
+
+				for (String key : getSubstitutionKeys(edge, null))
+				{
+					map.put(key, edge);
+				}
+			}
+		}
+		return map;
+	}
+
+	private Set<String> getSubstitutionKeys(BasicSIFEdge edge, Set<String> keys)
+	{
+		 if (keys == null) keys = new HashSet<String>();
+
+		if (edge.substitutionMap == null) keys.add(edge.getKey());
+		else
+		{
+			for (BasicSIFEdge e : edge.substitutionMap.values())
+			{
+				getSubstitutionKeys(e, keys);
+			}
+		}
+		return keys;
+	}
+
+	private Color stringToColor(String s)
+	{
+		String[] c = s.split(" ");
+		return new Color(null,
+			Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]));
+	}
+
+	private String colorToString(Color c)
+	{
+		return c.getRed() + " " + c.getGreen() + " " + c.getBlue();
+	}
+
+	private Map<String, BasicSIFNode> getNodeMap()
+	{
+		Map<String, BasicSIFNode> map = new HashMap<String, BasicSIFNode>();
+		for (Object o : getNodes())
+		{
+			if (o instanceof BasicSIFNode)
+			{
+				BasicSIFNode node = (BasicSIFNode) o;
+				map.put(node.getText(), node);
+			}
+		}
+		return map;
+	}
+
+	private Collection<BasicSIFNode> findNodes(String s, Map<String, BasicSIFNode> nodeMap)
+	{
+		if (s.equals("all-nodes")) return nodeMap.values();
+
+		Set<BasicSIFNode> set = new HashSet<BasicSIFNode>();
+		for (String name : s.split(";"))
+		{
+			if (nodeMap.containsKey(name)) set.add(nodeMap.get(name));
+		}
+		return set;
+	}
+
+	private Collection<BasicSIFEdge> findEdges(String s, Map<String, BasicSIFEdge> edgeMap)
+	{
+		if (s.equals("all-edges")) return edgeMap.values();
+
+		Set<BasicSIFEdge> set = new HashSet<BasicSIFEdge>();
+		for (String name : s.split(";"))
+		{
+			if (edgeMap.containsKey(name)) set.add(edgeMap.get(name));
+		}
+		return set;
 	}
 }

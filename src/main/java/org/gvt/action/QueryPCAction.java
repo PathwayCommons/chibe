@@ -10,6 +10,7 @@ import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Interaction;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.pattern.miner.SIFType;
+import org.cbio.causality.network.PathwayCommons;
 import org.cbio.causality.util.Download;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -448,41 +449,7 @@ public abstract class QueryPCAction extends Action
 
 	public static BasicSIFGraph getPCGraph(List<? extends SIFType> types)
 	{
-		SIFReader sifReader = new SIFReader(types);
-		sifReader.setUseGroups(false);
-
-		File sifFile = new File(getPCSifFileLocation());
-
-		if (!sifFile.exists())
-		{
-			downloadPCSIF(sifFile.getPath());
-		}
-
-		return (BasicSIFGraph) sifReader.readXMLFile(sifFile);
-	}
-
-	private static final String DEFAULT_PC_FILE_NAME = "PC.sif";
-
-	private static String getPCSifFileLocation()
-	{
-		String s = Conf.get(Conf.PC_SIF_FILE);
-		if (s.equals(Conf.DEFAULT))
-		{
-			return Conf.getPortalCacheDir() + DEFAULT_PC_FILE_NAME;
-		}
-		else
-		{
-			return s;
-		}
-	}
-
-	private static boolean downloadPCSIF(String saveLoc)
-	{
-		String url = Conf.get(Conf.PC_SIF_FILE_URL);
-
-		return url.endsWith(".gz") ?
-			Download.downloadAndUncompress(url, saveLoc) :
-			Download.downlaodTextFile(url, saveLoc);
+		return new BasicSIFGraph(PathwayCommons.getGraph(types.toArray(new SIFType[types.size()])));
 	}
 
 	public static Set<Node> getSeed(Graph graph, Collection<String> symbols)

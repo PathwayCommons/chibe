@@ -1,6 +1,5 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -151,7 +150,7 @@ public class GOIofSIFAction extends Action
 			}
 
 			Collection<GraphObject> graphObjects =
-				AlgoRunner.searchGraphOfInterest(graph, seed, limit, directed);
+				AlgoRunner.searchPathsBetweenSIF(seed, limit, directed, 0, true);
 
 			Set<String> rdfseed = new HashSet<String>();
 			for (Node node : seed)

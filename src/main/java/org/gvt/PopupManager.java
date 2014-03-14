@@ -62,11 +62,13 @@ public class PopupManager extends MenuManager
 
 			boolean sif = false;
 			boolean tcgasif = false;
+			boolean basicsif = false;
 			Object o = ((ChsRootEditPart) ep.getChildren().get(0)).getModel();
 			if (o instanceof BasicSIFGraph || o instanceof org.gvt.model.sifl2.SIFGraph ||
 				o instanceof org.gvt.model.sifl3.SIFGraph)
 			{
 				sif = true;
+				basicsif = o instanceof BasicSIFGraph;
 
 				tcgasif = TCGASIFAction.okToRun(main, false);
 			}
@@ -77,6 +79,12 @@ public class PopupManager extends MenuManager
 				manager.add(new HighlightTCGACaseAction(main));
 				manager.add(new UpdateTCGASIFForACaseAction(main));
 				manager.add(new LoadTCGASpecificReactionsAction(main));
+				manager.add(new Separator());
+			}
+
+			if (basicsif)
+			{
+				manager.add(new ShowFormatSeriesAction(main));
 				manager.add(new Separator());
 			}
 

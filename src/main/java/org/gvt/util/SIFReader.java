@@ -22,16 +22,12 @@ import java.util.*;
  * is incorrectly named. It does nothing about xml files, it should have been named as FileReader.
  *
  * @author Ozgun Babur
- *
- * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
 public class SIFReader
 {
 	private List<? extends SIFType> enumTypes;
 	private Set<String> types;
 	private Map<String, BasicSIFNode> nodeMap;
-	private Map<String, BasicSIFEdge> edgeMap;
-	private Map<String, String> idToName;
 	private Set<String> relationsSet;
 	private BasicSIFGraph root;
 	private String delim;
@@ -42,10 +38,8 @@ public class SIFReader
 	public SIFReader()
 	{
 		nodeMap = new HashMap<String, BasicSIFNode>();
-		edgeMap = new HashMap<String, BasicSIFEdge>();
 		relationsSet = new HashSet<String>();
 		useGroups = true;
-//		prepareIdToNameMap();
 	}
 
 	public SIFReader(List<? extends SIFType> enumTypes)
@@ -180,8 +174,7 @@ public class SIFReader
 
 		BasicSIFNode node1 = getNode(first);
 		BasicSIFNode node2 = getNode(second);
-		BasicSIFEdge edge = new BasicSIFEdge(node1, node2, relation, medIDs);
-		edgeMap.put(first + " " + relation + " " + second, edge);
+		new BasicSIFEdge(node1, node2, relation, medIDs);
 	}
 
 	private BasicSIFNode getNode(String id)
@@ -189,76 +182,6 @@ public class SIFReader
 		if (!nodeMap.containsKey(id))
 		{
 			BasicSIFNode node = new BasicSIFNode(root, id, id);
-			nodeMap.put(id, node);
-		}
-
-		return nodeMap.get(id);
-	}
-
-	private BasicSIFNode getNode_bkp(String id)
-	{
-		if (!nodeMap.containsKey(id))
-		{
-			String line = idToName.get(id);
-			String name;
-			String[] terms;
-
-			if (line == null)
-			{
-				name = id;
-				terms = new String[0];
-			}
-			else
-			{
-				terms = line.split(OUTER_SEP);
-				name = terms[0];
-			}
-
-			if (name.length() == 0)
-			{
-				if (terms.length > 1) name = terms[1].split(INNER_SEP)[0];
-				if (name.length() == 0) name = "noname";
-			}
-
-			BasicSIFNode node = new BasicSIFNode(root, id, name);
-
-			node.addReference(new XRef("name" + XRef.SEPARATOR + node.getName()));
-
-			if (terms.length > 1)
-			{
-				for (String ref : terms[1].split(INNER_SEP))
-				{
-					if (ref.length() > 0)
-					{
-						if (!ref.contains(XRef.SEPARATOR))
-						{
-							System.out.println("defective line = " + line);
-						}
-						else
-						{
-							node.addReference(new XRef(ref));
-						}
-					}
-				}
-			}
-			if (terms.length > 2)
-			{
-				for (String ref : terms[2].split(INNER_SEP))
-				{
-					if (ref.length() > 0)
-					{
-						if (!ref.contains(XRef.SEPARATOR))
-						{
-							System.out.println("defective line = " + line);
-						}
-						else
-						{
-							node.addReference(new XRef(ref));
-						}
-					}
-				}
-			}
-
 			nodeMap.put(id, node);
 		}
 
@@ -283,80 +206,29 @@ public class SIFReader
 		return contains;
 	}
 
-	private void prepareIdToNameMap()
-	{
-		idToName = new HashMap<String, String>();
-
-		try
-		{
-			BufferedReader reader = new BufferedReader(new FileReader(
-				"sif_files/all.owl.names.txt"));
-
-			String line;
-			while((line = reader.readLine()) != null)
-			{
-				int i = line.indexOf(OUTER_SEP);
-				String id = line.substring(0, i);
-				line = line.substring(i+1);
-				idToName.put(id, line);
-			}
-
-			reader.close();
-		}
-		catch (Exception e){e.printStackTrace();}
-	}
-
 	private boolean formatView(String formatFile)
 	{
 		boolean group = useGroups;
 		try
 		{
+			List<String> lines = new ArrayList<String>();
 			BufferedReader reader = new BufferedReader(new FileReader(formatFile));
 
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
 			{
-				String[] token = line.split("\t");
-
-				if (token.length < 2) continue;
-
-				if (token[0].equals("node"))
+				if (line.startsWith("graph\tgrouping"))
 				{
-					NodeModel node = findNode(token[1]);
-
-					if (node == null) continue;
-
-					if (token[2].equals("color"))
-					{
-						node.setColor(getColor(token[3]));
-					}
-					else if (token[2].equals("highlight"))
-					{
-						node.setHighlight(token[3].equals("on"));
-					}
+					useGroups = line.endsWith("\ton");
 				}
-				else if (token[0].equals("edge"))
+				else
 				{
-					BasicSIFEdge edge = edgeMap.get(token[1]);
-
-					if (token[2].equals("color"))
-					{
-						edge.setColor(getColor(token[3]));
-					}
-					else if (token[2].equals("width"))
-					{
-						edge.setWidth(Integer.parseInt(token[3]));
-					}
-				}
-				else if (token[0].equals("graph"))
-				{
-					if (token[1].equals("grouping"))
-					{
-						useGroups = token[2].equals("on");
-					}
+					lines.add(line);
 				}
 			}
 
 			reader.close();
+
+			root.format(lines);
 		}
 		catch (IOException e)
 		{
@@ -364,24 +236,4 @@ public class SIFReader
 		}
 		return group;
 	}
-
-	private NodeModel findNode(String name)
-	{
-		for (Object o : root.getNodes())
-		{
-			NodeModel nm = (NodeModel) o;
-			if (nm.getText().equals(name)) return nm;
-		}
-		return null;
-	}
-
-	private Color getColor(String s)
-	{
-		String[] c = s.split(" ");
-		return new Color(null,
-			Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]));
-	}
-
-	private static final String OUTER_SEP = "~";
-	private static final String INNER_SEP = "\\|";
 }
