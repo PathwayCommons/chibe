@@ -957,9 +957,13 @@ public class ChisioMain extends ApplicationWindow
 
 		for (ScrollingGraphicalViewer viewer : tabToViewerMap.values())
 		{
-			BioPAXGraph graph = (BioPAXGraph) viewer.getContents().getModel();
-			man.clearExperimentData(graph);
-			man.associateExperimentData(graph);
+			Object model = viewer.getContents().getModel();
+			if (model instanceof BioPAXGraph)
+			{
+				BioPAXGraph graph = (BioPAXGraph) model;
+				man.clearExperimentData(graph);
+				man.associateExperimentData(graph);
+			}
 		}
 	}
 

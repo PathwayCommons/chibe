@@ -16,6 +16,8 @@ import static org.gvt.model.custom.CustomGraph.*;
 public class CustomNode extends NodeModel implements Cloneable
 {
 	boolean duplicate;
+	public static final String HIGHLIGHT = "highlight";
+	public static final String HIGHLIGHT_COLOR = "highlightcolor";
 
 	public CustomNode(CompoundModel root, Map<String, String> map)
 	{
@@ -43,6 +45,8 @@ public class CustomNode extends NodeModel implements Cloneable
 		if (map.containsKey(SHAPE)) setShape(map.get(SHAPE));
 		else setShape("RoundRect");
 
+		if (map.containsKey(HIGHLIGHT)) setHighlight(map.get(HIGHLIGHT).equals("on"));
+		if (map.containsKey(HIGHLIGHT_COLOR)) setHighlightColor(textToColor(map.get(HIGHLIGHT_COLOR)));
 	}
 
 	public CustomNode(CompoundModel root, CustomNode copyFrom)

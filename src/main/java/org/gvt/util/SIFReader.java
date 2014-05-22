@@ -142,7 +142,15 @@ public class SIFReader
 				// commented out because we want to display non-paxtools sifs
 				if (types == null || types.contains(relation))
 				{
-					createUnit(first, relation, second, meds);
+					BasicSIFEdge edge = createUnit(first, relation, second, meds);
+
+					if (edge != null && st.hasMoreTokens())
+					{
+						String phs = st.nextToken();
+						phs = phs.replaceAll(";", "\n");
+						edge.setText("o");
+						edge.setTooltipText(phs);
+					}
 				}
 			}
 		}
@@ -152,10 +160,10 @@ public class SIFReader
 		}
 	}
 
-	private void createUnit(String first, String relation, String second, String medIDs)
+	private BasicSIFEdge createUnit(String first, String relation, String second, String medIDs)
 	{
 		// Stop if relation is unfamiliar
-		if (!SIFEdge.typeMap.containsKey(relation)) return;
+		if (!SIFEdge.typeMap.containsKey(relation)) return null;
 
 		String relStr = first + "\t" + relation + "\t" + second;
 		String revStr = second + "\t" + relation + "\t" + first;
@@ -165,7 +173,7 @@ public class SIFReader
 				relationsSet.contains(revStr)))
 		{
 			duplicatesExist = true;
-			return;
+			return null;
 		}
 		else
 		{
@@ -174,7 +182,7 @@ public class SIFReader
 
 		BasicSIFNode node1 = getNode(first);
 		BasicSIFNode node2 = getNode(second);
-		new BasicSIFEdge(node1, node2, relation, medIDs);
+		return new BasicSIFEdge(node1, node2, relation, medIDs);
 	}
 
 	private BasicSIFNode getNode(String id)

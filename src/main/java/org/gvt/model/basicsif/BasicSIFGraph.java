@@ -238,6 +238,20 @@ public class BasicSIFGraph extends BioPAXL3Graph
 				edge.setColor(hidden.getColor());
 				edge.setHighlight(hidden.isHighlight());
 				edge.setWidth(hidden.getWidth());
+
+				String tooltip = "";
+				for (BasicSIFEdge leaf : edge.getLeaf())
+				{
+					if (leaf.getText() != null && !leaf.getText().isEmpty())
+					{
+						tooltip += leaf.getTooltipText() + "\n";
+					}
+				}
+				if (!tooltip.isEmpty())
+				{
+					edge.setTooltipText(tooltip.trim());
+					edge.setText("o");
+				}
 			}
 		}
 	}
@@ -393,7 +407,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 					}
 					else if (token[2].equals("tooltip"))
 					{
-						node.setTooltipText((token[3]));
+						node.setTooltipText((token[3]).replaceAll("\\\\n", "\n"));
 					}
 				}
 			}
@@ -496,8 +510,16 @@ public class BasicSIFGraph extends BioPAXL3Graph
 	private Color stringToColor(String s)
 	{
 		String[] c = s.split(" ");
-		return new Color(null,
-			Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]));
+		try
+		{
+			return new Color(null,
+				Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return new Color(null, 0, 0, 0);
+		}
 	}
 
 	private String colorToString(Color c)

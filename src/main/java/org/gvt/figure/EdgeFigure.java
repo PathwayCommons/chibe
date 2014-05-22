@@ -39,6 +39,7 @@ public class EdgeFigure extends PolylineConnection
 	 * Constructor
 	 */
 	public EdgeFigure(String text,
+		String tooltipText,
 		Font textFont,
 		Color textColor,
 		Color color,
@@ -54,6 +55,8 @@ public class EdgeFigure extends PolylineConnection
 
 		this.label = new Label();
 		this.label.setOpaque(true);
+
+		if (tooltipText != null) label.setToolTip(new Label(tooltipText));
 
 		MidpointLocator locator = new MidpointLocator(this, 0);
 		add(label, locator);

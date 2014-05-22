@@ -38,6 +38,7 @@ public class ChsEdgeEditPart extends AbstractConnectionEditPart
 	{
 		EdgeModel model = getEdgeModel();
 		EdgeFigure eFigure = new EdgeFigure(model.getText(),
+			model.getTooltipText(),
 			model.getTextFont(),
 			model.getTextColor(),
 			model.getColor(),
