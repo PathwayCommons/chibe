@@ -63,7 +63,7 @@ public class LoadBioPaxModelAction extends Action
 
 		this.openPathways = true;
 		this.main = chisio;
-		this.fromURL = true;
+		this.fromURL = false;
 	}
 
 	public void setOpenPathways(boolean openPathways)
