@@ -188,7 +188,7 @@ public class TCGAGenesDialog extends Dialog
 				MessageDialog.openError(shell, "Error", "Cannot read MutSig q-value threshold.");
 				return;
 			}
-			genes.addAll(BroadAccessor.getMutsigGenes(study, lastMutsigThr));
+			genes.addAll(BroadAccessor.getMutsigGenes(study, lastMutsigThr, true));
 		}
 		if (gisticButton.getSelection())
 		{

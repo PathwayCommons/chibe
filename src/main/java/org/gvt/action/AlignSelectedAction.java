@@ -5,10 +5,6 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
-import org.gvt.GraphAnimation;
-import org.gvt.command.LayoutCommand;
-import org.gvt.editpart.ChsRootEditPart;
-import org.gvt.layout.BiPaLayout;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.GraphObject;
 import org.gvt.model.NodeModel;
@@ -17,12 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Action for CoSE layout operation.
- *
- * @author Cihan Kucukkececi
+ * An alignment tool for the selected nodes.
  * @author Ozgun Babur
- *
- * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
 public class AlignSelectedAction extends Action
 {

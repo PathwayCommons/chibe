@@ -10,8 +10,10 @@ import java.util.Random;
 /**
  * @author Ozgun Babur
  */
-public class Conf
+public enum Conf
 {
+	DRAWPPI;
+
 	public static final String DRAW_PPI_EDGES = "DRAW_PPI_EDGES";
 
 	public static final String PATHWAY_COMMONS_URL = "PATHWAY_COMMONS_URL";

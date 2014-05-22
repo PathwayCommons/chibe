@@ -88,6 +88,12 @@ public class PopupManager extends MenuManager
 				manager.add(new Separator());
 			}
 
+			if (sif)
+			{
+				manager.add(new ShowDruggableAction(main));
+				manager.add(new Separator());
+			}
+
 			ClosePathwayAction action = new ClosePathwayAction(main);
 			if (sif) action.setText("Close Graph");
 			manager.add(action);

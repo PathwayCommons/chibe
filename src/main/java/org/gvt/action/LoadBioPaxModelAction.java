@@ -10,12 +10,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
-import org.gvt.model.BioPAXGraph;
+import org.gvt.gui.StringInputDialog;
 import org.gvt.util.BioPAXUtil;
 import org.gvt.util.PathwayHolder;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,9 +32,11 @@ public class LoadBioPaxModelAction extends Action
 {
 	protected ChisioMain main;
 
-	protected String filename;
+	protected String location;
 
 	private String pathwayName;
+
+	private boolean fromURL;
 
 	/**
 	 * BioPAX paxtools model object.
@@ -60,6 +63,7 @@ public class LoadBioPaxModelAction extends Action
 
 		this.openPathways = true;
 		this.main = chisio;
+		this.fromURL = true;
 	}
 
 	public void setOpenPathways(boolean openPathways)
@@ -77,17 +81,22 @@ public class LoadBioPaxModelAction extends Action
 		return pathwayName;
 	}
 
+	public void setFromURL(boolean fromURL)
+	{
+		this.fromURL = fromURL;
+	}
+
 	/**
 	 * Constructor with filename. opens the xml with file with the given
 	 * filename.
 	 *
 	 * @param chisio
-	 * @param filename
+	 * @param location
 	 */
-	public LoadBioPaxModelAction(ChisioMain chisio, String filename)
+	public LoadBioPaxModelAction(ChisioMain chisio, String location)
 	{
 		this(chisio);
-		this.filename = filename;
+		this.location = location;
 	}
 
 	public LoadBioPaxModelAction(ChisioMain chisio, Model model)
@@ -166,15 +175,23 @@ public class LoadBioPaxModelAction extends Action
 		return f;
 	}
 
+	public String openURLGetter()
+	{
+		StringInputDialog d = new StringInputDialog(
+			main.getShell(), "URL", "Please enter URL of the owl file", null);
+
+		return d.open();
+	}
+
 	public void run()
 	{
 		if (saveChangesBeforeDiscard(main))
 		{
-			if (filename == null && model == null)
+			if (location == null && model == null)
 			{
-				filename = openFileChooser();
+				location = fromURL ? openURLGetter() : openFileChooser();
 
-				if (filename == null)
+				if (location == null)
 				{
 					return;
 				}
@@ -184,19 +201,21 @@ public class LoadBioPaxModelAction extends Action
 			{
 				main.lockWithMessage("Loading BioPAX model ...");
 
-				File xmlfile = filename == null ? null : new File(filename);
-
 				if (model == null)
 				{
 					BioPAXIOHandler reader = new SimpleIOHandler();
-					model = reader.convertFromOWL(new FileInputStream(xmlfile));
+					if (fromURL)
+					{
+						model = reader.convertFromOWL(new URL(location).openStream());
+					}
+					else model = reader.convertFromOWL(new FileInputStream(location));
 				}
 
 				if (model != null)
 				{
 					if (BioPAXUtil.numberOfUnemptyPathways(model) == 0 || pathwayName != null)
 					{
-						String name = pathwayName == null ? filename : pathwayName;
+						String name = pathwayName == null ? location : pathwayName;
 
 						if (name != null)
 						{
@@ -220,12 +239,11 @@ public class LoadBioPaxModelAction extends Action
 						}
 						PathwayHolder ph = BioPAXUtil.createGlobalPathway(model, name);
 						pathwayName = ph.getName();
-						main.getAllPathwayNames().add(pathwayName);
 					}
 
 					if (main.getBioPAXModel() != null) main.closeAllTabs(false);
 					main.setBioPAXModel(model);
-					main.setOwlFileName(filename);
+					if (!fromURL) main.setOwlFileName(location);
 
 					if (openPathways)
 					{
@@ -258,8 +276,9 @@ public class LoadBioPaxModelAction extends Action
 			}
 			finally
 			{
-				filename = null;
+				location = null;
 				model = null;
+				pathwayName = null;
 				main.unlock();
 			}
 		}

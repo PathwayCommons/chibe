@@ -124,6 +124,24 @@ public class BasicSIFEdge extends BioPAXEdge
 		this.key = key;
 	}
 
+	public Set<BasicSIFEdge> getLeaf()
+	{
+		Set<BasicSIFEdge> leaf = new HashSet<BasicSIFEdge>();
+
+		if (this.substitutionMap == null)
+		{
+			leaf.add(this);
+		}
+		else
+		{
+			for (BasicSIFEdge child : substitutionMap.values())
+			{
+				leaf.addAll(child.getLeaf());
+			}
+		}
+		return leaf;
+	}
+
 	public List<String[]> getInspectable()
 	{
 		List<String[]> list = super.getInspectable();

@@ -80,7 +80,7 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 
 			if (study == null) return;
 
-			Set<String> genes = BroadAccessor.getMutsigGenes(study, 0.05);
+			Set<String> genes = BroadAccessor.getMutsigGenes(study, 0.05, true);
 			genes.addAll(BroadAccessor.getExpressionVerifiedGistic(study, 0.05));
 
 			if (genes.isEmpty())

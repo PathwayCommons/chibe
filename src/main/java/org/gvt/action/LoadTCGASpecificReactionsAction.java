@@ -36,7 +36,7 @@ public class LoadTCGASpecificReactionsAction extends LoadTCGASpecificSIFAction
 
 		assert study != null;
 
-		Set<String> mutsig = BroadAccessor.getMutsigGenes(this.study, 1);
+		Set<String> mutsig = BroadAccessor.getMutsigGenes(this.study, 1, true);
 
 		List<Set<String>> gistic = BroadAccessor.getGisticGeneSets(this.study, 1);
 
