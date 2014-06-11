@@ -441,11 +441,11 @@ public abstract class BioPAXGraph extends CompoundModel implements Graph
 	{
 		if (model.getLevel() == BioPAXLevel.L3)
 		{
-			return new BioPAXL3Graph(model, holder.l3p);
+			return new BioPAXL3Graph(model, holder != null ? holder.l3p : null);
 		}
 		else if (model.getLevel() == BioPAXLevel.L2)
 		{
-			return new BioPAXL2Graph(model, holder.l2p);
+			return new BioPAXL2Graph(model, holder != null ? holder.l2p : null);
 		}
 		else throw new IllegalArgumentException("Unsupported BioPAX leve: " + model.getLevel());
 	}

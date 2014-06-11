@@ -5,6 +5,7 @@ import org.biopax.paxtools.controller.SimpleEditorMap;
 import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.*;
+import org.gvt.command.DeleteCommand;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.*;
@@ -139,6 +140,29 @@ public class BioPAXL3Converter implements NodeProvider
 			}
 			reiter = newEnts;
 		}
+
+		// remove empty compartments
+
+		List<Compartment> remove = new ArrayList<Compartment>();
+		for (Object o : root.getNodes())
+		{
+			if (o instanceof Compartment)
+			{
+				Compartment com = (Compartment) o;
+				if (com.getChildren().isEmpty())
+				{
+					remove.add(com);
+				}
+			}
+		}
+		for (Compartment com : remove)
+		{
+			DeleteCommand command = new DeleteCommand();
+			command.setChild(com);
+			command.setParent(com.getParentModel());
+			command.execute();
+		}
+
 
 		// Pathways should have a display name in ChiBE
 		for (Pathway p : model.getObjects(Pathway.class))

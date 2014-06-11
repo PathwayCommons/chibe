@@ -126,6 +126,7 @@ public class CropAction extends Action
 		excised.setName(graph.getName() + " cropped");
 		PathwayHolder h = new PathwayHolder(graph.getBiopaxModel(), excised.getName());
 		excised.setPathway(h);
+		excised.registerContentsToPathway();
 
 		main.createNewTab(excised);
 		new CoSELayoutAction(main).run();

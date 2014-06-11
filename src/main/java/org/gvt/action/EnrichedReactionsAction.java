@@ -252,7 +252,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		@Override
 		public String toString()
 		{
-			return reac.getKey() + " [" + reac.qval + "]";
+			return reac.getKey() + " [" + FormatUtil.roundToSignificantDigits(reac.pval, 2) + "]";
 		}
 
 		@Override
