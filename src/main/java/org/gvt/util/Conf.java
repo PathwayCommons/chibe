@@ -87,7 +87,7 @@ public enum Conf
 		s += PC_SIF_FILE_URL + " = http://resources.chibe.googlecode.com/hg/PC.sif.gz\n";
 		s += REACTION_2_GENE_FILE + " = " + DEFAULT + "\n";
 		s += REACTION_2_GENE_FILE_URL + " = http://resources.chibe.googlecode.com/hg/reaction2gene.txt\n";
-		s += BROAD_DATA_URL + " = http://gdac.broadinstitute.org/runs/analyses__LATEST/\n";
+		s += BROAD_DATA_URL + " = http://gdac.broadinstitute.org/runs/analyses__latest/\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
 		s += CBIOPORTAL_USE_CACHE + " = true\n";

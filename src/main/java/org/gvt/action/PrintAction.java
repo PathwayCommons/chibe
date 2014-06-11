@@ -93,7 +93,9 @@ public class PrintAction extends Action
 		{
 			PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
 			pras.add(new Copies(1));
-			pras.add(new JobName(main.getOwlFileName(), Locale.getDefault()));
+			String filename = main.getOwlFileName();
+			if (filename == null) filename = "temp";
+			pras.add(new JobName(filename, Locale.getDefault()));
 
 			final PrintService[] services =
 				PrintServiceLookup.lookupPrintServices(DocFlavor.INPUT_STREAM.JPEG, pras);

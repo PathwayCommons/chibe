@@ -6,6 +6,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.model.BioPAXGraph;
+import org.gvt.util.PathwayHolder;
 import org.patika.mada.algorithm.LocalPathIterationQuery;
 import org.patika.mada.algorithm.LocalPoIQuery;
 import org.patika.mada.graph.GraphObject;
@@ -52,7 +53,7 @@ public class LocalPathIterationQueryAction extends Action
 			return;
 		}
 
-		BioPAXGraph rootGraph = BioPAXGraph.newInstance(main.getBioPAXModel());
+		BioPAXGraph rootGraph = BioPAXGraph.newInstance(main.getBioPAXModel(), null);
 
 		LocalPathIterationQuery lpi = new LocalPathIterationQuery(rootGraph);
 
@@ -167,6 +168,11 @@ public class LocalPathIterationQueryAction extends Action
 		{
 			BioPAXGraph pathwayGraph = rootGraph.excise(resultSet);
 			pathwayGraph.setName("Path Iteration");
+
+			PathwayHolder h = new PathwayHolder(pathwayGraph.getBiopaxModel(), pathwayGraph.getName());
+			pathwayGraph.setPathway(h);
+			pathwayGraph.registerContentsToPathway();
+
 			main.createNewTab(pathwayGraph);
 			new CoSELayoutAction(main).run();
 

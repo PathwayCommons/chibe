@@ -37,6 +37,7 @@ public class TopMenuBar
 		// MODEL
 		menuBar.add(modelMenu);
 		modelMenu.add(new LoadBioPaxModelAction(chisio));
+		modelMenu.add(new LoadBioPaxModelAction(chisio, true));
         modelMenu.add(new MergeAction(chisio));
         modelMenu.add(new CloseBioPAXFileAction(chisio));
 		modelMenu.add(new SaveBioPAXFileAction(chisio));
@@ -81,9 +82,11 @@ public class TopMenuBar
 		sifMenu.add(new SaveToSIFFileAction(chisio));
 		sifMenu.add(new Separator());
 		sifMenu.add(new GOIofSIFAction(chisio));
-		sifMenu.add(new FindEnrichedInPCSifAction(chisio));
 		sifMenu.add(new Separator());
-		sifMenu.add(new LoadTCGASpecificSIFAction(chisio));
+		MenuManager expMenu = new MenuManager("&Experimental");
+		expMenu.add(new FindEnrichedInPCSifAction(chisio));
+		expMenu.add(new LoadTCGASpecificSIFAction(chisio));
+		sifMenu.add(expMenu);
 
 		// VIEW
 		menuBar.add(viewMenu);

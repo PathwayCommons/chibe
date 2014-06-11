@@ -16,6 +16,8 @@ import org.gvt.util.PathwayHolder;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +66,17 @@ public class LoadBioPaxModelAction extends Action
 		this.openPathways = true;
 		this.main = chisio;
 		this.fromURL = false;
+	}
+
+	public LoadBioPaxModelAction(ChisioMain main, boolean fromURL)
+	{
+		this(main);
+		this.fromURL = fromURL;
+		if (fromURL)
+		{
+			setText("Load from URL ...");
+			setToolTipText(getText());
+		}
 	}
 
 	public void setOpenPathways(boolean openPathways)
@@ -191,7 +204,7 @@ public class LoadBioPaxModelAction extends Action
 			{
 				location = fromURL ? openURLGetter() : openFileChooser();
 
-				if (location == null)
+				if (location == null || location.isEmpty())
 				{
 					return;
 				}
@@ -206,7 +219,16 @@ public class LoadBioPaxModelAction extends Action
 					BioPAXIOHandler reader = new SimpleIOHandler();
 					if (fromURL)
 					{
-						model = reader.convertFromOWL(new URL(location).openStream());
+						try
+						{
+							model = reader.convertFromOWL(new URL(location).openStream());
+						}
+						catch (IOException e)
+						{
+							MessageDialog.openError(main.getShell(), "URL error",
+								"Cannot get data from the provided URL:\n" + location);
+							e.printStackTrace();
+						}
 					}
 					else model = reader.convertFromOWL(new FileInputStream(location));
 				}
