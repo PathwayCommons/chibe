@@ -96,7 +96,7 @@ public class AboutDialog extends Dialog
 		chisioLabel.setBackground(ColorConstants.white);
 		chisioLabel.setFont(
 			new Font(null, "Verdana", 16, SWT.BOLD | SWT.ITALIC));
-		chisioLabel.setText(ChisioMain.TOOL_NAME + "\nversion 2.1");
+		chisioLabel.setText(ChisioMain.TOOL_NAME + "\nversion 2.2");
 
 		Label compoundOrHierarchicalLabel = new Label(shell, SWT.NONE);
 		compoundOrHierarchicalLabel.setLayoutData(
