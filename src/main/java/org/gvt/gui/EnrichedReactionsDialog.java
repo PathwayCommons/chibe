@@ -1,14 +1,10 @@
 package org.gvt.gui;
 
-import org.cbio.causality.data.portal.BroadAccessor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.internal.layout.CellData;
 import org.eclipse.ui.internal.layout.CellLayout;
@@ -148,21 +144,27 @@ public class EnrichedReactionsDialog extends Dialog
 
 	private void okPressed()
 	{
+		readGenesInBox();
+		shell.dispose();
+	}
+
+	private void readGenesInBox()
+	{
 		genes = new ArrayList<String>();
 		for (String s : genesText.getText().split("\\s+"))
 		{
 			if (!s.isEmpty()) genes.add(s);
 		}
-
-		shell.dispose();
 	}
 
 	private void tcgaPressed()
 	{
-		genes = new ArrayList<String>(Arrays.asList(genesText.getText().split("\\s+")));
+		readGenesInBox();
 
 		TCGAGenesDialog d = new TCGAGenesDialog(shell);
 		Set<String> selected = d.open();
+
+		if (selected == null) return;
 
 		if (selected.isEmpty())
 		{

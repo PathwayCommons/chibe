@@ -40,7 +40,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		EnrichedReactionsDialog erd = new EnrichedReactionsDialog(main.getShell());
 		List<String> query = erd.open();
 
-		if (query.isEmpty()) return;
+		if (query == null || query.isEmpty()) return;
 
 		Map<String, Reaction> reactions = getReactions(query);
 
