@@ -40,7 +40,7 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 
 	public LoadTCGASpecificSIFAction(ChisioMain main)
 	{
-		this("Load TCGA specific SIF ...", main);
+		this("Load TCGA Specific SIF ...", main);
 	}
 
 	protected LoadTCGASpecificSIFAction(String text, ChisioMain main)
