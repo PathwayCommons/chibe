@@ -252,11 +252,4 @@ public class LoadTCGASpecificReactionsAction extends LoadTCGASpecificSIFAction
 			return 0;
 		}
 	}
-
-	static
-	{
-		String url = BroadAccessor.getBroadDataURL();
-		if (url == null || !url.equals(Conf.get(Conf.BROAD_DATA_URL)))
-			BroadAccessor.setBroadDataURL(Conf.get(Conf.BROAD_DATA_URL));
-	}
 }

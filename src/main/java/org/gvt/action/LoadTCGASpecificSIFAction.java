@@ -321,6 +321,5 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 	static
 	{
 		CBioPortalAccessor.setCacheDir(Conf.getPortalCacheDir());
-		BroadAccessor.setBroadDataURL(Conf.get(Conf.BROAD_DATA_URL));
 	}
 }
