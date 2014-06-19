@@ -74,7 +74,7 @@ public class EnrichedReactionsDialog extends Dialog
 	{
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		shell.setLayout(new CellLayout(1));
-		shell.setText("Find enriched reactions");
+		shell.setText("Find Enriched Reactions");
 
 		shell.setMinimumSize(200, 200);
 
@@ -82,7 +82,7 @@ public class EnrichedReactionsDialog extends Dialog
 
 		Group middleGroup = new Group(shell, SWT.NONE);
 		middleGroup.setLayout(new CellLayout(1));
-		middleGroup.setText("Enter gene symbols to be enriched with");
+		middleGroup.setText("Enter gene symbols to look for enrichment");
 
 		tcgaButton = new Button(middleGroup, SWT.PUSH);
 		tcgaButton.setText("Use TCGA genes");
