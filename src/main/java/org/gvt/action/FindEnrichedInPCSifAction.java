@@ -7,17 +7,12 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.EnrichmentInSIFParameterDialog;
-import org.gvt.gui.GOIofSIFParameterDialog;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.basicsif.BasicSIFNode;
 import org.gvt.model.sifl3.SIFGraph;
-import org.gvt.util.SIFReader;
-import org.patika.mada.algorithm.AlgoRunner;
-import org.patika.mada.graph.GraphObject;
-import org.patika.mada.graph.Node;
-import org.patika.mada.util.XRef;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
