@@ -40,6 +40,7 @@ public class BioPAXL3Graph extends BioPAXGraph
 	{
 		this.graphType = PROCESS_DIAGRAM;
 		this.biopaxModel = model;
+		this.setAsRoot();
 	}
 	
 	/**
@@ -57,19 +58,18 @@ public class BioPAXL3Graph extends BioPAXGraph
 
 		BioPAXL3Converter converter = new BioPAXL3Converter(this);
 		converter.convert();
-
-		this.setAsRoot();
 	}
 
 	public BioPAXL3Graph(Model model, Collection<String> pathwayMemberIDs, String pathwayName)
 	{
 		this(model);
+
 		this.pathway = BioPAXUtil.createPathway(model,
 			pathwayName == null ? "unnamed pathway" : pathwayName,
 			pathwayMemberIDs).l3p;
+
 		BioPAXL3Converter converter = new BioPAXL3Converter(this);
 		converter.convert();
-		this.setAsRoot();
 	}
 
 	public PathwayHolder getPathway()

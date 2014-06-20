@@ -8,6 +8,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.EntityAssociated;
+import org.gvt.util.BioPAXL2Reader;
 import org.gvt.util.BioPAXUtil;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
@@ -54,6 +55,9 @@ public class BioPAXL2Graph extends BioPAXGraph
 		{
 			this.pathway = BioPAXUtil.createGlobalPathway(biopaxModel, "Entire content").l2p;
 		}
+
+		BioPAXL2Reader converter = new BioPAXL2Reader(biopaxModel);
+		converter.createGraph(this);
 	}
 
 	public BioPAXL2Graph(Model model, Collection<String> pathwayMemberIDs, String pathwayName)
@@ -62,6 +66,9 @@ public class BioPAXL2Graph extends BioPAXGraph
 		this.pathway = BioPAXUtil.createPathway(model,
 			pathwayName == null ? "unnamed pathway" : pathwayName,
 			pathwayMemberIDs).l2p;
+
+		BioPAXL2Reader converter = new BioPAXL2Reader(biopaxModel);
+		converter.createGraph(this);
 	}
 
 	public PathwayHolder getPathway()
