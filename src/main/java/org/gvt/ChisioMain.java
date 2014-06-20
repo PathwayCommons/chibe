@@ -843,10 +843,7 @@ public class ChisioMain extends ApplicationWindow
 		}
 		else if (p.l2p != null)
 		{
-			BioPAXL2Graph view = new BioPAXL2Graph(rootBioPAXModel, p.l2p);
-			BioPAXL2Reader reader = new BioPAXL2Reader(rootBioPAXModel);
-			reader.createGraph(view);
-			return view;
+			return new BioPAXL2Graph(rootBioPAXModel, p.l2p);
 		}
 		return null;
 	}
