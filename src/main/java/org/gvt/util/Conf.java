@@ -1,5 +1,6 @@
 package org.gvt.util;
 
+import org.cbio.causality.util.BaseDir;
 import org.eclipse.swt.graphics.Color;
 
 import java.io.*;
@@ -255,6 +256,8 @@ public enum Conf
 				throw new RuntimeException("Neither \"user.dir\" nor \"user.home\" are writable.");
 			}
 		}
+
+		BaseDir.setDir(baseDir);
 	}
 
 	/**
