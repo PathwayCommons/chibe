@@ -1,5 +1,6 @@
 package org.gvt.util;
 
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level2.*;
 import org.gvt.model.CompoundModel;
@@ -19,17 +20,17 @@ public class BioPAXL2Reader
 {
 	public static boolean nestCompartments = true;
 
-	Model model;
-
-	public BioPAXL2Reader(Model model)
-	{
-		this.model = model;
-	}
-    
-    public Model getModel()
-	{
-        return this.model;
-    }
+//	Model model;
+//
+//	public BioPAXL2Reader(Model model)
+//	{
+//		this.model = model;
+//	}
+//
+//    public Model getModel()
+//	{
+//        return this.model;
+//    }
 
 	/**tr
 	 * This method uses the Model object embedded in the root to create elements of
@@ -39,38 +40,43 @@ public class BioPAXL2Reader
 	{
 		Map<String, NodeModel> map = new HashMap<String, NodeModel>();
 		
-		Model model = root.getBiopaxModel();
+//		Model model = root.getBiopaxModel();
+		pathway pathway = root.getPathway().l2p;
+		Set<BioPAXElement> eles = collectRelatedElements(pathway);
 
 //		for (xref xr : model.getObjects(xref.class))
 //		{
 //			UniquePrinter.print("xref ["+xr.getID()+"] = ", xr.getDB());
 //		}
 
-		if (nestCompartments) createAndNestCompartments(model, map, root);
+		if (nestCompartments) createAndNestCompartments(eles, map, root);
 		
 		// Create actors
-		
-		for (physicalEntity pe : model.getObjects(physicalEntity.class))
+
+		for (BioPAXElement ele : eles)
 		{
+			if (!(ele instanceof physicalEntity)) continue;
+			physicalEntity pe = (physicalEntity) ele;
+
 			// Complex will be processed later.
 			if (pe instanceof complex) continue;
 
 			// Create simple states (Actors)
-			
+
 			if (pe.isPHYSICAL_ENTITYof().isEmpty())
 			{
-				new Actor(root, pe, new ArrayList<physicalEntityParticipant>());
+//				new Actor(root, pe, new ArrayList<physicalEntityParticipant>());
 			}
 			else
 			{
-				Collection<List<physicalEntityParticipant>> coll = groupParticipants(pe);
-				
+				Collection<List<physicalEntityParticipant>> coll = groupParticipants(pe, eles);
+
 				for (List<physicalEntityParticipant> list : coll)
 				{
 					CompoundModel compart = getCompartment(list.get(0), map, root);
-					
+
 					Actor actor = new Actor(compart, pe, list);
-					
+
 					for (physicalEntityParticipant par : list)
 					{
 						map.put(par.getRDFId(), actor);
@@ -78,20 +84,23 @@ public class BioPAXL2Reader
 				}
 			}
 		}
-		
+
 		// Create complexes
 
-		for (complex cmp : model.getObjects(complex.class))
+		for (BioPAXElement ele : eles)
 		{
+			if (!(ele instanceof complex)) continue;
+			complex cmp = (complex) ele;
+
 			if (cmp.isPHYSICAL_ENTITYof().isEmpty())
 			{
-				Complex c = new Complex(root, cmp, new ArrayList<physicalEntityParticipant>(0));
-				createComplexContent(c, cmp, new ArrayList<physicalEntityParticipant>());
+//				Complex c = new Complex(root, cmp, new ArrayList<physicalEntityParticipant>(0));
+//				createComplexContent(c, cmp, new ArrayList<physicalEntityParticipant>());
 			}
 			else
 			{
-				Collection<List<physicalEntityParticipant>> coll = groupParticipants(cmp);
-				
+				Collection<List<physicalEntityParticipant>> coll = groupParticipants(cmp, eles);
+
 				for (List<physicalEntityParticipant> list : coll)
 				{
 					CompoundModel compart = getCompartment(list.get(0), map, root);
@@ -126,12 +135,15 @@ public class BioPAXL2Reader
 					}
 				}
 			}
-		}		
+		}
 		
 		// Create events
-		
-		for (conversion conv : model.getObjects(conversion.class))
+
+		for (BioPAXElement ele : eles)
 		{
+			if (!(ele instanceof conversion)) continue;
+			conversion conv = (conversion) ele;
+
 			String compName = Conversion.getPossibleCompartmentName(conv);
 
 			if (compName != null && nestCompartments)
@@ -158,8 +170,11 @@ public class BioPAXL2Reader
 			}
 		}
 
-		for (interaction inter : model.getObjects(interaction.class))
+		for (BioPAXElement ele : eles)
 		{
+			if (!(ele instanceof interaction)) continue;
+			interaction inter = (interaction) ele;
+
 			boolean drawPPI = true;
 			if (!drawPPI) break;
 
@@ -273,14 +288,18 @@ public class BioPAXL2Reader
 		return comp;
 	}
 
-	private void createAndNestCompartments(Model model, Map<String, NodeModel> map, CompoundModel root)
+	private void createAndNestCompartments(Set<BioPAXElement> eles, Map<String, NodeModel> map, CompoundModel root)
 	{
 		assert nestCompartments;
 
 		Map<String, CompoundModel> compMap = new HashMap<String, CompoundModel>();
 
-		for (physicalEntityParticipant par : model.getObjects(physicalEntityParticipant.class))
+		for (BioPAXElement ele : eles)
 		{
+			if (!(ele instanceof physicalEntityParticipant)) continue;
+
+			physicalEntityParticipant par = (physicalEntityParticipant) ele;
+
 			if (par.getCELLULAR_LOCATION() != null &&
 				!par.getCELLULAR_LOCATION().getTERM().isEmpty())
 			{
@@ -383,14 +402,15 @@ public class BioPAXL2Reader
 	 * Iterates over participants and groups them according to their inferred states.
 	 * Participants that point to a complex are ignored.
 	 */
-	private Collection<List<physicalEntityParticipant>> groupParticipants(physicalEntity pe)
+	private Collection<List<physicalEntityParticipant>> groupParticipants(physicalEntity pe,
+		Set<BioPAXElement> eles)
 	{
 		Collection<List<physicalEntityParticipant>> set = 
 			new ArrayList<List<physicalEntityParticipant>>();
 		
 		for (physicalEntityParticipant par : pe.isPHYSICAL_ENTITYof())
 		{
-			if (par.isCOMPONENTof() != null) continue;
+			if (par.isCOMPONENTof() != null || !eles.contains(par)) continue;
 			
 			List<physicalEntityParticipant> parts = null;
 			
@@ -416,6 +436,45 @@ public class BioPAXL2Reader
 	private boolean isUbique(physicalEntity pe)
 	{
 		return pe instanceof smallMolecule && Actor.isUbiqueName(pe.getNAME());
+	}
+
+	private Set<BioPAXElement> collectRelatedElements(pathway pathway)
+	{
+		Set<BioPAXElement> set = new HashSet<BioPAXElement>();
+		set.addAll(pathway.getPATHWAY_COMPONENTS());
+
+		Set<BioPAXElement> processed = new HashSet<BioPAXElement>();
+		do
+		{
+			enrich(set, processed);
+		}
+		while (set.size() > processed.size());
+		return set;
+	}
+
+	private void enrich(Set<BioPAXElement> set, Set<BioPAXElement> processed)
+	{
+		HashSet<BioPAXElement> temp = new HashSet<BioPAXElement>(set);
+		temp.removeAll(processed);
+
+		for (BioPAXElement ele : temp)
+		{
+			processed.add(ele);
+
+			if (ele instanceof interaction)
+			{
+				set.addAll(((interaction) ele).getPARTICIPANTS());
+				set.addAll(((interaction) ele).isCONTROLLEDOf());
+			}
+			else if (ele instanceof physicalEntityParticipant)
+			{
+				set.add(((physicalEntityParticipant) ele).getPHYSICAL_ENTITY());
+			}
+			else if (ele instanceof complex)
+			{
+				set.addAll(((complex) ele).getCOMPONENTS());
+			}
+		}
 	}
 
 	/**

@@ -38,6 +38,11 @@ public class LoadBioPaxModelAction extends Action
 
 	private String pathwayName;
 
+	/**
+	 * To remember the pathway name from last execution.
+	 */
+	private String lastPathwayName;
+
 	private boolean fromURL;
 
 	/**
@@ -92,6 +97,11 @@ public class LoadBioPaxModelAction extends Action
 	public String getPathwayName()
 	{
 		return pathwayName;
+	}
+
+	public String getLastPathwayName()
+	{
+		return lastPathwayName;
 	}
 
 	public void setFromURL(boolean fromURL)
@@ -300,6 +310,7 @@ public class LoadBioPaxModelAction extends Action
 			{
 				location = null;
 				model = null;
+				lastPathwayName = pathwayName;
 				pathwayName = null;
 				main.unlock();
 			}

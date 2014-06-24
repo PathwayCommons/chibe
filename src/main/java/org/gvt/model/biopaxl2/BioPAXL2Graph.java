@@ -56,7 +56,7 @@ public class BioPAXL2Graph extends BioPAXGraph
 			this.pathway = BioPAXUtil.createGlobalPathway(biopaxModel, "Entire content").l2p;
 		}
 
-		BioPAXL2Reader converter = new BioPAXL2Reader(biopaxModel);
+		BioPAXL2Reader converter = new BioPAXL2Reader();
 		converter.createGraph(this);
 	}
 
@@ -67,7 +67,7 @@ public class BioPAXL2Graph extends BioPAXGraph
 			pathwayName == null ? "unnamed pathway" : pathwayName,
 			pathwayMemberIDs).l2p;
 
-		BioPAXL2Reader converter = new BioPAXL2Reader(biopaxModel);
+		BioPAXL2Reader converter = new BioPAXL2Reader();
 		converter.createGraph(this);
 	}
 

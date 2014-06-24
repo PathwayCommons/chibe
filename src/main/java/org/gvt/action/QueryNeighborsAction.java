@@ -197,7 +197,7 @@ public class QueryNeighborsAction extends Action
 
                                 load.setPathwayName(pname);
                                 load.run();
-                                ref2pname.put(ref, load.getPathwayName());
+                                ref2pname.put(ref, load.getLastPathwayName());
                             }
                         }
                         else
