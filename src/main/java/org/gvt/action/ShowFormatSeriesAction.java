@@ -33,7 +33,7 @@ public class ShowFormatSeriesAction extends Action
 	 */
 	public ShowFormatSeriesAction(ChisioMain main)
 	{
-		super("Load formatting series...");
+		super("Load formatting...");
 		this.setToolTipText(this.getText());
 		this.main = main;
 	}
@@ -53,27 +53,35 @@ public class ShowFormatSeriesAction extends Action
 		String filename = getFilename();
 		if (filename == null) return;
 
-		series = loadFormattingSeries(filename);
-		names = getSeriesNames(series);
-
-		if (!names.isEmpty())
+		if (filename.endsWith(".formatseries"))
 		{
-			// Open a dialog so that user selected the specific path to visualize
+			series = loadFormattingSeries(filename);
+			names = getSeriesNames(series);
 
-			ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
-				250,
-				"Timepoint Selection Dialog",
-				"Select timepoint of interest",
-				new ArrayList<String>(names), new ArrayList<String>(), false, false, new Runner());
-
-			dialog.setUpdateUponSelection(true);
-			dialog.setDoSort(false);
-			Object lastItem = dialog.open();
-
-			if (lastItem == null || !lastItem.equals(ItemSelectionDialog.NONE))
+			if (!names.isEmpty())
 			{
-				dialog.runAsIfSelected(ItemSelectionDialog.NONE);
+				// Open a dialog so that user selected the specific path to visualize
+
+				ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(),
+					250,
+					"Timepoint Selection Dialog",
+					"Select timepoint of interest",
+					new ArrayList<String>(names), new ArrayList<String>(), false, false, new Runner());
+
+				dialog.setUpdateUponSelection(true);
+				dialog.setDoSort(false);
+				Object lastItem = dialog.open();
+
+				if (lastItem == null || !lastItem.equals(ItemSelectionDialog.NONE))
+				{
+					dialog.runAsIfSelected(ItemSelectionDialog.NONE);
+				}
 			}
+		}
+		else
+		{
+			List<String> format = loadFormat(filename);
+			graph.format(format);
 		}
 
 		graph = null;
@@ -125,8 +133,9 @@ public class ShowFormatSeriesAction extends Action
 		{
 			// choose an input file.
 			FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
-			fileChooser.setFilterExtensions(new String[]{"*.formatseries"});
-			fileChooser.setFilterNames(new String[]{"Format Series File (*.formatseries)"});
+			fileChooser.setFilterExtensions(new String[]{"*.format", "*.formatseries"});
+			fileChooser.setFilterNames(new String[]{
+				"Format File (*.format)", "Format Series File (*.formatseries)"});
 
 			if (lastLocation != null) fileChooser.setFilterPath(lastLocation);
 
@@ -138,6 +147,29 @@ public class ShowFormatSeriesAction extends Action
 
 		}
 		return formatFilename;
+	}
+
+	private List<String> loadFormat(String filename)
+	{
+		try
+		{
+			List<String> list = new ArrayList<String>();
+			Scanner sc = new Scanner(new File(filename));
+
+			while (sc.hasNextLine())
+			{
+				String line = sc.nextLine();
+				list.add(line);
+			}
+
+			return list;
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 	private List<List<String>> loadFormattingSeries(String filename)

@@ -200,9 +200,11 @@ public enum Conf
 	{
 		decideBaseDir();
 
-		pathCandidate = new String[]{Conf.class.getResource("").getFile() + File.separator,
+		pathCandidate = new String[]{
 			System.getProperty("user.dir") + File.separator,
-			System.getProperty("user.home") + File.separator + ".chibe" + File.separator, ""};
+			Conf.class.getResource("").getFile() + File.separator,
+			System.getProperty("user.home") + File.separator + ".chibe" + File.separator,
+			""};
 
 		File confFile = searchForConfFile();
 
