@@ -89,6 +89,7 @@ public class AlgoRunner
 		// todo: the underected graph case is not functional
 		LocalCommonStreamQuery csq = new LocalCommonStreamQuery(source, downstream, limit);
 		Set<Node> common = csq.run();
-		return searchPathsFromTo(source, common, limit, directedGraph, -1, true);
+		if (downstream) return searchPathsFromTo(source, common, limit, directedGraph, -1, false);
+		else return searchPathsFromTo(common, source, limit, directedGraph, -1, false);
 	}
 }

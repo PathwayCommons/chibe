@@ -3,7 +3,11 @@ package org.gvt.action;
 import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
 import cpath.service.GraphType;
+import org.biopax.paxtools.io.SimpleIOHandler;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.query.QueryExecuter;
+import org.biopax.paxtools.query.algorithm.Direction;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.NeighborhoodQueryParamWithEntitiesDialog;
@@ -11,8 +15,11 @@ import org.gvt.model.basicsif.BasicSIFGraph;
 import org.patika.mada.algorithm.AlgoRunner;
 import org.patika.mada.graph.GraphObject;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Ozgun Babur
@@ -28,10 +35,10 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	 * @param downstream
 	 */
 	public QueryPCNeighborsAction(ChisioMain main, boolean upstream, boolean downstream,
-		boolean querySIF)
+		QueryLocation qLoc)
 	{
 		super(main, upstream && downstream ? "Both Streams" : upstream ? "Upstream" : "Downstream",
-			true, querySIF);
+			true, qLoc);
 
 		assert upstream || downstream;
 
@@ -39,9 +46,9 @@ public class QueryPCNeighborsAction extends QueryPCAction
 		options.setDownstream(downstream);
 	}
 
-	public QueryPCNeighborsAction(ChisioMain main, boolean querySIF)
+	public QueryPCNeighborsAction(ChisioMain main, QueryLocation qLoc)
 	{
-		super(main, "Neighborhood ...", false, querySIF);
+		super(main, "Neighborhood ...", false, qLoc);
 	}
 
 	public void run()
@@ -74,6 +81,18 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	}
 
 	@Override
+	protected Set<BioPAXElement> doFileQuery(Model model)
+	{
+		List<String> symbols = options.getConvertedSourceList();
+		Set<BioPAXElement> source = findRelatedReferences(model, symbols);
+
+		return QueryExecuter.runNeighborhood(source, model, options.getLengthLimit(),
+			options.isUpstream() && options.isDownstream() ?
+				Direction.BOTHSTREAM : options.isUpstream() ?
+				Direction.UPSTREAM : Direction.DOWNSTREAM);
+	}
+
+	@Override
 	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
 	{
 		return AlgoRunner.searchNeighborhood(getSeed(graph, options.getConvertedSourceList()),
@@ -83,7 +102,7 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	@Override
 	protected AbstractQueryParamDialog getDialog()
 	{
-		return new NeighborhoodQueryParamWithEntitiesDialog(main, querySIF);
+		return new NeighborhoodQueryParamWithEntitiesDialog(main, queryLoc.isSIF());
 	}
 
 	@Override

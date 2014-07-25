@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.Font;
 import org.gvt.ChsXYLayout;
 import org.gvt.model.NodeModel;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -191,8 +192,6 @@ public class NodeFigure extends Figure
 		}
 		else if (shape.startsWith(NodeModel.shapes[5]))
 		{
-//			assert shape.indexOf(";") > 0 && shape.length() >= 19 : "shape = " + shape;
-
 			int semicolIndex = shape.indexOf(";");
 			if (semicolIndex > 0 || multimer > 1)
 			{
@@ -213,6 +212,22 @@ public class NodeFigure extends Figure
 				if (multimer > 1) infos.add(0, "" + multimer);
 
 				add(new RoundRectWithInfo(getBounds(), infos, label, multimer > 1));
+			}
+			else
+			{
+				add(new RectangleFigure(getBounds()));
+			}
+		}
+		else if (shape.startsWith(NodeModel.shapes[6]))
+		{
+			String[] parts = shape.split(";");
+			if (parts.length > 1)
+			{
+				List<String> infos = new ArrayList<String>();
+				Collections.addAll(infos, parts);
+				infos.remove(0);
+
+				add(new RPPANodeFigure(getBounds(), infos, label));
 			}
 			else
 			{

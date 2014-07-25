@@ -3,6 +3,7 @@ package org.gvt.action;
 import cpath.client.util.CPathException;
 import cpath.service.jaxb.SearchHit;
 import cpath.service.jaxb.SearchResponse;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -22,12 +23,13 @@ import java.util.*;
 public class QueryPCPathwaysAction extends QueryPCAction
 {
 	String keyword;
+	String latestKeyword;
 	
 	String pathwayID;
 
-	public QueryPCPathwaysAction(ChisioMain main)
+	public QueryPCPathwaysAction(ChisioMain main, QueryLocation qLoc)
 	{
-		super(main, "Pathways With Keyword ...", false, false);
+		super(main, "Pathways With Keyword ...", false, qLoc);
 	}
 
 	public void run()
@@ -37,7 +39,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
             try
             {
                 StringInputDialog dialog = new StringInputDialog(main.getShell(), "Query Pathways",
-                    "Enter a keyword for pathway name", keyword,
+                    "Enter a keyword for pathway name", keyword != null ? keyword : latestKeyword,
                     "Find pathways related to the specified keyword");
 
                 keyword = dialog.open();
@@ -46,6 +48,8 @@ public class QueryPCPathwaysAction extends QueryPCAction
                 {
                     return;
                 }
+
+				latestKeyword = keyword;
 
                 keyword = keyword.trim().toLowerCase();
 
@@ -137,6 +141,12 @@ public class QueryPCPathwaysAction extends QueryPCAction
 	protected Model doQuery() throws CPathException
 	{
 		return getPCGetQuery().sources(new String[]{pathwayID}).result();
+	}
+
+	@Override
+	protected Set<BioPAXElement> doFileQuery(Model model)
+	{
+		return findInFile(model, Collections.singleton(pathwayID));
 	}
 
 	@Override
