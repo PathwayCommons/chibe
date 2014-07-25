@@ -69,7 +69,7 @@ public class InfoFigure extends Figure
 		}
 		
 		Label label = new Label(getLetter(this.info));
-		label.setToolTip(new Label(info));
+		this.setToolTip(new Label(getTooltipText(info)));
 
 		Rectangle r = getBounds().getCopy();
 		r.y -= 1;
@@ -80,6 +80,11 @@ public class InfoFigure extends Figure
 
 		label.setForegroundColor(getForeColor(this.info));
 		this.add(label);
+	}
+
+	protected String getTooltipText(String info)
+	{
+		return info;
 	}
 
 	protected void paintFigure(Graphics g)

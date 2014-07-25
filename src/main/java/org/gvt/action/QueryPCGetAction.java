@@ -1,8 +1,11 @@
 package org.gvt.action;
 
 import cpath.client.util.CPathException;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.query.QueryExecuter;
+import org.biopax.paxtools.query.algorithm.Direction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
@@ -10,10 +13,7 @@ import org.gvt.gui.StringInputDialog;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.patika.mada.graph.GraphObject;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Ozgun Babur
@@ -24,9 +24,9 @@ public class QueryPCGetAction extends QueryPCAction
 	protected Set<String> ids;
 	private String lastEntry;
 
-	public QueryPCGetAction(ChisioMain main, boolean useSelected)
+	public QueryPCGetAction(ChisioMain main, boolean useSelected, QueryLocation qLoc)
 	{
-		super(main, "Object With Database ID ...", useSelected, false);
+		super(main, "Object With Database ID ...", useSelected, qLoc);
 	}
 
 	public void run()
@@ -78,6 +78,17 @@ public class QueryPCGetAction extends QueryPCAction
 		}
 
 		return getPCGetQuery().sources(ids).result();
+	}
+
+	@Override
+	protected Set<BioPAXElement> doFileQuery(Model model)
+	{
+		if (useSelected && !options.getSourceList().isEmpty())
+		{
+			ids = new HashSet<String>(options.getSourceList());
+		}
+
+		return findInFile(model, ids);
 	}
 
 	@Override

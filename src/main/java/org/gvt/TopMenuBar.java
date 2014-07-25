@@ -71,6 +71,7 @@ public class TopMenuBar
 		pathwayMenu.add(new SaveAsImageAction(chisio, true));
 		pathwayMenu.add(new SaveAsImageAction(chisio, false));
 		pathwayMenu.add(new SaveAsGraphMLAction(chisio));
+		pathwayMenu.add(new SaveAsSBGNMLAction(chisio, true));
 		pathwayMenu.add(new PrintAction(chisio));
 
 		// SIF
@@ -86,6 +87,7 @@ public class TopMenuBar
 		MenuManager expMenu = new MenuManager("&Experimental");
 		expMenu.add(new FindEnrichedInPCSifAction(chisio));
 		expMenu.add(new LoadTCGASpecificSIFAction(chisio));
+		expMenu.add(new LoadRPPAAction(chisio));
 		sifMenu.add(expMenu);
 
 		// VIEW
@@ -193,22 +195,42 @@ public class TopMenuBar
 		// Query new pathway commons
 		MenuManager pcNewMenu = new MenuManager("&Pathway Commons (Level 3)");
 		queryMenu.add(pcNewMenu);
-		pcNewMenu.add(new QueryPCNeighborsAction(chisio, false));
-		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio, false, false));
-		pcNewMenu.add(new QueryPCPathsFromToAction(chisio, false));
-		pcNewMenu.add(new QueryPCCommonStreamAction(chisio, false));
+		pcNewMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_MECH));
+		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.PC_MECH));
+		pcNewMenu.add(new QueryPCPathsFromToAction(chisio, QueryPCAction.QueryLocation.PC_MECH));
+		pcNewMenu.add(new QueryPCCommonStreamAction(chisio, QueryPCAction.QueryLocation.PC_MECH));
 		pcNewMenu.add(new Separator());
-		pcNewMenu.add(new QueryPCPathwaysAction(chisio));
-		pcNewMenu.add(new QueryPCGetAction(chisio, false));
+		pcNewMenu.add(new QueryPCPathwaysAction(chisio, QueryPCAction.QueryLocation.PC_MECH));
+		pcNewMenu.add(new QueryPCGetAction(chisio, false, QueryPCAction.QueryLocation.PC_MECH));
 		pcNewMenu.add(new EnrichedReactionsAction(main));
+
+		// Query new pathway commons
+		MenuManager biopaxFileMenu = new MenuManager("&BioPAX File");
+		queryMenu.add(biopaxFileMenu);
+		biopaxFileMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.FILE_MECH));
+		biopaxFileMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.FILE_MECH));
+		biopaxFileMenu.add(new QueryPCPathsFromToAction(chisio, QueryPCAction.QueryLocation.FILE_MECH));
+		biopaxFileMenu.add(new QueryPCCommonStreamAction(chisio, QueryPCAction.QueryLocation.FILE_MECH));
+		biopaxFileMenu.add(new Separator());
+		biopaxFileMenu.add(new QueryPCPathwaysAction(chisio, QueryPCAction.QueryLocation.FILE_MECH));
+		biopaxFileMenu.add(new QueryPCGetAction(chisio, false, QueryPCAction.QueryLocation.FILE_MECH));
+		biopaxFileMenu.add(new EnrichedReactionsAction(main));
 
 		// Query new pathway commons in SIF
 		MenuManager pcNewSIFMenu = new MenuManager("&Pathway Commons (SIF)");
 		queryMenu.add(pcNewSIFMenu);
-		pcNewSIFMenu.add(new QueryPCNeighborsAction(chisio, true));
-		pcNewSIFMenu.add(new QueryPCPathsBetweenAction(chisio, false, true));
-		pcNewSIFMenu.add(new QueryPCPathsFromToAction(chisio, true));
-		pcNewSIFMenu.add(new QueryPCCommonStreamAction(chisio, true));
+		pcNewSIFMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
+		pcNewSIFMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
+		pcNewSIFMenu.add(new QueryPCPathsFromToAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
+		pcNewSIFMenu.add(new QueryPCCommonStreamAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
+
+		// Query new pathway commons in SIF
+		MenuManager sifFileMenu = new MenuManager("&SIF File");
+		queryMenu.add(sifFileMenu);
+		sifFileMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.FILE_SIF));
+		sifFileMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.FILE_SIF));
+		sifFileMenu.add(new QueryPCPathsFromToAction(chisio, QueryPCAction.QueryLocation.FILE_SIF));
+		sifFileMenu.add(new QueryPCCommonStreamAction(chisio, QueryPCAction.QueryLocation.FILE_SIF));
 
 		// HELP
 		menuBar.add(helpMenu);

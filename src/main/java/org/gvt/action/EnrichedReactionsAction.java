@@ -117,7 +117,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 		String title = "Enriched reactions";
 
-		QueryPCGetAction qa = new QueryPCGetAction(main, false);
+		QueryPCGetAction qa = new QueryPCGetAction(main, false, QueryPCAction.QueryLocation.PC_MECH);
 		qa.setIDs(ids);
 		qa.setNewPathwayName(title);
 		qa.run();

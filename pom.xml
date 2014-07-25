@@ -247,6 +247,11 @@
 			<version>${paxtools.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.biopax.paxtools</groupId>
+			<artifactId>sbgn-converter</artifactId>
+			<version>${paxtools.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.cbio</groupId>
 			<artifactId>causality</artifactId>
 			<version>1.0.0-SNAPSHOT</version>

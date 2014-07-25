@@ -2,7 +2,10 @@ package org.gvt.action;
 
 import cpath.client.util.CPathException;
 import cpath.service.GraphType;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.Model;
+import org.biopax.paxtools.query.QueryExecuter;
+import org.biopax.paxtools.query.algorithm.Direction;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.gui.GoIQueryParamWithEntitiesDialog;
@@ -13,6 +16,7 @@ import org.patika.mada.graph.GraphObject;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Ozgun Babur
@@ -22,9 +26,9 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 {
 	private String[] symbols;
 
-	public QueryPCPathsBetweenAction(ChisioMain main, boolean querySIF, String... symbols)
+	public QueryPCPathsBetweenAction(ChisioMain main, QueryLocation qLoc, String... symbols)
 	{
-		super(main, "Paths Between ...", false, querySIF);
+		super(main, "Paths Between ...", false, qLoc);
 		if (symbols.length > 1)
 		{
 			this.symbols = symbols;
@@ -37,9 +41,9 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 		}
 	}
 
-	public QueryPCPathsBetweenAction(ChisioMain main, boolean useSelected, boolean querySIF)
+	public QueryPCPathsBetweenAction(ChisioMain main, boolean useSelected, QueryLocation qLoc)
 	{
-		super(main, "Paths Between ...", useSelected, querySIF);
+		super(main, "Paths Between ...", useSelected, qLoc);
 	}
 
 	public void run()
@@ -59,6 +63,15 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	}
 
 	@Override
+	protected Set<BioPAXElement> doFileQuery(Model model)
+	{
+		List<String> symbols = options.getConvertedSourceList();
+		Set<BioPAXElement> source = findRelatedReferences(model, symbols);
+
+		return QueryExecuter.runPathsBetween(source, model, options.getLengthLimit());
+	}
+
+	@Override
 	protected Collection<GraphObject> doSIFQuery(BasicSIFGraph graph) throws CPathException
 	{
 		return AlgoRunner.searchPathsBetweenSIF(getSeed(graph, options.getConvertedSourceList()),
@@ -70,7 +83,7 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	protected AbstractQueryParamDialog getDialog()
 	{
 		if (symbols == null || symbols.length < 2)
-			return new GoIQueryParamWithEntitiesDialog(main, querySIF);
+			return new GoIQueryParamWithEntitiesDialog(main, queryLoc.isSIF());
 		else
 		{
 			options.setSourceList(Arrays.asList(symbols));

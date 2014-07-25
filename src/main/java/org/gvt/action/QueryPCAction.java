@@ -1,15 +1,24 @@
 package org.gvt.action;
 
+import com.sun.imageio.plugins.common.LZWStringTable;
 import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
 import cpath.query.CPathGetQuery;
 import cpath.query.CPathGraphQuery;
 import cpath.query.CPathSearchQuery;
+import org.biopax.paxtools.controller.Cloner;
+import org.biopax.paxtools.controller.Completer;
+import org.biopax.paxtools.controller.SimpleEditorMap;
+import org.biopax.paxtools.io.SimpleIOHandler;
+import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Interaction;
 import org.biopax.paxtools.model.level3.Pathway;
+import org.biopax.paxtools.model.level3.RelationshipXref;
 import org.biopax.paxtools.pattern.miner.SIFType;
+import org.biopax.paxtools.query.QueryExecuter;
+import org.biopax.paxtools.query.algorithm.Direction;
 import org.cbio.causality.network.PathwayCommons;
 import org.cbio.causality.util.Download;
 import org.eclipse.gef.EditPart;
@@ -18,6 +27,8 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.model.EntityAssociated;
@@ -37,6 +48,7 @@ import org.patika.mada.graph.Node;
 import org.patika.mada.util.XRef;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.*;
 
 /**
@@ -61,9 +73,12 @@ public abstract class QueryPCAction extends Action
 
 	protected String newPathwayName;
 
-	protected boolean querySIF;
+	protected QueryLocation queryLoc;
 
-	public QueryPCAction(ChisioMain main, String text, boolean useSelected, boolean querySIF)
+	protected String localFilename;
+	protected String lastLocation;
+
+	public QueryPCAction(ChisioMain main, String text, boolean useSelected, QueryLocation qLoc)
 	{
 		super(text);
 		setImageDescriptor(ImageDescriptor.createFromFile(
@@ -72,7 +87,7 @@ public abstract class QueryPCAction extends Action
 		this.main = main;
 		options = new QueryOptionsPack();
 		this.useSelected = useSelected;
-		this.querySIF = querySIF;
+		this.queryLoc = qLoc;
 		increaseLimitIfNoResult = false;
 	}
 
@@ -93,6 +108,12 @@ public abstract class QueryPCAction extends Action
 
 	public void execute()
 	{
+		if (queryLoc.isFile() && localFilename == null)
+		{
+			localFilename = askForFilename();
+			if (localFilename == null) return;
+		}
+
         if(main.getBioPAXModel() == null || main.getBioPAXModel().getLevel().equals(BioPAXLevel.L3))
         {
             try
@@ -104,7 +125,10 @@ public abstract class QueryPCAction extends Action
 
                 main.lockWithMessage("Querying Pathway Commons ...");
 
-				if (querySIF) doSIFQuery();
+				if (queryLoc.isSIF())
+				{
+					doSIFQuery();
+				}
 				else doMechanisticQuery();
             }
             catch (Exception e)
@@ -124,6 +148,7 @@ public abstract class QueryPCAction extends Action
             finally
             {
                 main.unlock();
+				localFilename = null;
             }
         }
         else
@@ -171,7 +196,15 @@ public abstract class QueryPCAction extends Action
 
 	private void doMechanisticQuery() throws CPathException
 	{
-		Model model = doQuery();
+		Model model;
+		if (queryLoc == QueryLocation.FILE_MECH)
+		{
+			model = doFileQuery(localFilename);
+		}
+		else
+		{
+			model = doQuery();
+		}
 
 		if (model == null && increaseLimitIfNoResult)
 		{
@@ -445,6 +478,89 @@ public abstract class QueryPCAction extends Action
 			required + " entities. Currently only " + found + " is recognized.");
 	}
 
+	protected Set<BioPAXElement> findRelatedReferences(Model model, Collection<String> symbols)
+	{
+		Set<BioPAXElement> set = new HashSet<BioPAXElement>();
+
+		for (RelationshipXref xref : model.getObjects(RelationshipXref.class))
+		{
+			if (symbols.contains(xref.getId())) set.add(xref);
+		}
+
+		return set;
+	}
+
+	protected Model excise(Model model, Set<BioPAXElement> result)
+	{
+		Completer c = new Completer(SimpleEditorMap.L3);
+
+		result = c.complete(result, model);
+
+		Cloner cln = new Cloner(SimpleEditorMap.L3, BioPAXLevel.L3.getDefaultFactory());
+
+		return cln.clone(model, result);
+	}
+
+	protected Model doFileQuery(String filename)
+	{
+		try
+		{
+			SimpleIOHandler handler = new SimpleIOHandler();
+			Model model = handler.convertFromOWL(new FileInputStream(filename));
+			Set<BioPAXElement> results = doFileQuery(model);
+			return excise(model, results);
+		}
+		catch (Exception e)
+		{
+			//todo better handle empty results
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	protected abstract Set<BioPAXElement> doFileQuery(Model model);
+
+	protected Set<BioPAXElement> findInFile(Model model, Set<String> ids)
+	{
+		Set<BioPAXElement> result = new HashSet<BioPAXElement>();
+
+		for (String id : ids)
+		{
+			BioPAXElement element = model.getByID(id);
+			if (element != null) result.add(element);
+		}
+		return result;
+	}
+
+	protected String askForFilename()
+	{
+		// choose an input file.
+		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
+		fileChooser.setFilterExtensions(new String[]{queryLoc == QueryLocation.FILE_MECH ? "*.owl" : "*.sif"});
+		fileChooser.setFilterNames(new String[]{queryLoc == QueryLocation.FILE_MECH ? "BioPAX File (*.owl)" : "Simple Interaction File (*.sif)"});
+
+		if (lastLocation != null) fileChooser.setFilterPath(lastLocation);
+
+		String f = fileChooser.open();
+
+		String x = null;
+		if (f != null)
+		{
+			if (f.contains("/"))
+			{
+				x = f.substring(0, f.lastIndexOf("/"));
+			}
+			else if (f.contains("\\"))
+			{
+				x = f.substring(0, f.lastIndexOf("\\"));
+			}
+		}
+
+		if (x != null) lastLocation = x;
+
+		return f;
+	}
+
 	//--------------------- Getting PC SIF graph --------------------------------------------------|
 
 	public static BasicSIFGraph getPCGraph(List<? extends SIFType> types)
@@ -460,5 +576,23 @@ public abstract class QueryPCAction extends Action
 			if (symbols.contains(node.getName())) seed.add(node);
 		}
 		return seed;
+	}
+
+	public enum QueryLocation
+	{
+		PC_MECH,
+		PC_SIF,
+		FILE_MECH,
+		FILE_SIF;
+
+		boolean isFile()
+		{
+			return this == FILE_MECH || this == FILE_SIF;
+		}
+
+		boolean isSIF()
+		{
+			return this == FILE_SIF || this == PC_SIF;
+		}
 	}
 }

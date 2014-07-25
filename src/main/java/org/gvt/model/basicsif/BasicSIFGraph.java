@@ -5,6 +5,7 @@ import org.biopax.paxtools.pattern.miner.SIFType;
 import org.cbio.causality.analysis.Graph;
 import org.cbio.causality.analysis.GraphList;
 import org.cbio.causality.signednetwork.SignedType;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
@@ -408,6 +409,21 @@ public class BasicSIFGraph extends BioPAXL3Graph
 					else if (token[2].equals("tooltip"))
 					{
 						node.setTooltipText((token[3]).replaceAll("\\\\n", "\n"));
+					}
+					else if (token[2].equals("shape"))
+					{
+						node.setShape(token[3]);
+					}
+					else if (token[2].equals("rppasite"))
+					{
+						if (!node.getShape().startsWith("RPPA"))
+						{
+							Dimension size = node.getSize();
+							size.height = 32;
+							node.setSize(size);
+						}
+						String s = !node.getShape().startsWith("RPPA") ? "RPPA" : node.getShape();
+						node.setShape(s + ";" + token[3]);
 					}
 				}
 			}

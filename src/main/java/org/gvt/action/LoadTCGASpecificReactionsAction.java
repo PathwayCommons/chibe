@@ -117,7 +117,7 @@ public class LoadTCGASpecificReactionsAction extends LoadTCGASpecificSIFAction
 		}
 		title = title.trim();
 
-		QueryPCGetAction qa = new QueryPCGetAction(main, false);
+		QueryPCGetAction qa = new QueryPCGetAction(main, false, QueryPCAction.QueryLocation.PC_MECH);
 		qa.setIDs(ids);
 		qa.setNewPathwayName(title);
 		qa.run();

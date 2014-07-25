@@ -57,7 +57,8 @@ public class NodeModel extends GraphObject implements Updatable, Clustered
 		"Ellipse",
 		"Triangle",
 		"Diamond",
-		"RoundRectWithInfo"};
+		"RoundRectWithInfo",
+		"RPPA"};
 
 	public NodeModel()
 	{

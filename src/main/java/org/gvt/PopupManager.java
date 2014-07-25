@@ -130,7 +130,7 @@ public class PopupManager extends MenuManager
 			if ((o instanceof BasicSIFGroup && !((BasicSIFGroup) o).getMediators().isEmpty()) ||
 				(o instanceof SIFGroup && !((SIFGroup) o).getMediators().isEmpty()))
 			{
-				QueryPCGetAction query = new QueryPCGetAction(main, true);
+				QueryPCGetAction query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.PC_MECH);
 				query.setText("Detailed View");
 				manager.add(query);
 				manager.add(new Separator());
@@ -154,14 +154,14 @@ public class PopupManager extends MenuManager
 
 			MenuManager pcQueryMenu = new MenuManager("&Pathway Commons Query (Level 3)");
 			MenuManager neighMenu = new MenuManager("&Neighborhood");
-			neighMenu.add(new QueryPCNeighborsAction(main, false, true, false));
-			neighMenu.add(new QueryPCNeighborsAction(main, true, false, false));
-			neighMenu.add(new QueryPCNeighborsAction(main, true, true, false));
+			neighMenu.add(new QueryPCNeighborsAction(main, false, true, QueryPCAction.QueryLocation.PC_MECH));
+			neighMenu.add(new QueryPCNeighborsAction(main, true, false, QueryPCAction.QueryLocation.PC_MECH));
+			neighMenu.add(new QueryPCNeighborsAction(main, true, true, QueryPCAction.QueryLocation.PC_MECH));
 			pcQueryMenu.add(neighMenu);
-			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true, false));
+			pcQueryMenu.add(new QueryPCPathsBetweenAction(main, true, QueryPCAction.QueryLocation.PC_MECH));
 			MenuManager commStreamMenu = new MenuManager("&Common Stream");
-			commStreamMenu.add(new QueryPCCommonStreamAction(main, true, false));
-			commStreamMenu.add(new QueryPCCommonStreamAction(main, false, false));
+			commStreamMenu.add(new QueryPCCommonStreamAction(main, true, QueryPCAction.QueryLocation.PC_MECH));
+			commStreamMenu.add(new QueryPCCommonStreamAction(main, false, QueryPCAction.QueryLocation.PC_MECH));
 			pcQueryMenu.add(commStreamMenu);
             manager.add(pcQueryMenu);
 
@@ -185,7 +185,7 @@ public class PopupManager extends MenuManager
 			Object o = ep.getModel();
 			if (o instanceof BasicSIFEdge || o instanceof SIFEdge)
 			{
-				QueryPCGetAction query = new QueryPCGetAction(main, true);
+				QueryPCGetAction query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.PC_MECH);
 				query.setText("Detailed View");
 				manager.add(query);
 				manager.add(new Separator());
