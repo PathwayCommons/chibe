@@ -1,19 +1,21 @@
 package org.gvt.gui;
 
+import org.cbio.causality.analysis.RPPANetworkMapper;
+import org.cbio.causality.model.RPPAData;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.*;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
 import org.gvt.util.RPPAFileReader;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -22,19 +24,30 @@ import java.util.List;
 public class RPPAWizard extends Wizard
 {
 	FormatType formatType;
-	ValueType valueType;
+	ValueAmount valueAmount;
+	public ValueMetric valueMetric;
+	public ComparisonType comparisonType;
 	String platFile;
 	String idColName;
 	String siteColName;
 	String symbolColName;
 	String effectColName;
+	List<String> vals0;
 	List<String> vals1;
-	List<String> vals2;
-	NetworkType networkType;
+	public NetworkType networkType;
+	public double threshold = -1;
+	public Set<RPPAData> activities;
+	public Set<String> filterToGenes;
 
 	FormatSelectionPage formatSelectionPage;
 	PlatLoadPage platLoadPage;
 	SingleFileSingleValueLoadPage singleFileSingleValueLoadPage;
+	TwoGroupsPage twoGroupsPage;
+	NetworkPage networkPage;
+	ActivityAndFilterPage activityAndFilterPage;
+
+	Text activityText;
+	Text filterText;
 
 	/**
 	 * Create the dialog
@@ -49,11 +62,15 @@ public class RPPAWizard extends Wizard
 		addPage(formatSelectionPage = new FormatSelectionPage());
 		addPage(platLoadPage = new PlatLoadPage());
 		addPage(singleFileSingleValueLoadPage = new SingleFileSingleValueLoadPage());
+		addPage(twoGroupsPage = new TwoGroupsPage());
+		addPage(networkPage = new NetworkPage());
+		addPage(activityAndFilterPage = new ActivityAndFilterPage());
 	}
 
 	@Override
 	public boolean performFinish()
 	{
+		readActivityAndFilter();
 		return true;
 	}
 
@@ -62,12 +79,20 @@ public class RPPAWizard extends Wizard
 	{
 		if (page == formatSelectionPage)
 		{
-			if (formatType == FormatType.SINGLE_FILE && valueType == ValueType.SINGLE)
+			if (formatType == FormatType.SINGLE_FILE && valueAmount == ValueAmount.SINGLE)
 			{
 				return singleFileSingleValueLoadPage;
 			}
 			return platLoadPage;
 		}
+		else if (page == platLoadPage && valueAmount == ValueAmount.TWO_GROUPS)
+		{
+			twoGroupsPage.initList();
+			getShell().pack();
+			return twoGroupsPage;
+		}
+		else if (page == singleFileSingleValueLoadPage) return networkPage;
+		else if (page == networkPage) return activityAndFilterPage;
 		return super.getNextPage(page);
 	}
 
@@ -77,10 +102,84 @@ public class RPPAWizard extends Wizard
 		return networkType != null;
 	}
 
+	protected void readActivityAndFilter()
+	{
+		activities = new HashSet<RPPAData>();
+		for (String s : activityText.getText().split("\\s+"))
+		{
+			Boolean b = s.endsWith("+") ? Boolean.TRUE : s.endsWith("-") ? Boolean.FALSE : null;
+			if (b != null)
+			{
+				String sym = s.substring(0, s.length() - 1);
+				if (!sym.isEmpty())
+				{
+					RPPAData data = new RPPAData(s, null, Arrays.asList(sym), null);
+					data.makeActivityNode(b);
+					activities.add(data);
+				}
+			}
+		}
 
+		filterToGenes = new HashSet<String>();
+
+		for (String s : filterText.getText().split("\\s+"))
+		{
+			if (!s.isEmpty()) filterToGenes.add(s);
+		}
+	}
+
+	public List<RPPAData> readData() throws FileNotFoundException
+	{
+		List<RPPAData> datas = RPPAFileReader.readAnnotation(platFile, idColName, symbolColName,
+			siteColName, effectColName);
+
+		if (formatType == FormatType.SINGLE_FILE)
+			RPPAFileReader.addValues(datas, platFile, idColName, vals0, vals1);
+
+		datas.addAll(activities);
+
+		// todo add other options
+
+		RPPAData.ChangeAdapter chDet = null;
+
+		if (valueAmount != ValueAmount.TWO_GROUPS && valueMetric == ValueMetric.VALS_AROUND_ZERO)
+		{
+			chDet = ChangeDet.VALS_WITH_CENTER_0.det;
+		}
+		else if (valueAmount == ValueAmount.TWO_GROUPS)
+		{
+			if (comparisonType == ComparisonType.TTEST) chDet = ChangeDet.TTEST.det;
+			else if (comparisonType == ComparisonType.LOG2_RATIO) chDet = ChangeDet.LOG_2_OF_RATIOS.det;
+		}
+
+		if (chDet == null)
+		{
+			System.err.println("Not implemented yet.");
+			return null;
+		}
+
+		chDet.setThreshold(threshold);
+		for (RPPAData data : datas) if (!data.isActivity()) data.setChDet(chDet);
+
+		return datas;
+	}
+
+	public String getSIFFilename()
+	{
+		if (platFile == null) return null;
+		String s = platFile;
+		int sepIndex = s.lastIndexOf(File.separator);
+		int dotInd = s.lastIndexOf(".");
+		if (dotInd > 0 && dotInd > sepIndex) s = s.substring(0, dotInd);
+		s += ".sif";
+		return s;
+	}
 
 	class FormatSelectionPage extends WizardPage
 	{
+		List<Button> comparisonTypeButtons;
+		List<Button> valueMetricButtons;
+
 		protected FormatSelectionPage()
 		{
 			super("intro");
@@ -99,11 +198,14 @@ public class RPPAWizard extends Wizard
 			composite.setLayout(layout);
 
 			Group group = new Group(composite, SWT.NONE);
+			GridData data = new GridData();
+			data.grabExcessHorizontalSpace = true;
+			group.setLayoutData(data);
 			layout = new GridLayout();
 			layout.numColumns = 1;
 			group.setLayout(layout);
 			group.setText("Select number of files");
-			SelectionListener listener = new FormatTypeListener();
+			SelectionListener listener = new ButtonListener();
 			for (FormatType type : FormatType.values())
 			{
 				Button b = new Button(group, SWT.RADIO);
@@ -115,13 +217,45 @@ public class RPPAWizard extends Wizard
 			layout = new GridLayout();
 			layout.numColumns = 1;
 			group.setLayout(layout);
-			group.setText("Select value type");
-			listener = new ValueTypeListener();
-			for (ValueType type : ValueType.values())
+			group.setText("Select amount of value columns");
+			for (ValueAmount type : ValueAmount.values())
 			{
 				Button b = new Button(group, SWT.RADIO);
 				b.setText(type.text);
 				b.addSelectionListener(listener);
+			}
+
+			valueMetricButtons = new ArrayList<Button>();
+
+			group = new Group(composite, SWT.NONE);
+			group.setToolTipText("What we will find in the given data files?");
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			group.setLayout(layout);
+			group.setText("Select the type of values");
+			for (ValueMetric type : ValueMetric.values())
+			{
+				Button b = new Button(group, SWT.RADIO);
+				b.setText(type.text);
+				b.addSelectionListener(listener);
+				valueMetricButtons.add(b);
+			}
+
+			comparisonTypeButtons = new ArrayList<Button>();
+
+			group = new Group(composite, SWT.NONE);
+			group.setToolTipText("How should we compare the two groups?");
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			group.setLayout(layout);
+			group.setText("Select comparison method");
+			for (ComparisonType type : ComparisonType.values())
+			{
+				Button b = new Button(group, SWT.RADIO);
+				b.setText(type.text);
+				b.addSelectionListener(listener);
+				comparisonTypeButtons.add(b);
+				b.setEnabled(false);
 			}
 
 			setControl(composite);
@@ -130,27 +264,60 @@ public class RPPAWizard extends Wizard
 		@Override
 		public boolean isPageComplete()
 		{
-			return formatType != null && valueType != null;
+			return formatType != null && valueAmount != null && valueMetric != null &&
+				(valueAmount != ValueAmount.TWO_GROUPS || comparisonType != null);
 		}
 
-		class FormatTypeListener extends SelectionAdapter
+		class ButtonListener extends SelectionAdapter
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
 				Button b = (Button) e.getSource();
-				formatType = FormatType.typeOf(b.getText());
-				setPageComplete(isPageComplete());
-			}
-		}
+				FormatType ft = FormatType.typeOf(b.getText());
+				if (ft != null)
+				{
+					formatType = ft;
 
-		class ValueTypeListener extends SelectionAdapter
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e)
-			{
-				Button b = (Button) e.getSource();
-				valueType = ValueType.typeOf(b.getText());
+					if (formatType == FormatType.MULTIPLE_FILES)
+					{
+						for (Button but : valueMetricButtons)
+						{
+							if (ValueMetric.typeOf(but.getText()) == ValueMetric.MEASUREMENT)
+							{
+								if (but.getSelection())
+								{
+									but.setSelection(false);
+									valueMetric = null;
+								}
+								but.setEnabled(false);
+							}
+						}
+					}
+					else
+					{
+						for (Button but : valueMetricButtons)
+						{
+							but.setEnabled(true);
+						}
+					}
+				}
+
+				ValueAmount va = ValueAmount.typeOf(b.getText());
+				if (va != null)
+				{
+					valueAmount = va;
+					for (Button but : comparisonTypeButtons)
+					{
+						but.setEnabled(valueAmount == ValueAmount.TWO_GROUPS);
+					}
+				}
+
+				ValueMetric vm = ValueMetric.typeOf(b.getText());
+				if (vm != null) valueMetric = vm;
+				ComparisonType ct = ComparisonType.typeOf(b.getText());
+				if (ct != null) comparisonType = ct;
+
 				setPageComplete(isPageComplete());
 			}
 		}
@@ -206,63 +373,49 @@ public class RPPAWizard extends Wizard
 				}
 			});
 
+			ComboListener listener = new ComboListener();
+
 			group = new Group(composite, SWT.NONE);
 			group.setText("Select \"ID\" column");
 			group.setLayout(new RowLayout());
 			idCombo = new Combo(group, SWT.NONE);
-			idCombo.addSelectionListener(new SelectionAdapter()
-			{
-				@Override
-				public void widgetSelected(SelectionEvent selectionEvent)
-				{
-					idColName = header[idCombo.getSelectionIndex()];
-					setPageComplete(isPageComplete());
-				}
-			});
+			idCombo.addSelectionListener(listener);
 
 			group = new Group(composite, SWT.NONE);
 			group.setText("Select \"symbol\" column");
 			group.setLayout(new RowLayout());
 			symbolCombo = new Combo(group, SWT.NONE);
-			symbolCombo.addSelectionListener(new SelectionAdapter()
-			{
-				@Override
-				public void widgetSelected(SelectionEvent selectionEvent)
-				{
-					symbolColName = header[symbolCombo.getSelectionIndex()];
-					setPageComplete(isPageComplete());
-				}
-			});
+			symbolCombo.addSelectionListener(listener);
 
 			group = new Group(composite, SWT.NONE);
 			group.setText("Select \"site\" column");
 			group.setLayout(new RowLayout());
 			siteCombo = new Combo(group, SWT.NONE);
-			siteCombo.addSelectionListener(new SelectionAdapter()
-			{
-				@Override
-				public void widgetSelected(SelectionEvent selectionEvent)
-				{
-					siteColName = header[siteCombo.getSelectionIndex()];
-					setPageComplete(isPageComplete());
-				}
-			});
+			siteCombo.addSelectionListener(listener);
 
 			group = new Group(composite, SWT.NONE);
 			group.setText("Select \"effect\" column");
 			group.setLayout(new RowLayout());
 			effectCombo = new Combo(group, SWT.NONE);
-			effectCombo.addSelectionListener(new SelectionAdapter()
-			{
-				@Override
-				public void widgetSelected(SelectionEvent selectionEvent)
-				{
-					effectColName = header[effectCombo.getSelectionIndex()];
-					setPageComplete(isPageComplete());
-				}
-			});
+			effectCombo.addSelectionListener(listener);
 
 			setControl(composite);
+		}
+
+		protected String getSelected(Combo combo)
+		{
+			int selectionIndex = combo.getSelectionIndex();
+			if (selectionIndex >= 0) return header[selectionIndex];
+			return null;
+		}
+
+		protected void readFields()
+		{
+			idColName = getSelected(idCombo);
+			symbolColName = getSelected(symbolCombo);
+			siteColName = getSelected(siteCombo);
+			effectColName = getSelected(effectCombo);
+			setPageComplete(isPageComplete());
 		}
 
 		protected void parseFile()
@@ -272,7 +425,8 @@ public class RPPAWizard extends Wizard
 			siteColName = null;
 			effectColName = null;
 
-			header = RPPAFileReader.getHeader(platFile);
+				header = RPPAFileReader.getHeader(platFile);
+
 			if (header != null)
 			{
 				idCombo.setItems(header);
@@ -280,16 +434,16 @@ public class RPPAWizard extends Wizard
 				siteCombo.setItems(header);
 				effectCombo.setItems(header);
 
-				String potentialID = RPPAFileReader.getPotentialIDColname(header);
-				if (potentialID != null) idCombo.select(Arrays.binarySearch(header, potentialID));
-				String potentialSym = RPPAFileReader.getPotentialSymbolColname(header);
-				if (potentialSym != null) symbolCombo.select(Arrays.binarySearch(header, potentialSym));
-				String potSite = RPPAFileReader.getPotentialSiteColname(header);
-				if (potSite != null) siteCombo.select(Arrays.binarySearch(header, potSite));
-				String potEffect = RPPAFileReader.getPotentialEffectColname(header);
-				if (potEffect != null) effectCombo.select(Arrays.binarySearch(header, potEffect));
+				int potentialID = RPPAFileReader.getPotentialIDColIndex(header);
+				if (potentialID >= 0) idCombo.select(potentialID);
+				int potentialSym = RPPAFileReader.getPotentialSymbolColIndex(header);
+				if (potentialSym >= 0) symbolCombo.select(potentialSym);
+				int potSite = RPPAFileReader.getPotentialSiteColIndex(header);
+				if (potSite >= 0) siteCombo.select(potSite);
+				int potEffect = RPPAFileReader.getPotentialEffectColIndex(header);
+				if (potEffect >= 0) effectCombo.select(potEffect);
 			}
-			setPageComplete(isPageComplete());
+			readFields();
 			getShell().pack();
 		}
 
@@ -299,13 +453,21 @@ public class RPPAWizard extends Wizard
 			return platFile != null && idColName != null && symbolColName != null
 				&& siteColName != null;
 		}
+
+		class ComboListener extends SelectionAdapter
+		{
+			@Override
+			public void widgetSelected(SelectionEvent selectionEvent)
+			{
+				readFields();
+			}
+		}
 	}
 
 	class SingleFileSingleValueLoadPage extends PlatLoadPage
 	{
 		Combo valueCombo;
-		Combo treatmentCombo;
-		ValueTreatment treatment;
+		Text thresholdText;
 
 		@Override
 		public void createControl(Composite parent)
@@ -313,31 +475,25 @@ public class RPPAWizard extends Wizard
 			super.createControl(parent);
 			Composite composite = (Composite) getControl();
 
+			ComboListener listener = new ComboListener();
+
 			Group group = new Group(composite, SWT.NONE);
 			group.setText("Select \"value\" column");
 			group.setLayout(new RowLayout());
 			valueCombo = new Combo(group, SWT.NONE);
-			valueCombo.addSelectionListener(new SelectionAdapter()
-			{
-				@Override
-				public void widgetSelected(SelectionEvent selectionEvent)
-				{
-					vals1 = new ArrayList<String>(1);
-					vals1.add(header[valueCombo.getSelectionIndex()]);
-					setPageComplete(isPageComplete());
-				}
-			});
+			valueCombo.addSelectionListener(listener);
+
 			group = new Group(composite, SWT.NONE);
-			group.setText("Select value treatment");
+			group.setText("Enter a threshold value");
 			group.setLayout(new RowLayout());
-			treatmentCombo = new Combo(group, SWT.NONE);
-			treatmentCombo.setItems(ValueTreatment.getStringItems());
-			treatmentCombo.addSelectionListener(new SelectionAdapter()
+			thresholdText = new Text(group, SWT.SINGLE);
+			thresholdText.setText(threshold + "");
+			thresholdText.addModifyListener(new ModifyListener()
 			{
 				@Override
-				public void widgetSelected(SelectionEvent selectionEvent)
+				public void modifyText(ModifyEvent modifyEvent)
 				{
-					treatment = ValueTreatment.values()[treatmentCombo.getSelectionIndex()];
+					readThreshold();
 					setPageComplete(isPageComplete());
 				}
 			});
@@ -346,7 +502,7 @@ public class RPPAWizard extends Wizard
 		@Override
 		public boolean isPageComplete()
 		{
-			return super.isPageComplete() && vals1 != null && !vals1.isEmpty() && treatment != null;
+			return super.isPageComplete() && vals0 != null && !vals0.isEmpty() && threshold > 0;
 		}
 
 		@Override
@@ -356,18 +512,299 @@ public class RPPAWizard extends Wizard
 			if (header != null)
 			{
 				valueCombo.setItems(header);
-				List<String> columns = RPPAFileReader.getIndexesOfNumberColumns(platFile);
+				List<String> columns = RPPAFileReader.getNamesOfNumberColumns(platFile);
 				if (columns != null && !columns.isEmpty())
 				{
 					valueCombo.select(Arrays.binarySearch(header, columns.get(0)));
 				}
+			}
+			readFields();
+			getShell().pack();
+		}
+
+		@Override
+		protected void readFields()
+		{
+			String colName = getSelected(valueCombo);
+			if (colName != null)
+			{
+				vals0 = new ArrayList<String>(1);
+				vals0.add(colName);
+			}
+
+			readThreshold();
+			super.readFields();
+		}
+
+		private void readThreshold()
+		{
+			try
+			{
+				String text = thresholdText.getText();
+				threshold = Double.parseDouble(text);
+			}
+			catch (NumberFormatException e)
+			{
+			}
+		}
+	}
+
+	class TwoGroupsPage extends WizardPage
+	{
+		org.eclipse.swt.widgets.List list1;
+		org.eclipse.swt.widgets.List list2;
+		List<String> allItems;
+		Button add0;
+		Button add1;
+		Button remove0;
+		Button remove1;
+		Button toRight;
+		Button toLeft;
+		Text thresholdText;
+		Group thrGroup;
+
+		TwoGroupsPage()
+		{
+			super("two-groups");
+			setTitle("Groups to compare");
+			setDescription("Select two sets of groups to compare.");
+		}
+
+		@Override
+		public void createControl(Composite parent)
+		{
+			Composite composite = new Composite(parent, SWT.NONE);
+			GridLayout layout = new GridLayout();
+			layout.numColumns = 1;
+			composite.setLayout(layout);
+
+			thrGroup = new Group(composite, SWT.BORDER);
+			thrGroup.setText("Enter t-test p-value threshold");
+			RowLayout rowL = new RowLayout();
+			thrGroup.setLayout(rowL);
+			thresholdText = new Text(thrGroup, SWT.SINGLE);
+//			thresholdText.setText("0.05");
+			thresholdText.addModifyListener(new ModifyListener()
+			{
+				@Override
+				public void modifyText(ModifyEvent modifyEvent)
+				{
+					readThreshold();
+					setPageComplete(isPageComplete());
+				}
+			});
+
+			Composite listsGroup = new Composite(composite, SWT.NONE);
+
+			layout = new GridLayout();
+			layout.numColumns = 3;
+			listsGroup.setLayout(layout);
+
+			Group leftPanel = new Group(listsGroup, SWT.NONE);
+			leftPanel.setText("Control group");
+			Group middlePanel = new Group(listsGroup, SWT.NONE);
+			Group rightPanel = new Group(listsGroup, SWT.NONE);
+			rightPanel.setText("Test group");
+
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			leftPanel.setLayout(layout);
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			middlePanel.setLayout(layout);
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			rightPanel.setLayout(layout);
+
+			ButtonListener listener = new ButtonListener();
+
+			layout = new GridLayout();
+			layout.numColumns = 2;
+			Composite comp = new Composite(leftPanel, SWT.NONE);
+			comp.setLayout(layout);
+			add0 = new Button(comp, SWT.PUSH);
+			add0.setText("Add");
+			add0.addSelectionListener(listener);
+			remove0 = new Button(comp, SWT.PUSH);
+			remove0.setText("Remove");
+			remove0.addSelectionListener(listener);
+
+			layout = new GridLayout();
+			layout.numColumns = 2;
+			comp = new Composite(rightPanel, SWT.NONE);
+			comp.setLayout(layout);
+			add1 = new Button(comp, SWT.PUSH);
+			add1.setText("Add");
+			add1.addSelectionListener(listener);
+			remove1 = new Button(comp, SWT.PUSH);
+			remove1.setText("Remove");
+			remove1.addSelectionListener(listener);
+
+			list1 = new org.eclipse.swt.widgets.List (leftPanel, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+			GridData data = new GridData();
+			data.grabExcessHorizontalSpace = true;
+			list1.setLayoutData(data);
+			list2 = new org.eclipse.swt.widgets.List (rightPanel, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+			data = new GridData();
+			data.grabExcessHorizontalSpace = true;
+			list2.setLayoutData(data);
+
+			if (platFile != null)
+			{
+				initList();
+			}
+			else
+			{
+				vals0 = Collections.emptyList();
+				vals1 = Collections.emptyList();
+				initListWithDecoy();
+			}
+
+			toRight = new Button(middlePanel, SWT.PUSH);
+			toRight.setText("-->");
+			toRight.addSelectionListener(listener);
+			toLeft = new Button(middlePanel, SWT.PUSH);
+			toLeft.setText("<--");
+			toLeft.addSelectionListener(listener);
+
+			setControl(composite);
+		}
+
+		private void readThreshold()
+		{
+			try
+			{
+				String text = thresholdText.getText();
+				threshold = Double.parseDouble(text);
+			}
+			catch (NumberFormatException e)
+			{
+			}
+		}
+
+		private void updateTexts()
+		{
+			if (comparisonType == ComparisonType.TTEST)
+				thrGroup.setText("Enter t-test p-value threshold");
+			else if (comparisonType == ComparisonType.LOG2_RATIO)
+				thrGroup.setText("Enter log-2-ratio threshold");
+		}
+
+		protected void initList()
+		{
+			allItems = RPPAFileReader.getNamesOfNumberColumns(platFile);
+			int midIndex = allItems.size() / 2;
+			vals0 = new ArrayList<String>(allItems.subList(0, midIndex));
+			vals1 = new ArrayList<String>(allItems.subList(midIndex, allItems.size()));
+
+			updateListContents();
+			updateTexts();
+		}
+
+		protected void initListWithDecoy()
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				list1.add("              ");
+				list2.add("              ");
+			}
+		}
+
+		protected void add(List<String> current)
+		{
+			List<String> addable = getAddable();
+			List<String> selected = new ArrayList<String>();
+
+			ItemSelectionDialog dialog = new ItemSelectionDialog(getShell(), 300, "Select items",
+				"Add one or more items to the list", addable, selected, true, true, null);
+			dialog.open();
+
+			if (!dialog.isCancelled())
+			{
+				current.addAll(selected);
+				sort(current);
+			}
+		}
+
+		protected void remove(List<String> current, org.eclipse.swt.widgets.List list)
+		{
+			String[] selection = list.getSelection();
+			for (String s : selection)
+			{
+				current.remove(s);
+			}
+		}
+
+		protected void sort(List<String> toSort)
+		{
+			Collections.sort(toSort, new Comparator<String>()
+			{
+				@Override
+				public int compare(String o1, String o2)
+				{
+					Integer i1 = allItems.indexOf(o1);
+					Integer i2 = allItems.indexOf(o2);
+					return i1.compareTo(i2);
+				}
+			});
+		}
+
+		protected List<String> getAddable()
+		{
+			List<String> list = new ArrayList<String>(allItems);
+			list.removeAll(vals0);
+			list.removeAll(vals1);
+			return list;
+		}
+
+		protected void transfer(List<String> fromList, List<String> toList,
+			org.eclipse.swt.widgets.List from)
+		{
+			String[] selection = from.getSelection();
+			for (String s : selection)
+			{
+				fromList.remove(s);
+				toList.add(s);
+			}
+			sort(toList);
+		}
+
+		protected void updateListContents()
+		{
+			list1.removeAll();
+			for (String s : vals0) list1.add(s);
+			list2.removeAll();
+			for (String s : vals1) list2.add(s);
+		}
+
+		@Override
+		public boolean isPageComplete()
+		{
+			return !vals0.isEmpty() && !vals1.isEmpty() && threshold > 0;
+		}
+
+		class ButtonListener extends SelectionAdapter
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				Button b = (Button) e.getSource();
+
+				if (b == add0) add(vals0);
+				else if (b == add1) add(vals1);
+				else if (b == remove0) remove(vals0, list1);
+				else if (b == remove1) remove(vals1, list2);
+				else if (b == toRight) transfer(vals0, vals1, list1);
+				else if (b == toLeft) transfer(vals1, vals0, list2);
+
+				updateListContents();
+				setPageComplete(isPageComplete());
 			}
 		}
 	}
 
 	class NetworkPage extends WizardPage
 	{
-
 		NetworkPage()
 		{
 			super("network");
@@ -395,7 +832,10 @@ public class RPPAWizard extends Wizard
 				Button b = new Button(group, SWT.RADIO);
 				b.setText(type.text);
 				b.addSelectionListener(listener);
+				if (type == networkType) b.setSelection(true);
 			}
+
+			setControl(composite);
 		}
 
 		class NetworkTypeListener extends SelectionAdapter
@@ -404,11 +844,67 @@ public class RPPAWizard extends Wizard
 			public void widgetSelected(SelectionEvent e)
 			{
 				Button b = (Button) e.getSource();
-				formatType = FormatType.typeOf(b.getText());
+				networkType = NetworkType.typeOf(b.getText());
 				setPageComplete(isPageComplete());
 			}
 		}
 
+		@Override
+		public boolean isPageComplete()
+		{
+			return networkType != null;
+		}
+	}
+
+	class ActivityAndFilterPage extends WizardPage
+	{
+		ActivityAndFilterPage()
+		{
+			super("filter");
+			setTitle("Activities and gene filter");
+			setDescription("Enter other activity changes that should be included to the analysis." +
+				" The network can also be cropped to gene symbols of focus using this page.");
+		}
+
+		@Override
+		public void createControl(Composite parent)
+		{
+			Composite composite = new Composite(parent, SWT.NONE);
+			GridLayout layout = new GridLayout();
+			layout.numColumns = 1;
+			composite.setLayout(layout);
+
+			Group group = new Group(composite, SWT.BORDER);
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			group.setLayout(layout);
+			group.setText("Enter activites as symbol and a plus (+) or a minus (-)");
+			group.setToolTipText("Examples: AKT1+ EGFR-");
+			activityText = new Text(group, SWT.MULTI);
+			GridData data = new GridData();
+			data.minimumWidth = 300;
+			data.minimumHeight = 80;
+			data.grabExcessHorizontalSpace = true;
+			data.grabExcessVerticalSpace = true;
+			activityText.setLayoutData(data);
+
+			group = new Group(composite, SWT.BORDER);
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			group.setLayout(layout);
+			group.setText("Enter genes to crop the network");
+			group.setToolTipText("Only the relation(s) that are related with these genes will be " +
+				"shown.");
+			filterText = new Text(group, SWT.MULTI);
+			data = new GridData();
+			data.minimumWidth = 300;
+			data.minimumHeight = 80;
+			data.grabExcessHorizontalSpace = true;
+			data.grabExcessVerticalSpace = true;
+			filterText.setLayoutData(data);
+
+			setControl(composite);
+		}
 	}
 
 	enum FormatType
@@ -434,25 +930,22 @@ public class RPPAWizard extends Wizard
 		}
 	}
 
-
-	enum ValueType
+	enum ValueAmount
 	{
 		SINGLE("Single value"),
-		AVERAGE("Average of several values"),
-		TWO("Compare two values"),
-		TWO_GROUPS("Compare two groups of values"),
-		TIME_SERIES("Time series data");
+		GROUP("A group of values"),
+		TWO_GROUPS("Two groups of values");
 
 		String text;
 
-		ValueType(String text)
+		ValueAmount(String text)
 		{
 			this.text = text;
 		}
 
-		static ValueType typeOf(String text)
+		static ValueAmount typeOf(String text)
 		{
-			for (ValueType type : values())
+			for (ValueAmount type : values())
 			{
 				if (type.text.equals(text)) return type;
 			}
@@ -460,9 +953,33 @@ public class RPPAWizard extends Wizard
 		}
 	}
 
-	enum ComparisonType
+	public enum ValueMetric
 	{
-		RATIO("Ratio of values"),
+		MEASUREMENT("Measurement (non-negative)"),
+		VALS_AROUND_ZERO("Values around zero"),
+		RATIO("Ratio"),
+		LOG2_RAT("Log-2-ratio"),
+		PVAL("P-values (use sign to indicate decrease)");
+
+		String text;
+
+		ValueMetric(String text)
+		{
+			this.text = text;
+		}
+
+		static ValueMetric typeOf(String text)
+		{
+			for (ValueMetric type : values())
+			{
+				if (type.text.equals(text)) return type;
+			}
+			return null;
+		}
+	}
+
+	public enum ComparisonType
+	{
 		LOG2_RATIO("Log-2-ratio of values"),
 		TTEST("P-value of a t-test");
 
@@ -483,43 +1000,22 @@ public class RPPAWizard extends Wizard
 		}
 	}
 
-	enum ValueTreatment
+	public enum NetworkType
 	{
-		AS_IS("Use as is"),
-		LOG2("Take log2"),
-		P_VAL("Treat as p-values, sign indicating the change direction");
+		USE_EXISTING("Use current SIF network", RPPANetworkMapper.GraphType.EXISTING_NETWORK),
+		ALL_INCLUSIVE("Show all relations between all molecules", RPPANetworkMapper.GraphType.ALL_INCLUSIVE),
+		SELECT_NODES("Show all relations between changed molecules", RPPANetworkMapper.GraphType.CHANGED_ONLY),
+		NON_CONFLICT("Show all non-conflicting relations between all molecules", RPPANetworkMapper.GraphType.NON_CONFLICTING),
+		COMPATIBLE_NETWORK("Show compatible relations between changed molecules", RPPANetworkMapper.GraphType.COMPATIBLE),
+		COMPATIBLE_WITH_SITE_MATCH("Show compatible relations with matching sites", RPPANetworkMapper.GraphType.COMPATIBLE_WITH_SITE_MATCH);
 
 		String text;
+		public RPPANetworkMapper.GraphType type;
 
-		ValueTreatment(String text)
+		private NetworkType(String text, RPPANetworkMapper.GraphType type)
 		{
 			this.text = text;
-		}
-
-		static String[] getStringItems()
-		{
-			ValueTreatment[] values = values();
-			String[] s = new String[values.length];
-			for (int i = 0; i < s.length; i++)
-			{
-				s[i] = values[i].text;
-			}
-			return s;
-		}
-	}
-
-	enum NetworkType
-	{
-		USE_EXISTING("Use current network"),
-		ALL_INCLUSIVE("Show all relations between all molecules"),
-		SELECT_NODES("Show all relations between changed molecules"),
-		COMPATIBLE_NETWORK("Show compatible relations between changed molecules");
-
-		String text;
-
-		NetworkType(String text)
-		{
-			this.text = text;
+			this.type = type;
 		}
 
 		static NetworkType typeOf(String text)
@@ -531,4 +1027,67 @@ public class RPPAWizard extends Wizard
 			return null;
 		}
 	}
+
+	enum ChangeDet
+	{
+		VALS_WITH_CENTER_0(new RPPAData.ChangeAdapter(){}),
+
+		POSITIVE_VALS_WITH_CENTER_1(new RPPAData.ChangeAdapter()
+		{
+			@Override
+			public int getChangeSign(RPPAData data)
+			{
+				double val = getChangeValue(data);
+				if (val >= threshold) return 1;
+				if (val <= 1/threshold) return -1;
+				return 0;
+			}
+		}),
+
+		TAKE_LOG_2_OF_VAL(new RPPAData.ChangeAdapter()
+		{
+			@Override
+			public double getChangeValue(RPPAData data)
+			{
+				return data.getLog2MeanVal();
+			}
+		}),
+
+		LOG_2_OF_RATIOS(new RPPAData.ChangeAdapter()
+		{
+			@Override
+			public double getChangeValue(RPPAData data)
+			{
+				return data.getLog2Ratio();
+			}
+		}),
+
+		TTEST(new RPPAData.ChangeAdapter()
+		{
+			@Override
+			public int getChangeSign(RPPAData data)
+			{
+				double pval = data.getTTestPval();
+				if (pval > threshold) return 0;
+				if (getChangeValue(data) > 0) return 1;
+				return -1;
+			}
+
+			@Override
+			public double getChangeValue(RPPAData data)
+			{
+				return data.getSignificanceBasedVal();
+			}
+		}),
+
+		;
+
+		RPPAData.ChangeAdapter det;
+
+		ChangeDet(RPPAData.ChangeAdapter det)
+		{
+			this.det = det;
+		}
+	}
+
 }

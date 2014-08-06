@@ -282,8 +282,8 @@ public class BasicSIFGraph extends BioPAXL3Graph
 	private Set<NodeModel> getSimilarNodes(NodeModel node, Collection<NodeModel> nodes,
 		Map<NodeModel, Set<String>> incomingMap, Map<NodeModel, Set<String>> outgoingMap)
 	{
-		if (incomingMap.get(node).isEmpty() && outgoingMap.get(node).isEmpty())
-			return Collections.emptySet();
+//		if (incomingMap.get(node).isEmpty() && outgoingMap.get(node).isEmpty())
+//			return Collections.emptySet();
 
 		Set<NodeModel> sim = new HashSet<NodeModel>();
 

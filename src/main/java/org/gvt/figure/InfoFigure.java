@@ -254,6 +254,4 @@ public class InfoFigure extends Figure
 
 	protected static final int OVAL = 0;
 	protected static final int RECT = 1;
-
-//	public static final Set<String> encountered = new HashSet<String>();
 }

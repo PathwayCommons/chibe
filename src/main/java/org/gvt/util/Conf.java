@@ -336,4 +336,9 @@ public enum Conf
 	{
 		return "http://resources.chibe.googlecode.com/hg/blacklist.txt";
 	}
+
+	public static String getBaseDir()
+	{
+		return baseDir;
+	}
 }

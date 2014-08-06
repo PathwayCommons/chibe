@@ -1,20 +1,11 @@
 package org.gvt;
 
 import cpath.client.PathwayCommonsIOHandler;
-import org.biopax.paxtools.controller.Cloner;
-import org.biopax.paxtools.controller.Completer;
-import org.biopax.paxtools.controller.PathAccessor;
-import org.biopax.paxtools.controller.SimpleEditorMap;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
-import org.biopax.paxtools.model.level2.pathway;
-import org.biopax.paxtools.model.level2.physicalEntity;
-import org.biopax.paxtools.model.level3.EntityReference;
-import org.biopax.paxtools.model.level3.Pathway;
-import org.biopax.paxtools.model.level3.PhysicalEntity;
 import org.biopax.paxtools.pattern.util.Blacklist;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.eclipse.draw2d.ColorConstants;
@@ -49,19 +40,18 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.gvt.action.*;
 import org.gvt.editpart.ChsEditPartFactory;
-import org.gvt.editpart.ChsNodeEditPart;
-import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.editpart.ChsScalableRootEditPart;
 import org.gvt.figure.HighlightLayer;
-import org.gvt.model.*;
+import org.gvt.model.BioPAXGraph;
+import org.gvt.model.CompoundModel;
+import org.gvt.model.EntityAssociated;
+import org.gvt.model.GraphObject;
 import org.gvt.model.basicsif.BasicSIFGraph;
-import org.gvt.model.biopaxl2.Actor;
 import org.gvt.model.biopaxl2.BioPAXL2Graph;
-import org.gvt.model.biopaxl2.Complex;
-import org.gvt.model.biopaxl2.Conversion;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.model.sifl2.SIFGraph;
-import org.gvt.util.*;
+import org.gvt.util.BioPAXUtil;
+import org.gvt.util.PathwayHolder;
 import org.patika.mada.dataXML.ChisioExperimentData;
 import org.patika.mada.util.ExperimentDataManager;
 
@@ -78,8 +68,6 @@ import java.util.List;
  *
  * @author Cihan Kucukkececi
  * @author Ozgun Babur
- *
- * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
 public class ChisioMain extends ApplicationWindow
 	implements MouseListener, KeyListener, MouseTrackListener

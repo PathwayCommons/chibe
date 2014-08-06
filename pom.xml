@@ -60,6 +60,13 @@
 			</snapshots>
 		</repository>
 		<repository>
+			<id>pathway-commons</id>
+			<name>Pathway Commons Repository at Google Code</name>
+			<url>http://repo.pathway-commons.googlecode.com/hg/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>		<repository>
 			<id>chibe</id>
 			<name>Ozgun's Repository</name>
 			<url>http://cbio.mskcc.org/~ozgun/m2repo/</url>
@@ -274,7 +281,7 @@
 		<dependency>
 			<groupId>pathwaycommons.cpath</groupId>
 			<artifactId>cpath-client</artifactId>
-			<version>4.1.0-SNAPSHOT</version>
+			<version>4.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.patika.mada</groupId>

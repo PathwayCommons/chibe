@@ -1,7 +1,5 @@
 package org.gvt.action;
 
-import org.apache.batik.svggen.SVGGeneratorContext;
-import org.apache.batik.svggen.SVGGraphics2D;
 import org.biopax.paxtools.controller.Cloner;
 import org.biopax.paxtools.controller.Completer;
 import org.biopax.paxtools.controller.EditorMap;
@@ -15,28 +13,18 @@ import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level3.Level3Element;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.model.level3.PhysicalEntity;
-import org.eclipse.draw2d.*;
-import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.gvt.ChisioMain;
-import org.gvt.editpart.ChsRootEditPart;
-import org.gvt.editpart.ChsScalableRootEditPart;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.util.PathwayHolder;
-import org.gvt.util.onotoa.GraphicsToGraphics2DAdaptor;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.FileWriter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
