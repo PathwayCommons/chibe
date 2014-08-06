@@ -26,7 +26,7 @@ public class RPPAFileReader
 		}
 	}
 
-	public static List<String> getIndexesOfNumberColumns(String filename)
+	public static List<String> getNamesOfNumberColumns(String filename)
 	{
 		try
 		{
@@ -56,59 +56,66 @@ public class RPPAFileReader
 		}
 	}
 
-	public static Map<String, Set<String>> readAnnotation(String filename, String idname,
-		String symbolname, String psitename, String effectName,
-		Map<String, Set<String>> pSites, Map<String, RPPAData.SiteEffect> effectMap)
+	public static List<RPPAData> readAnnotation(String filename, String idname,
+		String symbolname, String psitename, String effectName)
 	{
 		try
 		{
+			List<RPPAData> datas = new ArrayList<RPPAData>();
+
 			Scanner sc = new Scanner(new File(filename));
-			String[] header = sc.nextLine().split("\t");
+			String s = sc.nextLine();
+			List<String> cols = Arrays.asList(s.split("\t"));
 
-			int idInd = Arrays.binarySearch(header, idname);
-			int symInd = Arrays.binarySearch(header, symbolname);
-			int siteInd = Arrays.binarySearch(header, psitename);
-			int effInd = effectName != null ? Arrays.binarySearch(header, effectName) : -1;
-
-			Map<String, Set<String>> symbolMap = new HashMap<String, Set<String>>();
+			int colInd = cols.indexOf(idname);
+			int symbolInd = cols.indexOf(symbolname);
+			int siteInd = cols.indexOf(psitename);
+			int effectInd = effectName == null ? -1 : cols.indexOf(effectName);
 
 			while (sc.hasNextLine())
 			{
 				String[] row = sc.nextLine().split("\t");
-				if (row.length < 2) break;
+				String id = row[colInd];
+				String syms = row[symbolInd];
+				String sites = row[siteInd];
+				String effect = effectInd >= 0 ? row[effectInd] : null;
 
-				String id = row[idInd];
-
-				symbolMap.put(id, readVals(row[symInd]));
-				pSites.put(id, readVals(row[siteInd]));
-
-				if (effectName != null)
+				List<String> genes = Arrays.asList(syms.split("\\s+"));
+				Map<String, List<String>> siteMap = sites.isEmpty() ? null : new HashMap<String, List<String>>();
+				if (!sites.isEmpty())
 				{
-					RPPAData.SiteEffect eff = row[effInd].trim().toLowerCase().startsWith("a") ?
-						RPPAData.SiteEffect.ACTIVATING :
-						row[effInd].trim().toLowerCase().startsWith("i") ?
-						RPPAData.SiteEffect.INHIBITING :
-						row[effInd].trim().toLowerCase().startsWith("c") ?
-						RPPAData.SiteEffect.COMPLEX : null;
-
-					effectMap.put(id, eff);
+					String[] perGene = sites.split("\\s+");
+					for (int i = 0; i < perGene.length; i++)
+					{
+						siteMap.put(genes.get(i), Arrays.asList(perGene[i].split("\\|")));
+					}
+					if (siteMap.size() < genes.size())
+					{
+						for (int i = siteMap.size(); i < genes.size(); i++)
+						{
+							siteMap.put(genes.get(i), siteMap.get(genes.get(0)));
+						}
+					}
 				}
-			}
 
-			return symbolMap;
+				RPPAData data = new RPPAData(id, null, genes, siteMap);
+
+				if (effect != null)
+				{
+					data.effect = effect.equals("c") ? RPPAData.SiteEffect.COMPLEX :
+						effect.equals("a") ? RPPAData.SiteEffect.ACTIVATING : effect.equals("i") ?
+							RPPAData.SiteEffect.INHIBITING : null;
+				}
+
+				datas.add(data);
+			}
+			return datas;
 		}
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	protected static Set<String> readVals(String s)
-	{
-		s = s.replace("|", " ");
-		s = s.replace(",", " ");
-		return new HashSet<String>(Arrays.asList(s.split("\\s+")));
 	}
 
 	public static Map<String, Double>[] readVals(String filename, String idName, String... colname)
@@ -122,13 +129,13 @@ public class RPPAFileReader
 			}
 
 			Scanner sc = new Scanner(new File(filename));
-			String[] header = sc.nextLine().split("\t");
+			List<String> header = Arrays.asList(sc.nextLine().split("\t"));
 
-			int idInd = Arrays.binarySearch(header, idName);
+			int idInd = header.indexOf(idName);
 			int[] valInd = new int[colname.length];
 			for (int i = 0; i < colname.length; i++)
 			{
-				valInd[i] = Arrays.binarySearch(header, colname[i]);
+				valInd[i] = header.indexOf(colname[i]);
 			}
 
 			while (sc.hasNextLine())
@@ -150,63 +157,63 @@ public class RPPAFileReader
 		}
 	}
 
-	public static List<RPPAData> prepareData(Map<String, Set<String>> symbolMap,
-		Map<String, Set<String>> siteMap, Map<String, RPPAData.SiteEffect> effectMap,
-		Map<String, Double>[] valMaps0, Map<String, Double>[] valMaps1)
+	public static void addValues(List<RPPAData> datas, String filename, String idColName,
+		List<String> vals0, List<String> vals1)
 	{
-		List<RPPAData> list = new ArrayList<RPPAData>();
+		Map<String, Double>[] v0 = readVals(
+			filename, idColName, vals0.toArray(new String[vals0.size()]));
 
-		for (String id : symbolMap.keySet())
+		Map<String, Double>[] v1 = vals1 == null ? null :
+			readVals(filename, idColName, vals1.toArray(new String[vals1.size()]));
+
+		for (RPPAData data : datas)
 		{
-			double[] v0 = getVals(valMaps0, id);
-			double[] v1 = valMaps1 == null ? null : getVals(valMaps1, id);
-
-			RPPAData data = new RPPAData(id, v0, v1, symbolMap.get(id), siteMap.get(id));
-
-			if (effectMap != null) data.effect = effectMap.get(id);
-
-			list.add(data);
+			data.vals = new double[v1 == null ? 1 : 2][];
+			data.vals[0] = new double[v0.length];
+			for (int i = 0; i < v0.length; i++)
+			{
+				data.vals[0][i] = v0[i].get(data.id);
+			}
 		}
-
-		return list;
-	}
-
-	private static double[] getVals(Map<String, Double>[] valMaps, String key)
-	{
-		double[] v = new double[valMaps.length];
-		for (int i = 0; i < valMaps.length; i++)
+		if (v1 != null)
 		{
-			v[i] = valMaps[i].get(key);
+			for (RPPAData data : datas)
+			{
+				data.vals[1] = new double[v1.length];
+				for (int i = 0; i < v1.length; i++)
+				{
+					data.vals[1][i] = v1[i].get(data.id);
+				}
+			}
 		}
-		return v;
 	}
 
-	public static String getPotentialIDColname(String[] header)
+	public static int getPotentialIDColIndex(String[] header)
 	{
-		return getPotentialColname(header, "id");
+		return getPotentialColIndex(header, "id");
 	}
 
-	public static String getPotentialSymbolColname(String[] header)
+	public static int getPotentialSymbolColIndex(String[] header)
 	{
-		return getPotentialColname(header, "symbol");
+		return getPotentialColIndex(header, "symbol");
 	}
 
-	public static String getPotentialSiteColname(String[] header)
+	public static int getPotentialSiteColIndex(String[] header)
 	{
-		return getPotentialColname(header, "site");
+		return getPotentialColIndex(header, "site");
 	}
 
-	public static String getPotentialEffectColname(String[] header)
+	public static int getPotentialEffectColIndex(String[] header)
 	{
-		return getPotentialColname(header, "effect");
+		return getPotentialColIndex(header, "effect");
 	}
 
-	private static String getPotentialColname(String[] header, String find)
+	private static int getPotentialColIndex(String[] header, String find)
 	{
-		for (String s : header)
+		for (int i = 0; i < header.length; i++)
 		{
-			if (s.toLowerCase().contains(find)) return s;
+			if (header[i].toLowerCase().contains(find)) return i;
 		}
-		return null;
+		return -1;
 	}
 }

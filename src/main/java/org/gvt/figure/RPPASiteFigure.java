@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Color;
 /**
  * Format for info:
  *
- * letter|tooltip|bg-color|bord-color
+ * tooltip|letter|bg-color|bord-color
  *
  * @author Ozgun Babur
  */

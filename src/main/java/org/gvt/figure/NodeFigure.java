@@ -24,8 +24,6 @@ import java.util.ArrayList;
  *
  * @author Cihan Kucukkececi
  * @author Ozgun Babur
- *
- * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
 public class NodeFigure extends Figure
 {
@@ -173,22 +171,27 @@ public class NodeFigure extends Figure
 		if (shape.equals(NodeModel.shapes[0]))
 		{
 			add(new RectangleFigure(getBounds()));
+			add(label);
 		}
 		else if (shape.equals(NodeModel.shapes[1]))
 		{
 			add(new RoundRectFigure(getBounds()));
+			add(label);
 		}
 		else if (shape.equals(NodeModel.shapes[2]))
 		{
 			add(new EllipseFigure(getBounds()));
+			add(label);
 		}
 		else if (shape.equals(NodeModel.shapes[3]))
 		{
-			add(new TriangleFigure(getBounds()));	
+			add(new TriangleFigure(getBounds()));
+			add(label);
 		}
 		else if (shape.equals(NodeModel.shapes[4]))
 		{
-			add(new DiamondFigure(getBounds()));	
+			add(new DiamondFigure(getBounds()));
+			add(label);
 		}
 		else if (shape.startsWith(NodeModel.shapes[5]))
 		{
@@ -199,7 +202,7 @@ public class NodeFigure extends Figure
 
 				if (semicolIndex > 0)
 				{
-					String line = shape.substring(semicolIndex +1);
+					String line = shape.substring(semicolIndex + 1);
 					for (String info : line.split(";"))
 					{
 						if (info.length() > 0)
@@ -233,11 +236,6 @@ public class NodeFigure extends Figure
 			{
 				add(new RectangleFigure(getBounds()));
 			}
-		}
-
-		if (!shape.startsWith(NodeModel.shapes[5]))
-		{
-			add(label);
 		}
 	}
 
@@ -276,7 +274,6 @@ public class NodeFigure extends Figure
 		}
 		public RectangleFigure(Rectangle rect)
 		{
-			
 			setBounds(rect);
 		}
 		

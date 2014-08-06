@@ -11,8 +11,6 @@ import java.util.List;
 
 /**
  * @author Ozgun Babur
- *
- * Copyright: Bilkent Center for Bioinformatics, 2007 - present
 */
 public class RoundRectWithInfo extends Figure
 {
@@ -30,15 +28,18 @@ public class RoundRectWithInfo extends Figure
 
 		this.add(label);
 
-		bounds = bounds.getCopy();
-		bounds.x += 2;
-		bounds.width -= 4;
-
-		for (int i = 0; i < infos.size(); i++)
+		if (infos != null)
 		{
-			String info = infos.get(i);
-			InfoFigure fig = new InfoFigure(info, i, bounds, new Dimension(SPAN, SPAN));
-			this.add(fig);
+			bounds = bounds.getCopy();
+			bounds.x += 2;
+			bounds.width -= 4;
+
+			for (int i = 0; i < infos.size(); i++)
+			{
+				String info = infos.get(i);
+				InfoFigure fig = new InfoFigure(info, i, bounds, new Dimension(SPAN, SPAN));
+				this.add(fig);
+			}
 		}
 	}
 
@@ -83,52 +84,5 @@ public class RoundRectWithInfo extends Figure
 		}
 	}
 
-//	public void drawInfoBoxes(Graphics g, Rectangle r)
-//	{
-//		// Remember old settings
-//
-//		Color oldFC = g.getForegroundColor();
-//		Color oldBC = g.getBackgroundColor();
-//		Font oldfont = g.getFont();
-//
-//		// Set to small font and get drawing parameters
-//
-//		FontMetrics metrics = g.getFontMetrics();
-//		int w = metrics.getAverageCharWidth();
-//		int d = metrics.getDescent();
-//
-//		// Draw infos iteratively
-//
-//		for (int i = 0; i < infos.size(); i++)
-//		{
-//			// Get the info and corresponding letter to display.
-//
-//			String info = infos.get(i);
-//
-//
-//			// We do not want multimer infos to be placed at the edges.
-//
-//			if (Character.isDigit(lett.charAt(0)) && infos.size() == i+1 && i < 4)
-//			{
-//				i = 4;
-//			}
-//
-//
-//			// Draw the info letter
-//
-//			g.setForegroundColor(getForeColor(info));
-//			g.drawText(lett, p.x+((SPAN/2)-(w/2)), p.y - d);
-//		}
-//
-//		// Roll back to old settings
-//
-//		g.setBackgroundColor(oldBC);
-//		g.setForegroundColor(oldFC);
-//		g.setFont(oldfont);
-//	}
-
-
-
 	protected static final int SPAN = 12;
-
 }

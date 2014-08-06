@@ -1,9 +1,13 @@
 package org.gvt.action;
 
+import org.cbio.causality.analysis.RPPANetworkMapper;
+import org.cbio.causality.model.RPPAData;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.RPPAWizard;
+
+import java.util.List;
 
 /**
  * @author Ozgun Babur
@@ -20,13 +24,36 @@ public class LoadRPPAAction extends Action
 
 	public void run()
 	{
-		// Load RPPA data
+		try
+		{
+			// Load RPPA data
 
-		WizardDialog dialog = new WizardDialog(main.getShell(), new RPPAWizard());
-		dialog.open();
+			RPPAWizard wizard = new RPPAWizard();
+			WizardDialog dialog = new WizardDialog(main.getShell(), wizard);
+			if (dialog.open() == 1) return;
 
-		// Prepare network using the data
+			// Prepare network using the data
+
+			List<RPPAData> datas = wizard.readData();
 
 
+			double threshold = wizard.threshold;
+
+			if (wizard.comparisonType == RPPAWizard.ComparisonType.TTEST ||
+				wizard.valueMetric == RPPAWizard.ValueMetric.PVAL)
+			{
+				threshold = -Math.log(threshold) / Math.log(2);
+			}
+
+			RPPANetworkMapper.writeGraph(datas, threshold, wizard.getSIFFilename(),
+				wizard.networkType.type, wizard.filterToGenes);
+
+			LoadSIFFileAction action = new LoadSIFFileAction(main, wizard.getSIFFilename());
+			action.run();
+		}
+		catch (Throwable e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

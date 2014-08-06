@@ -4,7 +4,6 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ public class RPPANodeFigure extends RoundRectWithInfo
 {
 	public RPPANodeFigure(Rectangle bounds, List<String> infos, Label label)
 	{
-		super(bounds, Collections.<String>emptyList(), label, false);
+		super(bounds, null, label, false);
 		this.infos = infos;
 
 		bounds = bounds.getCopy();

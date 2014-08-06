@@ -14,9 +14,7 @@ import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
@@ -25,8 +23,6 @@ import java.util.*;
  * Corresponds to inferred states in BioPAX file.
  *
  * @author Ozgun Babur
- *         <p/>
- *         Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
 public class Actor extends BioPAXNode implements EntityAssociated
 {
@@ -172,6 +168,15 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				shp += ";" + info;
 			}
 		}
+//		if (!infos.isEmpty())
+//		{
+//			shp = "RPPA";
+//			for (String info : infos)
+//			{
+//				if (info.contains(" ")) info = info.substring(0, info.indexOf(" "));
+//				shp += ";" + info + "|P|255 255 255|0 0 0";
+//			}
+//		}
 		this.setShape(shp);
 
 //		if (entity instanceof smallMolecule)
