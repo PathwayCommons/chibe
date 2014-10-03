@@ -427,6 +427,13 @@ public abstract class Inspector extends Dialog
 
 						if (hpl != null) SystemBrowserDisplay.openURL(hpl);
 					}
+					else
+					{
+						final Text text = new Text(table, SWT.LEFT);
+						text.setText(item.getText(1));
+						editor.setEditor(text, item, 1);
+					}
+
 
 					table.setSelection(-1);
 				}
