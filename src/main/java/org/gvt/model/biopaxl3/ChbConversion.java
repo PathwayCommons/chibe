@@ -300,9 +300,24 @@ public class ChbConversion extends BioPAXNode
 
 		addNamesAndTypeAndID(list, conv);
 
+		Set<String> evidences = new HashSet<String>();
 		for (Evidence ev : conv.getEvidence())
 		{
-			list.add(new String[]{"Evidence", ev.toString()});
+			Set<EvidenceCodeVocabulary> codes = ev.getEvidenceCode();
+			for (EvidenceCodeVocabulary code : codes)
+			{
+				for (String term : code.getTerm())
+				{
+					if (!term.isEmpty()) evidences.add(term);
+				}
+			}
+		}
+
+		List<String> evList = new ArrayList<String>(evidences);
+		Collections.sort(evList);
+		for (String evid : evList)
+		{
+			list.add(new String[]{"Evidence", evid});
 		}
 
 		if (!conv.getInteractionType().isEmpty())
