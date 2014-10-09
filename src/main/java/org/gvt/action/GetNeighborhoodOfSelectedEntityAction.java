@@ -1,23 +1,22 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
 import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level3.EntityReference;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.ChisioMain;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.EntityAssociated;
-import org.gvt.model.biopaxl2.Complex;
-import org.gvt.model.biopaxl2.ComplexMember;
+import org.gvt.model.NodeModel;
 import org.gvt.util.BioPAXUtil;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
-import org.patika.mada.graph.GraphObject;
-import org.patika.mada.graph.Node;
 
 import java.util.*;
 
@@ -60,7 +59,26 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 
 		if (entities == null)
 		{
-			entities = BioPAXUtil.getEntities(main.getBioPAXModel());
+			entities = new HashSet<EntityHolder>();
+
+			ScrollingGraphicalViewer viewer = main.getViewer();
+			Iterator selectedObjects = ((IStructuredSelection) viewer.getSelection()).iterator();
+
+			while (selectedObjects.hasNext())
+			{
+				Object o = ((EditPart)selectedObjects.next()).getModel();
+
+				if (o instanceof NodeModel)
+				{
+					NodeModel model = (NodeModel) o;
+
+					if (model instanceof EntityAssociated)
+					{
+						EntityAssociated ea = (EntityAssociated) model;
+						entities.add(ea.getEntity());
+					}
+				}
+			}
 		}
 
 		Model model = main.getBioPAXModel();
@@ -128,7 +146,9 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 
 			PathwayHolder ph = BioPAXUtil.getPathwayOfNeighbors(entities, model, name);
 
-			new OpenPathwaysAction(main, Collections.singletonList(ph.getName())).run();
+			List<String> list = new ArrayList<String>(main.getOpenTabNames());
+			list.add(ph.getName());
+			new OpenPathwaysAction(main, list).run();
 
 			// Highlight the source set of nodes
 			BioPAXGraph graph = main.getPathwayGraph();
