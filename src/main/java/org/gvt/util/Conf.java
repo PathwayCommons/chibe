@@ -58,7 +58,7 @@ public enum Conf
 		{
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
 			{
-				if (!line.contains("=")) continue;
+				if (line.startsWith("#") || !line.contains("=")) continue;
 
 				String[] tuple = line.split("=");
 				tuple[0] = tuple[0].trim();

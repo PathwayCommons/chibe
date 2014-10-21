@@ -46,11 +46,15 @@ public class QueryPCGetAction extends QueryPCAction
 						"Find the specified object");
 
 					idStr = dialog.open();
-					lastEntry = idStr;
 
-					if (this.ids == null) this.ids = new HashSet<String>();
-					Collections.addAll(this.ids, idStr.split("\\s+"));
-					if (this.ids.isEmpty()) this.ids = null;
+					if (idStr != null)
+					{
+						lastEntry = idStr;
+
+						if (this.ids == null) this.ids = new HashSet<String>();
+						Collections.addAll(this.ids, idStr.split("\\s+"));
+						if (this.ids.isEmpty()) this.ids = null;
+					}
 				}
             }
 
