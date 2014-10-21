@@ -30,7 +30,8 @@ public class EffectorSecondHalf extends BioPAXEdge
 	{
 		super(source, target);
 		assert source instanceof ChbControl;
-		assert target instanceof ChbConversion || target instanceof ChbControl || target instanceof Hub;
+		assert target instanceof ChbConversion || target instanceof ChbControl ||
+			target instanceof Hub || target instanceof ChbTempReac;
 
 		this.cont = cont;
 		this.sign = ChbControl.isActivation(cont) ? Edge.POSITIVE : Edge.NEGATIVE;
