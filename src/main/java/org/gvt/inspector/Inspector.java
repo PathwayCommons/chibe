@@ -395,7 +395,7 @@ public abstract class Inspector extends Dialog
 						{
 							hpl = "http://www.ebi.ac.uk/chebi/advancedSearchFT.do?searchString=" + s[1];
 						}
-						else if (s[0].equalsIgnoreCase("GENE_SYMBOL"))
+						else if (s[0].equalsIgnoreCase("HGNC SYMBOL"))
 						{
 							hpl = "http://www.genenames.org/data/hgnc_data.php?gd_app_sym=" + s[1];
 						}

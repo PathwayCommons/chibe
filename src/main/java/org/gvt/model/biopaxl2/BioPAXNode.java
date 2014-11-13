@@ -260,6 +260,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL2Node
 			if (db == null) continue;
 			
 			if (db.equalsIgnoreCase("GENE_SYMBOL") ||
+				db.equalsIgnoreCase("HGNC SYMBOL") ||
 				db.equalsIgnoreCase("GENESYMBOL") ||
 				db.equalsIgnoreCase("GENE SYMBOL") ||
 				db.equalsIgnoreCase("GENE-SYMBOL") ||

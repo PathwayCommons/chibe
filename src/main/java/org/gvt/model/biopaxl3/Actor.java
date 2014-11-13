@@ -29,7 +29,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	/**
 	 * Related physical entity.
 	 */
-	protected PhysicalEntity entity;
+	protected EntityHolder entity;
 
 	/**
 	 * A related physical entity. This field is used for ubiques. Ubiques are identified with their
@@ -69,7 +69,17 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		this(root);
 
-		this.entity = entity;
+		this.entity = new EntityHolder(entity);
+		this.related = related;
+		this.multimerNo = 1;
+		configFromModel();
+	}
+
+	public Actor(CompoundModel root, EntityReference entity, Entity related)
+	{
+		this(root);
+
+		this.entity = new EntityHolder(entity);
 		this.related = related;
 		this.multimerNo = 1;
 		configFromModel();
@@ -78,7 +88,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public Actor(Actor excised, CompoundModel root)
 	{
 		super(excised, root);
-		this.entity = excised.getEntity().l3pe;
+		this.entity = excised.getEntity();
 		this.related = excised.getRelated();
 		this.multimerNo = excised.multimerNo;
 		getReferences().clear();
@@ -103,9 +113,9 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public void configFromModel()
 	{
 		// Extract references from entity
-		String names = extractReferences(entity);
+		String names = extractReferences(entity.getNamed());
 
-		String name = getDisplayName(entity);
+		String name = getDisplayName(entity.getNamed());
 		setText(name);
 
 		setTooltipText(names);
@@ -139,7 +149,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		{
 			width = suggestInitialWidth();
 
-			if (!(entity instanceof SmallMolecule) && width < MIN_INITIAL_WIDTH)
+			if (!(entity.getNamed() instanceof SmallMolecule) && width < MIN_INITIAL_WIDTH)
 			{
 				width = MIN_INITIAL_WIDTH;
 			}
@@ -149,7 +159,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 		setSize(new Dimension(width, height));
 
-		if (entity instanceof SmallMolecule)
+		if (entity.getNamed() instanceof SmallMolecule)
 		{
 			setColor(SMALL_MOL_BG_COLOR);
 		} else
@@ -168,26 +178,12 @@ public class Actor extends BioPAXNode implements EntityAssociated
 				shp += ";" + info;
 			}
 		}
-//		if (!infos.isEmpty())
-//		{
-//			shp = "RPPA";
-//			for (String info : infos)
-//			{
-//				if (info.contains(" ")) info = info.substring(0, info.indexOf(" "));
-//				shp += ";" + info + "|P|255 255 255|0 0 0";
-//			}
-//		}
 		this.setShape(shp);
-
-//		if (entity instanceof smallMolecule)
-//		{
-//			this.setSize(new Dimension(30, 15));
-//		}
 	}
 
 	public EntityHolder getEntity()
 	{
-		return new EntityHolder(entity);
+		return entity;
 	}
 
 	public Entity getRelated()
@@ -203,7 +199,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public Collection<? extends Level3Element> getRelatedModelElements()
 	{
 		Collection<Level3Element> col = new HashSet<Level3Element>();
-		col.add(entity);
+		col.add(entity.getNamed());
 		return col;
 	}
 
@@ -240,8 +236,11 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		List<String> list = new ArrayList<String>();
 
-		extractFeatures(list, entity.getFeature(), false);
-		extractFeatures(list, entity.getNotFeature(), true);
+		if (entity.l3pe != null)
+		{
+			extractFeatures(list, entity.l3pe.getFeature(), false);
+			extractFeatures(list, entity.l3pe.getNotFeature(), true);
+		}
 
 		return list;
 	}
@@ -300,12 +299,15 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public boolean hasInfoString()
 	{
-		for (EntityFeature feat : entity.getFeature())
+		if (entity.l3pe != null)
 		{
-			if (feat instanceof ModificationFeature ||
-				feat instanceof FragmentFeature)
+			for (EntityFeature feat : entity.l3pe.getFeature())
 			{
-				return true;
+				if (feat instanceof ModificationFeature ||
+					feat instanceof FragmentFeature)
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -382,13 +384,14 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public String getIDHash()
 	{
-		return entity.getRDFId() + (related != null ? related.getRDFId() : "");
+		return entity.getID() + (related != null ? related.getRDFId() : "");
 	}
 
 	public boolean isUbique()
 	{
-		return isIDUbique(entity) ||
-			entity instanceof SmallMolecule && isUbiqueName(entity.getDisplayName());
+		return entity.l3pe != null && (isIDUbique(entity.l3pe) ||
+			entity.l3pe instanceof SmallMolecule && isUbiqueName(entity.l3pe.getDisplayName()));
+
 	}
 
 	public static boolean isUbique(PhysicalEntity pe)
@@ -457,9 +460,13 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		List<String[]> list = super.getInspectable();
 
-		addNamesAndTypeAndID(list, entity);
+		addNamesAndTypeAndID(list, entity.getNamed());
 
-		CellularLocationVocabulary voc = entity.getCellularLocation();
+		CellularLocationVocabulary voc = null;
+		if (entity.l3pe != null)
+		{
+			voc = entity.l3pe.getCellularLocation();
+		}
 
 		if (voc != null && !voc.getTerm().isEmpty())
 		{
@@ -472,7 +479,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			list.add(new String[]{type, info});
 		}
 
-		addDataSourceAndXrefAndComments(list, entity);
+		addDataSourceAndXrefAndComments(list, entity.getNamed());
 
 		EntityHolder ent = getEntity();
 		if (ent.l3er != null)

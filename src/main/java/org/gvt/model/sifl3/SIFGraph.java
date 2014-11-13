@@ -8,6 +8,7 @@ import org.biopax.paxtools.pattern.miner.SIFType;
 import org.biopax.paxtools.pattern.util.Blacklist;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.NodeModel;
+import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
 import org.gvt.util.PathwayHolder;
@@ -27,13 +28,14 @@ import java.util.*;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class SIFGraph extends BioPAXGraph
+public class SIFGraph extends BioPAXL3Graph
 {
 	private List<SIFType> ruleTypes;
 	private Blacklist blacklist;
 
 	public SIFGraph(Model biopaxModel, List<SIFType> ruleTypes, Blacklist blacklist)
 	{
+		super(biopaxModel);
 		setBiopaxModel(biopaxModel);
 		setGraphType(SIF_LEVEL3);
 		this.ruleTypes = ruleTypes;
@@ -349,16 +351,6 @@ public class SIFGraph extends BioPAXGraph
 	}
 
 	protected void prepareEntityToNodeMap()
-	{
-		//To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public void representDataOnActors(String type)
-	{
-		//To change body of implemented methods use File | Settings | File Templates.
-	}
-
-	public void removeRepresentations()
 	{
 		//To change body of implemented methods use File | Settings | File Templates.
 	}

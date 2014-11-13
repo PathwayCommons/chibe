@@ -34,7 +34,7 @@ public class SIFNode extends BioPAXNode implements EntityAssociated
 
 		int width = suggestInitialWidth();
 
-		if (!(entity instanceof smallMolecule) && width < Actor.MIN_INITIAL_WIDTH)
+		if (!(entity.l2pe != null && entity.l2pe instanceof smallMolecule) && width < Actor.MIN_INITIAL_WIDTH)
 		{
 			width = Actor.MIN_INITIAL_WIDTH;
 		}
@@ -48,7 +48,7 @@ public class SIFNode extends BioPAXNode implements EntityAssociated
 		setText(entity.getName());
 		setTooltipText(getText());
 
-		if (entity instanceof smallMolecule)
+		if (entity.l2pe != null && entity.l2pe instanceof smallMolecule)
 		{
 			setColor(Actor.SMALL_MOL_BG_COLOR);
 		}

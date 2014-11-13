@@ -116,6 +116,35 @@ public class BioPAXL3Converter implements NodeProvider
 						existing.get(node1).add(node2);
 					}
 				}
+				if (pe instanceof SimplePhysicalEntity)
+				{
+					EntityReference er = ((SimplePhysicalEntity) pe).getEntityReference();
+					if (er != null)
+					{
+						for (EntityReference mem : er.getMemberEntityReference())
+						{
+							if (needsToBeDisplayed(mem.getRDFId()))
+							{
+								NodeModel node2 = getAnExistingNode(mem.getRDFId());
+								if (node2 == null)
+								{
+									node2 = getNode(mem.getRDFId(), root);
+									// todo check if we don't really need the below line
+//									newEnts.add(mem);
+								}
+
+								if (existing.containsKey(node1) && existing.get(node1).contains(node2))
+									continue;
+
+								new Member(node1, node2);
+
+								if (!existing.containsKey(node1))
+									existing.put(node1, new HashSet<NodeModel>());
+								existing.get(node1).add(node2);
+							}
+						}
+					}
+				}
 				for (PhysicalEntity parent : pe.getMemberPhysicalEntityOf())
 				{
 					if (needsToBeDisplayed(parent.getRDFId()))
@@ -392,58 +421,66 @@ public class BioPAXL3Converter implements NodeProvider
 		return null;
 	}
 
-	private NodeModel createSimplePhysicalEntity(PhysicalEntity pe, CompoundModel relatedRoot)
+	private NodeModel createSimplePhysicalEntity(Named peOrEr, CompoundModel relatedRoot)
 	{
-		assert !(pe instanceof Complex);
+		assert !(peOrEr instanceof Complex);
+		assert peOrEr instanceof EntityReference || peOrEr instanceof PhysicalEntity;
 
 		// Fix naming irregularities of the entity
 
-		if (pe.getStandardName() == null)
+		if (peOrEr.getStandardName() == null)
 		{
-			if (pe.getDisplayName() != null)
+			if (peOrEr.getDisplayName() != null)
 			{
-				pe.setStandardName(pe.getDisplayName());
+				peOrEr.setStandardName(peOrEr.getDisplayName());
 			}
-			else if (!pe.getName().isEmpty())
+			else if (!peOrEr.getName().isEmpty())
 			{
-				pe.setStandardName(pe.getName().iterator().next());
+				peOrEr.setStandardName(peOrEr.getName().iterator().next());
 			}
-			else if (pe instanceof SimplePhysicalEntity)
+			else if (peOrEr instanceof SimplePhysicalEntity)
 			{
-				EntityReference er = ((SimplePhysicalEntity) pe).getEntityReference();
+				EntityReference er = ((SimplePhysicalEntity) peOrEr).getEntityReference();
 				if (er != null)
 				{
-					pe.setStandardName(er.getStandardName());
-					if (pe.getStandardName() == null &&
+					peOrEr.setStandardName(er.getStandardName());
+					if (peOrEr.getStandardName() == null &&
 						er.getName() != null && !er.getName().isEmpty())
 					{
-						pe.setStandardName(er.getName().iterator().next());
+						peOrEr.setStandardName(er.getName().iterator().next());
 					}
 				}
 			}
 		}
-		if (pe.getStandardName() == null)
+		if (peOrEr.getStandardName() == null)
 		{
-			pe.setStandardName("noname");
+			peOrEr.setStandardName("noname");
 		}
 
 		// Create simple states (Actors)
 
-		CompoundModel parent = extractCompartment(pe);
+		CompoundModel parent = null;
+		if (peOrEr instanceof PhysicalEntity) parent = extractCompartment((PhysicalEntity) peOrEr);
 		if (parent == null) parent = root;
 
 		Actor actor;
-		if (Actor.isUbique(pe)) actor = new Actor(relatedRoot, pe, null);
-		else actor = new Actor(parent, pe, null);
+		if (peOrEr instanceof PhysicalEntity)
+		{
+			if (Actor.isUbique((PhysicalEntity) peOrEr))
+				actor = new Actor(relatedRoot, (PhysicalEntity) peOrEr, null);
+			else actor = new Actor(parent, (PhysicalEntity) peOrEr, null);
+		}
+		else actor = new Actor(parent, (EntityReference) peOrEr, null);
+
 
 		if (actor.isUbique())
 		{
-			if (!nodeSetMap.containsKey(pe.getRDFId()))
-				nodeSetMap.put(pe.getRDFId(), new HashSet<Actor>());
+			if (!nodeSetMap.containsKey(peOrEr.getRDFId()))
+				nodeSetMap.put(peOrEr.getRDFId(), new HashSet<Actor>());
 
-			nodeSetMap.get(pe.getRDFId()).add(actor);
+			nodeSetMap.get(peOrEr.getRDFId()).add(actor);
 		}
-		else nodeMap.put(pe.getRDFId(), actor);
+		else nodeMap.put(peOrEr.getRDFId(), actor);
 
 		return actor;
 	}
@@ -605,9 +642,9 @@ public class BioPAXL3Converter implements NodeProvider
 		{
 			return createComplex((Complex) ele);
 		}
-		else if (ele instanceof PhysicalEntity)
+		else if (ele instanceof PhysicalEntity || ele instanceof EntityReference)
 		{
-			return createSimplePhysicalEntity((PhysicalEntity) ele, relatedRoot);
+			return createSimplePhysicalEntity((Named) ele, relatedRoot);
 		}
 		else if (ele instanceof Control)
 		{

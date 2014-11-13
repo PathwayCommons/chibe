@@ -158,7 +158,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	 * Extract cross-references from the based entity.
 	 * @return list of possible names
 	 */
-	protected String extractReferences(Entity ent)
+	protected String extractReferences(Named ent)
 	{
 		List<String> list = new ArrayList<String>();
 
@@ -248,7 +248,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 		return name;
 	}
 
-	public static String getDisplayName(Entity ent)
+	public static String getDisplayName(Named ent)
 	{
 		String txt = null;
 
@@ -625,13 +625,16 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	 * @param list
 	 * @param ent
 	 */
-	public static void addDataSourceAndXrefAndComments(List<String[]> list, Entity ent)
+	public static void addDataSourceAndXrefAndComments(List<String[]> list, Named ent)
 	{
-		for (Provenance ds : ent.getDataSource())
+		if (ent instanceof Entity)
 		{
-			if (!ds.getName().isEmpty())
+			for (Provenance ds : ((Entity) ent).getDataSource())
 			{
-				list.add(new String[]{"Data Source", ds.toString()});
+				if (!ds.getName().isEmpty())
+				{
+					list.add(new String[]{"Data Source", ds.toString()});
+				}
 			}
 		}
 

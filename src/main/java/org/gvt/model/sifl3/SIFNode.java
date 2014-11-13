@@ -4,6 +4,7 @@ import org.biopax.paxtools.model.level3.EntityReference;
 import org.biopax.paxtools.model.level3.Level3Element;
 import org.biopax.paxtools.model.level3.SmallMolecule;
 import org.biopax.paxtools.model.level3.SmallMoleculeReference;
+import org.biopax.paxtools.pattern.util.HGNC;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
@@ -11,6 +12,7 @@ import org.gvt.model.EntityAssociated;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.BioPAXNode;
 import org.gvt.util.EntityHolder;
+import org.patika.mada.util.XRef;
 
 import java.util.Collection;
 import java.util.List;
@@ -69,6 +71,12 @@ public class SIFNode extends BioPAXNode implements EntityAssociated
 		else
 		{
 			setColor(getEntitySpecificColor());
+		}
+
+		String symbol = HGNC.getSymbol(name);
+		if (symbol != null)
+		{
+			this.addReference(new XRef("HGNC SYMBOL", symbol));
 		}
 	}
 
