@@ -1,6 +1,5 @@
 package org.gvt.action;
 
-import com.sun.imageio.plugins.common.LZWStringTable;
 import cpath.client.CPathClient;
 import cpath.client.util.CPathException;
 import cpath.query.CPathGetQuery;
@@ -17,10 +16,7 @@ import org.biopax.paxtools.model.level3.Interaction;
 import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.model.level3.RelationshipXref;
 import org.biopax.paxtools.pattern.miner.SIFType;
-import org.biopax.paxtools.query.QueryExecuter;
-import org.biopax.paxtools.query.algorithm.Direction;
 import org.cbio.causality.network.PathwayCommons;
-import org.cbio.causality.util.Download;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
@@ -42,12 +38,10 @@ import org.gvt.model.sifl3.SIFEdge;
 import org.gvt.model.sifl3.SIFGroup;
 import org.gvt.util.Conf;
 import org.gvt.util.QueryOptionsPack;
-import org.gvt.util.SIFReader;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.Node;
 import org.patika.mada.util.XRef;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
 

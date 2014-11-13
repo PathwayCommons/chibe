@@ -25,11 +25,11 @@ public class ReactionToGeneFilePreparer
 	{
 		SimpleIOHandler io = new SimpleIOHandler();
 		Model model = io.convertFromOWL(new FileInputStream(
-			"/home/ozgun/Projects/biopax-pattern/All-Data.owl"));
+			"/home/ozgun/Projects/biopax-pattern/Pathway Commons.5.Detailed_Process_Data.BIOPAX.owl"));
 
 		Completer cpt = new Completer(SimpleEditorMap.L3);
 
-		BufferedWriter writer = new BufferedWriter(new FileWriter("reaction2gene.txt"));
+		BufferedWriter writer = new BufferedWriter(new FileWriter("/home/ozgun/Projects/chibe/resources/reaction2gene.txt"));
 
 		boolean first = true;
 
@@ -83,7 +83,7 @@ public class ReactionToGeneFilePreparer
 	{
 		for (Xref xref : prot.getXref())
 		{
-			if (xref.getDb() != null && xref.getDb().equals("HGNC Symbol")) return xref.getId();
+			if (xref.getDb() != null && xref.getDb().equals("HGNC SYMBOL")) return xref.getId();
 		}
 		return null;
 	}

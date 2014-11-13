@@ -3,10 +3,7 @@ package org.gvt.util;
 import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level2.xref;
-import org.biopax.paxtools.model.level3.PhysicalEntity;
-import org.biopax.paxtools.model.level3.EntityReference;
-import org.biopax.paxtools.model.level3.SimplePhysicalEntity;
-import org.biopax.paxtools.model.level3.Xref;
+import org.biopax.paxtools.model.level3.*;
 
 import java.util.Set;
 
@@ -206,5 +203,12 @@ public class EntityHolder
 		if (l3er != null) return l3er;
 		if (l3pe != null) return l3pe;
 		return l2pe;
+	}
+
+	public Named getNamed()
+	{
+		if (l3pe != null) return l3pe;
+		if (l3er != null) return l3er;
+		return null;
 	}
 }

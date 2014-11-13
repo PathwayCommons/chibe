@@ -97,7 +97,7 @@ public class FetchFromCBioPortalAction extends Action
 		if (model != null)
 		{
 			for (RelationshipXref xref : model.getObjects(RelationshipXref.class)) {
-				if (xref.getDb() != null && xref.getDb().startsWith("HGNC"))
+				if (xref.getDb() != null && xref.getDb().equals("HGNC SYMBOL"))
 				{
 					String geneName = HGNC.getSymbol(xref.getId());
 
@@ -200,7 +200,7 @@ public class FetchFromCBioPortalAction extends Action
             try {
                 Row row = expFactory.createRow();
                 Reference ref = expFactory.createReference();
-                ref.setDb("HGNC");
+                ref.setDb("HGNC SYMBOL");
                 ref.setValue(geneNameToXrefStr.get(gene));
                 row.getRef().add(ref);
 

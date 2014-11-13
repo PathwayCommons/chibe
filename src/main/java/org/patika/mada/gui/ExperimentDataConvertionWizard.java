@@ -1245,6 +1245,7 @@ public class ExperimentDataConvertionWizard extends PatikaWizard implements Tabl
 		"Gene Symbol",
 		"Gene symbol",	
 		"GENE_SYMBOL",
+		"HGNC SYMBOL",
 		"Symbol",
 		"SYMBOL",
 		"symbol",	

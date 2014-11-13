@@ -71,7 +71,7 @@ public class ComplexMember extends Actor
 
 	public String getIDHash()
 	{
-		String hash = entity.getRDFId();
+		String hash = entity.getID();
 		if (related != null) hash += related.getRDFId();
 		return hash;
 	}

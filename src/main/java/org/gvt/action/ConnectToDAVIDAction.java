@@ -211,7 +211,7 @@ public class ConnectToDAVIDAction extends Action
         refMatching.put("Refseq", "REFSEQ_PROTEIN");
         refMatching.put("RefSeq", "REFSEQ_PROTEIN");
         refMatching.put("REF_SEQ", "REFSEQ_PROTEIN");
-        refMatching.put("GENE_SYMBOL", "GENE_SYMBOL");
+        refMatching.put("GENE_SYMBOL", "HGNC SYMBOL");
         refMatching.put("uniprot", "UNIPROT_ACCESSION");
         refMatching.put("UNIPROT", "UNIPROT_ACCESSION");
         refMatching.put("UniProt", "UNIPROT_ACCESSION");

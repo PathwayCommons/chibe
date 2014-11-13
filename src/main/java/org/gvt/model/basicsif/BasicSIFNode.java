@@ -55,7 +55,7 @@ public class BasicSIFNode extends BioPAXNode
 		if (symbol != null)
 		{
 			setColor(getStringSpecificColor(getText()));
-			this.addReference(new XRef("HGNC", symbol));
+			this.addReference(new XRef("HGNC SYMBOL", symbol));
 		}
 		else
 		{

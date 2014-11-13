@@ -727,8 +727,7 @@ public class BioPAXL3Graph extends BioPAXGraph
 				if (node instanceof Actor){
 					Actor a = (Actor) node;
 					EntityHolder holder = a.getEntity();
-					isProt = holder.l3pe.getClass().toString().contains("tein");
-					
+					isProt = holder.getNamed().getClass().toString().contains("Protein");
 				}
 
 				if (data == null)
