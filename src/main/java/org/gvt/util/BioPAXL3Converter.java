@@ -119,7 +119,7 @@ public class BioPAXL3Converter implements NodeProvider
 				if (pe instanceof SimplePhysicalEntity)
 				{
 					EntityReference er = ((SimplePhysicalEntity) pe).getEntityReference();
-					if (er != null)
+					if (er != null && pe.getMemberPhysicalEntity().isEmpty())
 					{
 						for (EntityReference mem : er.getMemberEntityReference())
 						{

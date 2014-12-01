@@ -94,7 +94,7 @@ public class LoadTCGASpecificSIFAction extends TCGASIFAction
 				SIFEnum.CONTROLS_STATE_CHANGE_OF,
 				SIFEnum.CONTROLS_EXPRESSION_OF);
 
-			genes.addAll(graph.getEnrichedGenes(genes, null, 0.05));
+			genes.addAll(graph.getEnrichedGenes(genes, null, 0.05, Graph.NeighborType.BOTHSTREAM, 1));
 
 			BasicSIFGraph pcGraph = new BasicSIFGraph(graph);
 

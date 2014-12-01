@@ -1,6 +1,7 @@
 package org.gvt.gui;
 
 import org.biopax.paxtools.pattern.miner.SIFType;
+import org.cbio.causality.analysis.Graph;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -61,6 +62,9 @@ public class EnrichmentInSIFParameterDialog extends Dialog
 	private Text bgText;
 	private Text geneText;
 	private Text fdrText;
+
+	private Combo neighTypeCombo;
+	private int neighTypeSelectionIndex = 2;
 
 	/**
 	 * Constructor.
@@ -156,13 +160,33 @@ public class EnrichmentInSIFParameterDialog extends Dialog
 		bgBrowseButton.setText("Browse");
 		bgBrowseButton.addSelectionListener(adapter);
 
-		Group paramsGroup = new Group(shell, SWT.NONE);
-		paramsGroup.setLayout(new RowLayout());
-		paramsGroup.setText("Parameters");
-		new Label(paramsGroup, SWT.NONE).setText("False discovery rate: ");
-		fdrText = new Text(paramsGroup, SWT.SINGLE | SWT.BORDER);
+		Group fdrGroup = new Group(shell, SWT.NONE);
+		fdrGroup.setLayout(new RowLayout());
+		fdrGroup.setText("False discovery rate");
+		fdrText = new Text(fdrGroup, SWT.SINGLE | SWT.BORDER);
 		if (fdr != null) fdrText.setText(fdr.toString());
 		fdrText.addModifyListener(new ModifyListener()
+		{
+			@Override
+			public void modifyText(ModifyEvent modifyEvent)
+			{
+				checkButtons();
+			}
+		});
+
+		Group neighTypeGroup = new Group(shell, SWT.NONE);
+		neighTypeGroup.setLayout(new RowLayout());
+		neighTypeGroup.setText("Neighborhood type");
+		neighTypeCombo = new Combo(neighTypeGroup, SWT.NONE);
+		Graph.NeighborType[] types = Graph.NeighborType.values();
+		String[] s = new String[types.length];
+		for (int i = 0; i < s.length; i++)
+		{
+			s[i] = types[i].name().toLowerCase();
+		}
+		neighTypeCombo.setItems(s);
+		neighTypeCombo.select(neighTypeSelectionIndex);
+		neighTypeCombo.addModifyListener(new ModifyListener()
 		{
 			@Override
 			public void modifyText(ModifyEvent modifyEvent)
@@ -245,6 +269,8 @@ public class EnrichmentInSIFParameterDialog extends Dialog
 				(bgText.getText().length() > 0 && new File(bgText.getText()).exists())) &&
 			geneText.getText().length() > 0 && new File(geneText.getText()).exists() &&
 			readFDR() != null);
+
+		neighTypeSelectionIndex = neighTypeCombo.getSelectionIndex();
 	}
 
 	private Double readFDR()
@@ -257,6 +283,11 @@ public class EnrichmentInSIFParameterDialog extends Dialog
 		{
 			return null;
 		}
+	}
+
+	public int getNeighTypeIndex()
+	{
+		return neighTypeSelectionIndex;
 	}
 
 	class ButtonAdapter extends SelectionAdapter

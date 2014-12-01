@@ -175,7 +175,7 @@ public abstract class QueryPCAction extends Action
 		Set<String> seed = new HashSet<String>(options.getConvertedSourceList());
 		seed.addAll(options.getConvertedTargetList());
 
-		if (options.getLengthLimit() > 1)
+		if (highlightSeed())
 		{
 			for (Object o : goi.getNodes())
 			{
@@ -186,6 +186,11 @@ public abstract class QueryPCAction extends Action
 				}
 			}
 		}
+	}
+
+	protected boolean highlightSeed()
+	{
+		return options.getLengthLimit() > 1;
 	}
 
 	private void doMechanisticQuery() throws CPathException
