@@ -77,8 +77,13 @@ public class FindEnrichedInPCSifAction extends Action
 
 			Set<String> query = readFile(genesfile);
 
-			List<String> enriched = g.getEnrichedGenes(query, bg, fdr);
-			query.retainAll(g.getNeighbors(new HashSet<String>(enriched)));
+			Graph.NeighborType nType = Graph.NeighborType.values()[dialog.getNeighTypeIndex()];
+			List<String> enriched = g.getEnrichedGenes(query, bg, fdr, nType, 1);
+
+			HashSet<String> set = new HashSet<String>(enriched);
+			query.retainAll(nType == Graph.NeighborType.UPSTREAM ? g.getUpstream(set) :
+				nType == Graph.NeighborType.DOWNSTREAM ? g.getDownstream(set) : g.getNeighbors(set));
+
 			Set<String> result = new HashSet<String>(enriched);
 			result.addAll(query);
 			g.crop(result);
@@ -93,6 +98,7 @@ public class FindEnrichedInPCSifAction extends Action
 			}
 
 			graph.setName("Enriched graph");
+			graph.groupSimilarNodes();
 
 			System.out.println("GOI has " + graph.getNodes().size() + " nodes and " +
 				graph.getEdges().size() + " edges.");

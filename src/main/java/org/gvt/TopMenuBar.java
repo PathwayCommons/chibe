@@ -127,6 +127,7 @@ public class TopMenuBar
 
 		editMenu.add(new HighlightByNameAction(chisio));
 		editMenu.add(new HighlightSelectedAction(chisio));
+		editMenu.add(new SelectHighlightedAction(chisio));
 		editMenu.add(new HighlightPathsBetweenSelectedAction(chisio));
 		editMenu.add(new RemoveHighlightFromSelectedAction(chisio));
 		editMenu.add(new RemoveHighlightsAction(chisio));
@@ -221,6 +222,7 @@ public class TopMenuBar
 		queryMenu.add(pcNewSIFMenu);
 		pcNewSIFMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
+		pcNewSIFMenu.add(new QueryPCPathsBetweenWithLinkersAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsFromToAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCCommonStreamAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 
