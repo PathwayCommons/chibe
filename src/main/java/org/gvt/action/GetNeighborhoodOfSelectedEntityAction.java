@@ -62,20 +62,24 @@ public class GetNeighborhoodOfSelectedEntityAction extends Action
 			entities = new HashSet<EntityHolder>();
 
 			ScrollingGraphicalViewer viewer = main.getViewer();
-			Iterator selectedObjects = ((IStructuredSelection) viewer.getSelection()).iterator();
 
-			while (selectedObjects.hasNext())
+			if (viewer != null)
 			{
-				Object o = ((EditPart)selectedObjects.next()).getModel();
+				Iterator selectedObjects = ((IStructuredSelection) viewer.getSelection()).iterator();
 
-				if (o instanceof NodeModel)
+				while (selectedObjects.hasNext())
 				{
-					NodeModel model = (NodeModel) o;
+					Object o = ((EditPart)selectedObjects.next()).getModel();
 
-					if (model instanceof EntityAssociated)
+					if (o instanceof NodeModel)
 					{
-						EntityAssociated ea = (EntityAssociated) model;
-						entities.add(ea.getEntity());
+						NodeModel model = (NodeModel) o;
+
+						if (model instanceof EntityAssociated)
+						{
+							EntityAssociated ea = (EntityAssociated) model;
+							entities.add(ea.getEntity());
+						}
 					}
 				}
 			}
