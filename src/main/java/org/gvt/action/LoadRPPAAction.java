@@ -2,6 +2,7 @@ package org.gvt.action;
 
 import org.cbio.causality.analysis.RPPANetworkMapper;
 import org.cbio.causality.model.RPPAData;
+import org.cbio.causality.network.PhosphoSitePlus;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.gvt.ChisioMain;
@@ -36,6 +37,7 @@ public class LoadRPPAAction extends Action
 
 			List<RPPAData> datas = wizard.readData();
 
+			PhosphoSitePlus.fillInMissingEffect(datas);
 
 			double threshold = wizard.threshold;
 

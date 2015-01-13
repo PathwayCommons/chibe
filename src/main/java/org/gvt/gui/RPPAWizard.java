@@ -28,10 +28,12 @@ public class RPPAWizard extends Wizard
 	public ValueMetric valueMetric;
 	public ComparisonType comparisonType;
 	String platFile;
+	String valuesFile;
 	String idColName;
 	String siteColName;
 	String symbolColName;
 	String effectColName;
+	String valueColName;
 	List<String> vals0;
 	List<String> vals1;
 	public NetworkType networkType;
@@ -43,6 +45,7 @@ public class RPPAWizard extends Wizard
 	PlatLoadPage platLoadPage;
 	SingleFileSingleValueLoadPage singleFileSingleValueLoadPage;
 	TwoGroupsPage twoGroupsPage;
+	SingleValuePage singleValuePage;
 	NetworkPage networkPage;
 	ActivityAndFilterPage activityAndFilterPage;
 
@@ -63,6 +66,7 @@ public class RPPAWizard extends Wizard
 		addPage(platLoadPage = new PlatLoadPage());
 		addPage(singleFileSingleValueLoadPage = new SingleFileSingleValueLoadPage());
 		addPage(twoGroupsPage = new TwoGroupsPage());
+		addPage(singleValuePage = new SingleValuePage());
 		addPage(networkPage = new NetworkPage());
 		addPage(activityAndFilterPage = new ActivityAndFilterPage());
 	}
@@ -90,6 +94,10 @@ public class RPPAWizard extends Wizard
 			twoGroupsPage.initList();
 			getShell().pack();
 			return twoGroupsPage;
+		}
+		else if (page == platLoadPage && formatType == FormatType.TWO_FILES)
+		{
+			return singleValuePage;
 		}
 		else if (page == singleFileSingleValueLoadPage) return networkPage;
 		else if (page == networkPage) return activityAndFilterPage;
@@ -134,7 +142,13 @@ public class RPPAWizard extends Wizard
 			siteColName, effectColName);
 
 		if (formatType == FormatType.SINGLE_FILE)
+		{
 			RPPAFileReader.addValues(datas, platFile, idColName, vals0, vals1);
+		}
+		else if (formatType == FormatType.TWO_FILES)
+		{
+			RPPAFileReader.addValues(datas, valuesFile, idColName, vals0, vals1);
+		}
 
 		datas.addAll(activities);
 
@@ -151,6 +165,11 @@ public class RPPAWizard extends Wizard
 			if (comparisonType == ComparisonType.TTEST) chDet = ChangeDet.TTEST.det;
 			else if (comparisonType == ComparisonType.LOG2_RATIO) chDet = ChangeDet.LOG_2_OF_RATIOS.det;
 		}
+		else if (valueAmount == ValueAmount.SINGLE)
+		{
+			if (valueMetric == ValueMetric.PVAL) chDet = ChangeDet.SIGNED_PVAL.det;
+			else if (valueMetric == ValueMetric.RATIO) chDet = ChangeDet.TAKE_LOG_2_OF_VAL.det;
+		}
 
 		if (chDet == null)
 		{
@@ -166,8 +185,13 @@ public class RPPAWizard extends Wizard
 
 	public String getSIFFilename()
 	{
-		if (platFile == null) return null;
-		String s = platFile;
+		String s = null;
+
+		if (valuesFile != null) s = valuesFile;
+		else if (platFile != null) s = platFile;
+
+		if (s == null) return null;
+
 		int sepIndex = s.lastIndexOf(File.separator);
 		int dotInd = s.lastIndexOf(".");
 		if (dotInd > 0 && dotInd > sepIndex) s = s.substring(0, dotInd);
@@ -688,6 +712,7 @@ public class RPPAWizard extends Wizard
 				thrGroup.setText("Enter t-test p-value threshold");
 			else if (comparisonType == ComparisonType.LOG2_RATIO)
 				thrGroup.setText("Enter log-2-ratio threshold");
+
 		}
 
 		protected void initList()
@@ -802,6 +827,149 @@ public class RPPAWizard extends Wizard
 			}
 		}
 	}
+
+	class SingleValuePage extends PlatLoadPage
+	{
+		Combo valueCombo;
+		Text thresholdText;
+		Text valuesFileText;
+
+		SingleValuePage()
+		{
+			setTitle("Values");
+			setDescription("Identify the columns in values file.");
+		}
+
+		@Override
+		public void createControl(Composite parent)
+		{
+			Composite composite = new Composite(parent, SWT.NONE);
+
+			GridLayout layout = new GridLayout();
+			layout.numColumns = 1;
+			composite.setLayout(layout);
+
+			Group group = new Group(composite, SWT.NONE);
+			group.setText("Select RPPA values file");
+			group.setLayout(new RowLayout());
+			valuesFileText = new Text(group, SWT.SINGLE | SWT.BORDER);
+			valuesFileText.setTextLimit(50);
+			valuesFileText.setEditable(false);
+			if (valuesFile != null) valuesFileText.setText(valuesFile);
+			Button platButton = new Button(group, SWT.PUSH);
+			platButton.setText("Browse");
+			platButton.addSelectionListener(new SelectionAdapter()
+			{
+				@Override
+				public void widgetSelected(SelectionEvent selectionEvent)
+				{
+					FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
+					String file = dialog.open();
+					if (file != null)
+					{
+						valuesFileText.setText(file);
+						valuesFile = file;
+						parseFile();
+					}
+				}
+			});
+
+			ComboListener listener = new ComboListener();
+
+			group = new Group(composite, SWT.NONE);
+			group.setText("Select \"ID\" column");
+			group.setLayout(new RowLayout());
+			idCombo = new Combo(group, SWT.NONE);
+			idCombo.addSelectionListener(listener);
+
+			group = new Group(composite, SWT.NONE);
+			group.setText("Select \"value\" column");
+			group.setLayout(new RowLayout());
+			valueCombo = new Combo(group, SWT.NONE);
+			valueCombo.addSelectionListener(listener);
+
+			group = new Group(composite, SWT.NONE);
+			group.setText("Enter a threshold value");
+			group.setLayout(new RowLayout());
+			thresholdText = new Text(group, SWT.SINGLE);
+			thresholdText.setText(threshold + "");
+			thresholdText.addModifyListener(new ModifyListener()
+			{
+				@Override
+				public void modifyText(ModifyEvent modifyEvent)
+				{
+					readThreshold();
+					setPageComplete(isPageComplete());
+				}
+			});
+
+			setControl(composite);
+		}
+
+		protected void parseFile()
+		{
+			idColName = null;
+			valueColName = null;
+
+			header = RPPAFileReader.getHeader(valuesFile);
+
+			if (header != null)
+			{
+				idCombo.setItems(header);
+				valueCombo.setItems(header);
+
+				int potentialID = RPPAFileReader.getPotentialIDColIndex(header);
+				if (potentialID >= 0) idCombo.select(potentialID);
+				valueCombo.select(header.length - 1);
+			}
+			readFields();
+			getShell().pack();
+		}
+
+
+		private void readThreshold()
+		{
+			try
+			{
+				String text = thresholdText.getText();
+				threshold = Double.parseDouble(text);
+			}
+			catch (NumberFormatException e)
+			{
+			}
+		}
+
+		@Override
+		public boolean isPageComplete()
+		{
+			return valuesFile != null && vals0 != null && !vals0.isEmpty() && threshold > 0;
+		}
+
+		protected void readFields()
+		{
+			String colName = getSelected(valueCombo);
+			if (colName != null)
+			{
+				vals0 = new ArrayList<String>(1);
+				vals0.add(colName);
+			}
+			idColName = getSelected(idCombo);
+
+			readThreshold();
+
+			setPageComplete(isPageComplete());
+		}
+
+//		class ComboListener extends SelectionAdapter
+//		{
+//			@Override
+//			public void widgetSelected(SelectionEvent selectionEvent)
+//			{
+//				readFields();
+//			}
+//		}
+	}
+
 
 	class NetworkPage extends WizardPage
 	{
@@ -957,7 +1125,7 @@ public class RPPAWizard extends Wizard
 	{
 		MEASUREMENT("Measurement (non-negative)"),
 		VALS_AROUND_ZERO("Values around zero"),
-		RATIO("Ratio"),
+		RATIO("Ratio (take log-2)"),
 		LOG2_RAT("Log-2-ratio"),
 		PVAL("P-values (use sign to indicate decrease)");
 
@@ -1077,6 +1245,25 @@ public class RPPAWizard extends Wizard
 			public double getChangeValue(RPPAData data)
 			{
 				return data.getSignificanceBasedVal();
+			}
+		}),
+
+		SIGNED_PVAL(new RPPAData.ChangeAdapter()
+		{
+			@Override
+			public int getChangeSign(RPPAData data)
+			{
+				double pval = data.getMeanVal();
+				if (Math.abs(pval) > threshold) return 0;
+				return pval > 0 ? 1 : -1;
+			}
+
+			@Override
+			public double getChangeValue(RPPAData data)
+			{
+				double val = -Math.log(Math.abs(data.getMeanVal())) / Math.log(2);
+				if (data.getMeanVal() < 0) val *= -1;
+				return val;
 			}
 		}),
 

@@ -42,8 +42,10 @@ public class ChbComplex extends BioPAXCompoundNode implements EntityAssociated
 
 		extractReferences();
 		
-		setText((cmp.getDisplayName() != null && cmp.getDisplayName().length() > 0) ?
-			cmp.getDisplayName() : cmp.getStandardName());
+		setText((cmp.getDisplayName() != null && !cmp.getDisplayName().isEmpty()) ?
+			cmp.getDisplayName() :
+			cmp.getStandardName() != null && !cmp.getStandardName().isEmpty() ? cmp.getStandardName() :
+			!cmp.getName().isEmpty() ? cmp.getName().iterator().next() : "noname");
 
 		setTooltipText(getText());
 		
