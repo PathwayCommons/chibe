@@ -274,7 +274,7 @@ public class BioPAXUtil
 	 */
 	public static Set<EntityHolder> getEntities(Model model)
 	{
-		if (model == null) return Collections.emptySet();
+		if (model == null) return Collections.<EntityHolder>emptySet();
 
 		Set<EntityHolder> set = new HashSet<EntityHolder>();
 

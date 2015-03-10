@@ -113,12 +113,19 @@ public class RPPAWizard extends Wizard
 	protected void readActivityAndFilter()
 	{
 		activities = new HashSet<RPPAData>();
-		for (String s : activityText.getText().split("\\s+"))
+		for (String s : activityText.getText().split("\\n"))
 		{
-			Boolean b = s.endsWith("+") ? Boolean.TRUE : s.endsWith("-") ? Boolean.FALSE : null;
+			s = s.trim();
+			String first = s;
+			if (s.contains(" "))
+			{
+				first = s.substring(0, s.indexOf(" "));
+			}
+
+			Boolean b = first.endsWith("+") ? Boolean.TRUE : first.endsWith("-") ? Boolean.FALSE : null;
 			if (b != null)
 			{
-				String sym = s.substring(0, s.length() - 1);
+				String sym = first.substring(0, first.length() - 1);
 				if (!sym.isEmpty())
 				{
 					RPPAData data = new RPPAData(s, null, Arrays.asList(sym), null);
@@ -143,11 +150,11 @@ public class RPPAWizard extends Wizard
 
 		if (formatType == FormatType.SINGLE_FILE)
 		{
-			RPPAFileReader.addValues(datas, platFile, idColName, vals0, vals1);
+			RPPAFileReader.addValues(datas, platFile, idColName, vals0, vals1, 0D);
 		}
 		else if (formatType == FormatType.TWO_FILES)
 		{
-			RPPAFileReader.addValues(datas, valuesFile, idColName, vals0, vals1);
+			RPPAFileReader.addValues(datas, valuesFile, idColName, vals0, vals1, 0D);
 		}
 
 		datas.addAll(activities);

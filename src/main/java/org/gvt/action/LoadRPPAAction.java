@@ -3,6 +3,7 @@ package org.gvt.action;
 import org.cbio.causality.analysis.RPPANetworkMapper;
 import org.cbio.causality.model.RPPAData;
 import org.cbio.causality.network.PhosphoSitePlus;
+import org.cbio.causality.util.Histogram;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.gvt.ChisioMain;
@@ -36,8 +37,18 @@ public class LoadRPPAAction extends Action
 			// Prepare network using the data
 
 			List<RPPAData> datas = wizard.readData();
-
 			PhosphoSitePlus.fillInMissingEffect(datas);
+
+//			List<RPPAData> copy = RPPAData.copy(datas);
+//			List<Integer> sizes = RPPANetworkMapper.getNullGraphSizes(copy, 1000, wizard.networkType.type);
+//
+//			Histogram h = new Histogram(1);
+//			h.setBorderAtZero(true);
+//			for (Integer size : sizes)
+//			{
+//				h.count(size);
+//			}
+//			h.print();
 
 			double threshold = wizard.threshold;
 

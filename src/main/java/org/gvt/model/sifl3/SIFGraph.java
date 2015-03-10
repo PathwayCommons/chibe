@@ -249,7 +249,7 @@ public class SIFGraph extends BioPAXL3Graph
 		Map<NodeModel, Set<String>> incomingMap, Map<NodeModel, Set<String>> outgoingMap)
 	{
 		if (incomingMap.get(node).isEmpty() && outgoingMap.get(node).isEmpty())
-			return Collections.emptySet();
+			return Collections.<NodeModel>emptySet();
 
 		Set<NodeModel> sim = new HashSet<NodeModel>();
 
@@ -258,7 +258,7 @@ public class SIFGraph extends BioPAXL3Graph
 			if (similar(n, node, incomingMap, outgoingMap)) sim.add(n);
 		}
 		if (sim.size() > 1) return sim;
-		else return Collections.emptySet();
+		else return Collections.<NodeModel>emptySet();
 	}
 
 	private boolean similar(NodeModel n1, NodeModel n2, Map<NodeModel, Set<String>> incomingMap,

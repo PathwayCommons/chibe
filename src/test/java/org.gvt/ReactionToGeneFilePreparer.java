@@ -48,8 +48,8 @@ public class ReactionToGeneFilePreparer
 			{
 				if (ele instanceof ProteinReference)
 				{
-					String symbol = getSymbol((ProteinReference) ele);
-					if (symbol != null) symbols.add(symbol);
+					Set<String> symbolSet = getSymbols((ProteinReference) ele);
+					if (symbolSet != null) symbols.addAll(symbolSet);
 				}
 				else if (ele instanceof Control)
 				{
@@ -79,12 +79,16 @@ public class ReactionToGeneFilePreparer
 		writer.close();
 	}
 
-	private String getSymbol(ProteinReference prot)
+	private Set<String> getSymbols(ProteinReference prot)
 	{
+		Set<String> set = new HashSet<String>();
 		for (Xref xref : prot.getXref())
 		{
-			if (xref.getDb() != null && xref.getDb().equals("HGNC SYMBOL")) return xref.getId();
+			if (xref.getDb() != null && xref.getDb().equals("HGNC Symbol"))
+			{
+				set.add(xref.getId());
+			}
 		}
-		return null;
+		return set;
 	}
 }
