@@ -214,7 +214,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			}
 		}
 
-		for (Set<NodeModel> group : findGroups(getNodes(), incomingMap, outgoingMap))
+		for (Set<NodeModel> group : findGroups((Set<NodeModel>) getNodes(), incomingMap, outgoingMap))
 		{
 			HashSet<BasicSIFNode> members = new HashSet<BasicSIFNode>();
 			for (NodeModel m : group)
