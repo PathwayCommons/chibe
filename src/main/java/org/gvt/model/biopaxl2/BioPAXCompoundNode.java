@@ -240,7 +240,7 @@ public abstract class BioPAXCompoundNode extends CompoundModel implements IBioPA
 
 	public Set<Node> getTabuNodes()
 	{
-		return Collections.emptySet();
+		return Collections.<Node>emptySet();
 	}
 	
 	//----------------------------------------------------------------------------------------------

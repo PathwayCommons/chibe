@@ -428,7 +428,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL2Node
 
 	public Set<Node> getTabuNodes()
 	{
-		return Collections.emptySet();
+		return Collections.<Node>emptySet();
 	}
 
 	public Set<GraphObject> getRequisites()

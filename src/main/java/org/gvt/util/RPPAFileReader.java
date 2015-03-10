@@ -158,7 +158,7 @@ public class RPPAFileReader
 	}
 
 	public static void addValues(List<RPPAData> datas, String filename, String idColName,
-		List<String> vals0, List<String> vals1)
+		List<String> vals0, List<String> vals1, Double missingVal)
 	{
 		Map<String, Double>[] v0 = readVals(
 			filename, idColName, vals0.toArray(new String[vals0.size()]));
@@ -177,7 +177,8 @@ public class RPPAFileReader
 			{
 				Double doubVal = v0[i].get(data.id);
 				if (doubVal != null) data.vals[0][i] = doubVal;
-				else remove.add(data);
+				else if (missingVal == null) remove.add(data);
+				else data.vals[0][i] = missingVal;
 			}
 		}
 		datas.removeAll(remove);
@@ -189,7 +190,8 @@ public class RPPAFileReader
 				data.vals[1] = new double[v1.length];
 				for (int i = 0; i < v1.length; i++)
 				{
-					data.vals[1][i] = v1[i].get(data.id);
+					Double doubVal = v1[i].get(data.id);
+					data.vals[1][i] = doubVal == null ? missingVal : doubVal;
 				}
 			}
 		}
