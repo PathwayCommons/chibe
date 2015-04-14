@@ -7,6 +7,7 @@ import org.cbio.causality.util.FormatUtil;
 import org.gvt.ChisioMain;
 import org.gvt.gui.GeneSetSelectionDialog;
 import org.gvt.gui.ItemSelectionDialog;
+import org.gvt.model.BioPAXGraph;
 import org.gvt.util.Conf;
 import org.patika.mada.util.XRef;
 
@@ -17,70 +18,70 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Finds Reactions in PC2 that are enriched by the user selected genes.
+ * Finds Pathways in PC2 that are enriched by the user selected genes.
  * @author Ozgun Babur
  */
-public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
+public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 {
-	private static final String DEFAULT_REACTION_2_GENE_FILE_NAME = "reaction2gene.txt";
+	private static final String DEFAULT_PATHWAY_2_GENE_FILE_NAME = "pathway2gene.txt";
 
-	public EnrichedReactionsAction(ChisioMain main)
+	public EnrichedPathwaysAction(ChisioMain main)
 	{
-		super("Find Enriched Reactions ...", main);
+		super("Find Enriched Pathways ...", main);
 	}
 
 	public void run()
 	{
-		GeneSetSelectionDialog erd = new GeneSetSelectionDialog(main.getShell());
-		List<String> query = erd.open();
+		GeneSetSelectionDialog gssd = new GeneSetSelectionDialog(main.getShell());
+		List<String> query = gssd.open();
 
 		if (query == null || query.isEmpty()) return;
 
-		Map<String, Reaction> reactions = getReactions(query);
+		Map<String, Pathway> pathways = getPathways(query);
 
 		// assign p-values
 
 		Set<String> allSymbols = new HashSet<String>();
-		for (Reaction reaction : reactions.values())
+		for (Pathway pathway : pathways.values())
 		{
-			allSymbols.addAll(reaction.genes);
+			allSymbols.addAll(pathway.genes);
 		}
 		int allSize = allSymbols.size();
 		int querySize = query.size();
 		Map<String, Double> pvals = new HashMap<String, Double>();
-		for (Reaction reaction : reactions.values())
+		for (Pathway pathway : pathways.values())
 		{
-			reaction.assignPval(allSize, querySize);
-			pvals.put(reaction.id, reaction.pval);
+			pathway.assignPval(allSize, querySize);
+			pvals.put(pathway.id, pathway.pval);
 		}
 
 		Map<String, Double> qVals = FDR.getQVals(pvals, null);
 
 		for (String key : qVals.keySet())
 		{
-			reactions.get(key).qval = FormatUtil.roundToSignificantDigits(qVals.get(key), 1);
+			pathways.get(key).qval = FormatUtil.roundToSignificantDigits(qVals.get(key), 1);
 		}
 
-		// group reactions
+		// group pathways
 
-		Map<String, List<Reaction>> groups = new HashMap<String, List<Reaction>>();
-		for (Reaction reac : reactions.values())
+		Map<String, List<Pathway>> groups = new HashMap<String, List<Pathway>>();
+		for (Pathway reac : pathways.values())
 		{
 			if (reac.hit.isEmpty()) continue;
 
 			String key = reac.getKey();
-			if (!groups.containsKey(key)) groups.put(key, new ArrayList<Reaction>());
+			if (!groups.containsKey(key)) groups.put(key, new ArrayList<Pathway>());
 			groups.get(key).add(reac);
 		}
-		for (List<Reaction> list : groups.values())
+		for (List<Pathway> list : groups.values())
 		{
 			Collections.sort(list);
 		}
 
-		// add representing reactions to selection list
+		// add representing pathways to selection list
 
 		List<SelectionItem> items = new ArrayList<SelectionItem>();
-		for (List<Reaction> list : groups.values())
+		for (List<Pathway> list : groups.values())
 		{
 			items.add(new SelectionItem(list.get(0)));
 		}
@@ -90,8 +91,8 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 		ArrayList<SelectionItem> selected = new ArrayList<SelectionItem>();
 
-		ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 400, "Hot reactions",
-			"Plase select reaction to view", items, selected, true, true, null);
+		ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 400, "Enriched pathways",
+			"Plase select pathway to view", items, selected, true, true, null);
 
 		dialog.open();
 
@@ -102,18 +103,15 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 		for (SelectionItem item : selected)
 		{
-			for (Reaction reac : groups.get(item.reac.getKey()))
+			for (Pathway reac : groups.get(item.pathway.getKey()))
 			{
 				Collections.addAll(ids, reac.ids);
 				genes.addAll(reac.hit);
 			}
 		}
 
-		String title = "Enriched reactions";
-
 		QueryPCGetAction qa = new QueryPCGetAction(main, false, QueryPCAction.QueryLocation.PC_MECH);
 		qa.setIDs(ids);
-		qa.setNewPathwayName(title);
 		qa.run();
 
 		Set<XRef> xrefs = new HashSet<XRef>();
@@ -133,31 +131,30 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 	//--------------------- Getting Reactions--- --------------------------------------------------|
 
-	private Map<String, Reaction> getReactions(Collection<String> query)
+	private Map<String, Pathway> getPathways(Collection<String> query)
 	{
-		File rFile = new File(getReactionFileLocation());
+		File rFile = new File(getPathwayFileLocation());
 
 		if (!rFile.exists())
 		{
-			downloadReactionFile(rFile.getPath());
+			downloadPathwayFile(rFile.getPath());
 		}
 
 		try
 		{
-			Map<String, Reaction> reactions = new HashMap<String, Reaction>();
+			Map<String, Pathway> pathways = new HashMap<String, Pathway>();
 			BufferedReader reader = new BufferedReader(new FileReader(rFile));
 
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
 			{
 				String[] token = line.split("\t");
-				Reaction r = new Reaction(token[0], Arrays.asList(token).subList(1, token.length),
+				Pathway p = new Pathway(token[0], token[1], Arrays.asList(token).subList(2, token.length),
 					query);
 
-				reactions.put(r.id, r);
-
+				if (p.genes.size() > 1) pathways.put(p.id, p);
 			}
 			reader.close();
-			return reactions;
+			return pathways;
 		}
 		catch (IOException e)
 		{
@@ -166,12 +163,12 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		}
 	}
 
-	private String getReactionFileLocation()
+	private String getPathwayFileLocation()
 	{
-		String s = Conf.get(Conf.REACTION_2_GENE_FILE);
+		String s = Conf.get(Conf.PATHWAY_2_GENE_FILE);
 		if (s.equals(Conf.DEFAULT))
 		{
-			return Conf.getPortalCacheDir() + DEFAULT_REACTION_2_GENE_FILE_NAME;
+			return Conf.getPortalCacheDir() + DEFAULT_PATHWAY_2_GENE_FILE_NAME;
 		}
 		else
 		{
@@ -179,16 +176,17 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		}
 	}
 
-	private boolean downloadReactionFile(String saveLoc)
+	private boolean downloadPathwayFile(String saveLoc)
 	{
-		String url = Conf.get(Conf.REACTION_2_GENE_FILE_URL);
+		String url = Conf.get(Conf.PATHWAY_2_GENE_FILE_URL);
 		return Download.downlaodTextFile(url, saveLoc);
 	}
 
 
-	class Reaction implements Comparable
+	class Pathway implements Comparable
 	{
 		String id;
+		String name;
 
 		// with controls
 		String[] ids;
@@ -198,7 +196,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		double pval;
 		double qval;
 
-		Reaction(String id, List<String> genes, Collection<String> query)
+		Pathway(String id, String name, List<String> genes, Collection<String> query)
 		{
 			this.ids = id.split(" ");
 			this.id = ids[0];
@@ -223,8 +221,8 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		@Override
 		public int compareTo(Object o)
 		{
-			if (!(o instanceof Reaction)) return 0;
-			return new Double(qval).compareTo(((Reaction) o).qval);
+			if (!(o instanceof Pathway)) return 0;
+			return new Double(qval).compareTo(((Pathway) o).qval);
 		}
 
 		public void assignPval(int totalSymbolSize, int querySize)
@@ -236,17 +234,17 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 
 	class SelectionItem implements Comparable
 	{
-		Reaction reac;
+		Pathway pathway;
 
-		SelectionItem(Reaction reac)
+		SelectionItem(Pathway pathway)
 		{
-			this.reac = reac;
+			this.pathway = pathway;
 		}
 
 		@Override
 		public String toString()
 		{
-			return reac.getKey() + " [" + FormatUtil.roundToSignificantDigits(reac.pval, 2) + "]";
+			return pathway.getKey() + " [" + FormatUtil.roundToSignificantDigits(pathway.pval, 2) + "]";
 		}
 
 		@Override
@@ -254,7 +252,7 @@ public class EnrichedReactionsAction extends LoadTCGASpecificSIFAction
 		{
 			if (!(o instanceof SelectionItem)) return 0;
 
-			return new Double(reac.qval).compareTo(((SelectionItem) o).reac.qval);
+			return new Double(pathway.qval).compareTo(((SelectionItem) o).pathway.qval);
 		}
 	}
 }

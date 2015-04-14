@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.apache.xmlbeans.XmlString;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.RGB;
 import org.graphdrawing.graphml.xmlns.*;
 import org.gvt.model.*;
+import org.gvt.model.biopaxl2.Complex;
+import org.gvt.model.biopaxl3.ChbComplex;
 
 /**
  * GraphML writer class for saving graphml files
@@ -56,6 +59,8 @@ public class GraphMLWriter
 
 	// margin of the graph
 	int marginSize = -1;
+
+	boolean writeComplexMembers = false;
 
 	public Object writeXMLFile(CompoundModel root)
 	{
@@ -184,46 +189,49 @@ public class GraphMLWriter
 		rootGraph.setId(graphId);
 		rootGraph.setEdgedefault(GraphEdgedefaultType.UNDIRECTED);
 
-		// create child nodes for this graph
-		Iterator iter = root.getChildren().iterator();
-		int i = 0;
-
-		while (iter.hasNext())
+		if (!isReducedComplex(root))
 		{
-			NodeModel model = (NodeModel) iter.next();
-			String id = graphId + "n" + i;
-			hashMap.put(model, id);
+			// create child nodes for this graph
+			Iterator iter = root.getChildren().iterator();
+			int i = 0;
 
-			// create the node in graphml file
-			NodeType newNode = rootGraph.addNewNode();
-			newNode.setId(id);
-
-			if (createNode(newNode, model))
+			while (iter.hasNext())
 			{
-				// if node is a compound node than margin property must be added
-				if (marginSize < 0)
+				NodeModel model = (NodeModel) iter.next();
+				String id = graphId + "n" + i;
+				hashMap.put(model, id);
+
+				// create the node in graphml file
+				NodeType newNode = rootGraph.addNewNode();
+				newNode.setId(id);
+
+				if (createNode(newNode, model))
 				{
-					marginSize = CompoundModel.MARGIN_SIZE;
+					// if node is a compound node than margin property must be added
+					if (marginSize < 0)
+					{
+						marginSize = CompoundModel.MARGIN_SIZE;
+					}
+
+					DataType marginData = rootGraph.addNewData();
+					marginData.setKey(marginKey.getId());
+					marginData.set(XmlString.Factory.newValue("" + marginSize));
+
+					// Also the subgraph of this compound node must be created
+					GraphType newGraph = newNode.addNewGraph();
+					createTree(newGraph,
+						(CompoundModel) model,
+						newNode.getId() + ":");
 				}
 
-				DataType marginData = rootGraph.addNewData();
-				marginData.setKey(marginKey.getId());
-				marginData.set(XmlString.Factory.newValue("" + marginSize));
-
-				// Also the subgraph of this compound node must be created
-				GraphType newGraph = newNode.addNewGraph();
-				createTree(newGraph,
-					(CompoundModel) model,
-					newNode.getId() + ":");
+				i++;
 			}
-
-			i++;
 		}
 
 		if (graphId.equals(""))
 		{
 			// create edges in graphml file
-			i = 0;
+			int i = 0;
 			Iterator edgeIter =
 				root.getEdgeIterator(CompoundModel.ALL_EDGES, true, false);
 
@@ -310,12 +318,13 @@ public class GraphMLWriter
 		{
 			DataType highlightColorData = newNode.addNewData();
 			highlightColorData.setKey(highlightColorKey.getId());
-			rgb = model.getHighlightColor().getRGB();
+			Color highlightColor = model.getHighlightColor();
+			rgb = highlightColor != null ? highlightColor.getRGB() : new RGB(255, 255, 0);
 			highlightColorData.set(XmlString.Factory.
 				newValue(rgb.red + " " + rgb.green + " " + rgb.blue));
 		}
 
-		if (model instanceof CompoundModel)
+		if (model instanceof CompoundModel && !isReducedComplex(model))
 		{
 			return true;
 		}
@@ -328,6 +337,12 @@ public class GraphMLWriter
 		}
 
 		return false;
+	}
+
+	private boolean isReducedComplex(NodeModel model)
+	{
+		return !writeComplexMembers &&
+			(model instanceof ChbComplex || model instanceof Complex);
 	}
 
 	public void createEdge(EdgeType newEdge, EdgeModel model)

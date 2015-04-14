@@ -22,6 +22,8 @@ public enum Conf
 	public static final String PC_SIF_FILE_URL = "PC_SIF_FILE_URL";
 	public static final String REACTION_2_GENE_FILE = "REACTION_2_GENE_FILE";
 	public static final String REACTION_2_GENE_FILE_URL = "REACTION_2_GENE_FILE_URL";
+	public static final String PATHWAY_2_GENE_FILE = "PATHWAY_2_GENE_FILE";
+	public static final String PATHWAY_2_GENE_FILE_URL = "PATHWAY_2_GENE_FILE_URL";
 
     public static final String CBIOPORTAL_URL = "CBIOPORTAL_URL";
     public static final String CBIOPORTAL_USE_CACHE = "CBIOPORTAL_USE_CACHE";
@@ -86,6 +88,8 @@ public enum Conf
 		s += PC_SIF_FILE_URL + " = http://resources.chibe.googlecode.com/hg/PC.sif.gz\n";
 		s += REACTION_2_GENE_FILE + " = " + DEFAULT + "\n";
 		s += REACTION_2_GENE_FILE_URL + " = http://resources.chibe.googlecode.com/hg/reaction2gene.txt\n";
+		s += PATHWAY_2_GENE_FILE + " = " + DEFAULT + "\n";
+		s += PATHWAY_2_GENE_FILE_URL + " = http://resources.chibe.googlecode.com/hg/pathway2gene.txt\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
 		s += CBIOPORTAL_USE_CACHE + " = true\n";

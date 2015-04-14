@@ -144,7 +144,11 @@ public class RPPAFileReader
 
 				for (int i = 0; i < colname.length; i++)
 				{
-					valMaps[i].put(row[idInd], Double.parseDouble(row[valInd[i]]));
+					double val;
+					try { val = Double.parseDouble(row[valInd[i]]); }
+					catch (NumberFormatException e){val = Double.NaN;}
+
+					valMaps[i].put(row[idInd], val);
 				}
 			}
 

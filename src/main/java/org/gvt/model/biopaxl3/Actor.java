@@ -149,7 +149,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		{
 			width = suggestInitialWidth();
 
-			if (!(entity.getNamed() instanceof SmallMolecule) && width < MIN_INITIAL_WIDTH)
+			if (!isSmallMolecule(entity) && width < MIN_INITIAL_WIDTH)
 			{
 				width = MIN_INITIAL_WIDTH;
 			}
@@ -159,7 +159,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 		setSize(new Dimension(width, height));
 
-		if (entity.getNamed() instanceof SmallMolecule)
+		if (isSmallMolecule(entity))
 		{
 			setColor(SMALL_MOL_BG_COLOR);
 		} else
@@ -179,6 +179,12 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			}
 		}
 		this.setShape(shp);
+	}
+
+	private boolean isSmallMolecule(EntityHolder ent)
+	{
+		return ent.getNamed() instanceof SmallMolecule ||
+			ent.getNamed() instanceof SmallMoleculeReference;
 	}
 
 	public EntityHolder getEntity()

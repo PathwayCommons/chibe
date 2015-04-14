@@ -179,7 +179,7 @@ public class MergeAction extends Action
 					SimpleEditorMap.get(main.getBioPAXModel().getLevel()));
 
 				merger.merge(main.getBioPAXModel(), model);
-				ModelUtils.mergeEquivalentInteractions(main.getBioPAXModel());
+//				ModelUtils.mergeEquivalentInteractions(main.getBioPAXModel());
 
 				if (createNewPathway)
 				{
