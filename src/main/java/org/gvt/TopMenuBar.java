@@ -203,6 +203,7 @@ public class TopMenuBar
 		pcNewMenu.add(new Separator());
 		pcNewMenu.add(new QueryPCPathwaysAction(chisio, QueryPCAction.QueryLocation.PC_MECH));
 		pcNewMenu.add(new QueryPCGetAction(chisio, false, QueryPCAction.QueryLocation.PC_MECH));
+		pcNewMenu.add(new EnrichedPathwaysAction(main));
 		pcNewMenu.add(new EnrichedReactionsAction(main));
 
 		// Query new pathway commons

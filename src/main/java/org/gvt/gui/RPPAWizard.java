@@ -99,7 +99,7 @@ public class RPPAWizard extends Wizard
 		{
 			return singleValuePage;
 		}
-		else if (page == singleFileSingleValueLoadPage) return networkPage;
+		else if (page == singleFileSingleValueLoadPage || page == twoGroupsPage) return networkPage;
 		else if (page == networkPage) return activityAndFilterPage;
 		return super.getNextPage(page);
 	}
@@ -171,6 +171,7 @@ public class RPPAWizard extends Wizard
 		{
 			if (comparisonType == ComparisonType.TTEST) chDet = ChangeDet.TTEST.det;
 			else if (comparisonType == ComparisonType.LOG2_RATIO) chDet = ChangeDet.LOG_2_OF_RATIOS.det;
+			else if (comparisonType == ComparisonType.DIFF) chDet = ChangeDet.DIFF.det;
 		}
 		else if (valueAmount == ValueAmount.SINGLE)
 		{
@@ -1156,7 +1157,8 @@ public class RPPAWizard extends Wizard
 	public enum ComparisonType
 	{
 		LOG2_RATIO("Log-2-ratio of values"),
-		TTEST("P-value of a t-test");
+		TTEST("P-value of a t-test"),
+		DIFF("Difference of values");
 
 		String text;
 
@@ -1273,6 +1275,15 @@ public class RPPAWizard extends Wizard
 				return val;
 			}
 		}),
+
+		DIFF(new RPPAData.ChangeAdapter()
+		{
+			@Override
+			public double getChangeValue(RPPAData data)
+			{
+				return data.getDifOfMeans();
+			}
+		})
 
 		;
 

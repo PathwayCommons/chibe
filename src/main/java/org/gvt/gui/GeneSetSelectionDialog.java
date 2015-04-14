@@ -17,7 +17,7 @@ import java.util.List;
  * This dialog retrieves MutSig and Gistic genes of a selected Study.
  * @author Ozgun Babur
  */
-public class EnrichedReactionsDialog extends Dialog
+public class GeneSetSelectionDialog extends Dialog
 {
 	private List<String> genes;
 	private List<String> studyCodes;
@@ -37,7 +37,7 @@ public class EnrichedReactionsDialog extends Dialog
 	 *
 	 * @param shell parent
 	 */
-	public EnrichedReactionsDialog(Shell shell)
+	public GeneSetSelectionDialog(Shell shell)
 	{
 		super(shell);
 	}
