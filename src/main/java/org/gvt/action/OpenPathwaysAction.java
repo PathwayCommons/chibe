@@ -57,7 +57,7 @@ public class OpenPathwaysAction extends Action
 	public OpenPathwaysAction(ChisioMain main, List<String> pathways)
 	{
 		this(main);
-		this.pathways = pathways;
+		this.pathways = new ArrayList<String>(pathways);
 	}
 
 	public OpenPathwaysAction(ChisioMain main, String pathwayName)

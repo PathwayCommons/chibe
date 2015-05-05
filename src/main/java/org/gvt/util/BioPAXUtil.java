@@ -35,14 +35,16 @@ public class BioPAXUtil
 		{
 			for (Pathway p : model.getObjects(Pathway.class))
 			{
-				if (!p.getPathwayComponent().isEmpty()) list.add(p.getDisplayName());
+				PathwayHolder ph = new PathwayHolder(p);
+				if (!p.getPathwayComponent().isEmpty()) list.add(ph.getName());
 			}
 		}
 		else if (model.getLevel() == BioPAXLevel.L2)
 		{
 			for (pathway p : model.getObjects(pathway.class))
 			{
-				if (!p.getPATHWAY_COMPONENTS().isEmpty()) list.add(p.getNAME());
+				PathwayHolder ph = new PathwayHolder(p);
+				if (!p.getPATHWAY_COMPONENTS().isEmpty()) list.add(ph.getName());
 			}
 		}
 
