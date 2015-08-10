@@ -1179,12 +1179,15 @@ public class RPPAWizard extends Wizard
 
 	public enum NetworkType
 	{
-		USE_EXISTING("Use current SIF network", RPPANetworkMapper.GraphType.EXISTING_NETWORK),
-		ALL_INCLUSIVE("Show all relations between all molecules", RPPANetworkMapper.GraphType.ALL_INCLUSIVE),
-		SELECT_NODES("Show all relations between changed molecules", RPPANetworkMapper.GraphType.CHANGED_ONLY),
-		NON_CONFLICT("Show all non-conflicting relations between all molecules", RPPANetworkMapper.GraphType.NON_CONFLICTING),
+//		USE_EXISTING("Use current SIF network", RPPANetworkMapper.GraphType.EXISTING_NETWORK),
+//		ALL_INCLUSIVE("Show all relations between all molecules", RPPANetworkMapper.GraphType.ALL_INCLUSIVE),
+//		SELECT_NODES("Show all relations between changed molecules", RPPANetworkMapper.GraphType.CHANGED_ONLY),
+//		NON_CONFLICT("Show all non-conflicting relations between all molecules", RPPANetworkMapper.GraphType.NON_CONFLICTING),
 		COMPATIBLE_NETWORK("Show compatible relations between changed molecules", RPPANetworkMapper.GraphType.COMPATIBLE),
-		COMPATIBLE_WITH_SITE_MATCH("Show compatible relations with matching sites", RPPANetworkMapper.GraphType.COMPATIBLE_WITH_SITE_MATCH);
+		COMPATIBLE_WITH_SITE_MATCH("Show compatible relations with matching sites", RPPANetworkMapper.GraphType.COMPATIBLE_WITH_SITE_MATCH),
+		CONFLICTING_NETWORK("Show conflicting relations between changed molecules", RPPANetworkMapper.GraphType.CONFLICTING),
+		CONFLICTING_WITH_SITE_MATCH("Show conflicting relations with matching sites", RPPANetworkMapper.GraphType.CONFLICTING_WITH_SITE_MATCH),
+		;
 
 		String text;
 		public RPPANetworkMapper.GraphType type;

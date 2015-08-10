@@ -57,12 +57,13 @@ public class OpenPathwaysAction extends Action
 	public OpenPathwaysAction(ChisioMain main, List<String> pathways)
 	{
 		this(main);
-		this.pathways = new ArrayList<String>(pathways);
+		this.pathways = new ArrayList<String>();
+		if (pathways != null) this.pathways.addAll(pathways);
 	}
 
 	public OpenPathwaysAction(ChisioMain main, String pathwayName)
 	{
-		this(main, new ArrayList<String>());
+		this(main, (List<String>) null);
 		pathways.add(pathwayName);
 	}
 
@@ -148,7 +149,6 @@ public class OpenPathwaysAction extends Action
 				}
 			}
 		}
-
 		if (!pathways.isEmpty())
 		{
 			for (String name : pathways)
