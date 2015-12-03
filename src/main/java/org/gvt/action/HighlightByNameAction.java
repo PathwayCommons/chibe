@@ -60,29 +60,7 @@ public class HighlightByNameAction extends Action
 			// we sill do a case-insensitive comparison
 
 			name = name.toLowerCase().trim();
-
-			// Iterate all nodes in graph
-			
-			CompoundModel root = (CompoundModel) ((ChsRootEditPart)main.getViewer().
-				getRootEditPart().getChildren().get(0)).getModel();
-
-			Iterator<NodeModel> nodeIter = root.getNodes().iterator();
-
-			boolean highlighted = false;
-
-			while (nodeIter.hasNext())
-			{
-				NodeModel node = nodeIter.next();
-
-				if (node.getText().toLowerCase().indexOf(name) >= 0 ||
-					(node.getTooltipText() != null &&
-						node.getTooltipText().toLowerCase().indexOf(name) >= 0))
-				{
-					node.setHighlightColor(ChisioMain.higlightColor);
-                    node.setHighlight(true);
-					highlighted = true;
-				}
-			}
+			boolean highlighted = highlight(name.split("\\s+"));
 
 			if (!highlighted)
 			{
@@ -92,5 +70,37 @@ public class HighlightByNameAction extends Action
 		}
 		
 		name = null;
+	}
+
+	protected boolean highlight(String... names)
+	{
+		// Iterate all nodes in graph
+
+		CompoundModel root = (CompoundModel) ((ChsRootEditPart)main.getViewer().
+			getRootEditPart().getChildren().get(0)).getModel();
+
+		Iterator<NodeModel> nodeIter = root.getNodes().iterator();
+
+		boolean highlighted = false;
+
+		while (nodeIter.hasNext())
+		{
+			NodeModel node = nodeIter.next();
+
+			for (String name : names)
+			{
+				if (name.length() < 2) continue;
+
+				if (node.getText().toLowerCase().contains(name) ||
+					(node.getTooltipText() != null &&
+						node.getTooltipText().toLowerCase().contains(name)))
+				{
+					node.setHighlightColor(ChisioMain.higlightColor);
+					node.setHighlight(true);
+					highlighted = true;
+				}
+			}
+		}
+		return highlighted;
 	}
 }

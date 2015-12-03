@@ -41,6 +41,8 @@ public class SaveToSIFFileAction extends Action
 
 	public void run()
 	{
+		if (main.getPathwayGraph() == null) return;
+
 		String fileName = null;
 		boolean done = false;
 

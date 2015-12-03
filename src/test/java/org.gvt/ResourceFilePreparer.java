@@ -43,7 +43,7 @@ public class ResourceFilePreparer
 		Blacklist blacklist = generateLargeSIFGraph(model);
 //		Blacklist blacklist = new Blacklist(OUTDIR + "blacklist.txt");
 
-		// For causality graoh support
+		// For causality graph support
 //		Generator.generate(model, blacklist, OUTDIR + "SignedPC.sif");
 	}
 

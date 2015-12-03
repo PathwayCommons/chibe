@@ -1,7 +1,6 @@
 package org.gvt.gui;
 
-import org.cbio.causality.analysis.RPPANetworkMapper;
-import org.cbio.causality.model.RPPAData;
+import org.cbio.causality.rppa.*;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
@@ -11,7 +10,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
-import org.gvt.util.RPPAFileReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +35,7 @@ public class RPPAWizard extends Wizard
 	List<String> vals0;
 	List<String> vals1;
 	public NetworkType networkType;
+	public Centricity centricity;
 	public double threshold = -1;
 	public Set<RPPAData> activities;
 	public Set<String> filterToGenes;
@@ -1011,6 +1010,20 @@ public class RPPAWizard extends Wizard
 				if (type == networkType) b.setSelection(true);
 			}
 
+			group = new Group(composite, SWT.NONE);
+			layout = new GridLayout();
+			layout.numColumns = 1;
+			group.setLayout(layout);
+			group.setText("Select desired network centricity");
+			listener = new CentricityListener();
+			for (Centricity type : Centricity.values())
+			{
+				Button b = new Button(group, SWT.RADIO);
+				b.setText(type.text);
+				b.addSelectionListener(listener);
+				if (type == centricity) b.setSelection(true);
+			}
+
 			setControl(composite);
 		}
 
@@ -1025,10 +1038,21 @@ public class RPPAWizard extends Wizard
 			}
 		}
 
+		class CentricityListener extends SelectionAdapter
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				Button b = (Button) e.getSource();
+				centricity = Centricity.typeOf(b.getText());
+				setPageComplete(isPageComplete());
+			}
+		}
+
 		@Override
 		public boolean isPageComplete()
 		{
-			return networkType != null;
+			return networkType != null && centricity != null;
 		}
 	}
 
@@ -1201,6 +1225,28 @@ public class RPPAWizard extends Wizard
 		static NetworkType typeOf(String text)
 		{
 			for (NetworkType type : values())
+			{
+				if (type.text.equals(text)) return type;
+			}
+			return null;
+		}
+	}
+
+	public enum Centricity
+	{
+		GENE_CENTRIC("Gene Centric Network"),
+		ANTIBODY_CENTRIC("Antibody Centric Network"),
+		;
+
+		String text;
+
+		Centricity(String text)
+		{
+			this.text = text;
+		}
+		static Centricity typeOf(String text)
+		{
+			for (Centricity type : values())
 			{
 				if (type.text.equals(text)) return type;
 			}

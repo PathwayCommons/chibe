@@ -1,7 +1,6 @@
 package org.gvt.action;
 
-import org.cbio.causality.analysis.RPPANetworkMapper;
-import org.cbio.causality.model.RPPAData;
+import org.cbio.causality.rppa.*;
 import org.cbio.causality.network.PhosphoSitePlus;
 import org.cbio.causality.util.Histogram;
 import org.eclipse.jface.action.Action;
@@ -60,8 +59,16 @@ public class LoadRPPAAction extends Action
 				threshold = -Math.log(threshold) / Math.log(2);
 			}
 
-			RPPANetworkMapper.writeGraph(datas, threshold, wizard.getSIFFilename(),
-				wizard.networkType.type, wizard.filterToGenes);
+			if (wizard.centricity == RPPAWizard.Centricity.GENE_CENTRIC)
+			{
+				RPPANetworkMapper.writeGraph(datas, threshold, wizard.getSIFFilename(),
+					wizard.networkType.type, wizard.filterToGenes);
+			}
+			else
+			{
+				RPPANetworkMapper.writeGraphAntibodyCentric(datas, threshold, wizard.getSIFFilename(),
+					wizard.networkType.type, wizard.filterToGenes);
+			}
 
 			LoadSIFFileAction action = new LoadSIFFileAction(main, wizard.getSIFFilename());
 			action.run();

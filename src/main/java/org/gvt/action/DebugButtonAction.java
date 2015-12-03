@@ -77,8 +77,11 @@ public class DebugButtonAction extends Action
 				if (model instanceof Actor)
 				{
 					Actor actor = (Actor) model;
-					System.out.println(actor.getEntity().l3pe.getDisplayName());
-					System.out.println("pe id = " + actor.getEntity().getID());
+					if (actor.getEntity().l3pe != null)
+					{
+						System.out.println(actor.getEntity().l3pe.getDisplayName());
+						System.out.println("pe id = " + actor.getEntity().l3pe.getRDFId());
+					}
 					if (actor.getEntity().l3er != null)
 						System.out.println("er id = " + actor.getEntity().l3er.getRDFId());
 
