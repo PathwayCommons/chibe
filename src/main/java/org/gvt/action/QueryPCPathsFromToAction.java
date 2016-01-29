@@ -65,7 +65,7 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 		List<String> sourceSym = options.getConvertedSourceList();
 		Set<BioPAXElement> source = findRelatedReferences(model, sourceSym);
 
-		List<String> targSym = options.getConvertedSourceList();
+		List<String> targSym = options.getConvertedTargetList();
 		Set<BioPAXElement> target = findRelatedReferences(model, targSym);
 
 		return QueryExecuter.runPathsFromTo(source, target, model, options.getLimitType() ?
