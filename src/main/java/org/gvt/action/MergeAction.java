@@ -1,23 +1,13 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.controller.ModelUtils;
 import org.biopax.paxtools.controller.SimpleEditorMap;
 import org.biopax.paxtools.controller.SimpleMerger;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
-import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
-import org.biopax.paxtools.model.level2.interaction;
-import org.biopax.paxtools.model.level3.Interaction;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
-import org.gvt.model.BioPAXGraph;
 import org.gvt.util.BioPAXUtil;
-import org.gvt.util.PathwayHolder;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -34,10 +24,8 @@ import java.util.Set;
  *         <p/>
  *         Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class MergeAction extends Action
+public class MergeAction extends ChiBEAction
 {
-	ChisioMain main;
-
 	String filename;
 
 	String newPathwayName;
@@ -58,14 +46,11 @@ public class MergeAction extends Action
 	 */
 	public MergeAction(ChisioMain chisio)
 	{
-		super("Merge With ...");
-		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/merge.png"));
-
-		this.main = chisio;
-
+		super("Merge With ...", "icon/merge.png", chisio);
 		this.updatePathways = true;
 		this.openPathways = true;
+		addFilterExtension(FILE_KEY, new String[]{"*.owl"});
+		addFilterName(FILE_KEY, new String[]{"BioPAX (*.owl)"});
 	}
 
 	public void setOpenPathways(boolean openPathways)
@@ -112,21 +97,6 @@ public class MergeAction extends Action
 		this.model = model;
 	}
 
-	/**
-	 * opens a FileChooser for loading an xml file
-	 *
-	 * @return chosen filename
-	 */
-	public String openFileChooser()
-	{
-		// choose an input file.
-		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
-		fileChooser.setFilterExtensions(FILTER_EXTENSIONS);
-		fileChooser.setFilterNames(FILTER_NAMES);
-
-		return fileChooser.open();
-	}
-
 	public void run()
 	{
 		if (main.getBioPAXModel() == null)
@@ -138,7 +108,7 @@ public class MergeAction extends Action
 
 		if (filename == null && model == null)
 		{
-			filename = openFileChooser();
+			filename = new FileChooser(this).choose(FILE_KEY);
 
 			// If no file is selected
 			if (filename == null)
@@ -237,8 +207,4 @@ public class MergeAction extends Action
 			model = null;
 		}
 	}
-
-	public static final String[] FILTER_EXTENSIONS = new String[]{"*.owl"};
-
-	public static final String[] FILTER_NAMES = new String[]{"BioPAX (*.owl)"};
 }

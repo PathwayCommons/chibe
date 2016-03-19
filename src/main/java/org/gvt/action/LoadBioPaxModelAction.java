@@ -3,21 +3,16 @@ package org.gvt.action;
 import org.biopax.paxtools.io.BioPAXIOHandler;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.biopax.paxtools.model.Model;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.gui.StringInputDialog;
 import org.gvt.util.BioPAXUtil;
 import org.gvt.util.PathwayHolder;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -30,11 +25,9 @@ import java.util.List;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class LoadBioPaxModelAction extends Action
+public class LoadBioPaxModelAction extends ChiBEAction
 {
-	protected ChisioMain main;
-
-	protected String location;
+	protected String filename;
 
 	private String pathwayName;
 
@@ -55,8 +48,6 @@ public class LoadBioPaxModelAction extends Action
 	 */
 	private boolean openPathways;
 
-	private static String lastLocation = "samples/";
-
 	/**
 	 * Constructor without filename. opens an FileChooser for filename
 	 *
@@ -64,12 +55,11 @@ public class LoadBioPaxModelAction extends Action
 	 */
 	public LoadBioPaxModelAction(ChisioMain chisio)
 	{
-		super("Load ...");
-		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/open.png"));
-
+		super("Load ...", "icon/open.png", chisio);
+		addLastLocation(FILE_KEY, "samples/");
+		addFilterName(FILE_KEY, new String[]{"BioPAX (*.owl)"});
+		addFilterExtension(FILE_KEY, FILTER_EXTENSIONS);
 		this.openPathways = true;
-		this.main = chisio;
 		this.fromURL = false;
 	}
 
@@ -114,12 +104,12 @@ public class LoadBioPaxModelAction extends Action
 	 * filename.
 	 *
 	 * @param chisio
-	 * @param location
+	 * @param filename
 	 */
-	public LoadBioPaxModelAction(ChisioMain chisio, String location)
+	public LoadBioPaxModelAction(ChisioMain chisio, String filename)
 	{
 		this(chisio);
-		this.location = location;
+		this.filename = filename;
 	}
 
 	public LoadBioPaxModelAction(ChisioMain chisio, Model model)
@@ -164,40 +154,6 @@ public class LoadBioPaxModelAction extends Action
 		return true;
 	}
 
-	/**
-	 * opens a FileChooser for loading an xml file
-	 *
-	 * @return chosen filename
-	 */
-	public String openFileChooser()
-	{
-		// choose an input file.
-		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
-		fileChooser.setFilterExtensions(FILTER_EXTENSIONS);
-		fileChooser.setFilterNames(FILTER_NAMES);
-
-		fileChooser.setFilterPath(lastLocation);
-
-		String f = fileChooser.open();
-
-		String x = null;
-		if (f != null)
-		{
-			if (f.contains("/"))
-			{
-				x = f.substring(0, f.lastIndexOf("/"));
-			}
-			else if (f.contains("\\"))
-			{
-				x = f.substring(0, f.lastIndexOf("\\"));
-			}
-		}
-
-		if (x != null) lastLocation = x;
-
-		return f;
-	}
-
 	public String openURLGetter()
 	{
 		StringInputDialog d = new StringInputDialog(
@@ -210,11 +166,11 @@ public class LoadBioPaxModelAction extends Action
 	{
 		if (saveChangesBeforeDiscard(main))
 		{
-			if (location == null && model == null)
+			if (filename == null && model == null)
 			{
-				location = fromURL ? openURLGetter() : openFileChooser();
+				filename = fromURL ? openURLGetter() : new FileChooser(this).choose(FILE_KEY);
 
-				if (location == null || location.isEmpty())
+				if (filename == null || filename.isEmpty())
 				{
 					return;
 				}
@@ -231,23 +187,23 @@ public class LoadBioPaxModelAction extends Action
 					{
 						try
 						{
-							model = reader.convertFromOWL(new URL(location).openStream());
+							model = reader.convertFromOWL(new URL(filename).openStream());
 						}
 						catch (IOException e)
 						{
 							MessageDialog.openError(main.getShell(), "URL error",
-								"Cannot get data from the provided URL:\n" + location);
+								"Cannot get data from the provided URL:\n" + filename);
 							e.printStackTrace();
 						}
 					}
-					else model = reader.convertFromOWL(new FileInputStream(location));
+					else model = reader.convertFromOWL(new FileInputStream(filename));
 				}
 
 				if (model != null)
 				{
 					if (BioPAXUtil.numberOfUnemptyPathways(model) == 0 || pathwayName != null)
 					{
-						String name = pathwayName == null ? location : pathwayName;
+						String name = pathwayName == null ? filename : pathwayName;
 
 						if (name != null)
 						{
@@ -275,7 +231,7 @@ public class LoadBioPaxModelAction extends Action
 
 					if (main.getBioPAXModel() != null) main.closeAllTabs(false);
 					main.setBioPAXModel(model);
-					if (!fromURL) main.setOwlFileName(location);
+					if (!fromURL) main.setOwlFileName(filename);
 
 					if (openPathways)
 					{
@@ -308,7 +264,7 @@ public class LoadBioPaxModelAction extends Action
 			}
 			finally
 			{
-				location = null;
+				filename = null;
 				model = null;
 				lastPathwayName = pathwayName;
 				pathwayName = null;
@@ -335,5 +291,4 @@ public class LoadBioPaxModelAction extends Action
 	}
 
 	public static final String[] FILTER_EXTENSIONS = new String[]{"*.owl"};
-	public static final String[] FILTER_NAMES = new String[]{"BioPAX (*.owl)"};
 }

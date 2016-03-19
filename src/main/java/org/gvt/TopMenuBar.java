@@ -126,6 +126,7 @@ public class TopMenuBar
 		menuBar.add(editMenu);
 
 		editMenu.add(new HighlightByNameAction(chisio));
+		editMenu.add(new HighlightUsingFileAction(chisio));
 		editMenu.add(new HighlightSelectedAction(chisio));
 		editMenu.add(new SelectHighlightedAction(chisio));
 		editMenu.add(new HighlightPathsBetweenSelectedAction(chisio));

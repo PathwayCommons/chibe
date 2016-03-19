@@ -1,17 +1,12 @@
 package org.gvt.action;
 
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.gvt.ChisioMain;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.basicsif.BasicSIFGraph;
-import org.gvt.model.sifl2.SIFGraph;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
@@ -20,10 +15,8 @@ import java.io.OutputStream;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class SaveToSIFFileAction extends Action
+public class SaveToSIFFileAction extends ChiBEAction
 {
-	ChisioMain main;
-
 	public boolean isSaved = true;
 
 	/**
@@ -33,18 +26,35 @@ public class SaveToSIFFileAction extends Action
 	 */
 	public SaveToSIFFileAction(ChisioMain chisio)
 	{
-		super("Save As SIF File ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/save-as.png"));
-		setToolTipText(getText());
-		this.main = chisio;
+		super("Save As SIF File ...", "icon/save-as.png", chisio);
+		addFilterExtension(FILE_KEY, new String[]{"*.sif"});
+		addFilterName(FILE_KEY, new String[]{"Simple Interaction Format (*.sif)"});
+	}
+
+	@Override
+	public String getCurrentFilename()
+	{
+		// Do not let user to overwrite a non-graphml file by default
+
+		String currentFilename = main.getOwlFileName();
+
+		if (currentFilename != null)
+		{
+			if (!currentFilename.endsWith(".sif"))
+			{
+				if (currentFilename.indexOf(".") > 0)
+				{
+					currentFilename = currentFilename.substring(0, currentFilename.lastIndexOf("."));
+				}
+				currentFilename += ".sif";
+			}
+		}
+		return currentFilename;
 	}
 
 	public void run()
 	{
 		if (main.getPathwayGraph() == null) return;
-
-		String fileName = null;
-		boolean done = false;
 
 		org.gvt.model.sifl2.SIFGraph sifL2Graph = null;
 		org.gvt.model.sifl3.SIFGraph sifL3Graph = null;
@@ -70,68 +80,7 @@ public class SaveToSIFFileAction extends Action
 			return;
 		}
 
-		while (!done)
-		{
-			// Get the user to choose a file name and type to save.
-			FileDialog fileChooser = new FileDialog(main.getShell(), SWT.SAVE);
-
-			// Do not let user to overwrite a non-graphml file by default
-
-			String currentFilename = main.getOwlFileName();
-			if (currentFilename != null)
-			{
-				if (!currentFilename.endsWith(".sif"))
-				{
-					if (currentFilename.indexOf(".") > 0)
-					{
-						currentFilename = currentFilename.substring(
-							0, currentFilename.lastIndexOf("."));
-					}
-					currentFilename += ".sif";
-				}
-
-				fileChooser.setFileName(currentFilename);
-			}
-
-			String[] filterExtensions = new String[]{"*.sif"};
-			String[] filterNames = new String[]{"Simple Interaction Format (*.sif)"};
-
-			fileChooser.setFilterExtensions(filterExtensions);
-			fileChooser.setFilterNames(filterNames);
-			fileName = fileChooser.open();
-
-			if (fileName == null)
-			{
-				// User has cancelled, so quit and return
-				done = true;
-			}
-			else
-			{
-				// User has selected a file; see if it already exists
-				File file = new File(fileName);
-
-				if (file.exists())
-				{
-					// The file already exists; asks for confirmation
-					MessageBox mb = new MessageBox(
-						fileChooser.getParent(),
-						SWT.ICON_WARNING | SWT.YES | SWT.NO);
-
-					// We really should read this string from a
-					// resource bundle
-					mb.setMessage(fileName + " already exists. Do you want to replace it?");
-					mb.setText("Confirm Replace File");
-					// If they click Yes, we're done and we drop out. If
-					// they click No, we redisplay the File Dialog
-					done = mb.open() == SWT.YES;
-				}
-				else
-				{
-					// File does not exist, so drop out
-					done = true;
-				}
-			}
-		}
+		String fileName = new FileChooser(this, true).choose(FILE_KEY);
 
 		if (fileName == null)
 		{

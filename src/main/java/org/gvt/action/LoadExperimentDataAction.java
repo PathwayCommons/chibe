@@ -1,10 +1,6 @@
 package org.gvt.action;
 
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.gvt.util.Conf;
 import org.patika.mada.dataXML.ChisioExperimentData;
@@ -26,35 +22,32 @@ import java.util.*;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class LoadExperimentDataAction extends Action
+public class LoadExperimentDataAction extends ChiBEAction
 {
-	ChisioMain main;
 	String filename;
 	boolean local;
 
-	private static String lastLocation = Conf.getExperimentsDir();
-
 	public LoadExperimentDataAction(ChisioMain main, String filename)
 	{
-		this.main = main;
+		this(main);
 		this.filename = filename;
-		this.local = true;
 	}
 	
 	/*	UK: Added to support opening CED files via URL protocol; useful/needed for JWS environment	*/	
-	public LoadExperimentDataAction(ChisioMain main, URL fileURL) throws IOException{
-		this.main = main;
+	public LoadExperimentDataAction(ChisioMain main, URL fileURL) throws IOException
+	{
+		this(main);
 		this.filename = fileURL.toString();
 		this.local = false;
 	}
 
 	public LoadExperimentDataAction(ChisioMain main)
 	{
-		super("Load ChiBE Formatted Data ...");
-		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/open-cbe-formatted.png"));
-		setToolTipText(getText());
-		this.main = main;
+		super("Load ChiBE Formatted Data ...", "icon/open-cbe-formatted.png", main);
 		this.local = true;
+		addFilterExtension(FILE_KEY, new String[]{"*.ced"});
+		addFilterName(FILE_KEY, new String[]{"ChiBE Experiment Data (*.ced)"});
+		addLastLocation(FILE_KEY, Conf.getExperimentsDir());
 	}
 	
 	
@@ -62,7 +55,7 @@ public class LoadExperimentDataAction extends Action
 	{
 		if (filename == null)
 		{
-			filename = chooseFile();
+			filename = new FileChooser(this).choose(FILE_KEY);
 		}
 
 		if (filename != null && hasValidExtension(filename))
@@ -111,40 +104,6 @@ public class LoadExperimentDataAction extends Action
 			}
 		}
 		filename = null;
-	}
-
-	/**
-	 * opens a FileChooser for loading an xml file
-	 *
-	 * @return chosen filename
-	 */
-	public String chooseFile()
-	{
-		// choose an input file.
-		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
-		fileChooser.setFilterExtensions(FILTER_EXTENSIONS);
-		fileChooser.setFilterNames(FILTER_NAMES);
-
-		fileChooser.setFilterPath(lastLocation);
-
-		String f = fileChooser.open();
-
-		String x = null;
-		if (f != null)
-		{
-			if (f.contains("/"))
-			{
-				x = f.substring(0, f.lastIndexOf("/"));
-			}
-			else if (f.contains("\\"))
-			{
-				x = f.substring(0, f.lastIndexOf("\\"));
-			}
-		}
-
-		if (x != null) lastLocation = x;
-
-		return f;
 	}
 
     /**
@@ -209,8 +168,4 @@ public class LoadExperimentDataAction extends Action
 	{
 		return path.endsWith(".ced");
 	}
-
-	public static final String[] FILTER_EXTENSIONS = new String[]{"*.ced"};
-
-	public static final String[] FILTER_NAMES = new String[]{"ChiBE Experiment Data (*.ced)"};
 }

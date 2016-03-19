@@ -36,7 +36,7 @@ public class LoadRPPAAction extends Action
 			// Prepare network using the data
 
 			List<RPPAData> datas = wizard.readData();
-			PhosphoSitePlus.fillInMissingEffect(datas);
+			PhosphoSitePlus.fillInMissingEffect(datas, 0);
 
 			RPPANetworkMapper.getDownstreamActivitySupportCounts(datas, RPPANetworkMapper.GraphType.COMPATIBLE_WITH_SITE_MATCH);
 

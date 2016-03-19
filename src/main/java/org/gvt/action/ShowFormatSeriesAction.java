@@ -1,27 +1,25 @@
 package org.gvt.action;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.ItemSelectionDialog;
 import org.gvt.gui.ItemSelectionRunnable;
 import org.gvt.model.basicsif.BasicSIFGraph;
-import org.patika.mada.util.CausativePath;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author Ozgun Babur
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class ShowFormatSeriesAction extends Action
+public class ShowFormatSeriesAction extends ChiBEAction
 {
-	private ChisioMain main;
 	private String formatFilename;
-	private String lastLocation;
 	private BasicSIFGraph graph;
 	private List<String> initialFormat;
 	private List<String> names;
@@ -33,9 +31,9 @@ public class ShowFormatSeriesAction extends Action
 	 */
 	public ShowFormatSeriesAction(ChisioMain main)
 	{
-		super("Load formatting...");
-		this.setToolTipText(this.getText());
-		this.main = main;
+		super("Load formatting...", null, main);
+		addFilterExtension(FILE_KEY, new String[]{"*.format", "*.formatseries"});
+		addFilterName(FILE_KEY, new String[]{"Format File (*.format)", "Format Series File (*.formatseries)"});
 	}
 
 	public void setFormatFilename(String formatFilename)
@@ -50,7 +48,7 @@ public class ShowFormatSeriesAction extends Action
 		graph = (BasicSIFGraph) main.getPathwayGraph();
 		initialFormat = graph.getCurrentFormat();
 
-		String filename = getFilename();
+		String filename = new FileChooser(this).choose(FILE_KEY);
 		if (filename == null) return;
 
 		if (filename.endsWith(".formatseries"))
@@ -125,28 +123,6 @@ public class ShowFormatSeriesAction extends Action
 
 			lastName = name;
 		}
-	}
-
-	private String getFilename()
-	{
-		if (formatFilename == null)
-		{
-			// choose an input file.
-			FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
-			fileChooser.setFilterExtensions(new String[]{"*.format", "*.formatseries"});
-			fileChooser.setFilterNames(new String[]{
-				"Format File (*.format)", "Format Series File (*.formatseries)"});
-
-			if (lastLocation != null) fileChooser.setFilterPath(lastLocation);
-
-			String f = fileChooser.open();
-
-			if (f != null) lastLocation = new File(f).getParent();
-
-			return f;
-
-		}
-		return formatFilename;
 	}
 
 	private List<String> loadFormat(String filename)

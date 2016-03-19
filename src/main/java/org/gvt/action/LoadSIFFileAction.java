@@ -1,12 +1,7 @@
 package org.gvt.action;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.gvt.model.CompoundModel;
-import org.gvt.model.custom.CustomEdge;
 import org.gvt.util.CustomReader;
 import org.gvt.util.SIFReader;
 
@@ -21,12 +16,10 @@ import java.io.File;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class LoadSIFFileAction extends Action
+public class LoadSIFFileAction extends ChiBEAction
 {
-	ChisioMain main;
 	String filename;
 	boolean runLayout;
-	static String lastLocation = "samples/";
 
 	/**
 	 * Constructor without filename. opens an FileChooser for filename
@@ -35,13 +28,11 @@ public class LoadSIFFileAction extends Action
 	 */
 	public LoadSIFFileAction(ChisioMain chisio)
 	{
-		super("Load SIF File ...");
-		setToolTipText(getText());
-		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class, "icon/open.png"));
-
-		this.main = chisio;
+		super("Load SIF File ...", "icon/open.png", chisio);
 		this.runLayout = true;
+		addFilterExtension(FILE_KEY, FILTER_EXTENSIONS);
+		addFilterName(FILE_KEY, new String[]{"Simple Interaction Format (*.sif)", "Custom Graph (*.cus)"});
+		addLastLocation(FILE_KEY, "samples/");
 	}
 
 	/**
@@ -63,45 +54,11 @@ public class LoadSIFFileAction extends Action
 		this(chisio, filename, true);
 	}
 
-	/**
-	 * opens a FileChooser for loading an xml file
-	 *
-	 * @return chosen filename
-	 */
-	public String openFileChooser()
-	{
-		// choose an input file.
-		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
-		fileChooser.setFilterExtensions(FILTER_EXTENSIONS);
-		fileChooser.setFilterNames(FILTER_NAMES);
-
-		fileChooser.setFilterPath(lastLocation);
-
-		String f = fileChooser.open();
-
-		String x = null;
-		if (f != null)
-		{
-			if (f.contains("/"))
-			{
-				x = f.substring(0, f.lastIndexOf("/"));
-			}
-			else if (f.contains("\\"))
-			{
-				x = f.substring(0, f.lastIndexOf("\\"));
-			}
-		}
-
-		if (x != null) lastLocation = x;
-
-		return f;
-	}
-
 	public void run()
 	{
 		if (filename == null)
 		{
-			filename = openFileChooser();
+			filename = new FileChooser(this).choose(FILE_KEY);
 
 			if (filename == null)
 			{
@@ -124,8 +81,7 @@ public class LoadSIFFileAction extends Action
 		{
 			CustomReader reader = new CustomReader();
 			root = reader.readFile(file);
-		}
-		else
+		} else
 		{
 			SIFReader reader = new SIFReader();
 			root = reader.readXMLFile(file);
@@ -138,8 +94,7 @@ public class LoadSIFFileAction extends Action
 			if (runLayout)
 			{
 				new CoSELayoutAction(main).run();
-			}
-			else
+			} else
 			{
 				new ZoomAction(main, 0, null).run();
 			}
@@ -167,6 +122,7 @@ public class LoadSIFFileAction extends Action
 
 	/**
 	 * Checks if the file has a valid extension for loading into chisio.
+	 *
 	 * @param path the path of the file
 	 * @return true if file name is valid
 	 */
@@ -183,5 +139,4 @@ public class LoadSIFFileAction extends Action
 	}
 
 	public static final String[] FILTER_EXTENSIONS = new String[]{"*.sif", "*.cus"};
-	public static final String[] FILTER_NAMES = new String[]{"Simple Interaction Format (*.sif)", "Custom Graph (*.cus)"};
 }

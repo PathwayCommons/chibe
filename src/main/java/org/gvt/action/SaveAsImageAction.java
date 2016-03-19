@@ -29,17 +29,32 @@ import java.io.FileWriter;
  *
  * Copyright: I-Vis Research Group, Bilkent University, 2007
  */
-public class SaveAsImageAction extends Action
+public class SaveAsImageAction extends ChiBEAction
 {
-	ChisioMain main;
 	boolean saveWholeGraph;
 
 	public SaveAsImageAction(ChisioMain chisio, boolean saveGraph)
 	{
-		this.main = chisio;
+		super(saveGraph ? "Save Pathway As Image ..." : "Save View As Image ...", null, chisio);
 		this.saveWholeGraph = saveGraph;
-		setText(saveWholeGraph ? "Save Pathway As Image ..." : "Save View As Image ...");
-		setToolTipText(getText());
+		addFilterExtension(FILE_KEY, new String[]{"*.svg", "*.jpg", "*.bmp", "*.png"});
+		addFilterName(FILE_KEY, new String[]{"SVG (*.svg)", "JPEG (*.jpg)", "BMP (*.bmp)", "PNG (*.png)"});
+	}
+
+	@Override
+	public String getCurrentFilename()
+	{
+		/* UK: the default name for the saved image is set to the name of the graph/pathway instead of the name of the BioPAX file.
+		 * This makes sense as there might be (and often are) multiple pathways/networks in one owl file.
+		 */
+		String tmpfilename = main.getPathwayGraph() != null ?
+			main.getPathwayGraph().getName() :
+			main.getSelectedTab().getText();
+
+//		int ind = tmpfilename.lastIndexOf('.');
+//		tmpfilename = tmpfilename.substring(0, ind);
+
+		return tmpfilename + ".svg";
 	}
 
 	public void run()
@@ -54,25 +69,7 @@ public class SaveAsImageAction extends Action
 		rootFigure = (Figure) ((ChsScalableRootEditPart) main.getViewer().
 			getRootEditPart()).getFigure();
 
-		// Get the user to choose a file name and type to save.
-		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.SAVE);
-
-		/* UK: the default name for the saved image is set to the name of the graph/pathway instead of the name of the BioPAX file.
-		 * This makes sense as there might be (and often are) multiple pathways/networks in one owl file.
-		 */
-		String tmpfilename = main.getPathwayGraph() != null ?
-			main.getPathwayGraph().getName() :
-			main.getSelectedTab().getText();
-//		int ind = tmpfilename.lastIndexOf('.');
-//		tmpfilename = tmpfilename.substring(0, ind);
-
-
-		/* UK: Added support for saving images as PNG, as the libraries support these formats */
-		fileChooser.setFileName(tmpfilename + ".svg");
-		fileChooser.setFilterExtensions(new String[]{"*.svg", "*.jpg", "*.bmp", "*.png"});
-		fileChooser.setFilterNames(
-			new String[]{"SVG (*.svg)", "JPEG (*.jpg)", "BMP (*.bmp)", "PNG (*.png)"});
-		String filename = fileChooser.open();
+		String filename = new FileChooser(this, true).choose(FILE_KEY);
 
 		if (filename == null)
 		{
@@ -85,27 +82,6 @@ public class SaveAsImageAction extends Action
 				"ChiBE supports SVG, JPEG, PNG and Bitmap file formats only.\n" +
 					"Please provide a filename with an appropriate extension.");
 			return;
-		}
-		else
-		{
-			File file = new File(filename);
-			if (file.exists())
-			{
-				// The file already exists; asks for confirmation
-				MessageBox mb = new MessageBox(fileChooser.getParent(),
-					SWT.ICON_WARNING | SWT.YES | SWT.NO);
-
-				// We really should read this string from a
-				// resource bundle
-				mb.setMessage(filename + " already exists.\nDo you want to overwrite?");
-				mb.setText("Confirm Replace File");
-				// If they click Yes, we're done and we drop out. If
-				// they click No, we quit the operation.
-				if (mb.open() != SWT.YES)
-				{
-					return;
-				}
-			}
 		}
 
 		if (!saveWholeGraph)

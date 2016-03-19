@@ -19,12 +19,8 @@ import org.biopax.paxtools.pattern.miner.SIFType;
 import org.cbio.causality.network.PathwayCommons;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.gvt.ChisioMain;
 import org.gvt.gui.AbstractQueryParamDialog;
 import org.gvt.model.EntityAssociated;
@@ -49,10 +45,8 @@ import java.util.*;
  * @author Ozgun Babur
  *
  */
-public abstract class QueryPCAction extends Action
+public abstract class QueryPCAction extends ChiBEAction
 {
-	protected ChisioMain main;
-
 	/**
 	 * Use selected nodes as source or not.
 	 */
@@ -70,19 +64,17 @@ public abstract class QueryPCAction extends Action
 	protected QueryLocation queryLoc;
 
 	protected String localFilename;
-	protected String lastLocation;
 
 	public QueryPCAction(ChisioMain main, String text, boolean useSelected, QueryLocation qLoc)
 	{
-		super(text);
-		setImageDescriptor(ImageDescriptor.createFromFile(
-			ChisioMain.class, "icon/query-neighbors.png"));
-		setToolTipText(getText());
-		this.main = main;
+		super(text, "icon/query-neighbors.png", main);
 		options = new QueryOptionsPack();
 		this.useSelected = useSelected;
 		this.queryLoc = qLoc;
 		increaseLimitIfNoResult = false;
+		addFilterExtension(FILE_KEY, new String[]{queryLoc == QueryLocation.FILE_MECH ? "*.owl" : "*.sif"});
+		addFilterName(FILE_KEY, new String[]{queryLoc == QueryLocation.FILE_MECH ?
+			"BioPAX File (*.owl)" : "Simple Interaction File (*.sif)"});
 	}
 
 	public boolean isIncreaseLimitIfNoResult()
@@ -104,7 +96,7 @@ public abstract class QueryPCAction extends Action
 	{
 		if (queryLoc.isFile() && localFilename == null)
 		{
-			localFilename = askForFilename();
+			localFilename = new FileChooser(this).choose(FILE_KEY);
 			if (localFilename == null) return;
 		}
 
@@ -529,35 +521,6 @@ public abstract class QueryPCAction extends Action
 			if (element != null) result.add(element);
 		}
 		return result;
-	}
-
-	protected String askForFilename()
-	{
-		// choose an input file.
-		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.OPEN);
-		fileChooser.setFilterExtensions(new String[]{queryLoc == QueryLocation.FILE_MECH ? "*.owl" : "*.sif"});
-		fileChooser.setFilterNames(new String[]{queryLoc == QueryLocation.FILE_MECH ? "BioPAX File (*.owl)" : "Simple Interaction File (*.sif)"});
-
-		if (lastLocation != null) fileChooser.setFilterPath(lastLocation);
-
-		String f = fileChooser.open();
-
-		String x = null;
-		if (f != null)
-		{
-			if (f.contains("/"))
-			{
-				x = f.substring(0, f.lastIndexOf("/"));
-			}
-			else if (f.contains("\\"))
-			{
-				x = f.substring(0, f.lastIndexOf("\\"));
-			}
-		}
-
-		if (x != null) lastLocation = x;
-
-		return f;
 	}
 
 	//--------------------- Getting PC SIF graph --------------------------------------------------|

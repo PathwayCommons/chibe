@@ -15,7 +15,6 @@ import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.model.level3.PhysicalEntity;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.gvt.ChisioMain;
@@ -38,37 +37,32 @@ import java.util.Set;
  *
  * Copyright: I-Vis Research Group, Bilkent University, 2007
  */
-public class SaveAsSBGNMLAction extends Action
+public class SaveAsSBGNMLAction extends ChiBEAction
 {
-	ChisioMain main;
 	boolean currentPathwayOnly;
 
 	public SaveAsSBGNMLAction(ChisioMain chisio, boolean currentPathwayOnly)
 	{
-		this.main = chisio;
+		super(currentPathwayOnly ? "Save Pathway As SBGM-ML ..." : "Save Model As SBGN-ML ...", null, chisio);
 		this.currentPathwayOnly = currentPathwayOnly;
-		setText(this.currentPathwayOnly ?
-			"Save Pathway As SBGM-ML ..." : "Save Model As SBGN-ML ...");
-		setToolTipText(getText());
+		addFilterExtension(FILE_KEY, new String[]{"*.sbgn"});
+		addFilterName(FILE_KEY, new String[]{"SBGN-ML (*.sbgn)"});
+	}
+
+	@Override
+	public String getCurrentFilename()
+	{
+		String tmpfilename = main.getPathwayGraph() != null ?
+			main.getPathwayGraph().getName() : main.getSelectedTab().getText();
+
+		return tmpfilename + ".sbgn";
 	}
 
 	public void run()
 	{
-		final Shell shell = main.getShell();
-
 		if (currentPathwayOnly && main.getViewer() == null) return;
 
-		// Get the user to choose a file name and type to save.
-		FileDialog fileChooser = new FileDialog(main.getShell(), SWT.SAVE);
-
-		String tmpfilename = main.getPathwayGraph() != null ?
-			main.getPathwayGraph().getName() :
-			main.getSelectedTab().getText();
-
-		fileChooser.setFileName(tmpfilename + ".sbgn");
-		fileChooser.setFilterExtensions(new String[]{"*.sbgn"});
-		fileChooser.setFilterNames(new String[]{"SBGN-ML (*.sbgn)"});
-		String filename = fileChooser.open();
+		String filename = new FileChooser(this, true).choose(FILE_KEY);
 
 		if (filename == null)
 		{
@@ -77,25 +71,6 @@ public class SaveAsSBGNMLAction extends Action
 		else if (!filename.endsWith(".sbgn"))
 		{
 			filename += ".sbgn";
-		}
-
-		File file = new File(filename);
-		if (file.exists())
-		{
-			// The file already exists; asks for confirmation
-			MessageBox mb = new MessageBox(fileChooser.getParent(),
-				SWT.ICON_WARNING | SWT.YES | SWT.NO);
-
-			// We really should read this string from a
-			// resource bundle
-			mb.setMessage(filename + " already exists.\nDo you want to overwrite?");
-			mb.setText("Confirm Replace File");
-			// If they click Yes, we're done and we drop out. If
-			// they click No, we quit the operation.
-			if (mb.open() != SWT.YES)
-			{
-				return;
-			}
 		}
 
 		Model model = main.getBioPAXModel();
@@ -111,7 +86,7 @@ public class SaveAsSBGNMLAction extends Action
 		}
 
 		UbiqueDetector ubDet = new ListUbiqueDetector(getUbiqueIDs());
-		L3ToSBGNPDConverter converter = new L3ToSBGNPDConverter(ubDet, null, false);
+		L3ToSBGNPDConverter converter = new L3ToSBGNPDConverter(ubDet, null, true);
 		converter.writeSBGN(model, filename);
 	}
 
