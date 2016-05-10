@@ -153,7 +153,7 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 
 	private String getKey(BasicSIFEdge edge, NodeModel node)
 	{
-		return edge.getType().getTag() + " " + getNodeName(node);
+		return edge.getTag() + " " + getNodeName(node);
 	}
 
 	private String getNodeName(NodeModel node)
@@ -167,7 +167,7 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 	{
 		BasicSIFEdge sample = edges.iterator().next();
 		BasicSIFEdge merged = new BasicSIFEdge(incoming ? sample.getSource() : this,
-			incoming ? this : sample.getTarget(), sample.getType().getTag(), null);
+			incoming ? this : sample.getTarget(), sample.getTag(), null);
 
 		for (BasicSIFEdge edge : edges)
 		{
@@ -189,7 +189,7 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 		BasicSIFEdge merged = new BasicSIFEdge(
 			incoming ? sample.getSource() : this,
 			incoming ? this : sample.getTarget(),
-			sample.getType().getTag(), null);
+			sample.getTag(), null);
 
 		for (BasicSIFEdge edge : edges)
 		{
@@ -281,14 +281,14 @@ public class BasicSIFGroup extends BioPAXCompoundNode implements EntityAssociate
 	{
 		if (!members.contains(edge.getSource()) || !members.contains(edge.getTarget())) return;
 
-		if (!map.get(member).containsKey(edge.getType().getTag()))
-			map.get(member).put(edge.getType().getTag(), new HashSet<BasicSIFEdge>());
-		map.get(member).get(edge.getType().getTag()).add(edge);
+		if (!map.get(member).containsKey(edge.getTag()))
+			map.get(member).put(edge.getTag(), new HashSet<BasicSIFEdge>());
+		map.get(member).get(edge.getTag()).add(edge);
 	}
 
 	private void deleteEdges(Set<BasicSIFEdge> edges)
 	{
-		String type = edges.iterator().next().getType().getTag();
+		String type = edges.iterator().next().getTag();
 
 		for (BasicSIFEdge edge : edges)
 		{

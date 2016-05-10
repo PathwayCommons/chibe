@@ -91,6 +91,7 @@ public class PopupManager extends MenuManager
 			if (sif)
 			{
 				manager.add(new ShowDruggableAction(main));
+				manager.add(new HighlightCOSMICGenesActions(main));
 				manager.add(new Separator());
 			}
 

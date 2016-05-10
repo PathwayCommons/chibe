@@ -238,13 +238,13 @@ public class SIFEdge extends BioPAXEdge
                 new Color(null, 70, 80, 120), SOLID, NO_SIGN, false));
 
         addType(new EdgeType(SignedType.PHOSPHORYLATES,
-                new Color(null, 0, 100, 0), SOLID, POSITIVE, false));
+                new Color(null, 0, 150, 0), SOLID, POSITIVE, false));
         addType(new EdgeType(SignedType.DEPHOSPHORYLATES,
-                new Color(null, 100, 0, 0), SOLID, NEGATIVE, false));
+                new Color(null, 150, 0, 0), SOLID, NEGATIVE, false));
         addType(new EdgeType(SignedType.UPREGULATES_EXPRESSION,
-                new Color(null, 0, 80, 20), DASHED, POSITIVE, false));
+                new Color(null, 0, 150, 0), DASHED, POSITIVE, false));
         addType(new EdgeType(SignedType.DOWNREGULATES_EXPRESSION,
-                new Color(null, 80, 20, 0), DASHED, NEGATIVE, false));
+                new Color(null, 150, 0, 0), DASHED, NEGATIVE, false));
 
         // Non-Paxtools SIF edges
 
@@ -255,6 +255,8 @@ public class SIFEdge extends BioPAXEdge
 		addType(new EdgeType("BINDS_TO", false,
 			new Color(null, 100, 100, 100), SOLID, NO_SIGN, true));
 		addType(new EdgeType("in-same-mutex-group", false,
+			new Color(null, 100, 100, 100), SOLID, NO_SIGN, false));
+		addType(new EdgeType("correlates-with", false,
 			new Color(null, 100, 100, 100), SOLID, NO_SIGN, false));
 	}
 }

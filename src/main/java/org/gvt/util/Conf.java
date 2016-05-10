@@ -338,7 +338,7 @@ public enum Conf
 	 */
 	public static String getBlacklistURL()
 	{
-		return "http://resources.chibe.googlecode.com/hg/blacklist.txt";
+		return "http://www.pathwaycommons.org/archives/PC2/current/blacklist.txt";
 	}
 
 	public static String getBaseDir()

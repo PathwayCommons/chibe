@@ -46,7 +46,7 @@ public class BasicSIFEdge extends BioPAXEdge
 		this.mediators = new HashSet<String>();
 		if (mediators != null)
 		{
-			Collections.addAll(this.mediators, mediators.split(" "));
+			Collections.addAll(this.mediators, mediators.split(" |;"));
 		}
 
 		setKey(source.getText() + " " + tag + " " + target.getText());
@@ -66,7 +66,7 @@ public class BasicSIFEdge extends BioPAXEdge
 
 	public boolean isDirected()
 	{
-		return type.getIntType().isDirected();
+		return type.isDirected();
 	}
 
 	public boolean isBreadthEdge()
@@ -82,6 +82,11 @@ public class BasicSIFEdge extends BioPAXEdge
 	public SIFType getType()
 	{
 		return type.getIntType();
+	}
+
+	public String getTag()
+	{
+		return type.getTag();
 	}
 
 	public Set<String> getMediators()

@@ -395,8 +395,9 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public boolean isUbique()
 	{
-		return entity.l3pe != null && (isIDUbique(entity.l3pe) ||
-			entity.l3pe instanceof SmallMolecule && isUbiqueName(entity.l3pe.getDisplayName()));
+		return entity.l3pe != null && (isIDUbique(entity.l3pe));
+//			||
+//			entity.l3pe instanceof SmallMolecule && isUbiqueName(entity.l3pe.getDisplayName()));
 
 	}
 
@@ -520,9 +521,17 @@ public class Actor extends BioPAXNode implements EntityAssociated
 		try
 		{
 //			URL url = new URL(Conf.get(Conf.PATHWAY_COMMONS_URL) + "downloads/blacklist.txt");
-			URL url = new URL(Conf.getBlacklistURL());
-			URLConnection con = url.openConnection();
-			return new Blacklist((InputStream) con.getContent());
+			String blacklistURL = Conf.getBlacklistURL();
+			if (blacklistURL.startsWith("http://"))
+			{
+				URL url = new URL(blacklistURL);
+				URLConnection con = url.openConnection();
+				return new Blacklist((InputStream) con.getContent());
+			}
+			else
+			{
+				return new Blacklist(blacklistURL);
+			}
 		}
 		catch (Exception e)
 		{

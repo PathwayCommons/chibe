@@ -95,7 +95,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 					for (BasicSIFNode target : getNonGroupNodes(edge.getTarget()))
 					{
 						writer.write(source.getText() + "\t");
-						writer.write(edge.getType().getTag() + "\t");
+						writer.write(edge.getTag() + "\t");
 						writer.write(target.getText() + "\n");
 					}
 				}
@@ -200,7 +200,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			{
 				BasicSIFEdge edge = (BasicSIFEdge) oo;
 				assert edge.getTarget() == node;
-				String key = edge.getType().getTag() + " " + edge.getSource().getText();
+				String key = edge.getTag() + " " + edge.getSource().getText();
 				incomingMap.get(node).add(key);
 				if (!edge.isDirected()) outgoingMap.get(node).add(key);
 			}
@@ -208,7 +208,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			{
 				BasicSIFEdge edge = (BasicSIFEdge) oo;
 				assert edge.getSource() == node;
-				String key = edge.getType().getTag() + " " + edge.getTarget().getText();
+				String key = edge.getTag() + " " + edge.getTarget().getText();
 				outgoingMap.get(node).add(key);
 				if (!edge.isDirected()) incomingMap.get(node).add(key);
 			}

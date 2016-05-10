@@ -146,7 +146,13 @@ public abstract class QueryPCAction extends ChiBEAction
 
 	private void doSIFQuery() throws CPathException
 	{
-		BasicSIFGraph graph = getPCGraph(options.getSifTypes());
+		org.cbio.causality.analysis.Graph g = null;
+		if (queryLoc.isFile())
+		{
+			g = new org.cbio.causality.analysis.Graph("Local sif file", "mixed-edge-types");
+
+		}
+		BasicSIFGraph graph = queryLoc.isFile() ?  new BasicSIFGraph(g) : getPCGraph(options.getSifTypes());
 
 		Collection<org.patika.mada.graph.GraphObject> gos = doSIFQuery(graph);
 

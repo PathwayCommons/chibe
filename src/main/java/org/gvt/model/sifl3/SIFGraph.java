@@ -80,7 +80,7 @@ public class SIFGraph extends BioPAXL3Graph
                 }
 
                 new SIFEdge(sourceNode, targetNode, simpleInt.type.getTag(),
-					new HashSet<String>(Arrays.asList(simpleInt.getMediatorsInString().split(" "))));
+					new HashSet<String>(Arrays.asList(simpleInt.getMediatorsInString().split(" |;"))));
 
                 encountered.add(id);
 
