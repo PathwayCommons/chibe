@@ -4,6 +4,7 @@ import cpath.client.util.BioPAXHttpMessageConverter;
 import cpath.client.util.CPathException;
 import cpath.client.util.ServiceResponseHttpMessageConverter;
 import cpath.query.*;
+import cpath.service.jaxb.Help;
 import org.apache.commons.lang.StringUtils;
 import org.biopax.paxtools.io.SimpleIOHandler;
 import org.slf4j.Logger;
@@ -161,7 +162,19 @@ public class CPathClient
 		}
 	}
 
-    /**
+	/**
+	 * Retrieves information about available cPath2 commands and their parameters.
+	 *
+	 * @param hpath relative (ie., as in 'help/[path]') REST query path variable; e.g.: null (all), "datasources", "commands/search", etc.
+	 *
+	 * @return
+	 * @throws CPathException
+	 */
+	public Help executeHelp(String hpath) throws CPathException {
+		return get("help/" + ((hpath != null) ? hpath : ""), null, Help.class);
+	}
+
+	/**
      * Joins the collection of strings into one string 
      * using the prefix and delimiter.
      * 
