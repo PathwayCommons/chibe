@@ -101,21 +101,21 @@ public class EntityHolder
 		{
 			String txt = org.gvt.model.biopaxl2.BioPAXNode.getDisplayName(l2pe);
 			if (txt != null) return txt;
-			else return l2pe.getRDFId();
+			else return ID.get(l2pe);
 		}
 		else if (l3pe != null)
 		{
 			if (l3pe.getDisplayName() != null) return l3pe.getDisplayName();
 			else if (l3pe.getStandardName() != null) return l3pe.getStandardName();
 			else if (!l3pe.getName().isEmpty()) return l3pe.getName().iterator().next();
-			else return l3pe.getRDFId();
+			else return ID.get(l3pe);
 		}
 		else if (l3er != null)
 		{
 			if (l3er.getDisplayName() != null) return l3er.getDisplayName();
 			else if (l3er.getStandardName() != null) return l3er.getStandardName();
 			else if (!l3er.getName().isEmpty()) return l3er.getName().iterator().next();
-			else return l3er.getRDFId();
+			else return ID.get(l3er);
 		}
 		else return null;
 	}
@@ -124,15 +124,15 @@ public class EntityHolder
 	{
 		if (l2pe != null)
 		{
-			return l2pe.getRDFId();
+			return ID.get(l2pe);
 		}
 		else if (l3pe != null)
 		{
-			return l3pe.getRDFId();
+			return ID.get(l3pe);
 		}
 		else if (l3er != null)
 		{
-			return l3er.getRDFId();
+			return ID.get(l3er);
 		}
 		else return null;
 	}

@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.*;
@@ -43,7 +44,7 @@ public class Control extends BioPAXNode
 //			con.getCONTROLLER().size() > 1;
 		
 		// Remember this control to prevent duplication.
-		map.put(con.getRDFId(), this);
+		map.put(ID.get(con), this);
 		
 		// Connect controller and controlled.
 		
@@ -51,7 +52,7 @@ public class Control extends BioPAXNode
 		
 		for (physicalEntityParticipant par : pars)
 		{
-			NodeModel node = map.get(par.getRDFId());
+			NodeModel node = map.get(ID.get(par));
 			new EffectorFirstHalf(node, this, par);
 		}
 
@@ -61,20 +62,20 @@ public class Control extends BioPAXNode
 		
 		for (control c : con.isCONTROLLEDOf())
 		{
-			if (map.containsKey(c.getRDFId()))
+			if (map.containsKey(ID.get(c)))
 			{
-				Control mod = (Control) map.get(c.getRDFId());
+				Control mod = (Control) map.get(ID.get(c));
 				new EffectorSecondHalf(mod, this, mod.getControl());
 			}
 			else if (c.isCONTROLLEDOf().isEmpty() && c.getCONTROLLER().size() == 1)
 			{
-				NodeModel source = map.get(c.getCONTROLLER().iterator().next().getRDFId());
+				NodeModel source = map.get(ID.get(c.getCONTROLLER().iterator().next()));
 				new NonModulatedEffector(source, this, c, c.getCONTROLLER().iterator().next(), con);
 			}
 			else
 			{
 				Control ctrl = new Control(root, c, this, map);
-				map.put(c.getRDFId(), ctrl);
+				map.put(ID.get(c), ctrl);
 			}
 		}
 		this.con = con;
@@ -179,7 +180,7 @@ public class Control extends BioPAXNode
 	
 	public String getIDHash()
 	{
-		return con.getRDFId();
+		return ID.get(con);
 	}
 
 	private static final Color COLOR_ACTIVATE = new Color(null, 170, 170, 170);

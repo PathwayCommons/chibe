@@ -56,14 +56,9 @@ public class SaveToSIFFileAction extends ChiBEAction
 	{
 		if (main.getPathwayGraph() == null) return;
 
-		org.gvt.model.sifl2.SIFGraph sifL2Graph = null;
 		org.gvt.model.sifl3.SIFGraph sifL3Graph = null;
 		BasicSIFGraph basicSifGraph = null;
 
-		if (main.getPathwayGraph().getGraphType().equals(BioPAXGraph.SIF_LEVEL2))
-		{
-			sifL2Graph = (org.gvt.model.sifl2.SIFGraph) main.getPathwayGraph();
-		}
 		if (main.getPathwayGraph().getGraphType().equals(BioPAXGraph.SIF_LEVEL3))
 		{
 			sifL3Graph = (org.gvt.model.sifl3.SIFGraph) main.getPathwayGraph();
@@ -73,7 +68,7 @@ public class SaveToSIFFileAction extends ChiBEAction
 			basicSifGraph = (BasicSIFGraph) main.getPathwayGraph();
 		}
 
-		if (sifL2Graph == null && sifL3Graph == null && basicSifGraph == null)
+		if (sifL3Graph == null && basicSifGraph == null)
 		{
 			MessageDialog.openError(main.getShell(), "Not A Valid View!",
 				"Only Simple Interaction Views can be written in SIF format.");
@@ -92,11 +87,7 @@ public class SaveToSIFFileAction extends ChiBEAction
 		{
 			OutputStream os = new FileOutputStream(fileName);
 
-			if (sifL2Graph != null)
-			{
-				sifL2Graph.write(os);
-			}
-			else if (sifL3Graph != null)
+			if (sifL3Graph != null)
 			{
 				sifL3Graph.write(os);
 			}

@@ -3,6 +3,7 @@ package org.gvt.model.biopaxl2;
 import org.gvt.model.NodeModel;
 import org.biopax.paxtools.model.level2.physicalEntityParticipant;
 import org.biopax.paxtools.model.level2.openControlledVocabulary;
+import org.gvt.util.ID;
 
 import java.util.Map;
 import java.util.List;
@@ -40,14 +41,14 @@ public abstract class PEPBasedEdge extends BioPAXEdge
 
 	public String getIDHash()
 	{
-		return pep.getRDFId();
+		return ID.get(pep);
 	}
 
 	public List<String[]> getInspectable()
 	{
 		List<String[]> list = super.getInspectable();
 
-		list.add(new String[]{"ID", pep.getRDFId()});
+		list.add(new String[]{"ID", ID.get(pep)});
 
 		list.add(new String[]{"Stochiometry", "" + pep.getSTOICHIOMETRIC_COEFFICIENT()});
 

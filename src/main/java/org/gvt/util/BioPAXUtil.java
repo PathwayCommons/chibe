@@ -89,7 +89,7 @@ public class BioPAXUtil
 		Set<String> set = new HashSet<String>();
 		for (BioPAXElement ele : eles)
 		{
-			set.add(ele.getRDFId());
+			set.add(ID.get(ele));
 		}
 		return set;
 	}
@@ -124,10 +124,10 @@ public class BioPAXUtil
 			Set<String> ids = new HashSet<String>();
 			for (BioPAXElement ele : set)
 			{
-				ids.add(ele.getRDFId());
+				ids.add(ID.get(ele));
 			}
 
-			ids.remove(p.getRDFId());
+			ids.remove(ID.get(p));
 
 			for (String id : intids)
 			{
@@ -144,7 +144,7 @@ public class BioPAXUtil
 
 			for (interaction inter : model.getObjects(interaction.class))
 			{
-				if (intids.contains(inter.getRDFId()))
+				if (intids.contains(ID.get(inter)))
 				{
 					p.addPATHWAY_COMPONENTS(inter);
 				}
@@ -402,13 +402,13 @@ public class BioPAXUtil
 		{
 			for (interaction inter : model.getObjects(interaction.class))
 			{
-				ids.add(inter.getRDFId());
+				ids.add(ID.get(inter));
 			}
 		} else if (model.getLevel() == BioPAXLevel.L3)
 		{
 			for (Interaction inter : model.getObjects(Interaction.class))
 			{
-				ids.add(inter.getRDFId());
+				ids.add(ID.get(inter));
 			}
 		}
 		return ids;

@@ -3,6 +3,7 @@ package org.gvt.model.biopaxl3;
 import org.biopax.paxtools.model.level3.*;
 import org.biopax.paxtools.model.level3.Process;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.Edge;
 
 import java.util.Map;
@@ -74,7 +75,7 @@ public class NonModulatedEffector extends BioPAXEdge
 
 	public String getIDHash()
 	{
-		return super.getIDHash() + cont.getRDFId();
+		return super.getIDHash() + ID.get(cont);
 	}
 
 	public List<String[]> getInspectable()

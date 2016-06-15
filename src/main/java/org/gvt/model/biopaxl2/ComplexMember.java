@@ -4,6 +4,7 @@ import org.biopax.paxtools.model.level2.physicalEntity;
 import org.biopax.paxtools.model.level2.physicalEntityParticipant;
 import org.biopax.paxtools.model.BioPAXElement;
 import org.gvt.model.CompoundModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.List;
@@ -86,9 +87,9 @@ public class ComplexMember extends Actor
 		String hash = "";
 		for (physicalEntityParticipant pep : participants)
 		{
-			hash += pep.getRDFId();
+			hash += ID.get(pep);
 		}
-		return entity.getRDFId() + hash;
+		return ID.get(entity) + hash;
 	}
 
 	public Set<GraphObject> getRequisites()

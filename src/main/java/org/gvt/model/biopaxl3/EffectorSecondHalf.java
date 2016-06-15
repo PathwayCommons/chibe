@@ -2,6 +2,7 @@ package org.gvt.model.biopaxl3;
 
 import org.biopax.paxtools.model.level3.*;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.Edge;
 
 import java.util.Map;
@@ -63,6 +64,6 @@ public class EffectorSecondHalf extends BioPAXEdge
 
 	public String getIDHash()
 	{
-		return cont.getRDFId() + ((IBioPAXL3Node) getTargetNode()).getIDHash();
+		return ID.get(cont) + ((IBioPAXL3Node) getTargetNode()).getIDHash();
 	}
 }

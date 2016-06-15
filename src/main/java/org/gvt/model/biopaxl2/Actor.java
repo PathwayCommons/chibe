@@ -9,6 +9,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.ID;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.Node;
 
@@ -81,7 +82,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			@Override
 			public int compare(physicalEntityParticipant p1, physicalEntityParticipant p2)
 			{
-				return p1.getRDFId().compareTo(p2.getRDFId());
+				return ID.get(p1).compareTo(ID.get(p2));
 			}
 		});
 	}
@@ -313,7 +314,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	{
 		if (entity == null) return null;
 
-		return super.getStringSpecificColor(entity.getRDFId());
+		return super.getStringSpecificColor(ID.get(entity));
 	}
 
 	public boolean isEvent()
@@ -338,7 +339,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public String getIDHash()
 	{
-		return entity.getRDFId() + edgeHash();
+		return ID.get(entity) + edgeHash();
 	}
 
 	public String edgeHash()
@@ -352,7 +353,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 			String hash = null;
 			for (physicalEntityParticipant p : participants)
 			{
-				if (hash == null || p.getRDFId().compareTo(hash) < 0) hash = p.getRDFId(); 
+				if (hash == null || ID.get(p).compareTo(hash) < 0) hash = ID.get(p);
 			}
 			return hash;
 		}

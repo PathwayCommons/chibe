@@ -64,8 +64,7 @@ public class PopupManager extends MenuManager
 			boolean tcgasif = false;
 			boolean basicsif = false;
 			Object o = ((ChsRootEditPart) ep.getChildren().get(0)).getModel();
-			if (o instanceof BasicSIFGraph || o instanceof org.gvt.model.sifl2.SIFGraph ||
-				o instanceof org.gvt.model.sifl3.SIFGraph)
+			if (o instanceof BasicSIFGraph || o instanceof org.gvt.model.sifl3.SIFGraph)
 			{
 				sif = true;
 				basicsif = o instanceof BasicSIFGraph;

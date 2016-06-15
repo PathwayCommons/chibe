@@ -17,6 +17,7 @@ import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.ChbComplex;
 import org.gvt.model.biopaxl3.ChbConversion;
 import org.gvt.model.biopaxl3.NonModulatedEffector;
+import org.gvt.util.ID;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,10 +81,10 @@ public class DebugButtonAction extends Action
 					if (actor.getEntity().l3pe != null)
 					{
 						System.out.println(actor.getEntity().l3pe.getDisplayName());
-						System.out.println("pe id = " + actor.getEntity().l3pe.getRDFId());
+						System.out.println("pe id = " + ID.get(actor.getEntity().l3pe));
 					}
 					if (actor.getEntity().l3er != null)
-						System.out.println("er id = " + actor.getEntity().l3er.getRDFId());
+						System.out.println("er id = " + ID.get(actor.getEntity().l3er));
 
 //					for (Xref xref : ((SimplePhysicalEntity)actor.getEntity().l3pe).getEntityReference().getXref())
 //					{
@@ -95,17 +96,17 @@ public class DebugButtonAction extends Action
 				{
 					ChbComplex cmp = (ChbComplex) o;
 					System.out.println(cmp.getEntity().l3pe.getDisplayName());
-					System.out.println(cmp.getComplex().getRDFId());
+					System.out.println(ID.get(cmp.getComplex()));
 				}
 				else if (o instanceof ChbConversion)
 				{
 					ChbConversion cnv = (ChbConversion) o;
-					System.out.println("conversion id = " + cnv.getConversion().getRDFId());
+					System.out.println("conversion id = " + ID.get(cnv.getConversion()));
 				}
 			}
 			else if (o instanceof NonModulatedEffector)
 			{
-				System.out.println("cont id = " + ((NonModulatedEffector) o).getControl().getRDFId());
+				System.out.println("cont id = " + ID.get(((NonModulatedEffector) o).getControl()));
 			}
 		}
 	}

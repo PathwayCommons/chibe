@@ -79,7 +79,7 @@ public class BioPAXL2Reader
 
 					for (physicalEntityParticipant par : list)
 					{
-						map.put(par.getRDFId(), actor);
+						map.put(ID.get(par), actor);
 					}
 				}
 			}
@@ -131,7 +131,7 @@ public class BioPAXL2Reader
 
 					for (physicalEntityParticipant par : list)
 					{
-						map.put(par.getRDFId(), nd);
+						map.put(ID.get(par), nd);
 					}
 				}
 			}
@@ -207,7 +207,7 @@ public class BioPAXL2Reader
 
 					for (physicalEntityParticipant pep : peps)
 					{
-						NodeModel node = map.get(pep.getRDFId());
+						NodeModel node = map.get(ID.get(pep));
 
 						// TEMPORARY CODE -- REMOVE WHEN BUG IS FIXED
 						if (node == null)
@@ -228,7 +228,7 @@ public class BioPAXL2Reader
 					int i = 0;
 					for (physicalEntityParticipant pep : peps)
 					{
-						ends[i++] = map.get(pep.getRDFId());
+						ends[i++] = map.get(ID.get(pep));
 					}
 
 					// TEMPORARY CODE -- REMOVE WHEN BUG IS FIXED
@@ -486,7 +486,7 @@ public class BioPAXL2Reader
 		Map<String, physicalEntity> rdfToPE = new HashMap<String, physicalEntity>();
 		for (physicalEntity pe : model.getObjects(physicalEntity.class))
 		{
-			rdfToPE.put(pe.getRDFId(), pe);
+			rdfToPE.put(ID.get(pe), pe);
 		}
 		Set<physicalEntityParticipant> peps = model.getObjects(physicalEntityParticipant.class);
 
@@ -496,12 +496,12 @@ public class BioPAXL2Reader
 
 			if (pe == null)
 			{
-				System.err.println("PE of PEP is null. PEP id: " + pep.getRDFId());
+				System.err.println("PE of PEP is null. PEP id: " + ID.get(pep));
 			}
-			else if (!rdfToPE.containsKey(pe.getRDFId()) || rdfToPE.get(pe.getRDFId()) != pe)
+			else if (!rdfToPE.containsKey(ID.get(pe)) || rdfToPE.get(ID.get(pe)) != pe)
 			{
-				System.err.println("PE of PEP is not in model.\nPEP id: " + pep.getRDFId() +
-					"\nPE id: " + pe.getRDFId());
+				System.err.println("PE of PEP is not in model.\nPEP id: " + ID.get(pep) +
+					"\nPE id: " + ID.get(pe));
 			}
 		}
 	}

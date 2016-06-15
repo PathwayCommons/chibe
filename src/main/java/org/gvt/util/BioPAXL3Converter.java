@@ -58,7 +58,7 @@ public class BioPAXL3Converter implements NodeProvider
 				ele instanceof TemplateReaction ||
 				(ele instanceof MolecularInteraction && Conf.drawPPI()))
 			{
-				getNode(ele.getRDFId(), root);
+				getNode(ID.get(ele), root);
 			}
 		}
 
@@ -70,7 +70,7 @@ public class BioPAXL3Converter implements NodeProvider
 			if (ele instanceof Control)
 			{
 				if (ChbControl.controlNeedsToBeANode((Control) ele, this))
-					getNode(ele.getRDFId(), root);
+					getNode(ID.get(ele), root);
 			}
 		}
 
@@ -94,15 +94,15 @@ public class BioPAXL3Converter implements NodeProvider
 
 			for (PhysicalEntity pe : reiter)
 			{
-				NodeModel node1 = getAnExistingNode(pe.getRDFId());
+				NodeModel node1 = getAnExistingNode(ID.get(pe));
 				for (PhysicalEntity mem : pe.getMemberPhysicalEntity())
 				{
-					if (needsToBeDisplayed(mem.getRDFId()))
+					if (needsToBeDisplayed(ID.get(mem)))
 					{
-						NodeModel node2 = getAnExistingNode(mem.getRDFId());
+						NodeModel node2 = getAnExistingNode(ID.get(mem));
 						if (node2 == null)
 						{
-							node2 = getNode(mem.getRDFId(), root);
+							node2 = getNode(ID.get(mem), root);
 							newEnts.add(mem);
 						}
 
@@ -123,12 +123,12 @@ public class BioPAXL3Converter implements NodeProvider
 					{
 						for (EntityReference mem : er.getMemberEntityReference())
 						{
-							if (needsToBeDisplayed(mem.getRDFId()))
+							if (needsToBeDisplayed(ID.get(mem)))
 							{
-								NodeModel node2 = getAnExistingNode(mem.getRDFId());
+								NodeModel node2 = getAnExistingNode(ID.get(mem));
 								if (node2 == null)
 								{
-									node2 = getNode(mem.getRDFId(), root);
+									node2 = getNode(ID.get(mem), root);
 									// todo check if we don't really need the below line
 //									newEnts.add(mem);
 								}
@@ -147,12 +147,12 @@ public class BioPAXL3Converter implements NodeProvider
 				}
 				for (PhysicalEntity parent : pe.getMemberPhysicalEntityOf())
 				{
-					if (needsToBeDisplayed(parent.getRDFId()))
+					if (needsToBeDisplayed(ID.get(parent)))
 					{
-						NodeModel node2 = getAnExistingNode(parent.getRDFId());
+						NodeModel node2 = getAnExistingNode(ID.get(parent));
 						if (node2 == null)
 						{
-							node2 = getNode(parent.getRDFId(), root);
+							node2 = getNode(ID.get(parent), root);
 							newEnts.add(parent);
 						}
 
@@ -200,7 +200,7 @@ public class BioPAXL3Converter implements NodeProvider
 			{
 				if (p.getStandardName() != null) p.setDisplayName(p.getStandardName());
 				else if (!p.getName().isEmpty()) p.setDisplayName(p.getName().iterator().next());
-				else p.setDisplayName(p.getRDFId());
+				else p.setDisplayName(ID.get(p));
 			}
 		}
 	}
@@ -224,7 +224,7 @@ public class BioPAXL3Converter implements NodeProvider
 
 			for (Entity ent : inter.getParticipant())
 			{
-				NodeModel node = this.getNode(ent.getRDFId(), root);
+				NodeModel node = this.getNode(ID.get(ent), root);
 				if (node != null) interactors.add(node);
 			}
 
@@ -353,14 +353,14 @@ public class BioPAXL3Converter implements NodeProvider
 			Set<BioPAXElement> completed = c.complete(s, model);
 			for (BioPAXElement ele : completed)
 			{
-				idsOfInterest.add(ele.getRDFId());
+				idsOfInterest.add(ID.get(ele));
 			}
 		}
 		else
 		{
 			for (BioPAXElement ele : model.getObjects())
 			{
-				idsOfInterest.add(ele.getRDFId());
+				idsOfInterest.add(ID.get(ele));
 			}
 		}
 	}
@@ -475,12 +475,12 @@ public class BioPAXL3Converter implements NodeProvider
 
 		if (actor.isUbique())
 		{
-			if (!nodeSetMap.containsKey(peOrEr.getRDFId()))
-				nodeSetMap.put(peOrEr.getRDFId(), new HashSet<Actor>());
+			if (!nodeSetMap.containsKey(ID.get(peOrEr)))
+				nodeSetMap.put(ID.get(peOrEr), new HashSet<Actor>());
 
-			nodeSetMap.get(peOrEr.getRDFId()).add(actor);
+			nodeSetMap.get(ID.get(peOrEr)).add(actor);
 		}
-		else nodeMap.put(peOrEr.getRDFId(), actor);
+		else nodeMap.put(ID.get(peOrEr), actor);
 
 		return actor;
 	}
@@ -502,10 +502,10 @@ public class BioPAXL3Converter implements NodeProvider
 				cm.setMultimerNo(getStoichiometry(current_cmp, pe));
 				cm.setRelated(top_cmp);
 
-				if (!nodeSetMap.containsKey(pe.getRDFId()))
-					nodeSetMap.put(pe.getRDFId(), new HashSet<Actor>());
+				if (!nodeSetMap.containsKey(ID.get(pe)))
+					nodeSetMap.put(ID.get(pe), new HashSet<Actor>());
 
-				nodeSetMap.get(pe.getRDFId()).add(cm);
+				nodeSetMap.get(ID.get(pe)).add(cm);
 			}
 		}
 	}
@@ -622,7 +622,7 @@ public class BioPAXL3Converter implements NodeProvider
 			nd = c;
 		}
 
-		nodeMap.put(cmp.getRDFId(), nd);
+		nodeMap.put(ID.get(cmp), nd);
 		return nd;
 	}
 

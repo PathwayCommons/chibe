@@ -1,27 +1,20 @@
 package org.gvt.action;
 
-import org.biopax.paxtools.controller.Cloner;
-import org.biopax.paxtools.controller.Completer;
-import org.biopax.paxtools.controller.SimpleEditorMap;
-import org.biopax.paxtools.io.sif.BinaryInteractionType;
-import org.biopax.paxtools.model.BioPAXElement;
 import org.biopax.paxtools.model.BioPAXLevel;
 import org.biopax.paxtools.model.Model;
-import org.biopax.paxtools.model.level3.Pathway;
 import org.biopax.paxtools.pattern.miner.SIFType;
-import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.gvt.ChisioMain;
-import org.gvt.gui.ExportToSIFL2Dialog;
 import org.gvt.gui.ExportToSIFL3Dialog;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.util.BioPAXUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ozgun Babur
@@ -36,11 +29,6 @@ public class ExportToSIFAction extends Action
 	private ChisioMain main;
 
 	/**
-	 * Rule types to discover and write in SIF in level 2.
-	 */
-	List<BinaryInteractionType> ruleTypesL2;
-
-	/**
 	 * Rule types to discover and write in SIF in level3.
 	 */
 	List<SIFType> ruleTypesL3;
@@ -53,7 +41,6 @@ public class ExportToSIFAction extends Action
 		setImageDescriptor(ImageDescriptor.createFromFile(ChisioMain.class, "icon/sif.png"));
 		setToolTipText(getText());
 		this.main = main;
-		this.ruleTypesL2 = new ArrayList<BinaryInteractionType>();
 		this.ruleTypesL3 = new ArrayList<SIFType>();
 		this.entireModel = entireModel;
 	}
@@ -68,6 +55,12 @@ public class ExportToSIFAction extends Action
                 "Load or query a BioPAX model first.");
 			return;
 		}
+		if (model.getLevel() == BioPAXLevel.L2)
+		{
+			MessageDialog.openError(main.getShell(), "Error!",
+				"This action is not supported at Level 2 BioPAX models. Please use level 3.");
+			return;
+		}
 
 		if (!entireModel)
 		{
@@ -79,7 +72,7 @@ public class ExportToSIFAction extends Action
 			{
 				BioPAXL3Graph graph = (BioPAXL3Graph) root;
 
-				if (model.getLevel() == BioPAXLevel.L3 && graph.isMechanistic())
+				if (graph.isMechanistic())
 				{
 					model = BioPAXUtil.excise(model, graph.getPathway());
 					stop = false;
@@ -94,31 +87,14 @@ public class ExportToSIFAction extends Action
 			}
 		}
 
-		boolean l3 = model.getLevel() == BioPAXLevel.L3;
+		ExportToSIFL3Dialog dialog = new ExportToSIFL3Dialog(main.getShell(),
+			org.gvt.model.sifl3.SIFGraph.getPossibleRuleTypes(), ruleTypesL3);
 
-		boolean okPressed;
+		boolean okPressed = dialog.open();
 
-		if (l3)
+		if (okPressed && !ruleTypesL3.isEmpty())
 		{
-			ExportToSIFL3Dialog dialog = new ExportToSIFL3Dialog(main.getShell(),
-				org.gvt.model.sifl3.SIFGraph.getPossibleRuleTypes(), ruleTypesL3);
-
-			okPressed = dialog.open();
-		}
-		else
-		{
-			ExportToSIFL2Dialog dialog = new ExportToSIFL2Dialog(main.getShell(),
-				org.gvt.model.sifl2.SIFGraph.getPossibleRuleTypes(main.getBioPAXModel().getLevel()),
-				ruleTypesL2);
-
-			okPressed = dialog.open();
-		}
-
-		if (okPressed && (!ruleTypesL2.isEmpty() || !ruleTypesL3.isEmpty()))
-		{
-			BioPAXGraph sif = l3 ?
-			new org.gvt.model.sifl3.SIFGraph(model, ruleTypesL3, main.collectUbiqueIDs()) :
-			new org.gvt.model.sifl2.SIFGraph(model, ruleTypesL2);
+			BioPAXGraph sif = new org.gvt.model.sifl3.SIFGraph(model, ruleTypesL3, main.collectUbiqueIDs());
 
 			int nodenum = sif.getNodes().size();
 			int edgenum = sif.getEdges().size();
@@ -156,7 +132,5 @@ public class ExportToSIFAction extends Action
 					"Could not create any graph using specified rules.");
 			}
 		}
-
-		ruleTypesL2.clear();
 	}
 }

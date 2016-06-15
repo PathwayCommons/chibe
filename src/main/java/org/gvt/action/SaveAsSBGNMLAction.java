@@ -21,6 +21,7 @@ import org.gvt.ChisioMain;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.biopaxl3.Actor;
+import org.gvt.util.ID;
 import org.gvt.util.PathwayHolder;
 
 import java.io.File;
@@ -119,7 +120,7 @@ public class SaveAsSBGNMLAction extends ChiBEAction
 			Collection<? extends Level3Element> elements = actor.getRelatedModelElements();
 			for (Level3Element element : elements)
 			{
-				if (element instanceof PhysicalEntity) set.add(element.getRDFId());
+				if (element instanceof PhysicalEntity) set.add(ID.get(element));
 			}
 		}
 	}

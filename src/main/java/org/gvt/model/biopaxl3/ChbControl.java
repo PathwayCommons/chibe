@@ -6,6 +6,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.GraphObject;
 
@@ -40,14 +41,14 @@ public class ChbControl extends BioPAXNode
 		this(root);
 		
 		// Remember this control to prevent duplication.
-		provider.register(con.getRDFId(), this);
+		provider.register(ID.get(con), this);
 		
 		// Connect controller and control.
 		for (Controller controller : con.getController())
 		{
-			if (provider.needsToBeDisplayed(controller.getRDFId()))
+			if (provider.needsToBeDisplayed(ID.get(controller)))
 			{
-				NodeModel node = provider.getNode(controller.getRDFId(), root);
+				NodeModel node = provider.getNode(ID.get(controller), root);
 				new EffectorFirstHalf(node, this);
 
 				if (node instanceof Actor && ((Actor) node).isUbique())
@@ -60,9 +61,9 @@ public class ChbControl extends BioPAXNode
 		// Connect control and controlled.
 		for (Process process : con.getControlled())
 		{
-			if (provider.needsToBeDisplayed(process.getRDFId()))
+			if (provider.needsToBeDisplayed(ID.get(process)))
 			{
-				NodeModel node = provider.getNode(process.getRDFId(), root);
+				NodeModel node = provider.getNode(ID.get(process), root);
 
 				if (process instanceof Pathway && node != null)
 				{
@@ -88,7 +89,7 @@ public class ChbControl extends BioPAXNode
 
 		for (Controller controller : ctrl.getController())
 		{
-			if (prov.needsToBeDisplayed(controller.getRDFId())) controllerCnt++;
+			if (prov.needsToBeDisplayed(ID.get(controller))) controllerCnt++;
 		}
 
 		if (controllerCnt != 1) return true;
@@ -97,7 +98,7 @@ public class ChbControl extends BioPAXNode
 
 		for (Control control : ctrl.getControlledOf())
 		{
-			if (prov.needsToBeDisplayed(control.getRDFId())) return true;
+			if (prov.needsToBeDisplayed(ID.get(control))) return true;
 		}
 
 		// check if the control has empty targets
@@ -105,7 +106,7 @@ public class ChbControl extends BioPAXNode
 		int tarCnt = 0;
 		for (Process process : ctrl.getControlled())
 		{
-			if (prov.needsToBeDisplayed(process.getRDFId())) tarCnt++;
+			if (prov.needsToBeDisplayed(ID.get(process))) tarCnt++;
 		}
 		if (tarCnt == 0) return true;
 
@@ -212,7 +213,7 @@ public class ChbControl extends BioPAXNode
 	
 	public String getIDHash()
 	{
-		return con.getRDFId();
+		return ID.get(con);
 	}
 
 	private static final Color COLOR_ACTIVATE = new Color(null, 170, 170, 170);

@@ -8,10 +8,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.BioPAXGraph;
 import org.gvt.model.EntityAssociated;
-import org.gvt.util.BioPAXL2Reader;
-import org.gvt.util.BioPAXUtil;
-import org.gvt.util.EntityHolder;
-import org.gvt.util.PathwayHolder;
+import org.gvt.util.*;
 import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -195,7 +192,7 @@ public class BioPAXL2Graph extends BioPAXGraph
 	{
 		assert this.pathway != null;
 
-		return fetchLayout(this.pathway.getRDFId());
+		return fetchLayout(ID.get(this.pathway));
 	}
 
 	public boolean fetchLayout(String pathwayRDFID)
@@ -309,7 +306,7 @@ public class BioPAXL2Graph extends BioPAXGraph
 
 	public String getPathwayRDFID()
 	{
-		if (pathway != null) return pathway.getRDFId();
+		if (pathway != null) return ID.get(pathway);
 		return null;
 	}
 

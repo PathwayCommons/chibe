@@ -7,6 +7,7 @@ import org.eclipse.draw2d.TextUtilities;
 import org.gvt.command.CreateCommand;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -544,7 +545,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL2Node
 			list.add(new String[]{"Synonym", synon});
 		}
 
-		list.add(new String[]{"ID", ent.getRDFId()});
+		list.add(new String[]{"ID", ID.get(ent)});
 	}
 
 	/**

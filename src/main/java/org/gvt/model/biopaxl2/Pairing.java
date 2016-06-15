@@ -6,6 +6,7 @@ import org.biopax.paxtools.model.level2.evidence;
 import org.biopax.paxtools.model.level2.physicalInteraction;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.Edge;
 
 import java.util.Map;
@@ -61,7 +62,7 @@ public class Pairing extends PEPBasedEdge
 
 	public String getIDHash()
 	{
-		return super.getIDHash() + inter.getRDFId();
+		return super.getIDHash() + ID.get(inter);
 	}
 
 	public List<String[]> getInspectable()

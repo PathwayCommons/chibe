@@ -10,6 +10,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.util.Conf;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.ID;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -327,7 +328,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 	public Color getEntitySpecificColor()
 	{
 		EntityHolder ent = getEntity();
-		if (ent.l3er != null) return super.getStringSpecificColor(ent.l3er.getRDFId());
+		if (ent.l3er != null) return super.getStringSpecificColor(ID.get(ent.l3er));
 		else if (ent.l3pe != null)
 		{
 			List<String> memErs = getMemberEntityIDs(ent.l3pe, new ArrayList<String>());
@@ -342,7 +343,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 					s += memEr;
 				}
 				return super.getStringSpecificColor(s);
-			} else return super.getStringSpecificColor(ent.l3pe.getRDFId());
+			} else return super.getStringSpecificColor(ID.get(ent.l3pe));
 		} else return null;
 	}
 
@@ -357,7 +358,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 				if (er != null)
 				{
-					if (!list.contains(er.getRDFId())) list.add(er.getRDFId());
+					if (!list.contains(ID.get(er))) list.add(ID.get(er));
 				} else
 				{
 					getMemberEntityIDs(spe, list);
@@ -390,7 +391,7 @@ public class Actor extends BioPAXNode implements EntityAssociated
 
 	public String getIDHash()
 	{
-		return entity.getID() + (related != null ? related.getRDFId() : "");
+		return entity.getID() + (related != null ? ID.get(related) : "");
 	}
 
 	public boolean isUbique()

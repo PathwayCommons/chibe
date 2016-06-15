@@ -3,6 +3,7 @@ package org.gvt.model.biopaxl3;
 import org.biopax.paxtools.model.level3.*;
 import org.biopax.paxtools.model.BioPAXElement;
 import org.gvt.model.CompoundModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class ComplexMember extends Actor
 	public String getIDHash()
 	{
 		String hash = entity.getID();
-		if (related != null) hash += related.getRDFId();
+		if (related != null) hash += ID.get(related);
 		return hash;
 	}
 

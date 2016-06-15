@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
@@ -72,7 +73,7 @@ public class ChbTempReac extends BioPAXNode
 		NucleicAcid template = tr.getTemplate();
 		if (template != null)
 		{
-			NodeModel tmp = prov.getNode(template.getRDFId(), root);
+			NodeModel tmp = prov.getNode(ID.get(template), root);
 			new Template(tmp, this);
 		}
 
@@ -80,7 +81,7 @@ public class ChbTempReac extends BioPAXNode
 
 		for (PhysicalEntity ent : tr.getProduct())
 		{
-			NodeModel prd = prov.getNode(ent.getRDFId(), root);
+			NodeModel prd = prov.getNode(ID.get(ent), root);
 			new Product(this, prd);
 		}
 
@@ -89,8 +90,8 @@ public class ChbTempReac extends BioPAXNode
 
 	private NodeModel mapLookup(PhysicalEntity pe, TemplateReaction tr, Map<String, NodeModel> map)
 	{
-		NodeModel nm = map.get(pe.getRDFId());
-		if (nm == null) nm = map.get(pe.getRDFId() + tr.getRDFId());
+		NodeModel nm = map.get(ID.get(pe));
+		if (nm == null) nm = map.get(ID.get(pe) + ID.get(tr));
 		return nm;
 	}
 	public static String getPossibleCompartmentName(TemplateReaction tr)
@@ -271,7 +272,7 @@ public class ChbTempReac extends BioPAXNode
 
 	public String getIDHash()
 	{
-		return tr.getRDFId();
+		return ID.get(tr);
 	}
 
 	private static final Color COLOR = new Color(null, 230, 230, 230);

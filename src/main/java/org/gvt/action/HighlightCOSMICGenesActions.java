@@ -45,8 +45,7 @@ public class HighlightCOSMICGenesActions extends Action
 
 		final BioPAXGraph graph = main.getPathwayGraph();
 
-		if (!(graph instanceof BasicSIFGraph || graph instanceof SIFGraph ||
-			graph instanceof org.gvt.model.sifl2.SIFGraph))
+		if (!(graph instanceof BasicSIFGraph || graph instanceof SIFGraph))
 		{
 			return;
 		}

@@ -12,6 +12,7 @@ import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.biopax.paxtools.pattern.miner.SIFSearcher;
 import org.biopax.paxtools.pattern.util.Blacklist;
 import org.cbio.causality.signednetwork.Generator;
+import org.gvt.util.ID;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -84,11 +85,11 @@ public class ResourceFilePreparer
 				if (first) first = false;
 				else writer.write("\n");
 
-				writer.write(conv.getRDFId());
+				writer.write(ID.get(conv));
 
 				for (Control control : controls)
 				{
-					writer.write(" " + control.getRDFId());
+					writer.write(" " + ID.get(control));
 				}
 
 				for (String symbol : symbols)
@@ -131,7 +132,7 @@ public class ResourceFilePreparer
 				if (first) first = false;
 				else writer.write("\n");
 
-				writer.write(pathway.getRDFId() + "\t" + pathway.getDisplayName());
+				writer.write(ID.get(pathway) + "\t" + pathway.getDisplayName());
 
 				for (String symbol : symbols)
 				{

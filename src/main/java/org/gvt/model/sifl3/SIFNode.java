@@ -12,6 +12,7 @@ import org.gvt.model.EntityAssociated;
 import org.gvt.model.biopaxl3.Actor;
 import org.gvt.model.biopaxl3.BioPAXNode;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.ID;
 import org.patika.mada.util.XRef;
 
 import java.util.Collection;
@@ -87,7 +88,7 @@ public class SIFNode extends BioPAXNode implements EntityAssociated
 	 */
 	public Color getEntitySpecificColor()
 	{
-		return getStringSpecificColor(entity.getRDFId());
+		return getStringSpecificColor(ID.get(entity));
 	}
 
 	public EntityHolder getEntity()

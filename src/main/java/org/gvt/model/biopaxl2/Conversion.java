@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
 import org.patika.mada.graph.Edge;
@@ -109,12 +110,12 @@ public class Conversion extends BioPAXNode
 		
 		for (physicalEntityParticipant par : subsSet)
 		{
-			NodeModel sub = map.get(par.getRDFId());
+			NodeModel sub = map.get(ID.get(par));
 			new Substrate(sub, this, par);
 		}
 		for (physicalEntityParticipant par : prodSet)
 		{
-			NodeModel prod = map.get(par.getRDFId());
+			NodeModel prod = map.get(ID.get(par));
 			new Product(this, prod, par);
 		}
 
@@ -131,21 +132,21 @@ public class Conversion extends BioPAXNode
 		
 		for (control con : conv.isCONTROLLEDOf())
 		{
-			if (map.containsKey(con.getRDFId()))
+			if (map.containsKey(ID.get(con)))
 			{
-				Control cont = (Control) map.get(con.getRDFId());
+				Control cont = (Control) map.get(ID.get(con));
 				new EffectorSecondHalf(cont, this, cont.getControl());
 			}
 			else if (con.isCONTROLLEDOf().isEmpty() && con.getCONTROLLER().size() == 1)
 			{
-				NodeModel source = map.get(con.getCONTROLLER().iterator().next().getRDFId());
+				NodeModel source = map.get(ID.get(con.getCONTROLLER().iterator().next()));
 				new NonModulatedEffector(source, this, con,
 					con.getCONTROLLER().iterator().next(), conv);
 			}
 			else
 			{
 				Control ctrl = new Control(root, con, this, map);
-				map.put(con.getRDFId(), ctrl);
+				map.put(ID.get(con), ctrl);
 			}
 		}
 	}
@@ -336,7 +337,7 @@ public class Conversion extends BioPAXNode
 
 	public String getIDHash()
 	{
-		return conv.getRDFId() + direction;
+		return ID.get(conv) + direction;
 	}
 
 	public boolean isDepleting()

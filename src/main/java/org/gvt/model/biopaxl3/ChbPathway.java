@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.GraphObject;
 
@@ -39,7 +40,7 @@ public class ChbPathway extends BioPAXNode
 		this(root);
 
 		// Remember this control to prevent duplication.
-		prov.register(pathway.getRDFId(), this);
+		prov.register(ID.get(pathway), this);
 
 		this.pathway = pathway;
 		configFromModel();
@@ -96,7 +97,7 @@ public class ChbPathway extends BioPAXNode
 	
 	public String getIDHash()
 	{
-		return pathway.getRDFId();
+		return ID.get(pathway);
 	}
 
 	private static final Color COLOR = new Color(null, 220, 210, 200);

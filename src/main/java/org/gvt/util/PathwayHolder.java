@@ -74,11 +74,11 @@ public class PathwayHolder
 	{
 		if (l2p != null)
 		{
-			return l2p.getRDFId();
+			return ID.get(l2p);
 		}
 		else if (l3p != null)
 		{
-			return l3p.getRDFId();
+			return ID.get(l3p);
 		}
 		else return null;
 	}

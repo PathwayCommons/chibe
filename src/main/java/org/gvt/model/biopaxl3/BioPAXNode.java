@@ -18,6 +18,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.model.NodeModel;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.ID;
 import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.Edge;
 import org.patika.mada.graph.GraphObject;
@@ -616,7 +617,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 			}
 		}
 
-		list.add(new String[]{"ID", ent.getRDFId()});
+		list.add(new String[]{"ID", ID.get(ent)});
 	}
 
 	/**
@@ -695,18 +696,18 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 		for (Control con : inter.getControlledOf())
 		{
-			if (!prov.needsToBeDisplayed(con.getRDFId())) continue;
+			if (!prov.needsToBeDisplayed(ID.get(con))) continue;
 
 			if (ChbControl.controlNeedsToBeANode(con, prov))
 			{
-				ChbControl ctrl = (ChbControl) prov.getNode(con.getRDFId(), root);
+				ChbControl ctrl = (ChbControl) prov.getNode(ID.get(con), root);
 				new EffectorSecondHalf(ctrl, this, con);
 			}
 			else
 			{
 				for (Controller ctrlr : con.getController())
 				{
-					NodeModel source = prov.getNode(ctrlr.getRDFId(), root);
+					NodeModel source = prov.getNode(ID.get(ctrlr), root);
 					if (source != null) new NonModulatedEffector(source, this, con, inter);
 				}
 			}

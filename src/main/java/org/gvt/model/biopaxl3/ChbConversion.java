@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.gvt.util.NodeProvider;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.graph.Node;
@@ -46,7 +47,7 @@ public class ChbConversion extends BioPAXNode
 		this.conv = conv;
 		this.direction = direction;
 		configFromModel();
-		prov.register(conv.getRDFId(), this);
+		prov.register(ID.get(conv), this);
 		buildConnections(root, conv, direction, prov);
 	}
 
@@ -107,7 +108,7 @@ public class ChbConversion extends BioPAXNode
 		
 		for (PhysicalEntity ent : subsSet)
 		{
-			NodeModel sub = prov.getNode(ent.getRDFId(), root);
+			NodeModel sub = prov.getNode(ID.get(ent), root);
 			new Substrate(sub, this);
 
 			if (sub instanceof Actor && ((Actor) sub).isUbique())
@@ -117,7 +118,7 @@ public class ChbConversion extends BioPAXNode
 		}
 		for (PhysicalEntity par : prodSet)
 		{
-			NodeModel prod = prov.getNode(par.getRDFId(), root);
+			NodeModel prod = prov.getNode(ID.get(par), root);
 			new Product(this, prod);
 
 			if (prod instanceof Actor && ((Actor) prod).isUbique())
@@ -340,7 +341,7 @@ public class ChbConversion extends BioPAXNode
 
 	public String getIDHash()
 	{
-		return conv.getRDFId() + direction;
+		return ID.get(conv) + direction;
 	}
 
 	public boolean isDepleting()

@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.gvt.util.NodeProvider;
 import org.ivis.layout.Cluster;
 import org.patika.mada.graph.GraphObject;
@@ -66,7 +67,7 @@ public class Hub extends BioPAXNode
 	{
 		for (Entity ent : inter.getParticipant())
 		{
-			NodeModel node = prov.getNode(ent.getRDFId(), root);
+			NodeModel node = prov.getNode(ID.get(ent), root);
 			if (node != null)
 			{
 				new MultiTouch(node, this);
@@ -105,12 +106,12 @@ public class Hub extends BioPAXNode
 	{
 		for (Control control : mi.getControlledOf())
 		{
-			if (prov.needsToBeDisplayed(control.getRDFId())) return true;
+			if (prov.needsToBeDisplayed(ID.get(control))) return true;
 		}
 		int cnt = 0;
 		for (Entity entity : mi.getParticipant())
 		{
-			if (prov.needsToBeDisplayed(entity.getRDFId()))
+			if (prov.needsToBeDisplayed(ID.get(entity)))
 			{
 				cnt++;
 			}
@@ -128,7 +129,7 @@ public class Hub extends BioPAXNode
 
 	public String getIDHash()
 	{
-		return inter.getRDFId();
+		return ID.get(inter);
 	}
 
 	public List<String[]> getInspectable()

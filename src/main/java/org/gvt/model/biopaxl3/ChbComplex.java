@@ -5,6 +5,7 @@ import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.EntityAssociated;
 import org.gvt.util.EntityHolder;
+import org.gvt.util.ID;
 import org.patika.mada.graph.GraphObject;
 import org.patika.mada.util.XRef;
 
@@ -119,7 +120,7 @@ public class ChbComplex extends BioPAXCompoundNode implements EntityAssociated
 
 	public String getIDHash()
 	{
-		return cmp.getRDFId();
+		return ID.get(cmp);
 	}
 
 	public String suggestCompartmentNameUsingMembers()

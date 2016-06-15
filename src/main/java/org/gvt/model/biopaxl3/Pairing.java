@@ -3,6 +3,7 @@ package org.gvt.model.biopaxl3;
 import org.biopax.paxtools.model.level3.*;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.Edge;
 
 import java.util.Map;
@@ -57,7 +58,7 @@ public class Pairing extends BioPAXEdge
 
 	public String getIDHash()
 	{
-		return inter.getRDFId();
+		return ID.get(inter);
 	}
 
 	public List<String[]> getInspectable()

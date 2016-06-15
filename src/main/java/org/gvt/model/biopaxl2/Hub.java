@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.util.ID;
 import org.patika.mada.graph.GraphObject;
 
 import java.util.*;
@@ -73,21 +74,21 @@ public class Hub extends BioPAXNode
 	{
 		for (control c : this.inter.isCONTROLLEDOf())
 		{
-			if (map.containsKey(c.getRDFId()))
+			if (map.containsKey(ID.get(c)))
 			{
-				Control mod = (Control) map.get(c.getRDFId());
+				Control mod = (Control) map.get(ID.get(c));
 				new EffectorSecondHalf(mod, this, mod.getControl());
 			}
 			else if (c.isCONTROLLEDOf().isEmpty() && c.getCONTROLLER().size() == 1)
 			{
-				NodeModel source = map.get(c.getCONTROLLER().iterator().next().getRDFId());
+				NodeModel source = map.get(ID.get(c.getCONTROLLER().iterator().next()));
 				new NonModulatedEffector(source, this, c,
 					c.getCONTROLLER().iterator().next(), inter);
 			}
 			else
 			{
 				Control ctrl = new Control(root, c, this, map);
-				map.put(c.getRDFId(), ctrl);
+				map.put(ID.get(c), ctrl);
 			}
 		}
 	}
@@ -119,7 +120,7 @@ public class Hub extends BioPAXNode
 
 	public String getIDHash()
 	{
-		return inter.getRDFId();
+		return ID.get(inter);
 	}
 
 	public List<String[]> getInspectable()

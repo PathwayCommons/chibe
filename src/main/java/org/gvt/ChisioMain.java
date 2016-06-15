@@ -49,7 +49,6 @@ import org.gvt.model.GraphObject;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.biopaxl2.BioPAXL2Graph;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
-import org.gvt.model.sifl2.SIFGraph;
 import org.gvt.util.BioPAXUtil;
 import org.gvt.util.PathwayHolder;
 import org.patika.mada.dataXML.ChisioExperimentData;
@@ -304,14 +303,6 @@ public class ChisioMain extends ApplicationWindow
 
 		CTabItem tab = new CTabItem(tabFolder, SWT.NONE);
 
-		if (root instanceof SIFGraph)
-		{
-			ImageDescriptor id = ImageDescriptor.createFromFile(
-				getClass(), "icon/sif.png");
-
-			tab.setImage(id.createImage());
-		}
-				
 		Composite composite = new Composite(tabFolder, SWT.NONE);
 		composite.setLayout(new FillLayout());
 
