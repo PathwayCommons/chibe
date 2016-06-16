@@ -388,7 +388,7 @@ public class ExperimentDataVisualizationDialog extends Dialog implements Selecti
 								"There is no current loaded BioPAX model.");
 						}
 						break;
-					case 1: // Neighbors in Pathway commons
+					case 1: // Neighbors in Pathway commons todo That's old!!!
 						new QueryNeighborsAction(main, refs).run();
 						break;
 				}

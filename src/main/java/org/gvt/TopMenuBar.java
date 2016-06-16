@@ -187,15 +187,8 @@ public class TopMenuBar
 		localQueryMenu.add(new LocalCompartmentQueryAction(chisio));
 		localQueryMenu.add(new LocalPathIterationQueryAction(chisio));
 
-
-		// Query old pathway commons
-		MenuManager pcOldMenu = new MenuManager("&Pathway Commons (Level 2)");
-		queryMenu.add(pcOldMenu);
-		pcOldMenu.add(new QueryNeighborsAction(chisio, false));
-		pcOldMenu.add(new QueryPathwaysAction(chisio, false));
-
 		// Query new pathway commons
-		MenuManager pcNewMenu = new MenuManager("&Pathway Commons (Level 3)");
+		MenuManager pcNewMenu = new MenuManager("&Pathway Commons (in BioPAX)");
 		queryMenu.add(pcNewMenu);
 		pcNewMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_MECH));
 		pcNewMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.PC_MECH));
@@ -220,7 +213,7 @@ public class TopMenuBar
 		biopaxFileMenu.add(new EnrichedReactionsAction(main));
 
 		// Query new pathway commons in SIF
-		MenuManager pcNewSIFMenu = new MenuManager("&Pathway Commons (SIF)");
+		MenuManager pcNewSIFMenu = new MenuManager("&Pathway Commons (in SIF)");
 		queryMenu.add(pcNewSIFMenu);
 		pcNewSIFMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));

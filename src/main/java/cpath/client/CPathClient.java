@@ -20,9 +20,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
-//import cpath.service.jaxb.*;
-
-
 /**
  * New stateless cPath2 client with create* 
  * methods to conveniently build and run queries.
