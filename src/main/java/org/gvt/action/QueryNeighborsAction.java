@@ -195,7 +195,7 @@ public class QueryNeighborsAction extends Action
                                 LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, resultModel);
                                 load.setOpenPathways(false);
 
-                                load.setPathwayName(pname);
+                                load.setNewPathwayName(pname);
                                 load.run();
                                 ref2pname.put(ref, load.getLastPathwayName());
                             }

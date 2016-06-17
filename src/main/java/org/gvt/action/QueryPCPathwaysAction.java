@@ -30,6 +30,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 	public QueryPCPathwaysAction(ChisioMain main, QueryLocation qLoc)
 	{
 		super(main, "Pathways With Keyword ...", false, qLoc);
+		createNewPathwayForView = false;
 	}
 
 	public void run()
@@ -76,6 +77,7 @@ public class QueryPCPathwaysAction extends QueryPCAction
 					if (selected == null) return;
 
 					pathwayID = ((Holder) selected).getID();
+					setOpenPathwayName(((Holder) selected).getName());
 
 					execute();
 				}

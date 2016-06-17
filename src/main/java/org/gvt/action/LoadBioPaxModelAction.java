@@ -29,7 +29,8 @@ public class LoadBioPaxModelAction extends ChiBEAction
 {
 	protected String filename;
 
-	private String pathwayName;
+	private String newPathwayName;
+	private String openPathwayName;
 
 	/**
 	 * To remember the pathway name from last execution.
@@ -79,14 +80,19 @@ public class LoadBioPaxModelAction extends ChiBEAction
 		this.openPathways = openPathways;
 	}
 
-	public void setPathwayName(String pathwayName)
+	public void setOpenPathwayName(String openPathwayName)
 	{
-		this.pathwayName = pathwayName;
+		this.openPathwayName = openPathwayName;
 	}
 
-	public String getPathwayName()
+	public void setNewPathwayName(String newPathwayName)
 	{
-		return pathwayName;
+		this.newPathwayName = newPathwayName;
+	}
+
+	public String getNewPathwayName()
+	{
+		return newPathwayName;
 	}
 
 	public String getLastPathwayName()
@@ -201,9 +207,9 @@ public class LoadBioPaxModelAction extends ChiBEAction
 
 				if (model != null)
 				{
-					if (BioPAXUtil.numberOfUnemptyPathways(model) == 0 || pathwayName != null)
+					if (BioPAXUtil.numberOfUnemptyPathways(model) == 0 || newPathwayName != null)
 					{
-						String name = pathwayName == null ? filename : pathwayName;
+						String name = newPathwayName == null ? filename : newPathwayName;
 
 						if (name != null)
 						{
@@ -226,7 +232,7 @@ public class LoadBioPaxModelAction extends ChiBEAction
 							name = "Auto-created Pathway";
 						}
 						PathwayHolder ph = BioPAXUtil.createGlobalPathway(model, name);
-						pathwayName = ph.getName();
+						newPathwayName = ph.getName();
 					}
 
 					if (main.getBioPAXModel() != null) main.closeAllTabs(false);
@@ -245,6 +251,14 @@ public class LoadBioPaxModelAction extends ChiBEAction
 						if (names.size() == 1)
 						{
 							autoOpen = Arrays.asList(names.get(0));
+						}
+						else if (newPathwayName != null)
+						{
+							autoOpen = Arrays.asList(newPathwayName);
+						}
+						else if (openPathwayName != null)
+						{
+							autoOpen = Arrays.asList(openPathwayName);
 						}
 
 						new OpenPathwaysAction(main, autoOpen).run();
@@ -266,8 +280,8 @@ public class LoadBioPaxModelAction extends ChiBEAction
 			{
 				filename = null;
 				model = null;
-				lastPathwayName = pathwayName;
-				pathwayName = null;
+				lastPathwayName = newPathwayName;
+				newPathwayName = null;
 				main.unlock();
 			}
 		}

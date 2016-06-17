@@ -8,6 +8,7 @@ import org.biopax.paxtools.model.Model;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.gvt.ChisioMain;
 import org.gvt.util.BioPAXUtil;
+import org.gvt.util.PathwayHolder;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ public class MergeAction extends ChiBEAction
 	boolean openPathways;
 	boolean createNewPathway;
 
+	String nameOfPathwayToOpen;
+
 	/**
 	 * Constructor without filename. opens an FileChooser for filename
 	 *
@@ -51,6 +54,11 @@ public class MergeAction extends ChiBEAction
 		this.openPathways = true;
 		addFilterExtension(FILE_KEY, new String[]{"*.owl"});
 		addFilterName(FILE_KEY, new String[]{"BioPAX (*.owl)"});
+	}
+
+	public void setNameOfPathwayToOpen(String nameOfPathwayToOpen)
+	{
+		this.nameOfPathwayToOpen = nameOfPathwayToOpen;
 	}
 
 	public void setOpenPathways(boolean openPathways)
@@ -155,8 +163,9 @@ public class MergeAction extends ChiBEAction
 				{
 					Set<String> intids = BioPAXUtil.getInteractionIDs(model);
 
-					newPathwayName = BioPAXUtil.createPathway(
-						main.getBioPAXModel(), newPathwayName, intids).getName();
+					PathwayHolder pathway = BioPAXUtil.createPathway(
+						main.getBioPAXModel(), newPathwayName, intids);
+					nameOfPathwayToOpen = pathway.getName();
 				}
 
 				main.makeDirty();
@@ -165,10 +174,10 @@ public class MergeAction extends ChiBEAction
 
 				if (openPathways)
 				{
-					if (newPathwayName != null)
+					if (nameOfPathwayToOpen != null)
 					{
 						List<String> pnames = new ArrayList<String>(main.getOpenTabNames());
-						pnames.add(newPathwayName);
+						pnames.add(nameOfPathwayToOpen);
 						new OpenPathwaysAction(main, pnames).run();
 					} else
 					{

@@ -60,10 +60,13 @@ public abstract class QueryPCAction extends ChiBEAction
 	protected boolean increaseLimitIfNoResult;
 
 	protected String newPathwayName;
+	protected String openPathwayName;
 
 	protected QueryLocation queryLoc;
 
 	protected String localFilename;
+
+	protected boolean createNewPathwayForView;
 
 	public QueryPCAction(ChisioMain main, String text, boolean useSelected, QueryLocation qLoc)
 	{
@@ -75,6 +78,7 @@ public abstract class QueryPCAction extends ChiBEAction
 		addFilterExtension(FILE_KEY, new String[]{queryLoc == QueryLocation.FILE_MECH ? "*.owl" : "*.sif"});
 		addFilterName(FILE_KEY, new String[]{queryLoc == QueryLocation.FILE_MECH ?
 			"BioPAX File (*.owl)" : "Simple Interaction File (*.sif)"});
+		createNewPathwayForView = true;
 	}
 
 	public boolean isIncreaseLimitIfNoResult()
@@ -85,6 +89,11 @@ public abstract class QueryPCAction extends ChiBEAction
 	public void setNewPathwayName(String newPathwayName)
 	{
 		this.newPathwayName = newPathwayName;
+	}
+
+	public void setOpenPathwayName(String openPathwayName)
+	{
+		this.openPathwayName = openPathwayName;
 	}
 
 	public void setIncreaseLimitIfNoResult(boolean increaseLimitIfNoResult)
@@ -223,9 +232,21 @@ public abstract class QueryPCAction extends ChiBEAction
 				{
 					MergeAction merge = new MergeAction(main, model);
 					merge.setOpenPathways(true);
-					boolean hasNonEmptyPathway = modelHasNonEmptyPathway(model);
-					merge.setCreateNewPathway(!hasNonEmptyPathway);
-					if (!hasNonEmptyPathway) merge.setNewPathwayName(getNewPathwayName());
+
+//					boolean hasNonEmptyPathway = modelHasNonEmptyPathway(model);
+//					merge.setCreateNewPathway(!hasNonEmptyPathway);
+//					if (!hasNonEmptyPathway) merge.setNewPathwayName(getNewPathwayName());
+
+					merge.setCreateNewPathway(createNewPathwayForView);
+					if (createNewPathwayForView)
+					{
+						merge.setNewPathwayName(getNewPathwayName());
+					}
+					else if (openPathwayName != null)
+					{
+						merge.setNameOfPathwayToOpen(openPathwayName);
+					}
+
 					merge.updatePathways = false;
 					merge.run();
 				}
@@ -234,7 +255,11 @@ public abstract class QueryPCAction extends ChiBEAction
 					LoadBioPaxModelAction load = new LoadBioPaxModelAction(main, model);
 					load.setOpenPathways(true);
 
-					if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getNewPathwayName());
+//					if (!modelHasNonEmptyPathway(model)) load.setPathwayName(getNewPathwayName());
+
+					if (createNewPathwayForView) load.setNewPathwayName(getNewPathwayName());
+					else if (openPathwayName != null) load.setOpenPathwayName(openPathwayName);
+
 					load.run();
 				}
 
