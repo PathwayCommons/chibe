@@ -58,19 +58,34 @@ public class HighlightUsingFileAction extends ChiBEAction
 
 		loadElementsToHighlight(filename, nodeNames, edgeNames);
 
-		boolean highlighted = highlightNodes(nodeNames);
-		highlighted = highlightEdges(edgeNames) || highlighted;
+		int highlightedNodes = highlightNodes(nodeNames);
+		int highlightedEdges = highlightEdges(edgeNames);
 
-		if (!highlighted)
+		if (highlightedNodes + highlightedEdges == 0)
 		{
 			MessageDialog.openInformation(main.getShell(),
 				"Information:", "There is nothing to highlight.");
+		}
+		else if (highlightedEdges == 0)
+		{
+			MessageDialog.openInformation(main.getShell(),
+				"Information:", highlightedNodes + " nodes are highlighted.");
+		}
+		else if (highlightedNodes == 0)
+		{
+			MessageDialog.openInformation(main.getShell(),
+				"Information:", highlightedEdges + " edges are highlighted.");
+		}
+		else
+		{
+			MessageDialog.openInformation(main.getShell(),
+				"Information:", highlightedNodes + " nodes and " + highlightedEdges + " edges are highlighted.");
 		}
 
 		filename = null;
 	}
 
-	protected boolean highlightNodes(Set<String> names)
+	protected int highlightNodes(Set<String> names)
 	{
 		// Iterate all nodes in graph
 
@@ -79,7 +94,7 @@ public class HighlightUsingFileAction extends ChiBEAction
 
 		Iterator<NodeModel> nodeIter = root.getNodes().iterator();
 
-		boolean highlighted = false;
+		int highlighted = 0;
 
 		while (nodeIter.hasNext())
 		{
@@ -88,13 +103,13 @@ public class HighlightUsingFileAction extends ChiBEAction
 			{
 				node.setHighlightColor(ChisioMain.higlightColor);
 				node.setHighlight(true);
-				highlighted = true;
+				highlighted ++;
 			}
 		}
 		return highlighted;
 	}
 
-	protected boolean highlightEdges(Set<String> names)
+	protected int highlightEdges(Set<String> names)
 	{
 		// Iterate all nodes in graph
 
@@ -103,7 +118,7 @@ public class HighlightUsingFileAction extends ChiBEAction
 
 		Iterator<EdgeModel> nodeIter = root.getEdges().iterator();
 
-		boolean highlighted = false;
+		int highlighted = 0;
 
 		while (nodeIter.hasNext())
 		{
@@ -112,7 +127,7 @@ public class HighlightUsingFileAction extends ChiBEAction
 			{
 				edge.setHighlightColor(ChisioMain.higlightColor);
 				edge.setHighlight(true);
-				highlighted = true;
+				highlighted++;
 			}
 		}
 		return highlighted;

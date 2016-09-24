@@ -56,12 +56,7 @@ public class QueryPCPathsBetweenWithLinkersAction extends QueryPCAction
 	@Override
 	protected Model doQuery() throws CPathException
 	{
-		List<String> sourceSymbols = options.getConvertedSourceList();
-		return getPCGraphQuery().
-			kind(GraphType.PATHSBETWEEN).
-			sources(sourceSymbols).
-			limit(options.getLengthLimit()).
-			result();
+		throw new RuntimeException("This method should not be called!");
 	}
 
 	@Override

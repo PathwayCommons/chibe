@@ -231,6 +231,10 @@ public class InfoFigure extends Figure
 		put("o-phospho-l-threonine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("o4'-phospho-l-tyrosine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("mi:0170", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("phosres", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("optyr", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("opthr", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("opser", PHOSPHO_BG, PHOSPHO_FORE, "p");
 
 		put("active", ACTIVE_BG, ACTIVE_FORE, null);
 		put("inactive", INACTIVE_BG, INACTIVE_FORE, null);
@@ -239,6 +243,7 @@ public class InfoFigure extends Figure
 
 		put("native", new Color(null, 200, 200, 200), new Color(null, 100, 100, 100), null);
 		put("ubiquitination site", null, UBIQUITIN_FORE, null);
+		put("ubiquitination", null, UBIQUITIN_FORE, null);
 		put("ubiquitinylated lysine", null, UBIQUITIN_FORE, null);
 		put("chain coordinates", new Color(null, 150, 150, 150), WHITE, null);
 		put("methylated lysine", null, METHYL_FORE, null);

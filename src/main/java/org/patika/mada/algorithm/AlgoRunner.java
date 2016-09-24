@@ -69,6 +69,12 @@ public class AlgoRunner
 		return goi.run();
 	}
 
+	public static Collection<GraphObject> searchPathsBetweenSIFWithMinimalLinkers(Set<Node> seed)
+	{
+		PathsBetweenSIFWithMinimalLinkers goi = new PathsBetweenSIFWithMinimalLinkers(seed);
+		return goi.run();
+	}
+
 	public static Collection<GraphObject> searchNeighborhood(Set<Node> seed,
 		int limit, boolean upstream, boolean downstream)
 	{

@@ -254,7 +254,7 @@ public class SIFEdge extends BioPAXEdge
 			new Color(null, 150, 0, 150), SOLID, NO_SIGN, false));
 		addType(new EdgeType("BINDS_TO", false,
 			new Color(null, 100, 100, 100), SOLID, NO_SIGN, true));
-		addType(new EdgeType("in-same-mutex-group", false,
+		addType(new EdgeType("in-same-group", false,
 			new Color(null, 100, 100, 100), SOLID, NO_SIGN, false));
 		addType(new EdgeType("correlates-with", false,
 			new Color(null, 100, 100, 100), SOLID, NO_SIGN, false));

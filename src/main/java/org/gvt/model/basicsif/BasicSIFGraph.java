@@ -265,9 +265,37 @@ public class BasicSIFGraph extends BioPAXL3Graph
 		for (NodeModel node : nodes)
 		{
 			Set<NodeModel> group = getSimilarNodes(node, nodes, incomingMap, outgoingMap);
-			if (!group.isEmpty() && !contains(groups, group)) groups.add(group);
+			if (!group.isEmpty() && !betterToSkipGrouping(group, incomingMap, outgoingMap) && !contains(groups, group))
+			{
+				groups.add(group);
+			}
 		}
 		return groups;
+	}
+
+	/**
+	 * Disconnected groups of 2 and 3 are better not grouped for a better visualization.
+	 */
+	private boolean betterToSkipGrouping(Set<NodeModel> group, Map<NodeModel, Set<String>> incomingMap,
+		Map<NodeModel, Set<String>> outgoingMap)
+	{
+		if (group.size() > 3) return false;
+
+		Set<String> names = new HashSet<String>();
+		for (NodeModel node : group) names.add(node.getText());
+
+		NodeModel node = group.iterator().next();
+		Set<String> conn = new HashSet<String>();
+		for (String s : incomingMap.get(node))
+		{
+			conn.add(s.substring(s.indexOf(" ") + 1));
+		}
+		for (String s : outgoingMap.get(node))
+		{
+			conn.add(s.substring(s.indexOf(" ") + 1));
+		}
+		conn.removeAll(names);
+		return conn.isEmpty();
 	}
 
 	private boolean contains(Set<Set<NodeModel>> groups, Set<NodeModel> group)

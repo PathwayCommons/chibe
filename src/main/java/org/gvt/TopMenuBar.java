@@ -218,6 +218,7 @@ public class TopMenuBar
 		pcNewSIFMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsBetweenWithLinkersAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
+		pcNewSIFMenu.add(new QueryPCPathsBetweenWithMinimalLinkersAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsFromToAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCCommonStreamAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 

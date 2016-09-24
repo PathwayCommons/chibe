@@ -150,7 +150,7 @@ public class BasicSIFEdge extends BioPAXEdge
 	public List<String[]> getInspectable()
 	{
 		List<String[]> list = super.getInspectable();
-		list.add(new String[]{"Type", type.getIntType().getTag()});
+		list.add(new String[]{"Type", type.getTag()});
 		return list;
 	}
 }
