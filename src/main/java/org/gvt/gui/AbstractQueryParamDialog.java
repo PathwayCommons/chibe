@@ -728,7 +728,7 @@ public abstract class AbstractQueryParamDialog extends Dialog
 		{
 			for (String s : st.getSymbols())
 			{
-				if (HGNC.getSymbol(s) == null && !unkwn.contains(s)) unkwn.add(s);
+				if (!QueryOptionsPack.isChemID(s) && HGNC.getSymbol(s) == null && !unkwn.contains(s)) unkwn.add(s);
 			}
 		}
 	}

@@ -74,7 +74,7 @@ public class SIFReader
 			
 			root.setAsRoot();
 
-			delim = fileContainsTab(sifFile) ? "\t\n\r\f" : " \n\r\f";
+			delim = fileContainsTab(sifFile) ? "\t|\n|\r|\f" : " |\n|\r|\f";
 
 			BufferedReader reader = new BufferedReader(new FileReader(sifFile));
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
@@ -125,32 +125,29 @@ public class SIFReader
 
 	private void processLine(String line)
 	{
-		StringTokenizer st = new StringTokenizer(line, delim);
+		String[] t = line.split(delim);
 
-		String first = st.nextToken();
+		String first = t[0];
 
-		if (st.hasMoreTokens())
+		if (t.length > 2)
 		{
-			String relation = st.nextToken();
+			String relation = t[1];
 
-			if (st.hasMoreTokens())
+			String second = t[2];
+
+			String meds = t.length > 3 ? t[3] : null;
+
+			// commented out because we want to display non-paxtools sifs
+			if (types == null || types.contains(relation))
 			{
-				String second = st.nextToken();
+				BasicSIFEdge edge = createUnit(first, relation, second, meds);
 
-				String meds = st.hasMoreTokens() ? st.nextToken() : null;
-
-				// commented out because we want to display non-paxtools sifs
-				if (types == null || types.contains(relation))
+				if (edge != null && t.length > 4)
 				{
-					BasicSIFEdge edge = createUnit(first, relation, second, meds);
-
-					if (edge != null && st.hasMoreTokens())
-					{
-						String phs = st.nextToken();
-						phs = phs.replaceAll(";", "\n");
-						edge.setText("o");
-						edge.setTooltipText(phs);
-					}
+					String phs = t[4];
+					phs = phs.replaceAll(";", "\n");
+//					edge.setText("o");
+					edge.setTooltipText(phs);
 				}
 			}
 		}

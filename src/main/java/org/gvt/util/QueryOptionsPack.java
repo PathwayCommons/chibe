@@ -166,7 +166,11 @@ public class QueryOptionsPack implements Serializable
 		{
 			String official = HGNC.getSymbol(s);
 
-			if (official == null)
+			if (isChemID(s))
+			{
+				list.add(s);
+			}
+			else if (official == null)
 			{
 				unknownSymbols.add(s);
 			}
@@ -177,6 +181,19 @@ public class QueryOptionsPack implements Serializable
 		}
 		return list;
 	}
+
+	public static boolean isChemID(String s)
+	{
+		if (!s.startsWith("CHEBI:") || s.length() < 7) return false;
+
+		for (int i = 6; i < s.length(); i++)
+		{
+			if (!Character.isDigit(s.charAt(i))) return false;
+		}
+		return true;
+	}
+
+
 
 	protected String getOneStringSymbols(List<String> symbols)
 	{

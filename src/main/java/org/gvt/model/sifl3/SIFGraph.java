@@ -126,7 +126,19 @@ public class SIFGraph extends BioPAXL3Graph
 					{
 						writer.write(source.getText() + "\t");
 						writer.write(edge.getTag() + "\t");
-						writer.write(target.getText() + "\n");
+						writer.write(target.getText());
+
+						Set<String> mediators = edge.getMediators(new HashSet<org.gvt.model.GraphObject>(Arrays.asList(source, target)));
+
+						writer.write(mediators.isEmpty() ? "\n" : "\t");
+
+						String s = "";
+						for (String mediator : mediators)
+						{
+							s += mediator + ";";
+						}
+						s = s.substring(0, s.length() - 1);
+						writer.write(s + "\n");
 					}
 				}
 			}
