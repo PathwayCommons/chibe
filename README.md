@@ -8,7 +8,7 @@ using [SBGN](http://sbgn.org) Process Description Language, based on
 ## See [the wiki](https://github.com/PathwayCommons/chibe/wiki) for more information.
 
 ### Credits ###
-[![](http://www.jetbrains.com/idea/opensource/img/all/banners/idea125x37_white.gif)](http://www.jetbrains.com/idea)
+[![IntelliJ IDEA](http://editorconfig.org/logos/intellijIDEA.png)](http://www.jetbrains.com/idea "IntelliJ IDEA")
 
 ### Publications ###
 
