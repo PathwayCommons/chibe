@@ -6,7 +6,9 @@ import org.biopax.paxtools.pattern.miner.SIFInteraction;
 import org.biopax.paxtools.pattern.miner.SIFSearcher;
 import org.biopax.paxtools.pattern.miner.SIFType;
 import org.biopax.paxtools.pattern.util.Blacklist;
+import org.eclipse.draw2d.geometry.Point;
 import org.gvt.model.BioPAXGraph;
+import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.util.Conf;
@@ -108,6 +110,41 @@ public class SIFGraph extends BioPAXL3Graph
 	public static List<SIFType> getPossibleRuleTypes()
 	{
 		return new ArrayList<SIFType>(Arrays.asList(SIFEnum.values()));
+	}
+
+	public void writeLayout(OutputStream os) throws IOException
+	{
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
+		for (Object o : getNodes())
+		{
+			if (o instanceof SIFNode)
+			{
+				SIFNode node = (SIFNode) o;
+				Point p = node.getLocationAbs();
+				writer.write(node.getText() + "\t" + p.x + "\t" + p.y + "\n");
+			}
+		}
+		writer.close();
+	}
+
+	public void loadLayout(Map<String, Point> locMap)
+	{
+		for (Object o : getNodes())
+		{
+			if (o instanceof SIFNode)
+			{
+				SIFNode node = (SIFNode) o;
+				Point p = locMap.get(node.getText());
+				if (p != null) node.setLocationAbs(p);
+			}
+		}
+		for (Object o : getNodes())
+		{
+			if (o instanceof CompoundModel)
+			{
+				((CompoundModel) o).calculateSizeUp();
+			}
+		}
 	}
 
 	public void write(OutputStream os)

@@ -44,6 +44,7 @@ public class ToolbarManager extends ToolBarManager
 		add(new Separator());
 		add(new CoSELayoutAction(main));
 		add(new SpringLayoutAction(main));
+		add(new EdgeFixLayoutAction(main));
 		add(new LayoutInspectorAction(main));
 		add(new Separator());
 		add(new DebugButtonAction(main));

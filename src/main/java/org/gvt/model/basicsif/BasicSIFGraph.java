@@ -6,7 +6,10 @@ import org.cbio.causality.analysis.Graph;
 import org.cbio.causality.analysis.GraphList;
 import org.cbio.causality.signednetwork.SignedType;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.graphics.Color;
+import org.gvt.model.CompoundModel;
+import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
 import org.gvt.util.Conf;
@@ -77,6 +80,41 @@ public class BasicSIFGraph extends BioPAXL3Graph
 					graph.getMediatorsInString(gene, neigh));
 
 				memory.add(key);
+			}
+		}
+	}
+
+	public void writeLayout(OutputStream os) throws IOException
+	{
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
+		for (Object o : getNodes())
+		{
+			if (o instanceof BasicSIFNode)
+			{
+				BasicSIFNode node = (BasicSIFNode) o;
+				Point p = node.getLocationAbs();
+				writer.write(node.getText() + "\t" + p.x + "\t" + p.y + "\n");
+			}
+		}
+		writer.close();
+	}
+
+	public void loadLayout(Map<String, Point> locMap)
+	{
+		for (Object o : getNodes())
+		{
+			if (o instanceof BasicSIFNode)
+			{
+				BasicSIFNode node = (BasicSIFNode) o;
+				Point p = locMap.get(node.getText());
+				if (p != null) node.setLocationAbs(p);
+			}
+		}
+		for (Object o : getNodes())
+		{
+			if (o instanceof CompoundModel)
+			{
+				((CompoundModel) o).calculateSizeUp();
 			}
 		}
 	}

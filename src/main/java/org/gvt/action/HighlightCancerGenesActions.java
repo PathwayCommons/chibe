@@ -12,6 +12,7 @@ import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFGraph;
 import org.gvt.model.biopaxl3.BioPAXNode;
 import org.gvt.model.sifl3.SIFGraph;
+import org.gvt.util.CancerGenes;
 
 import java.util.*;
 
@@ -22,7 +23,7 @@ import java.util.*;
  *
  * Copyright: Bilkent Center for Bioinformatics, 2007 - present
  */
-public class HighlightCOSMICGenesActions extends Action
+public class HighlightCancerGenesActions extends Action
 {
 	/**
 	 * Main application.
@@ -32,9 +33,9 @@ public class HighlightCOSMICGenesActions extends Action
 	/**
 	 * Constructor
 	 */
-	public HighlightCOSMICGenesActions(ChisioMain main)
+	public HighlightCancerGenesActions(ChisioMain main)
 	{
-		super("Highlight cancer genes (COSMIC)");
+		super("Highlight cancer genes (COSMIC + OncoKB)");
 		setToolTipText(getText());
 		this.main = main;
 	}
@@ -50,8 +51,6 @@ public class HighlightCOSMICGenesActions extends Action
 			return;
 		}
 
-		Set<String> cancerGenes = CancerGeneCensus.getAllSymbols();
-
 		for (Object o : graph.getNodes())
 		{
 			if (o instanceof NodeModel)
@@ -60,7 +59,7 @@ public class HighlightCOSMICGenesActions extends Action
 
 				String name = node.getText();
 
-				if (cancerGenes.contains(name))
+				if (CancerGenes.isCancerGene(name))
 				{
 					node.setHighlightColor(ChisioMain.higlightColor);
 					node.setHighlight(true);

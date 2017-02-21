@@ -19,12 +19,14 @@ public class RoundRectWithInfo extends Figure
  	 */
 	List<String> infos;
 	boolean multimer;
+	int borderWidth;
 
-	public RoundRectWithInfo(Rectangle bounds, List<String> infos, Label label, boolean multimer)
+	public RoundRectWithInfo(Rectangle bounds, List<String> infos, Label label, boolean multimer, int borderWidth)
 	{
 		setBounds(bounds);
 		this.infos = infos;
 		this.multimer = multimer;
+		this.borderWidth = borderWidth;
 
 		this.add(label);
 
@@ -55,6 +57,16 @@ public class RoundRectWithInfo extends Figure
 
 		int rounding = 10;
 
+		Rectangle copy = rect.getCopy();
+		copy.x -= borderWidth;
+		copy.y -= borderWidth;
+		copy.width += 2 * borderWidth;
+		copy.height += 2 * borderWidth;
+		g.setClip(copy);
+
+		int old = g.getLineWidth();
+		g.setLineWidth(borderWidth);
+
 		if (multimer)
 		{
 			int shift = 2;
@@ -82,6 +94,8 @@ public class RoundRectWithInfo extends Figure
 			rect.width--;
 			g.drawRoundRectangle(rect, rounding, rounding);
 		}
+
+		g.setLineWidth(old);
 	}
 
 	protected static final int SPAN = 12;

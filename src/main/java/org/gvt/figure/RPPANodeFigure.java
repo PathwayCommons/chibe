@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class RPPANodeFigure extends RoundRectWithInfo
 {
-	public RPPANodeFigure(Rectangle bounds, List<String> infos, Label label)
+	public RPPANodeFigure(Rectangle bounds, List<String> infos, Label label, int borderWidth)
 	{
-		super(bounds, null, label, false);
+		super(bounds, null, label, false, borderWidth);
 		this.infos = infos;
 
 		bounds = bounds.getCopy();

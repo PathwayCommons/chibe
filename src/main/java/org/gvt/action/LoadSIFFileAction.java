@@ -91,20 +91,29 @@ public class LoadSIFFileAction extends ChiBEAction
 		{
 			main.createNewTab(root);
 
-			if (runLayout)
+			String layoutFile = null;
+			if (filename.endsWith(".sif"))
 			{
-				new CoSELayoutAction(main).run();
-			} else
+				layoutFile = filename.substring(0, filename.lastIndexOf(".")) + ".layout";
+				if (!new File(layoutFile).exists()) layoutFile = null;
+			}
+
+			if (layoutFile == null)
 			{
-				new ZoomAction(main, 0, null).run();
+				if (runLayout)
+				{
+					new CoSELayoutAction(main).run();
+				} else
+				{
+					new ZoomAction(main, 0, null).run();
+				}
 			}
 
 			main.setOwlFileName(filename);
 
 			if (filename.endsWith(".sif"))
 			{
-				String series = filename.substring(0, filename.lastIndexOf(".")) +
-					".formatseries";
+				String series = filename.substring(0, filename.lastIndexOf(".")) + ".formatseries";
 
 				if (new File(series).exists())
 				{
@@ -112,6 +121,15 @@ public class LoadSIFFileAction extends ChiBEAction
 					action.setFormatFilename(series);
 					action.run();
 				}
+			}
+
+			if (layoutFile != null)
+			{
+				LoadSIFLayoutAction action = new LoadSIFLayoutAction(main);
+				action.setLayoutFilename(layoutFile);
+				action.run();
+
+				new ZoomAction(main, 100, null).run();
 			}
 		}
 

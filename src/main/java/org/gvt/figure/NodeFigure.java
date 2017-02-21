@@ -214,7 +214,7 @@ public class NodeFigure extends Figure
 
 				if (multimer > 1) infos.add(0, "" + multimer);
 
-				add(new RoundRectWithInfo(getBounds(), infos, label, multimer > 1));
+				add(new RoundRectWithInfo(getBounds(), infos, label, multimer > 1, borderWidth));
 			}
 			else
 			{
@@ -230,7 +230,7 @@ public class NodeFigure extends Figure
 				Collections.addAll(infos, parts);
 				infos.remove(0);
 
-				add(new RPPANodeFigure(getBounds(), infos, label));
+				add(new RPPANodeFigure(getBounds(), infos, label, borderWidth));
 			}
 			else
 			{
@@ -310,42 +310,38 @@ public class NodeFigure extends Figure
 			label.setBounds(r);
 			int rounding = smallMolecule ? 15 : 10;
 
-//			else
+			g.fillRoundRectangle(r, rounding, rounding);
+
+			if (drawCloneMarker)
 			{
+				Color old = g.getBackgroundColor();
+				g.setBackgroundColor(new Color(null, 220, 220, 220));
 
+				double ratio = 0.3;
+
+				Rectangle clip = new Rectangle(
+					r.x,
+					(int) Math.round(r.y + (r.height * (1 - ratio))),
+					r.width,
+					(int) Math.round(r.height * ratio));
+
+				g.setClip(clip);
 				g.fillRoundRectangle(r, rounding, rounding);
-
-				if (drawCloneMarker)
-				{
-					Color old = g.getBackgroundColor();
-					g.setBackgroundColor(new Color(null, 220, 220, 220));
-
-					double ratio = 0.3;
-
-					Rectangle clip = new Rectangle(
-						r.x,
-						(int) Math.round(r.y + (r.height * (1 - ratio))),
-						r.width,
-						(int) Math.round(r.height * ratio));
-
-					g.setClip(clip);
-					g.fillRoundRectangle(r, rounding, rounding);
-					g.setBackgroundColor(old);
-					g.setClip(r);
-				}
-
-				Rectangle copy = r.getCopy();
-				copy.x -= borderWidth;
-				copy.y -= borderWidth;
-				copy.width += 2 * borderWidth;
-				copy.height += 2 * borderWidth;
-				g.setClip(copy);
-
-				int temp = g.getLineWidth();
-				g.setLineWidth(borderWidth);
-				g.drawRoundRectangle(r, rounding, rounding);
-				g.setLineWidth(temp);
+				g.setBackgroundColor(old);
+				g.setClip(r);
 			}
+
+			Rectangle copy = r.getCopy();
+			copy.x -= borderWidth;
+			copy.y -= borderWidth;
+			copy.width += 2 * borderWidth;
+			copy.height += 2 * borderWidth;
+			g.setClip(copy);
+
+			int temp = g.getLineWidth();
+			g.setLineWidth(borderWidth);
+			g.drawRoundRectangle(r, rounding, rounding);
+			g.setLineWidth(temp);
 		}
 	}
 

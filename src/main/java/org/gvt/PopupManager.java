@@ -1,17 +1,14 @@
 package org.gvt;
 
 import org.cbio.causality.data.portal.CBioPortalAccessor;
-import org.cbio.causality.idmapping.HGNC;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.*;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.gvt.action.*;
 import org.gvt.editpart.ChsEdgeEditPart;
 import org.gvt.editpart.ChsRootEditPart;
-import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
@@ -89,8 +86,12 @@ public class PopupManager extends MenuManager
 
 			if (sif)
 			{
+				manager.add(new SaveSIFLayoutAction(main));
+				manager.add(new LoadSIFLayoutAction(main));
+				manager.add(new Separator());
 				manager.add(new ShowDruggableAction(main));
-				manager.add(new HighlightCOSMICGenesActions(main));
+				manager.add(new HighlightCancerGenesActions(main));
+				manager.add(new ShowSIFStatisticsAction(main));
 				manager.add(new Separator());
 			}
 
