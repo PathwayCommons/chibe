@@ -12,6 +12,7 @@ import org.gvt.model.CompoundModel;
 import org.gvt.model.EdgeModel;
 import org.gvt.model.NodeModel;
 import org.gvt.model.biopaxl3.BioPAXL3Graph;
+import org.gvt.util.ChEBI;
 import org.gvt.util.Conf;
 import org.patika.mada.graph.GraphObject;
 
@@ -80,6 +81,22 @@ public class BasicSIFGraph extends BioPAXL3Graph
 					graph.getMediatorsInString(gene, neigh));
 
 				memory.add(key);
+			}
+		}
+	}
+
+	public void replaceChEBIIDsWithNames()
+	{
+		for (Object o : getNodes())
+		{
+			if (o instanceof BasicSIFNode)
+			{
+				BasicSIFNode node = (BasicSIFNode) o;
+				String name = ChEBI.getName(node.getText());
+				if (name != null)
+				{
+					node.setText(name);
+				}
 			}
 		}
 	}
