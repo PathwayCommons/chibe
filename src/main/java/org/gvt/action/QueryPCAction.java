@@ -172,6 +172,7 @@ public abstract class QueryPCAction extends ChiBEAction
 		}
 
 		BasicSIFGraph goi = (BasicSIFGraph) graph.excise(gos, true);
+		goi.replaceChEBIIDsWithNames();
 		goi.setName(getNewPathwayName());
 		goi.setAsRoot();
 
@@ -179,11 +180,11 @@ public abstract class QueryPCAction extends ChiBEAction
 
 		new CoSELayoutAction(main).run();
 
-		Set<String> seed = new HashSet<String>(options.getConvertedSourceList());
-		seed.addAll(options.getConvertedTargetList());
-
 		if (highlightSeed())
 		{
+			Set<String> seed = new HashSet<String>(options.getConvertedSourceList());
+			seed.addAll(options.getConvertedTargetList());
+
 			for (Object o : goi.getNodes())
 			{
 				NodeModel node = (NodeModel) o;
