@@ -1,5 +1,6 @@
 package org.gvt;
 
+import org.biopax.paxtools.pattern.miner.SIFEnum;
 import org.cbio.causality.data.portal.CBioPortalAccessor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.*;
@@ -186,9 +187,22 @@ public class PopupManager extends MenuManager
 			Object o = ep.getModel();
 			if (o instanceof BasicSIFEdge || o instanceof SIFEdge)
 			{
-				QueryPCGetAction query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.PC_MECH);
-				query.setText("Detailed View");
-				manager.add(query);
+				String tag = o instanceof BasicSIFEdge ? ((BasicSIFEdge) o).getTag() : ((SIFEdge) o).getTag();
+
+				if (tag.equals(SIFEnum.IN_COMPLEX_WITH.getTag()))
+				{
+					QueryPCNeighborsAction query = new QueryPCNeighborsAction(main, true, true,
+						QueryPCAction.QueryLocation.PC_MECH);
+					query.setText("Detailed View");
+					manager.add(query);
+				}
+				else
+				{
+					QueryPCGetAction query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.PC_MECH);
+					query.setText("Detailed View");
+					manager.add(query);
+				}
+
 				manager.add(new Separator());
 			}
 
