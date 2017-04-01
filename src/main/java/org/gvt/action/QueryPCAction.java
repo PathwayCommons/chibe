@@ -555,6 +555,11 @@ public abstract class QueryPCAction extends ChiBEAction
 		return result;
 	}
 
+	public void setLocalFilename(String localFilename)
+	{
+		this.localFilename = localFilename;
+	}
+
 	//--------------------- Getting PC SIF graph --------------------------------------------------|
 
 	public static BasicSIFGraph getPCGraph(List<? extends SIFType> types)

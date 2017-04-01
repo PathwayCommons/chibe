@@ -52,7 +52,7 @@ public class QueryPCGetAction extends QueryPCAction
 						lastEntry = idStr;
 
 						if (this.ids == null) this.ids = new HashSet<String>();
-						Collections.addAll(this.ids, idStr.split("\\s+"));
+						Collections.addAll(this.ids, idStr.split("\\s+|;"));
 						if (this.ids.isEmpty()) this.ids = null;
 					}
 				}

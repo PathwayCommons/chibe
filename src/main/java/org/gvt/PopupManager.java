@@ -92,6 +92,7 @@ public class PopupManager extends MenuManager
 				manager.add(new Separator());
 				manager.add(new ShowDruggableAction(main));
 				manager.add(new HighlightCancerGenesActions(main));
+				manager.add(new HighlightSIFDifferenceAction(main));
 				manager.add(new ShowSIFStatisticsAction(main));
 				manager.add(new Separator());
 			}
@@ -200,6 +201,11 @@ public class PopupManager extends MenuManager
 				{
 					QueryPCGetAction query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.PC_MECH);
 					query.setText("Detailed View");
+					manager.add(query);
+
+					query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.FILE_MECH);
+					query.setLocalFilename("/home/babur/Documents/DARPA/BigMech/PNNL/model.owl");
+					query.setText("Detailed View On Temp Model");
 					manager.add(query);
 				}
 

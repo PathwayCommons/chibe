@@ -403,6 +403,10 @@ public abstract class Inspector extends Dialog
 						{
 							hpl = "http://www.ncbi.nlm.nih.gov/pubmed/" + s[1];
 						}
+						else if (s[0].equalsIgnoreCase("PMC International"))
+						{
+							hpl = "https://www.ncbi.nlm.nih.gov/pmc/articles/" + s[1];
+						}
 						else if (s[0].equalsIgnoreCase("NCBI_TAXONOMY") ||
 							s[0].equalsIgnoreCase("NCBI TAXONOMY"))
 						{

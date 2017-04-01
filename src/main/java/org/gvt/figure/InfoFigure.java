@@ -227,8 +227,10 @@ public class InfoFigure extends Figure
 		put("phosphorylation site", PHOSPHO_BG, PHOSPHO_FORE, null);
 		put("phosphate group", PHOSPHO_BG, PHOSPHO_FORE, null);
 		put("phosphorylated residue", PHOSPHO_BG, PHOSPHO_FORE, null);
+		put("phosphorylated", PHOSPHO_BG, PHOSPHO_FORE, null);
 		put("o-phospho-l-serine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("o-phospho-l-threonine", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("o-phospho-l-tyrosine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("o4'-phospho-l-tyrosine", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("mi:0170", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("phosres", PHOSPHO_BG, PHOSPHO_FORE, "p");
