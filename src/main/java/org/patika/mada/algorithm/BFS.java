@@ -34,7 +34,7 @@ public class BFS
 	private Set<Node> sourceSet;
 
 	/**
-	 * BFS will not fursther traverse neighbors of any node in the stopSet.
+	 * BFS will not further traverse neighbors of any node in the stopSet.
 	 */
 	private Set<Node> stopSet;
 
@@ -188,16 +188,6 @@ public class BFS
 	{
 		dist.put(go, label);
 	}
-
-	/**
-	 * Forward traversal direction.
-	 */
-	public static final boolean FORWARD = true;
-
-	/**
-	 * Backward traversal direction.
-	 */
-	public static final boolean BACKWARD = false;
 
 	/**
 	 * Color white indicates the node is not processed.
