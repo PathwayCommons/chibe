@@ -166,7 +166,7 @@ public class ResourceFilePreparer
 		CommonIDFetcher idFetcher = new CommonIDFetcher();
 		SIFSearcher s = new SIFSearcher(idFetcher, SIFEnum.values());
 		s.setBlacklist(blacklist);
-		s.searchSIF(model, new FileOutputStream(OUTDIR + "PC.sif"), true);
+		s.searchSIF(model, new FileOutputStream(OUTDIR + "PC.sif"));
 		return blacklist;
 	}
 }

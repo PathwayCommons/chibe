@@ -1,6 +1,7 @@
 package org.gvt.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -116,7 +117,7 @@ public class ECluster extends Cluster {
 	 */
 	public PointList getPointList()
 	{
-		ArrayList<PointD> polygon = this.getPolygon();
+		List<PointD> polygon = this.getPolygon();
 		PointList pl = new PointList();
 		for ( PointD ptD : polygon )
 		{

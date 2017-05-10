@@ -464,10 +464,6 @@ public class LayoutInspector extends Dialog
 		lop.getCoSE().compoundGravityRange = compoundGravityRange.getSelection();
 		lop.getCoSE().smartEdgeLengthCalc = smartEdgeLengthCalc.getSelection();
 		lop.getCoSE().multiLevelScaling = multiLevelScaling.getSelection();
-
-		//Spring
-		lop.getSpring().nodeDistanceRestLength = Integer.parseInt(nodeDistanceRestLength.getText());
-		lop.getSpring().disconnectedNodeDistanceSpringRestLength = Integer.parseInt(disconnectedNodeDistanceSpringRestLength.getText());
 	}
 
 	public void setInitialValues()
@@ -505,10 +501,6 @@ public class LayoutInspector extends Dialog
 		compoundGravityRange.setSelection(lop.getCoSE().compoundGravityRange);
 		smartEdgeLengthCalc.setSelection(lop.getCoSE().smartEdgeLengthCalc);
 		multiLevelScaling.setSelection(lop.getCoSE().multiLevelScaling);
-
-		//Spring
-		nodeDistanceRestLength.setText(String.valueOf(lop.getSpring().nodeDistanceRestLength));
-		disconnectedNodeDistanceSpringRestLength.setText(String.valueOf(lop.getSpring().disconnectedNodeDistanceSpringRestLength));
 	}
 
 	public void setDefaultLayoutProperties(int select)
@@ -550,12 +542,6 @@ public class LayoutInspector extends Dialog
 			compoundGravityRange.setSelection(lop.getCoSE().defaultCompoundGravityRange);
 			smartEdgeLengthCalc.setSelection(lop.getCoSE().defaultSmartEdgeLengthCalc);
 			multiLevelScaling.setSelection(lop.getCoSE().defaultMultiLevelScaling);
-		}
-		else if (select == 2)
-		{
-			//Spring
-			nodeDistanceRestLength.setText(String.valueOf(lop.getSpring().defaultNodeDistanceRestLength));
-			disconnectedNodeDistanceSpringRestLength.setText(String.valueOf(lop.getSpring().defaultDisconnectedNodeDistanceSpringRestLength));
 		}
 	}
 }
