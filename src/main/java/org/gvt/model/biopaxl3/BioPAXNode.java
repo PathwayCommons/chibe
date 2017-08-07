@@ -715,7 +715,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 	}
 
 	public static final String NAME_REF = "Name";
-	public static final int PROPERTY_CHAR_LIMIT = 50;
+	public static final int PROPERTY_CHAR_LIMIT = 5000;
 	public static final int MAX_INITIAL_WIDTH = 100;
 
 	public List<String[]> getCBioDataInspectable(ChisioMain main)

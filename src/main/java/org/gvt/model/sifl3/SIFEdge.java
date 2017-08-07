@@ -258,5 +258,9 @@ public class SIFEdge extends BioPAXEdge
 			new Color(null, 100, 100, 100), SOLID, NO_SIGN, false));
 		addType(new EdgeType("correlates-with", false,
 			new Color(null, 100, 100, 100), SOLID, NO_SIGN, false));
+		addType(new EdgeType("activates", true,
+			new Color(null, 50, 180, 50), SOLID, POSITIVE, false));
+		addType(new EdgeType("inhibits", true,
+			new Color(null, 180, 50, 50), SOLID, NEGATIVE, false));
 	}
 }
