@@ -25,23 +25,23 @@ import java.util.Set;
  */
 public class ResourceFilePreparer
 {
-	public static final String OUTDIR = "/home/ozgun/Projects/chibe/resources/";
+	public static final String OUTDIR = "/home/babur/Projects/chibe/";
 
 	@Test
 	public void prepare() throws IOException
 	{
-		String owlFile = "/home/ozgun/Downloads/Pathway Commons.7.Detailed_Process_Data.BIOPAX.owl";
+		String owlFile = "/home/babur/Documents/PC/PathwayCommons9.Detailed.BIOPAX.owl";
 		SimpleIOHandler io = new SimpleIOHandler();
 		Model model = io.convertFromOWL(new FileInputStream(owlFile));
 
 		// For finding enriched reactions
-//		generateReactionToGeneFile(model);
+		generateReactionToGeneFile(model);
 
 		// For pathway enrichment analysis
-//		generatePathwayToGeneFile(model);
+		generatePathwayToGeneFile(model);
 
 		// For SIF query support
-		Blacklist blacklist = generateLargeSIFGraph(model);
+//		Blacklist blacklist = generateLargeSIFGraph(model);
 //		Blacklist blacklist = new Blacklist(OUTDIR + "blacklist.txt");
 
 		// For causality graph support
@@ -63,7 +63,7 @@ public class ResourceFilePreparer
 
 			set.addAll(conv.getControlledOf());
 
-			set = cpt.complete(set, model);
+			set = cpt.complete(set);
 
 			Set<String> symbols = new HashSet<String>();
 			Set<Control> controls = new HashSet<Control>();
@@ -115,7 +115,7 @@ public class ResourceFilePreparer
 			Set<BioPAXElement> set = new HashSet<BioPAXElement>();
 			set.add(pathway);
 
-			set = cpt.complete(set, model);
+			set = cpt.complete(set);
 
 			Set<String> symbols = new HashSet<String>();
 			for (BioPAXElement ele : set)
@@ -149,7 +149,7 @@ public class ResourceFilePreparer
 		Set<String> set = new HashSet<String>();
 		for (Xref xref : prot.getXref())
 		{
-			if (xref.getDb() != null && xref.getDb().equals("HGNC Symbol"))
+			if (xref.getDb() != null && xref.getDb().equalsIgnoreCase("HGNC Symbol"))
 			{
 				set.add(xref.getId());
 			}

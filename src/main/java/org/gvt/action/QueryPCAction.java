@@ -81,6 +81,11 @@ public abstract class QueryPCAction extends ChiBEAction
 		createNewPathwayForView = true;
 	}
 
+	public void setCreateNewPathwayForView(boolean createNewPathwayForView)
+	{
+		this.createNewPathwayForView = createNewPathwayForView;
+	}
+
 	public boolean isIncreaseLimitIfNoResult()
 	{
 		return increaseLimitIfNoResult;
@@ -137,7 +142,7 @@ public abstract class QueryPCAction extends ChiBEAction
                 {
                     e.printStackTrace();
                     MessageDialog.openError(main.getShell(), "Error",
-                        "An error occured during querying:\n" + e.getMessage());
+                        "An error occurred during querying:\n" + e.getMessage());
                 }
             }
             finally

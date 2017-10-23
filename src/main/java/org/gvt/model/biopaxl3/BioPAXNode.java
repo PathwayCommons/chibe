@@ -255,10 +255,15 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 		if (ent instanceof SmallMolecule)
 		{
-			EntityReference er = ((SmallMolecule) ent).getEntityReference();
-			if (er != null && er.getDisplayName() != null)
+			txt = ent.getDisplayName();
+
+			if (txt == null)
 			{
-				txt = er.getDisplayName();
+				EntityReference er = ((SmallMolecule) ent).getEntityReference();
+				if (er != null && er.getDisplayName() != null)
+				{
+					txt = er.getDisplayName();
+				}
 			}
 		}
 
@@ -295,7 +300,7 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 
 	public static String extractGeneSymbol(BioPAXElement ent)
 	{
-		String sym = null;
+		Set<String> syms = new HashSet<String>();
 
 		if (ent instanceof XReferrable)
 		{
@@ -314,12 +319,12 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 					String id = xref.getId();
 					if (id == null) continue;
 
-					sym = HGNC.getSymbol(id);
+					String sym = HGNC.getSymbol(id);
 
-					if (sym != null) break;
+					if (sym != null) syms.add(sym);
 				}
 			}
-			if (sym == null)
+			if (syms.isEmpty())
 			{
 				for (Xref ref : set)
 				{
@@ -334,14 +339,15 @@ public abstract class BioPAXNode extends NodeModel implements IBioPAXL3Node
 						db.equalsIgnoreCase("GENE-SYMBOL") ||
 						db.equalsIgnoreCase("SYMBOL"))
 					{
-						sym = ref.getId();
-						break;
+						String sym = ref.getId();
+						syms.add(sym);
 					}
 				}
 			}
 		}
 
-		return sym;
+		if (syms.size() == 1) return syms.iterator().next();
+		return null;
 	}
 
 	//----------------------------------------------------------------------------------------------

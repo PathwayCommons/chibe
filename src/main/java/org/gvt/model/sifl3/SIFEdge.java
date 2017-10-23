@@ -78,6 +78,10 @@ public class SIFEdge extends BioPAXEdge
 	{
 		List<String[]> list = super.getInspectable();
 		list.add(new String[]{"Type", tag});
+		if (getTooltipText() != null && !getTooltipText().isEmpty())
+		{
+			list.add(new String[]{"Tooltip", getTooltipText()});
+		}
 		return list;
 	}
 

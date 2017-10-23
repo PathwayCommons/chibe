@@ -7,7 +7,6 @@ import org.cbio.causality.util.FormatUtil;
 import org.gvt.ChisioMain;
 import org.gvt.gui.GeneSetSelectionDialog;
 import org.gvt.gui.ItemSelectionDialog;
-import org.gvt.model.BioPAXGraph;
 import org.gvt.util.Conf;
 import org.patika.mada.util.XRef;
 
@@ -37,19 +36,19 @@ public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 
 		if (query == null || query.isEmpty()) return;
 
-		Map<String, Pathway> pathways = getPathways(query);
+		Map<String, Pathway> pathwayMap = getPathways(query);
 
 		// assign p-values
 
 		Set<String> allSymbols = new HashSet<String>();
-		for (Pathway pathway : pathways.values())
+		for (Pathway pathway : pathwayMap.values())
 		{
 			allSymbols.addAll(pathway.genes);
 		}
 		int allSize = allSymbols.size();
 		int querySize = query.size();
 		Map<String, Double> pvals = new HashMap<String, Double>();
-		for (Pathway pathway : pathways.values())
+		for (Pathway pathway : pathwayMap.values())
 		{
 			pathway.assignPval(allSize, querySize);
 			pvals.put(pathway.id, pathway.pval);
@@ -59,31 +58,21 @@ public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 
 		for (String key : qVals.keySet())
 		{
-			pathways.get(key).qval = FormatUtil.roundToSignificantDigits(qVals.get(key), 1);
+			pathwayMap.get(key).qval = FormatUtil.roundToSignificantDigits(qVals.get(key), 1);
 		}
 
-		// group pathways
-
-		Map<String, List<Pathway>> groups = new HashMap<String, List<Pathway>>();
-		for (Pathway reac : pathways.values())
-		{
-			if (reac.hit.isEmpty()) continue;
-
-			String key = reac.getKey();
-			if (!groups.containsKey(key)) groups.put(key, new ArrayList<Pathway>());
-			groups.get(key).add(reac);
-		}
-		for (List<Pathway> list : groups.values())
-		{
-			Collections.sort(list);
-		}
+		List<Pathway> pathwayList = new ArrayList<Pathway>(pathwayMap.values());
+		Collections.sort(pathwayList);
 
 		// add representing pathways to selection list
 
 		List<SelectionItem> items = new ArrayList<SelectionItem>();
-		for (List<Pathway> list : groups.values())
+		for (Pathway p : pathwayList)
 		{
-			items.add(new SelectionItem(list.get(0)));
+			if (!p.hit.isEmpty() && p.pval < 0.5)
+			{
+				items.add(new SelectionItem(p));
+			}
 		}
 
 		Collections.sort(items);
@@ -91,8 +80,8 @@ public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 
 		ArrayList<SelectionItem> selected = new ArrayList<SelectionItem>();
 
-		ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 400, "Enriched pathways",
-			"Plase select pathway to view", items, selected, true, true, null);
+		ItemSelectionDialog dialog = new ItemSelectionDialog(main.getShell(), 800, "Enriched pathways",
+			"Please select pathway to view", items, selected, true, true, null);
 
 		dialog.open();
 
@@ -103,15 +92,13 @@ public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 
 		for (SelectionItem item : selected)
 		{
-			for (Pathway reac : groups.get(item.pathway.getKey()))
-			{
-				Collections.addAll(ids, reac.ids);
-				genes.addAll(reac.hit);
-			}
+			ids.add(item.pathway.id);
+			genes.addAll(item.pathway.hit);
 		}
 
 		QueryPCGetAction qa = new QueryPCGetAction(main, false, QueryPCAction.QueryLocation.PC_MECH);
 		qa.setIDs(ids);
+		qa.setCreateNewPathwayForView(false);
 		qa.run();
 
 		Set<XRef> xrefs = new HashSet<XRef>();
@@ -188,9 +175,6 @@ public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 		String id;
 		String name;
 
-		// with controls
-		String[] ids;
-
 		List<String> genes;
 		List<String> hit;
 		double pval;
@@ -198,15 +182,15 @@ public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 
 		Pathway(String id, String name, List<String> genes, Collection<String> query)
 		{
-			this.ids = id.split(" ");
-			this.id = ids[0];
+			this.id = id;
+			this.name = name;
 			this.genes = genes;
 			hit = new ArrayList<String>(genes);
 			hit.retainAll(query);
 			Collections.sort(hit);
 		}
 
-		String getKey()
+		String getHitGenes()
 		{
 			String k = hit.get(0);
 			int i = 0;
@@ -244,7 +228,7 @@ public class EnrichedPathwaysAction extends LoadTCGASpecificSIFAction
 		@Override
 		public String toString()
 		{
-			return pathway.getKey() + " [" + FormatUtil.roundToSignificantDigits(pathway.pval, 2) + "]";
+			return pathway.name + " [" + FormatUtil.roundToSignificantDigits(pathway.pval, 2) + "] " + pathway.getHitGenes();
 		}
 
 		@Override

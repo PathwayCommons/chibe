@@ -87,9 +87,9 @@ public enum Conf
 		s += PC_SIF_FILE + " = " + DEFAULT + "\n";
 		s += PC_SIF_FILE_URL + " = http://cbio.mskcc.org/~ozgun/PC.sif.gz\n";
 		s += REACTION_2_GENE_FILE + " = " + DEFAULT + "\n";
-		s += REACTION_2_GENE_FILE_URL + " = http://resources.chibe.googlecode.com/hg/reaction2gene.txt\n";
+		s += REACTION_2_GENE_FILE_URL + " = https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/resource-files/reaction2gene.txt\n";
 		s += PATHWAY_2_GENE_FILE + " = " + DEFAULT + "\n";
-		s += PATHWAY_2_GENE_FILE_URL + " = http://resources.chibe.googlecode.com/hg/pathway2gene.txt\n";
+		s += PATHWAY_2_GENE_FILE_URL + " = https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/resource-files/pathway2gene.txt\n";
 
 		s += CBIOPORTAL_URL + " = http://www.cbioportal.org/public-portal/webservice.do?\n";
 		s += CBIOPORTAL_USE_CACHE + " = true\n";
@@ -338,7 +338,7 @@ public enum Conf
 	 */
 	public static String getBlacklistURL()
 	{
-		return "http://www.pathwaycommons.org/archives/PC2/current/blacklist.txt";
+		return "http://www.pathwaycommons.org/archives/PC2/v9/blacklist.txt";
 	}
 
 	public static String getBaseDir()
