@@ -109,7 +109,8 @@ Click on the figure to see the entire screenshot.
 ChiBE's requirements were determined by OB, UD, ED, NS, and CS. The software design and development were mainly performed by OB, with help from MC, AA, and UD.
 
 ### Acknowledgements ###
-We thank IntelliJ for providing a free open source license for IDEA.
+We would like to thank IntelliJ for providing a free open source license for IDEA.
+
 [![IntelliJ IDEA](http://imagej.net/_images/thumb/1/1b/Intellij-idea.png/97px-Intellij-idea.png)](http://www.jetbrains.com/idea "IntelliJ IDEA")
 
 ### Publications ###
