@@ -9,6 +9,8 @@ ChiBE is a Java application running on various platforms including Windows XP/Vi
 ### [ChiBE 2.2 User's guide](http://www.cs.bilkent.edu.tr/~ivis/chibe/ChiBE-2.2.UG.pdf)
 <!--[ChiBE 2.1 User's guide](http://www.cs.bilkent.edu.tr/~ivis/chibe/ChiBE-2.1.UG.pdf)-->
 
+For a quick guide on how to explore pathway in Pathway Commons, please see [this wiki page](https://github.com/PathwayCommons/chibe/wiki/HowToExplorePathways).
+
 ## Download ##
 
 ChiBE is distributed under [Eclipse Public License](http://www.eclipse.org/org/documents/epl-v10.php).
