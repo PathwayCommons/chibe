@@ -13,7 +13,7 @@ public class BiPaNode extends org.ivis.layout.cose.CoSENode
 	private int type;
 	private boolean hasInfo;
 
-	// name of the node -- for debugging.
+	// name of the node
 	private String text;
 
 	public static final int COMPLEX = 1;
@@ -31,6 +31,11 @@ public class BiPaNode extends org.ivis.layout.cose.CoSENode
 	{
 		super(gm, loc, size, vNode);
 		setParam((NodeModel) vNode);
+	}
+
+	public String getText()
+	{
+		return text;
 	}
 
 	private void setParam(NodeModel model)

@@ -7,10 +7,7 @@ import org.gvt.model.basicsif.BasicSIFGraph;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Ozgun Babur
@@ -48,12 +45,15 @@ public class ShowFormatSeriesAction extends ChiBEAction
 		graph = (BasicSIFGraph) main.getPathwayGraph();
 		initialFormat = graph.getCurrentFormat();
 
-		String filename = new FileChooser(this).choose(FILE_KEY);
-		if (filename == null) return;
-
-		if (filename.endsWith(".formatseries"))
+		if (formatFilename == null)
 		{
-			series = loadFormattingSeries(filename);
+			formatFilename = new FileChooser(this).choose(FILE_KEY);
+			if (formatFilename == null) return;
+		}
+
+		if (formatFilename.endsWith(".formatseries"))
+		{
+			series = loadFormattingSeries(formatFilename);
 			names = getSeriesNames(series);
 
 			if (!names.isEmpty())
@@ -64,10 +64,12 @@ public class ShowFormatSeriesAction extends ChiBEAction
 					250,
 					"Timepoint Selection Dialog",
 					"Select timepoint of interest",
-					new ArrayList<String>(names), new ArrayList<String>(), false, false, new Runner());
+					new ArrayList<String>(names), new ArrayList<String>(Collections.singleton(names.get(0))),
+					false, false, new Runner());
 
 				dialog.setUpdateUponSelection(true);
 				dialog.setDoSort(false);
+				dialog.runAsIfSelected(names.get(0));
 				Object lastItem = dialog.open();
 
 				if (lastItem == null || !lastItem.equals(ItemSelectionDialog.NONE))
@@ -78,7 +80,7 @@ public class ShowFormatSeriesAction extends ChiBEAction
 		}
 		else
 		{
-			List<String> format = loadFormat(filename);
+			List<String> format = loadFormat(formatFilename);
 			graph.format(format);
 		}
 

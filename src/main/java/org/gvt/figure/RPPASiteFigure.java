@@ -23,7 +23,16 @@ public class RPPASiteFigure extends InfoFigure
 	@Override
 	protected String getLetter(String info)
 	{
-		return info.split("\\|")[1];
+		String[] t = info.split("\\|");
+		if (t.length > 1)
+		{
+			return t[1];
+		}
+		else
+		{
+			System.err.println("Invalid format for rppasite = " + info);
+			return "";
+		}
 	}
 
 	@Override
@@ -54,6 +63,8 @@ public class RPPASiteFigure extends InfoFigure
 	@Override
 	protected String getTooltipText(String info)
 	{
-		return info.split("\\|")[0];
+		String[] t = info.split("\\|");
+		if (t.length > 4) return t[0] + ", " + t[4];
+		else return t[0];
 	}
 }

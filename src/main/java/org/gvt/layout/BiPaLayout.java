@@ -133,26 +133,40 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 			members.addAll(childG.getNodes());
 			org = new Organization();
 
+			sortMembers();
 			layout();
+		}
+
+		private void sortMembers()
+		{
+			Collections.sort(members, new Comparator<BiPaNode>()
+			{
+				@Override
+				public int compare(BiPaNode o1, BiPaNode o2)
+				{
+					return o1.getText().compareTo(o2.getText());
+				}
+			});
 		}
 
 		public void layout()
 		{
-			ComparableNode[] compar = new ComparableNode[members.size()];
-
-			int i = 0;
-			for (BiPaNode node : members)
-			{
-				compar[i++] = new ComparableNode(node);
-			}
-
-			Arrays.sort(compar);
-
-			members.clear();
-			for (ComparableNode com : compar)
-			{
-				members.add(com.getNode());
-			}
+			// this comment-outed code was used for sorting members from long to short
+//			ComparableNode[] compar = new ComparableNode[members.size()];
+//
+//			int i = 0;
+//			for (BiPaNode node : members)
+//			{
+//				compar[i++] = new ComparableNode(node);
+//			}
+//
+//			Arrays.sort(compar);
+//
+//			members.clear();
+//			for (ComparableNode com : compar)
+//			{
+//				members.add(com.getNode());
+//			}
 
 			for (BiPaNode node : members)
 			{

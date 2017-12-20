@@ -472,6 +472,8 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			if (node.getShape().startsWith("RPPA")) node.setShape("RoundRect");
 		}
 
+		Set<BasicSIFNode> nodesWthInfo = new HashSet<BasicSIFNode>();
+
 		for (String line : lines)
 		{
 			String[] token = line.split("\t");
@@ -524,6 +526,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 						}
 						String s = !node.getShape().startsWith("RPPA") ? "RPPA" : node.getShape();
 						node.setShape(s + ";" + token[3]);
+						nodesWthInfo.add(node);
 					}
 				}
 			}
@@ -548,6 +551,16 @@ public class BasicSIFGraph extends BioPAXL3Graph
 						edge.setHighlightColor(stringToColor(token[3]));
 					}
 				}
+			}
+		}
+
+		for (BasicSIFNode node : nodeMap.values())
+		{
+			if (!nodesWthInfo.contains(node))
+			{
+				Dimension size = node.getSize();
+				size.height = 20;
+				node.setSize(size);
 			}
 		}
 	}

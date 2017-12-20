@@ -70,6 +70,8 @@ public class TopMenuBar
 		pathwayMenu.add(new Separator());
 		pathwayMenu.add(new SaveAsImageAction(chisio, true));
 		pathwayMenu.add(new SaveAsImageAction(chisio, false));
+		pathwayMenu.add(new CopyToClipboardAction(chisio, true));
+		pathwayMenu.add(new CopyToClipboardAction(chisio, false));
 		pathwayMenu.add(new SaveAsGraphMLAction(chisio));
 		pathwayMenu.add(new SaveAsSBGNMLAction(chisio, true));
 		pathwayMenu.add(new PrintAction(chisio));
@@ -177,6 +179,14 @@ public class TopMenuBar
 		// QUERY
 
 		menuBar.add(queryMenu);
+
+		MenuManager sampleQueryMenu = new MenuManager("&Samples from PC");
+		queryMenu.add(sampleQueryMenu);
+		QueryPCNeighborsAction query1 = new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_SIF);
+		query1.setText("Get signaling neighborhood of AKT (SIF)");
+//		query1.
+//		sampleQueryMenu.add(query1);
+		// todo
 
 		MenuManager localQueryMenu = new MenuManager("&Local");
 		queryMenu.add(localQueryMenu);

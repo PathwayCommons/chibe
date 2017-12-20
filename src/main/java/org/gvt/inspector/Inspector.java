@@ -366,7 +366,7 @@ public abstract class Inspector extends Dialog
 						{
 							if (s[1].startsWith("R"))
 							{
-								hpl = "http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=" + s[1];
+								hpl = "http://http://www.reactome.org/content/detail/" + s[1];
 							}
 							else
 							{

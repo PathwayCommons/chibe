@@ -249,6 +249,10 @@ public class SIFEdge extends BioPAXEdge
                 new Color(null, 0, 150, 0), DASHED, POSITIVE, false));
         addType(new EdgeType(SignedType.DOWNREGULATES_EXPRESSION,
                 new Color(null, 150, 0, 0), DASHED, NEGATIVE, false));
+        addType(new EdgeType("activates-gtpase", true,
+                new Color(null, 0, 100, 150), SOLID, POSITIVE, false));
+        addType(new EdgeType("inhibits-gtpase", true,
+                new Color(null, 150, 0, 100), SOLID, NEGATIVE, false));
 
         // Non-Paxtools SIF edges
 

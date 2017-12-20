@@ -164,8 +164,8 @@ public abstract class QueryPCAction extends ChiBEAction
 		if (queryLoc.isFile())
 		{
 			g = new org.cbio.causality.analysis.Graph("Local sif file", "mixed-edge-types");
-
 		}
+
 		BasicSIFGraph graph = queryLoc.isFile() ?  new BasicSIFGraph(g) : getPCGraph(options.getSifTypes());
 
 		Collection<org.patika.mada.graph.GraphObject> gos = doSIFQuery(graph);
