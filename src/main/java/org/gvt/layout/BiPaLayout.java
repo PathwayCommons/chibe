@@ -131,10 +131,40 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 		{
 			members = new ArrayList<BiPaNode>();
 			members.addAll(childG.getNodes());
-			org = new Organization();
-
+			
 			sortMembers();
-			layout();
+			
+			// choose the organization that approximates to a square shaped complex more
+			org = getBestOrganizationForMembers(members);
+		}
+		
+		// Create 2 organization for the members one favors horizontal dimension in rounding values during calculations
+		// while the other one favors the vertical dimension. Return the best of these 2 that approximates a square shaped
+		// complex more.
+		private Organization getBestOrganizationForMembers(List<BiPaNode> members) 
+		{
+			// keeps the best organization
+			Organization bestOrg;
+			
+			Organization horizontalOrg = new Organization(members, Organization.FAVOR_DIM_HORIZONTAL);
+			Organization verticalOrg = new Organization(members, Organization.FAVOR_DIM_VERTICAL);
+			
+			// get ratios of bigger the dimension over the smaller one for both of the organizations 
+			double horizontalRatio = horizontalOrg.getRatio();
+			double verticalRatio = verticalOrg.getRatio();
+			
+			// the best ratio is the one that is closer to 1 since none of the is smaller than 1
+			// and the best organization is the one that has the best ratio
+			if (verticalRatio < horizontalRatio) 
+			{
+				bestOrg = verticalOrg;
+			}
+			else 
+			{
+				bestOrg = horizontalOrg;
+			}
+			
+			return bestOrg;
 		}
 
 		private void sortMembers()
@@ -149,9 +179,9 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 			});
 		}
 
-		public void layout()
-		{
-			// this comment-outed code was used for sorting members from long to short
+//		public void layout()
+//		{
+//			// this comment-outed code was used for sorting members from long to short
 //			ComparableNode[] compar = new ComparableNode[members.size()];
 //
 //			int i = 0;
@@ -167,12 +197,12 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 //			{
 //				members.add(com.getNode());
 //			}
-
-			for (BiPaNode node : members)
-			{
-				org.insertNode(node);
-			}
-		}
+//			
+//			for (BiPaNode node : members)
+//			{
+//				org.insertNode(node);
+//			}
+//		}
 
 		public double getWidth()
 		{
@@ -216,19 +246,40 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 
 	protected class Organization
 	{
+		public static final int FAVOR_DIM_HORIZONTAL = 0;
+		public static final int FAVOR_DIM_VERTICAL = 1;
+		
 		private double width;
 		private double height;
+		private double idealRowWidth;
 
 		private List<Double> rowWidth;
 		private List<LinkedList<BiPaNode>> rows;
+		private List<BiPaNode> members;
+		private int favorDim;
 
-		public Organization()
+		public Organization(List<BiPaNode> members, int favorDim)
 		{
+			// the members of complex
+			this.members = members;
+						
+			// the dimension that is to be favored while rounding values during calculations
+			this.favorDim = favorDim;
+			
 			this.width = COMPLEX_CHILD_GRAPH_BUFFER * 2;
 			this.height = (COMPLEX_CHILD_GRAPH_BUFFER * 2) + COMPLEX_LABEL_HEIGHT;
 
 			rowWidth = new ArrayList<Double>();
 			rows = new ArrayList<LinkedList<BiPaNode>>();
+			
+			// calculate the ideal row width according to the dimensions of members
+			this.idealRowWidth = calcIdealRowWidth();
+			
+			// insert members in order
+			for (BiPaNode node : members)
+			{
+				insertNode(node);
+			}
 		}
 
 		public double getWidth()
@@ -242,22 +293,110 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 			return height + (firstRowHasInfo() ? Actor.DEFAULT_INFO_BULB : 0) +
 				(lastRowHasInfo() ? Actor.DEFAULT_INFO_BULB : 0);
 		}
-
-		private int getShortestRowIndex()
+		
+		// get the ratio of the bigger dimension over the smaller one
+		public double getRatio()
 		{
-			int r = -1;
-			double min = Double.MAX_VALUE;
-
-			for (int i = 0; i < rows.size(); i++)
+			// get dimensions and calculate the initial ratio
+			double width = getWidth();
+			double height = getHeight();
+			double ratio = width / height;
+			
+			// if the initial ratio is less then 1 then inverse it
+			if (ratio < 1) 
 			{
-				if (rowWidth.get(i) < min)
+				ratio = 1 / ratio;
+			}
+			
+			// return the normalized ratio
+			return ratio;
+		}
+		
+		/*
+		 * Calculates the ideal width for the rows. This method assumes that
+		 * each node has the same width and calculates the ideal row width that
+		 * approximates a square shaped complex accordingly. However, since nodes would 
+		 * have different widths some rows would have different sizes and the resulting
+		 * shape would not be an exact square.
+		 */
+		private double calcIdealRowWidth() 
+		{
+			// To approximate a square shaped complex we need to make complex width equal to complex height.
+			// To achieve this we need to solve the following equation system for hc:
+			// (x + bx) * hc - bx = (y + by) * vc - by, hc * vc = n
+			// where x is the avarage width of the nodes, y is the avarage height of nodes
+			// bx and by are the buffer sizes in horizontal and vertical dimensions accordingly,
+			// hc and vc are the number of rows in horizontal and vertical dimensions
+			// n is number of members.
+			
+			// number of members
+			int membersSize = members.size();
+			
+			// sum of the width of all members
+			double totalWidth = 0;
+			
+			// sum of the height of all members
+			double totalHeight = 0;
+			
+			// maximum members width
+			double maxWidth = Double.MIN_VALUE;
+			
+			// traverse all members to calculate total width and total height and get the maximum members width
+			for (BiPaNode node : members) 
+			{
+				totalWidth += node.getWidth();
+				totalHeight += node.getHeight();
+				
+				if (node.getWidth() > maxWidth) 
 				{
-					r = i;
-					min = rowWidth.get(i);
+					maxWidth = node.getWidth();
 				}
 			}
-
-			return r;
+			
+			// average width of the members
+			double averageWidth = totalWidth / membersSize;
+			
+			// average height of the members
+			double averageHeight = totalHeight / membersSize;
+			
+			// solving the initial equation system for the hc yields the following second degree equation:
+			// hc^2 * (x+bx) + hc * (by - bx) - n * (y + by) = 0 
+			
+			// the delta value to solve the equation above for hc			
+			double delta = Math.pow((COMPLEX_MEM_VERTICAL_BUFFER - COMPLEX_MEM_HORIZONTAL_BUFFER), 2) 
+					+ 4 * (averageWidth + COMPLEX_MEM_HORIZONTAL_BUFFER) * (averageHeight + COMPLEX_MEM_VERTICAL_BUFFER) * membersSize;
+			
+			// solve the equation using delta value to calculate the horizontal count
+			// that represents the number of nodes in an ideal row
+			double horizontalCountDouble = (COMPLEX_MEM_HORIZONTAL_BUFFER - COMPLEX_MEM_VERTICAL_BUFFER + Math.sqrt(delta))
+					/ (2 * (averageWidth + COMPLEX_MEM_HORIZONTAL_BUFFER));
+			
+			// round the calculated horizontal count up or down according to the favored dimension
+			int horizontalCount;
+						
+			if (favorDim == FAVOR_DIM_HORIZONTAL) 
+			{
+				horizontalCount = (int) Math.ceil(horizontalCountDouble);
+			}
+			else
+			{
+				horizontalCount = (int) Math.floor(horizontalCountDouble);
+			}
+			
+			// ideal width to be calculated
+			double idealWidth = horizontalCount * (averageWidth + COMPLEX_MEM_HORIZONTAL_BUFFER) - COMPLEX_MEM_HORIZONTAL_BUFFER;
+			
+			// if max width is bigger than calculated ideal width reset ideal width to it
+			if (maxWidth > idealWidth) 
+			{
+				idealWidth = maxWidth;
+			}
+			
+			// add the left-right margins to the ideal row width
+			idealWidth += COMPLEX_CHILD_GRAPH_BUFFER * 2;
+			
+			// return the ideal row width1
+			return idealWidth;
 		}
 
 		private int getLongestRowIndex()
@@ -283,14 +422,24 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 			{
 				insertNodeToRow(node, 0);
 			}
-			else if (canAddHorizontal(node.getWidth()))
+			else if (canBeAddedToRow(node.getWidth(), rows.size() - 1))
 			{
-				insertNodeToRow(node, getShortestRowIndex());
+				insertNodeToRow(node, rows.size() - 1);
 			}
 			else
 			{
 				insertNodeToRow(node, rows.size());
 			}
+		}
+		
+		// checks if a node with given width can be added to the row with the given index
+		private boolean canBeAddedToRow(double nodeWidth, int rowIndex)
+		{
+			// get the current width of the row
+			double currentWidth = rowWidth.get(rowIndex);
+			
+			// check and return if ideal row width will be exceed if the node is added to the row
+			return currentWidth + nodeWidth + COMPLEX_MEM_HORIZONTAL_BUFFER <= idealRowWidth;
 		}
 
 		private void insertNodeToRow(BiPaNode node, int rowIndex)
@@ -348,24 +497,6 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 			}
 		}
 
-		private boolean canAddHorizontal(double extra)
-		{
-			int sri = getShortestRowIndex();
-
-			if (sri < 0) return true;
-
-			double min = rowWidth.get(sri);
-
-			if (width - min >= extra + COMPLEX_MEM_HORIZONTAL_BUFFER)
-			{
-				return true;
-			}
-
-			return width < DESIRED_COMPLEX_MIN_WIDTH ||
-				height + COMPLEX_MEM_VERTICAL_BUFFER + Actor.DEFAULT_HEIGHT >
-					min + extra + COMPLEX_MEM_HORIZONTAL_BUFFER;
-		}
-
 		private boolean firstRowHasInfo()
 		{
 			return rowHasInfo(rows.get(0));
@@ -409,7 +540,6 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 		}
 	}
 
-	private static final int DESIRED_COMPLEX_MIN_WIDTH = 100;
 	private static final int COMPLEX_MEM_HORIZONTAL_BUFFER = 5;
 	private static final int COMPLEX_MEM_VERTICAL_BUFFER = 5;
 	private static final double COMPLEX_CHILD_GRAPH_BUFFER = 10;
