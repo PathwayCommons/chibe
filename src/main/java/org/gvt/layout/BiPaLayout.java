@@ -284,7 +284,6 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 
 		public double getWidth()
 		{
-			shiftToLastRow();
 			return width;
 		}
 
@@ -399,23 +398,6 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 			return idealWidth;
 		}
 
-		private int getLongestRowIndex()
-		{
-			int r = -1;
-			double max = Double.MIN_VALUE;
-
-			for (int i = 0; i < rows.size(); i++)
-			{
-				if (rowWidth.get(i) > max)
-				{
-					r = i;
-					max = rowWidth.get(i);
-				}
-			}
-
-			return r;
-		}
-
 		public void insertNode(BiPaNode node)
 		{
 			if (rows.isEmpty())
@@ -473,27 +455,6 @@ public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 			if (width < w)
 			{
 				width = w;
-			}
-		}
-
-		private void shiftToLastRow()
-		{
-			int longest = getLongestRowIndex();
-			int last = rowWidth.size() - 1;
-			LinkedList<BiPaNode> row = rows.get(longest);
-			BiPaNode node = row.getLast();
-			double diff = node.getWidth() + COMPLEX_MEM_HORIZONTAL_BUFFER;
-
-			if (width - rowWidth.get(last) > diff)
-			{
-				row.removeLast();
-				rows.get(last).add(node);
-				rowWidth.set(longest, rowWidth.get(longest) - diff);
-				rowWidth.set(last, rowWidth.get(last) + diff);
-
-				width = rowWidth.get(getLongestRowIndex());
-
-				shiftToLastRow();
 			}
 		}
 
