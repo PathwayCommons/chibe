@@ -51,6 +51,7 @@ public class HighlightCancerGenesActions extends Action
 			return;
 		}
 
+		int cnt = 0;
 		for (Object o : graph.getNodes())
 		{
 			if (o instanceof NodeModel)
@@ -63,8 +64,11 @@ public class HighlightCancerGenesActions extends Action
 				{
 					node.setHighlightColor(ChisioMain.higlightColor);
 					node.setHighlight(true);
+//					node.setColor(new Color(null, 255, 255, 155));
+					cnt++;
 				}
 			}
 		}
+		System.out.println("highlighted = " + cnt);
 	}
 }

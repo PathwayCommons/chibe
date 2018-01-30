@@ -162,7 +162,10 @@ public class BasicSIFGraph extends BioPAXL3Graph
 						{
 							s += mediator + ";";
 						}
-						s = s.substring(0, s.length() - 1);
+						if (!mediators.isEmpty())
+						{
+							s = s.substring(0, s.length() - 1);
+						}
 						writer.write(s + "\n");
 					}
 				}

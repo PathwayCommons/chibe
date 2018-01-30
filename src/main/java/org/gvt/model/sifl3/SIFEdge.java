@@ -215,7 +215,7 @@ public class SIFEdge extends BioPAXEdge
 		addType(new EdgeType(SIFEnum.NEIGHBOR_OF,
 			new Color(null, 100, 120, 100), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFEnum.INTERACTS_WITH,
-			new Color(null, 120, 120, 120), SOLID, NO_SIGN, false));
+			new Color(null, 255, 192, 203), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFEnum.IN_COMPLEX_WITH,
 			new Color(null, 150, 150, 150), SOLID, NO_SIGN, false));
 		addType(new EdgeType(SIFEnum.CONTROLS_STATE_CHANGE_OF,
