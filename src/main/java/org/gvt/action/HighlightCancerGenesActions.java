@@ -62,9 +62,9 @@ public class HighlightCancerGenesActions extends Action
 
 				if (CancerGenes.isCancerGene(name))
 				{
-					node.setHighlightColor(ChisioMain.higlightColor);
-					node.setHighlight(true);
-//					node.setColor(new Color(null, 255, 255, 155));
+//					node.setHighlightColor(ChisioMain.higlightColor);
+//					node.setHighlight(true);
+					node.setColor(new Color(null, 255, 255, 155));
 					cnt++;
 				}
 			}

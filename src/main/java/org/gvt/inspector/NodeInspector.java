@@ -32,6 +32,12 @@ public class NodeInspector extends Inspector
 		TableItem item = addRow(table, "Text");
 		item.setText(1, model.getText());
 
+		if (model.getTooltipText() != null)
+		{
+			item = addRow(table, "Tooltip");
+			item.setText(1, model.getTooltipText());
+		}
+
 		item = addRow(table, "Text Font");
 		Font font = model.getTextFont();
 		String fontName = font.getFontData()[0].getName();
