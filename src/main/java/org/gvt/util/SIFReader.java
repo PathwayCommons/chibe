@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.gvt.model.CompoundModel;
 import org.gvt.model.NodeModel;
+import org.gvt.model.basicsif.BasicSIFPathway;
 import org.gvt.model.sifl3.SIFEdge;
 import org.gvt.model.basicsif.BasicSIFEdge;
 import org.gvt.model.basicsif.BasicSIFGraph;
@@ -34,12 +35,14 @@ public class SIFReader
 	private boolean useGroups;
 
 	private boolean duplicatesExist;
+	private boolean groupsExist;
 
 	public SIFReader()
 	{
 		nodeMap = new HashMap<String, BasicSIFNode>();
 		relationsSet = new HashSet<String>();
 		useGroups = true;
+		groupsExist = false;
 	}
 
 	public SIFReader(List<? extends SIFType> enumTypes)
@@ -118,7 +121,7 @@ public class SIFReader
 			group = formatView(formatFile) && useGroups;
 		}
 
-		if (group && Conf.getBoolean(Conf.USE_SIF_GROUPING)) root.groupSimilarNodes();
+		if (group && Conf.getBoolean(Conf.USE_SIF_GROUPING) && !groupsExist) root.groupSimilarNodes();
 
 		return root;
 	}
@@ -129,7 +132,12 @@ public class SIFReader
 
 		String first = t[0];
 
-		if (t.length > 2)
+		if (t[0].equals("$group$"))
+		{
+			new BasicSIFPathway(root, getNodes(t[2].split(" ")), t[1], t[3]);
+			groupsExist = true;
+		}
+		else if (t.length > 2)
 		{
 			String relation = t[1];
 
@@ -192,6 +200,18 @@ public class SIFReader
 
 		return nodeMap.get(id);
 	}
+
+	private Set<BasicSIFNode> getNodes(String[] ids)
+	{
+		Set<BasicSIFNode> set = new HashSet<BasicSIFNode>();
+
+		for (String id : ids)
+		{
+			set.add(getNode(id));
+		}
+		return set;
+	}
+
 
 	private boolean fileContainsTab(File filename) throws IOException
 	{

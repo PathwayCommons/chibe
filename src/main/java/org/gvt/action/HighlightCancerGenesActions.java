@@ -51,6 +51,9 @@ public class HighlightCancerGenesActions extends Action
 			return;
 		}
 
+		// Remove existing node colors. Make everything white.
+		new RemoveColorsAction(main).run();
+
 		int cnt = 0;
 		for (Object o : graph.getNodes())
 		{

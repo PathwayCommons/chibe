@@ -120,6 +120,9 @@ public class PopupManager extends MenuManager
 			manager.add(new ZoomAction(main, -1, null));//clickLocation));
 			manager.add(new Separator());
 			manager.add(new RemoveHighlightsAction(main));
+
+			if (sif) manager.add(new RemoveColorsAction(main));
+
 			manager.add(new InspectorAction(main, true));
 			manager.add(new Separator());
 			manager.add(new LayoutInspectorAction(main));
@@ -195,12 +198,14 @@ public class PopupManager extends MenuManager
 					QueryPCNeighborsAction query = new QueryPCNeighborsAction(main, true, true,
 						QueryPCAction.QueryLocation.PC_MECH);
 					query.setText("Detailed View");
+					query.setIgnoreIDsOfSelectedNodes(true);
 					manager.add(query);
 				}
 				else
 				{
 					QueryPCGetAction query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.PC_MECH);
 					query.setText("Detailed View");
+					query.setIgnoreIDsOfSelectedNodes(true);
 					manager.add(query);
 
 					query = new QueryPCGetAction(main, true, QueryPCAction.QueryLocation.FILE_MECH);

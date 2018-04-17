@@ -53,6 +53,12 @@ public abstract class QueryPCAction extends ChiBEAction
 	protected boolean useSelected;
 
 	/**
+	 * When selected objects are used as a source for the query, we sometimes need to limit the ids to the selected
+	 * edges only. If node selections needs to be excluded from sources, use this parameter.
+	 */
+	protected boolean ignoreIDsOfSelectedNodes;
+
+	/**
 	 * Dialog options are stored, in order to use next time dialog is opened.
 	 */
 	protected QueryOptionsPack options;
@@ -104,6 +110,11 @@ public abstract class QueryPCAction extends ChiBEAction
 	public void setIncreaseLimitIfNoResult(boolean increaseLimitIfNoResult)
 	{
 		this.increaseLimitIfNoResult = increaseLimitIfNoResult;
+	}
+
+	public void setIgnoreIDsOfSelectedNodes(boolean ignoreIDsOfSelectedNodes)
+	{
+		this.ignoreIDsOfSelectedNodes = ignoreIDsOfSelectedNodes;
 	}
 
 	public void execute()
@@ -432,11 +443,11 @@ public abstract class QueryPCAction extends ChiBEAction
 			{
 				set.addAll(((SIFGroup) nm).getMediators(selectedObjects));
 			}
-			else if (nm instanceof EntityAssociated)
+			else if (nm instanceof EntityAssociated && !(nm instanceof NodeModel && ignoreIDsOfSelectedNodes))
 			{
 				set.add(((EntityAssociated) nm).getEntity().getID());
 			}
-			else if (nm instanceof BasicSIFNode)
+			else if (nm instanceof BasicSIFNode && !ignoreIDsOfSelectedNodes)
 			{
 				set.add(nm.getText());
 			}

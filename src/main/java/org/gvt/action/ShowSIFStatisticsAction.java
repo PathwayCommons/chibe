@@ -75,20 +75,43 @@ public class ShowSIFStatisticsAction extends Action
 
 		// Find number of genes
 
-		Set<NodeModel> set = new HashSet<NodeModel>();
+		Set<NodeModel> all = new HashSet<NodeModel>();
+		Set<NodeModel> source = new HashSet<NodeModel>();
+		Set<NodeModel> target = new HashSet<NodeModel>();
 
 		for (Object o : graph.getNodes())
 		{
 			NodeModel node = (NodeModel) o;
 
+			Set<NodeModel> set = new HashSet<NodeModel>();
+
 			if (node instanceof CompoundModel) set.addAll(((CompoundModel) node).getChildren());
 			else set.add(node);
+
+			all.addAll(set);
+
+			if (hasDirectedEdges(node.getSourceConnections())) source.addAll(set);
+			if (hasDirectedEdges(node.getTargetConnections())) target.addAll(set);
 		}
 
-		int geneNum = set.size();
-
 		MessageDialog.openInformation(main.getShell(),
-			"Graph Statistics", "\nGenes = " + geneNum + "\nRelations = " + relNum + "\n");
+			"Graph Statistics", "\nGenes = " + all.size() +
+				"\nSource genes = " + source.size() +
+				"\nTarget genes = " + target.size() +
+				"\nRelations = " + relNum + "\n");
+	}
 
+	private boolean hasDirectedEdges(List list)
+	{
+		for (Object o : list)
+		{
+			if (o instanceof EdgeModel)
+			{
+				EdgeModel edge = (EdgeModel) o;
+				String arrow = edge.getArrow();
+				if (arrow != null && !arrow.equals("None")) return true;
+			}
+		}
+		return false;
 	}
 }
