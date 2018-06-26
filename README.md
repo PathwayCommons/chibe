@@ -41,7 +41,7 @@ Please contact us if you need a build for another platform.
 Here is the [http://resources.chibe.googlecode.com/hg/chibe-latest-build-macosx-x86.zip latest build for Mac] and  (beware: this is not a release).
 -->
 
-Please see the [[SetupGuide]] for running ChiBE from sources, and [[QuickStartGuide]] for fast examples.
+Please see the [setup guide](https://github.com/PathwayCommons/chibe/wiki/SetupGuide) for running ChiBE from sources, and [quick start guide](https://github.com/PathwayCommons/chibe/wiki/HowToExplorePathways) for fast examples.
 
 
 ## Highlights ##
