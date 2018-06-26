@@ -17,7 +17,7 @@ ChiBE is distributed under [Eclipse Public License](http://www.eclipse.org/org/d
 
 Below are latest builds of ChiBE.
 
-  * [Latest build for Mac](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-macosx-x86.zip)
+  * [Latest build for Mac](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-macosx-x86.zip) (please see [setup instrucitions for Mac](https://github.com/PathwayCommons/chibe/wiki/ChiBESetupMACOSX))
   * [Latest build for Windows](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-win64.zip)
   * [Latest build for Linux](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-linux.tar.gz)
 
