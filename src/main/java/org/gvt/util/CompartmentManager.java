@@ -147,9 +147,10 @@ public class CompartmentManager
 		unifierMap = new HashMap<String, String>();
 		unifierMap.put(CYTOPLASM.toLowerCase(), CYTOPLASM);
 		unifierMap.put("cytosol", CYTOPLASM);
-		unifierMap.put("CCO-CYTOPLASM".toLowerCase(), CYTOPLASM);
+		unifierMap.put("cco-cytoplasm".toLowerCase(), CYTOPLASM);
 		unifierMap.put(CELL_MEMBRANE.toLowerCase(), CELL_MEMBRANE);
 		unifierMap.put("lipid raft", CELL_MEMBRANE);
+		unifierMap.put("cell membrane", CELL_MEMBRANE);
 		unifierMap.put("plasma membrane", CELL_MEMBRANE);
 		unifierMap.put("integral to membrane", CELL_MEMBRANE);
 		unifierMap.put("transmembrane", CELL_MEMBRANE);
