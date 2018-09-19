@@ -46,6 +46,12 @@ public class QueryPCCommonStreamAction extends QueryPCAction
 	}
 
 	@Override
+	protected String getSIFQueryType()
+	{
+		return "commonstream";
+	}
+
+	@Override
 	protected Model doQuery() throws CPathException
 	{
 		List<String> sourceSymbols = options.getConvertedSourceList();

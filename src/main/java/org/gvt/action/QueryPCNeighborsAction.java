@@ -57,6 +57,12 @@ public class QueryPCNeighborsAction extends QueryPCAction
 	}
 
 	@Override
+	protected String getSIFQueryType()
+	{
+		return "neighborhood";
+	}
+
+	@Override
 	protected Model doQuery() throws CPathException
 	{
 		List<String> symbols = options.getConvertedSourceList();

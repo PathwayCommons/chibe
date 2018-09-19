@@ -16,10 +16,7 @@ import org.gvt.util.ChEBI;
 import org.gvt.util.Conf;
 import org.patika.mada.graph.GraphObject;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -54,6 +51,71 @@ public class BasicSIFGraph extends BioPAXL3Graph
 		}
 	}
 
+	public BasicSIFGraph(InputStream is, int mediatorColNum)
+	{
+		this();
+
+		Map<String, BasicSIFNode> nodeMap = new HashMap<String, BasicSIFNode>();
+		Set<String> memory = new HashSet<String>();
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+		try
+		{
+			String line = reader.readLine();
+
+			while (line != null)
+			{
+				String[] token = line.split("\t");
+
+				if (token.length == 1)
+				{
+					if (!nodeMap.containsKey(token[0]))
+					{
+						nodeMap.put(token[0], new BasicSIFNode(this, token[0], token[0]));
+					}
+				}
+				else if (token.length >= 3)
+				{
+					SIFEnum type = SIFEnum.typeOf(token[1]);
+
+					if (type != null)
+					{
+						if (!nodeMap.containsKey(token[0]))
+						{
+							nodeMap.put(token[0], new BasicSIFNode(this, token[0], token[0]));
+						}
+						if (!nodeMap.containsKey(token[2]))
+						{
+							nodeMap.put(token[2], new BasicSIFNode(this, token[2], token[2]));
+						}
+
+						String key = token[0] + token[1] + token[2];
+						String rev = token[2] + token[1] + token[0];
+
+						if (!memory.contains(key) && (type.isDirected() || !memory.contains(rev)))
+						{
+							new BasicSIFEdge(nodeMap.get(token[0]), nodeMap.get(token[2]), type.getTag(),
+								token.length > mediatorColNum ? token[mediatorColNum] : null);
+
+							memory.add(key);
+						}
+					}
+				}
+				line = reader.readLine();
+			}
+
+			reader.close();
+		}
+		catch (IOException e)
+		{
+			System.err.println("Cannot read the input stream!");
+			e.printStackTrace();
+		}
+
+		if (Conf.getBoolean(Conf.USE_SIF_GROUPING)) groupSimilarNodes();
+	}
+
 	private void loadFromGraph(Graph graph, Map<String, BasicSIFNode> nodeMap)
 	{
 		boolean directed = graph.isDirected();
@@ -83,6 +145,8 @@ public class BasicSIFGraph extends BioPAXL3Graph
 				memory.add(key);
 			}
 		}
+
+		if (Conf.getBoolean(Conf.USE_SIF_GROUPING)) groupSimilarNodes();
 	}
 
 	public void replaceChEBIIDsWithNames()

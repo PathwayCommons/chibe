@@ -116,6 +116,12 @@ public class QueryPCPathsBetweenWithMinimalLinkersAction extends QueryPCAction
 	}
 
 	@Override
+	protected String getSIFQueryType()
+	{
+		throw new RuntimeException("Code should not reach here!");
+	}
+
+	@Override
 	protected boolean highlightSeed()
 	{
 		return true;

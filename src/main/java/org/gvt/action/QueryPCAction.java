@@ -38,7 +38,12 @@ import org.patika.mada.graph.Graph;
 import org.patika.mada.graph.Node;
 import org.patika.mada.util.XRef;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 /**
@@ -171,23 +176,66 @@ public abstract class QueryPCAction extends ChiBEAction
 
 	private void doSIFQuery() throws CPathException
 	{
-		org.cbio.causality.analysis.Graph g = null;
+		BasicSIFGraph goi = null;
+
 		if (queryLoc.isFile())
 		{
-			g = new org.cbio.causality.analysis.Graph("Local sif file", "mixed-edge-types");
+			org.cbio.causality.analysis.Graph g = new org.cbio.causality.analysis.Graph("Local sif file", "mixed-edge-types");
+			BasicSIFGraph graph = new BasicSIFGraph(g);
+			Collection<org.patika.mada.graph.GraphObject> gos = doSIFQuery(graph);
+
+			if (gos.isEmpty())
+			{
+				alertNoResults();
+				return;
+			}
+
+			goi = (BasicSIFGraph) graph.excise(gos, true);
 		}
-
-		BasicSIFGraph graph = queryLoc.isFile() ?  new BasicSIFGraph(g) : getPCGraph(options.getSifTypes());
-
-		Collection<org.patika.mada.graph.GraphObject> gos = doSIFQuery(graph);
-
-		if (gos.isEmpty())
+		else
 		{
-			alertNoResults();
-			return;
+			String base = "http://www.pathwaycommons.org/sifgraph/v1/";
+			String url = base + getSIFQueryType() + "?directed=true&direction=";
+
+			if (options.isDownstream())
+			{
+				if (options.isUpstream()) url += "BOTHSTREAM";
+				else url += "DOWNSTREAM";
+			}
+			else if (options.isUpstream()) url += "UPSTREAM";
+
+			for (SIFType type : options.getSifTypes())
+			{
+				url += "&pattern=" + type.getTag().toUpperCase().replaceAll("-", "_");
+			}
+
+			url += "&limit=" + options.getLengthLimit();
+
+			for (String source : options.getSourceList())
+			{
+				url += "&source=" + source;
+			}
+
+			if (options.getTargetList() != null)
+			{
+				for (String target : options.getTargetList())
+				{
+					url += "&target=" + target;
+				}
+			}
+
+			try
+			{
+				System.out.println("url = " + url);
+				goi = new BasicSIFGraph(new URL(url).openStream(), 6);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 
-		BasicSIFGraph goi = (BasicSIFGraph) graph.excise(gos, true);
+
 		goi.replaceChEBIIDsWithNames();
 		goi.setName(getNewPathwayName());
 		goi.setAsRoot();
@@ -211,6 +259,8 @@ public abstract class QueryPCAction extends ChiBEAction
 			}
 		}
 	}
+
+	protected abstract String getSIFQueryType();
 
 	protected boolean highlightSeed()
 	{

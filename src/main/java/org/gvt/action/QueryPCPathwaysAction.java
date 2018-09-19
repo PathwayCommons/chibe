@@ -138,7 +138,13 @@ public class QueryPCPathwaysAction extends QueryPCAction
 		}
 		return set;
 	}
-	
+
+	@Override
+	protected String getSIFQueryType()
+	{
+		throw new RuntimeException("Code should not reach here!");
+	}
+
 	@Override
 	protected Model doQuery() throws CPathException
 	{

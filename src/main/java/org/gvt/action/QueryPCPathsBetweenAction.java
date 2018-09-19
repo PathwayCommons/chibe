@@ -105,6 +105,12 @@ public class QueryPCPathsBetweenAction extends QueryPCAction
 	}
 
 	@Override
+	protected String getSIFQueryType()
+	{
+		return "pathsbetween";
+	}
+
+	@Override
 	protected String getNewPathwayName()
 	{
 		if (newPathwayName != null) return super.getNewPathwayName();

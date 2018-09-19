@@ -94,21 +94,6 @@
 						</archive>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.codehaus.izpack</groupId>
-					<artifactId>izpack-maven-plugin</artifactId>
-					<extensions>true</extensions>
-					<configuration>
-						<baseDir>${staging.dir.app}</baseDir>
-						<installFile>${izpack.dir.app}/install.xml</installFile>
-						<outputDirectory>${project.build.directory}</outputDirectory>
-						<finalName>${project.build.finalName}</finalName>
-						<enableOverrideArtifact>true</enableOverrideArtifact>
-						<mkdirs>true</mkdirs>
-						<autoIncludeUrl>false</autoIncludeUrl>
-						<autoIncludeDevelopers>false</autoIncludeDevelopers>
-					</configuration>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

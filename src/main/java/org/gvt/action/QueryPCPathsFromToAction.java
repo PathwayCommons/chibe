@@ -109,6 +109,12 @@ public class QueryPCPathsFromToAction extends QueryPCAction
 	}
 
 	@Override
+	protected String getSIFQueryType()
+	{
+		return "pathsfromto";
+	}
+
+	@Override
 	protected String getNewPathwayName()
 	{
 		if (newPathwayName != null) return super.getNewPathwayName();

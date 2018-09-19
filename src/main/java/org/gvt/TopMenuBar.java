@@ -227,12 +227,12 @@ public class TopMenuBar
 		queryMenu.add(pcNewSIFMenu);
 		pcNewSIFMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsBetweenAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
-		pcNewSIFMenu.add(new QueryPCPathsBetweenWithLinkersAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
-		pcNewSIFMenu.add(new QueryPCPathsBetweenWithMinimalLinkersAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
+//		pcNewSIFMenu.add(new QueryPCPathsBetweenWithLinkersAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
+//		pcNewSIFMenu.add(new QueryPCPathsBetweenWithMinimalLinkersAction(chisio, false, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCPathsFromToAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 		pcNewSIFMenu.add(new QueryPCCommonStreamAction(chisio, QueryPCAction.QueryLocation.PC_SIF));
 
-		// Query new pathway commons in SIF
+		// Query a SIF file
 		MenuManager sifFileMenu = new MenuManager("&SIF File");
 		queryMenu.add(sifFileMenu);
 		sifFileMenu.add(new QueryPCNeighborsAction(chisio, QueryPCAction.QueryLocation.FILE_SIF));
