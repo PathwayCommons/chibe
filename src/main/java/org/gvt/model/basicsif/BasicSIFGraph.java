@@ -77,6 +77,11 @@ public class BasicSIFGraph extends BioPAXL3Graph
 				}
 				else if (token.length >= 3)
 				{
+					if (Conf.getBoolean(Conf.CONVERT_INTERACTS_WITH_TO_IN_COMPLEX_WITH) && token[1].equals("interacts-with"))
+					{
+						token[1] = "in-complex-with";
+					}
+
 					SIFEnum type = SIFEnum.typeOf(token[1]);
 
 					if (type != null)

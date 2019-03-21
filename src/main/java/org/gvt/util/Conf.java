@@ -44,6 +44,8 @@ public enum Conf
 	public static final String SPREAD_DOUBLE_EDGES = "SPREAD_DOUBLE_EDGES";
 	public static final String DEFAULT = "DEFAULT";
 
+	public static final String CONVERT_INTERACTS_WITH_TO_IN_COMPLEX_WITH = "CONVERT_INTERACTS_WITH_TO_IN_COMPLEX_WITH";
+
 	public static final String CONF_FILENAME = "chibe-conf.txt";
 
 	private static String[] pathCandidate;
@@ -108,6 +110,8 @@ public enum Conf
 		s += HIDE_COMPARTMENT_EDGE_THRESHOLD + " = 20\n";
 		s += USE_SIF_GROUPING + " = true\n";
 		s += SPREAD_DOUBLE_EDGES + " = true\n";
+
+		s += CONVERT_INTERACTS_WITH_TO_IN_COMPLEX_WITH + " = true\n";
 		return s.trim();
 	}
 

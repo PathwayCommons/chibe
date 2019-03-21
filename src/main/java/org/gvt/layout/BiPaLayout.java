@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * @author Ozgun Babur
+ * @author Metin Can Siper
  */
 public class BiPaLayout extends org.ivis.layout.cose.CoSELayout
 {

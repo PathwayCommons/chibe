@@ -111,6 +111,17 @@ public class LoadSIFFileAction extends ChiBEAction
 
 			main.setOwlFileName(filename);
 
+			if (layoutFile != null)
+			{
+				LoadSIFLayoutAction action = new LoadSIFLayoutAction(main);
+				action.setLayoutFilename(layoutFile);
+				action.run();
+
+				new ZoomAction(main, 100, null).run();
+			}
+
+			// This has to be the last thing to do because formatseries opens an item selection dialog and waits until
+			// user closes it.
 			if (filename.endsWith(".sif"))
 			{
 				String series = filename.substring(0, filename.lastIndexOf(".")) + ".formatseries";
@@ -121,15 +132,6 @@ public class LoadSIFFileAction extends ChiBEAction
 					action.setFormatFilename(series);
 					action.run();
 				}
-			}
-
-			if (layoutFile != null)
-			{
-				LoadSIFLayoutAction action = new LoadSIFLayoutAction(main);
-				action.setLayoutFilename(layoutFile);
-				action.run();
-
-				new ZoomAction(main, 100, null).run();
 			}
 		}
 

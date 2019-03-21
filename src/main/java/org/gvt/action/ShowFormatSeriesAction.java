@@ -69,6 +69,7 @@ public class ShowFormatSeriesAction extends ChiBEAction
 
 				dialog.setUpdateUponSelection(true);
 				dialog.setDoSort(false);
+				dialog.setMain(main);
 				dialog.runAsIfSelected(names.get(0));
 				Object lastItem = dialog.open();
 

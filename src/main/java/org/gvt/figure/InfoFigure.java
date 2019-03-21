@@ -237,6 +237,9 @@ public class InfoFigure extends Figure
 		put("optyr", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("opthr", PHOSPHO_BG, PHOSPHO_FORE, "p");
 		put("opser", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("opser-6", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("opthr-24", PHOSPHO_BG, PHOSPHO_FORE, "p");
+		put("opthr-10", PHOSPHO_BG, PHOSPHO_FORE, "p");
 
 		put("active", ACTIVE_BG, ACTIVE_FORE, null);
 		put("inactive", INACTIVE_BG, INACTIVE_FORE, null);

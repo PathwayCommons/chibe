@@ -7,6 +7,7 @@ import org.gvt.ChisioMain;
 import org.gvt.command.LayoutCommand;
 import org.gvt.editpart.ChsRootEditPart;
 import org.gvt.layout.BiPaLayout;
+import org.gvt.layout.EdgeFixLayout;
 import org.gvt.model.CompoundModel;
 import org.ivis.layout.cose.CoSELayout;
 
@@ -58,6 +59,8 @@ public class CoSELayoutAction extends Action
 
 //			LayoutCommand command = new LayoutCommand(main, root, new CoSELayout());
 			LayoutCommand command = new LayoutCommand(main, root, new BiPaLayout());
+			command.execute();
+			command = new LayoutCommand(main, root, new EdgeFixLayout());
 			command.execute();
 
 			main.makeDirty();

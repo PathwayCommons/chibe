@@ -133,7 +133,7 @@ public class SaveAsImageAction extends ChiBEAction
 		}
 	}
 
-	public Rectangle getBounds(ScrollingGraphicalViewer viewer, Figure f, double zoom)
+	public static Rectangle getBounds(ScrollingGraphicalViewer viewer, Figure f, double zoom)
 	{
 		CompoundModel rootModel = (CompoundModel) ((ChsRootEditPart) viewer.
 			getRootEditPart().getChildren().get(0)).getModel();

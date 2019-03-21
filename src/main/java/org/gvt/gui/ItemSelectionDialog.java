@@ -1,19 +1,23 @@
 package org.gvt.gui;
 
+import org.eclipse.draw2d.*;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
-import org.eclipse.draw2d.TextUtilities;
+import org.eclipse.swt.widgets.Button;
 import org.gvt.ChisioMain;
+import org.gvt.action.SaveAsImageAction;
+import org.gvt.editpart.ChsScalableRootEditPart;
+import org.gvt.util.AnimatedGIF;
 
+import java.io.File;
 import java.util.*;
 import java.util.List;
 
@@ -96,6 +100,7 @@ public class ItemSelectionDialog extends Dialog
 
 	private Button okButton;
 	private Button cancelButton;
+	private Button imageButton;
 	private Button allButton;
 	private Button noneButton;
 
@@ -106,6 +111,11 @@ public class ItemSelectionDialog extends Dialog
 	 * texts of buttons.
 	 */
 	Map<Button, Object> but2orig;
+
+	/**
+	 * This is needed for saving the graphs as images.
+	 */
+	ChisioMain main;
 
 	/**
 	 * Constructor.
@@ -174,6 +184,11 @@ public class ItemSelectionDialog extends Dialog
 	public void setUse3dots(boolean use3dots)
 	{
 		this.use3dots = use3dots;
+	}
+
+	public void setMain(ChisioMain main)
+	{
+		this.main = main;
 	}
 
 	/**
@@ -314,6 +329,13 @@ public class ItemSelectionDialog extends Dialog
 		cancelButton = new Button(rightButtonGroup, SWT.NONE);
 		cancelButton.setText(modal ? "Cancel" : "Close");
 		cancelButton.addSelectionListener(adapter);
+
+		if (!modal && !multipleSelect && isUpdateUponSelection() && main != null)
+		{
+			imageButton = new Button(rightButtonGroup, SWT.NONE);
+			imageButton.setText("Image");
+			imageButton.addSelectionListener(adapter);
+		}
 	}
 
 	private String truncate(String s, Font f, int limit)
@@ -367,6 +389,43 @@ public class ItemSelectionDialog extends Dialog
 		List list = new ArrayList();
 		list.add(item);
 		this.selectionRun.run(list);
+	}
+
+	protected String getImageDirectory()
+	{
+		DirectoryDialog dialog = new DirectoryDialog(this.getParent());
+		return dialog.open();
+	}
+
+	protected String saveImage(String tag, String directory)
+	{
+		String filename = directory + File.separator + tag + ".png";
+
+		Figure rootFigure = (Figure) ((ChsScalableRootEditPart) main.getViewer().
+			getRootEditPart()).getFigure();
+
+		rootFigure = (Figure) rootFigure.getChildren().get(0);
+		ScalableLayeredPane layer = (ScalableLayeredPane)rootFigure.getChildren().get(0);
+		double scale = layer.getScale();
+		Rectangle bounds = SaveAsImageAction.getBounds(main.getViewer(), rootFigure, scale);
+		final Image image = new Image(shell.getDisplay(), bounds);
+
+		GC gc = new GC(image);
+		gc.setAntialias(SWT.ON);
+		gc.setTextAntialias(SWT.ON);
+
+		Graphics graphics = new SWTGraphics(gc);
+
+		rootFigure.paint(graphics);
+		graphics.drawText(tag, 3, 3);
+
+		graphics.dispose();
+
+		ImageLoader loader = new ImageLoader();
+		loader.data = new ImageData[]{image.getImageData()};
+
+		loader.save(filename, SWT.IMAGE_PNG);
+		return filename;
 	}
 
 	class ButtonAdapter extends SelectionAdapter
@@ -429,6 +488,41 @@ public class ItemSelectionDialog extends Dialog
 			{
 				pressedCancel = true;
 				shell.dispose();
+			}
+			else if (button == imageButton)
+			{
+				// Let user select the folder to generate the images into
+				String dir = getImageDirectory();
+				if (dir == null) return;
+
+				// Remember current selection
+				Object origItem = getSelectedItems().iterator().next();
+
+				List<String> files = new ArrayList<String>();
+
+				// Generate an image for each selection
+				for (Object item : possibleItems)
+				{
+					if (item == NONE) continue;
+
+					runAsIfSelected(item);
+
+					files.add(saveImage(item.toString(), dir));
+				}
+
+				// Roll back to original selection
+				runAsIfSelected(origItem);
+
+				// Generate an animated GIF
+				try
+				{
+					AnimatedGIF.generate(files.toArray(new String[0]), dir + File.separator + "animated.gif",
+						200);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
 			else if (button == allButton || button == noneButton)
 			{
