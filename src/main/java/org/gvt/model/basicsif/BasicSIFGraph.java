@@ -26,6 +26,8 @@ import java.util.*;
  */
 public class BasicSIFGraph extends BioPAXL3Graph
 {
+	private boolean useTopologyGrouping;
+
 	public BasicSIFGraph()
 	{
 		super(null);
@@ -34,7 +36,14 @@ public class BasicSIFGraph extends BioPAXL3Graph
 
 	public BasicSIFGraph(Graph graph)
 	{
+		this(graph, Conf.getBoolean(Conf.USE_SIF_GROUPING));
+	}
+
+	public BasicSIFGraph(Graph graph, boolean useTopologyGrouping)
+	{
 		this();
+
+		this.useTopologyGrouping = useTopologyGrouping;
 
 		Map<String, BasicSIFNode> nodeMap = new HashMap<String, BasicSIFNode>();
 
@@ -151,7 +160,7 @@ public class BasicSIFGraph extends BioPAXL3Graph
 			}
 		}
 
-		if (Conf.getBoolean(Conf.USE_SIF_GROUPING)) groupSimilarNodes();
+		if (useTopologyGrouping) groupSimilarNodes();
 	}
 
 	public void replaceChEBIIDsWithNames()

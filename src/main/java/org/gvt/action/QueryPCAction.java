@@ -180,8 +180,18 @@ public abstract class QueryPCAction extends ChiBEAction
 
 		if (queryLoc.isFile())
 		{
-			org.cbio.causality.analysis.Graph g = new org.cbio.causality.analysis.Graph("Local sif file", "mixed-edge-types");
-			BasicSIFGraph graph = new BasicSIFGraph(g);
+			org.cbio.causality.analysis.Graph g = new org.cbio.causality.analysis.Graph("Local sif file", options.getSifTypes().iterator().next().getTag());
+			List<SIFType> sifTypes = options.getSifTypes();
+			Set<String> undirected = new HashSet<String>();
+			Set<String> directed = new HashSet<String>();
+			for (SIFType sifType : sifTypes)
+			{
+				if (sifType.isDirected()) directed.add(sifType.getTag());
+				else undirected.add(sifType.getTag());
+			}
+			g.load(localFilename, undirected, directed);
+			BasicSIFGraph graph = new BasicSIFGraph(g, false);
+
 			Collection<org.patika.mada.graph.GraphObject> gos = doSIFQuery(graph);
 
 			if (gos.isEmpty())
