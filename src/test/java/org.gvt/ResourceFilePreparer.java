@@ -63,7 +63,7 @@ public class ResourceFilePreparer
 
 			set.addAll(conv.getControlledOf());
 
-			set = cpt.complete(set);
+			set = cpt.complete(set, model);
 
 			Set<String> symbols = new HashSet<String>();
 			Set<Control> controls = new HashSet<Control>();
@@ -115,7 +115,7 @@ public class ResourceFilePreparer
 			Set<BioPAXElement> set = new HashSet<BioPAXElement>();
 			set.add(pathway);
 
-			set = cpt.complete(set);
+			set = cpt.complete(set, model);
 
 			Set<String> symbols = new HashSet<String>();
 			for (BioPAXElement ele : set)
