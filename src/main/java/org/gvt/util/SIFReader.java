@@ -77,7 +77,9 @@ public class SIFReader
 			
 			root.setAsRoot();
 
-			delim = fileContainsTab(sifFile) ? "\t|\n|\r|\f" : " |\n|\r|\f";
+//			delim = fileContainsTab(sifFile) ? "\t|\n|\r|\f" : " |\n|\r|\f";
+			// above line is problematic when the SIF file has only nodes and have spaces in node names
+			delim = "\t|\n|\r|\f";
 
 			BufferedReader reader = new BufferedReader(new FileReader(sifFile));
 			for (String line = reader.readLine(); line != null; line = reader.readLine())
