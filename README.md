@@ -17,14 +17,14 @@ ChiBE is distributed under [Eclipse Public License](http://www.eclipse.org/org/d
 
 Below are latest builds of ChiBE.
 
-  * [Latest build for Mac](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-macosx-x86.zip) (please see [setup instructions for Mac](https://github.com/PathwayCommons/chibe/wiki/ChiBESetupMACOSX))
+<!--  * [Latest build for Mac](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-macosx-x86.zip) (please see [setup instructions for Mac](https://github.com/PathwayCommons/chibe/wiki/ChiBESetupMACOSX))-->
   * [Latest build for Windows](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-win64.zip)
   * [Latest build for Linux](https://raw.githubusercontent.com/PathwayAndDataAnalysis/repo/master/chibe-builds/chibe-latest-build-linux.tar.gz)
 
 Below are the latest releases of ChiBE 2.2 for different platforms.
 
   * Setup file for ChiBE 2.2 for Windows XP/Vista/7: [32-bit](http://www.cs.bilkent.edu.tr/~ivis/chibe/chibe-2.2.0-setup-win32-win32-x86.msi) - [64-bit](http://www.cs.bilkent.edu.tr/~ivis/chibe/chibe-2.2.0-setup-win32-win32-x86_64.msi)
-  * ChiBE 2.2 distribution for Mac OS X (see "README.TXT" for instructions): [32-bit](http://www.cs.bilkent.edu.tr/~ivis/chibe/chibe-2.2.0-setup-macosx-x86.zip)
+<!--  * ChiBE 2.2 distribution for Mac OS X (see "README.TXT" for instructions): [32-bit](http://www.cs.bilkent.edu.tr/~ivis/chibe/chibe-2.2.0-setup-macosx-x86.zip)-->
   * ChiBE 2.2 distribution for Linux (see "README.TXT" for instructions): [32-bit](http://www.cs.bilkent.edu.tr/~ivis/chibe/chibe-2.2.0-setup-gtk-linux-x86.zip) - [64-bit](http://www.cs.bilkent.edu.tr/~ivis/chibe/chibe-2.2.0-setup-gtk-linux-x86_64.zip)
 
 <!--
